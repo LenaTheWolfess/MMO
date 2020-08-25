@@ -117,4 +117,12 @@ Inventory.prototype.Drop = function(type) {
 	cmpPosition.SetHeightOffset(0);
 }
 
+Inventory.prototype.GetItems = function() {
+	let result = [];
+	for (let type in this.items) {
+		result.push({"id": this.items[type]});
+	}
+	return result;
+}
+
 Engine.RegisterComponentType(IID_Inventory, "Inventory", Inventory);
