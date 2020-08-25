@@ -51,16 +51,16 @@ function ProcessCommand(player, cmd)
 }
 
 var g_Commands = {
-	"debug-print": function(player, cmd, data)
-	{
-		print(cmd.message);
-	},
+										   
+  
+					 
+   
 
-	"chat": function(player, cmd, data)
-	{
-		var cmpGuiInterface = Engine.QueryInterface(SYSTEM_ENTITY, IID_GuiInterface);
-		cmpGuiInterface.PushNotification({ "type": cmd.type, "players": [player], "message": cmd.message });
-	},
+									
+  
+																			   
+																									  
+   
 
 	"aichat": function(player, cmd, data)
 	{
@@ -151,7 +151,6 @@ var g_Commands = {
 			cmpUnitAI.Walk(cmd.x, cmd.z, cmd.queued);
 		});
 	},
-
 	"pick": function(player, cmd, data)
 	{
 		GetFormationUnitAIs(data.entities, player).forEach(cmpUnitAI => {
@@ -165,7 +164,7 @@ var g_Commands = {
 			cmpUnitAI.PickAndUse(cmd.target);
 		});
 	},
-
+			
 	"walk-custom": function(player, cmd, data)
 	{
 		for (let ent in data.entities)
@@ -663,6 +662,13 @@ var g_Commands = {
 		});
 	},
 
+	"cancel-setup-trade-route": function(player, cmd, data)
+	{
+		GetFormationUnitAIs(data.entities, player).forEach(cmpUnitAI => {
+			cmpUnitAI.CancelSetupTradeRoute(cmd.target);
+		});
+	},
+
 	"set-trading-goods": function(player, cmd, data)
 	{
 		data.cmpPlayer.SetTradingGoods(cmd.tradingGoods);
@@ -757,11 +763,14 @@ var g_Commands = {
 				continue;
 			}
 
-			var cmpTechnologyManager = QueryOwnerInterface(ent, IID_TechnologyManager);
-			if (cmpUpgrade.GetRequiredTechnology(cmd.template) && !cmpTechnologyManager.IsTechnologyResearched(cmpUpgrade.GetRequiredTechnology(cmd.template)))
+			let cmpTechnologyManager = QueryOwnerInterface(ent, IID_TechnologyManager);
+			let requiredTechnology = cmpUpgrade.GetRequiredTechnology(cmd.template);
+
+																			  
+			if (requiredTechnology && (!cmpTechnologyManager || !cmpTechnologyManager.IsTechnologyResearched(requiredTechnology)))
 			{
 				if (g_DebugCommands)
-					warn("Invalid command: upgrading requires unresearched technology: " + uneval(cmd));
+					warn("Invalid command: upgrading is not possible for this player or requires unresearched technology: " + uneval(cmd));
 				continue;
 			}
 
@@ -1574,20 +1583,20 @@ function GetFormationUnitAIs(ents, player, formationTemplate)
  */
 function ClusterEntities(ents, separationDistance)
 {
-	var clusters = [];
+	let clusters = [];
 	if (!ents.length)
 		return clusters;
 
-	var distSq = separationDistance * separationDistance;
-	var positions = [];
+	let distSq = separationDistance * separationDistance;
+	let positions = [];
 	// triangular matrix with the (squared) distances between the different clusters
 	// the other half is not initialised
-	var matrix = [];
+	let matrix = [];
 	for (let i = 0; i < ents.length; ++i)
 	{
 		matrix[i] = [];
 		clusters.push([ents[i]]);
-		var cmpPosition = Engine.QueryInterface(ents[i], IID_Position);
+		let cmpPosition = Engine.QueryInterface(ents[i], IID_Position);
 		positions.push(cmpPosition.GetPosition2D());
 		for (let j = 0; j < i; ++j)
 			matrix[i][j] = positions[i].distanceToSquared(positions[j]);
@@ -1595,10 +1604,10 @@ function ClusterEntities(ents, separationDistance)
 	while (clusters.length > 1)
 	{
 		// search two clusters that are closer than the required distance
-		var closeClusters = undefined;
+		let closeClusters = undefined;
 
-		for (var i = matrix.length - 1; i >= 0 && !closeClusters; --i)
-			for (var j = i - 1; j >= 0 && !closeClusters; --j)
+		for (let i = matrix.length - 1; i >= 0 && !closeClusters; --i)
+			for (let j = i - 1; j >= 0 && !closeClusters; --j)
 				if (matrix[i][j] < distSq)
 					closeClusters = [i,j];
 
@@ -1607,17 +1616,19 @@ function ClusterEntities(ents, separationDistance)
 			return clusters;
 
 		// make a new cluster with the entities from the two found clusters
-		var newCluster = clusters[closeClusters[0]].concat(clusters[closeClusters[1]]);
+		let newCluster = clusters[closeClusters[0]].concat(clusters[closeClusters[1]]);
 
 		// calculate the minimum distance between the new cluster and all other remaining
 		// clusters by taking the minimum of the two distances.
-		var distances = [];
+		let distances = [];
 		for (let i = 0; i < clusters.length; ++i)
 		{
-			if (i == closeClusters[1] || i == closeClusters[0])
+			let a = closeClusters[1];
+			let b = closeClusters[0];
+			if (i == a || i == b)
 				continue;
-			var dist1 = matrix[closeClusters[1]][i] || matrix[i][closeClusters[1]];
-			var dist2 = matrix[closeClusters[0]][i] || matrix[i][closeClusters[0]];
+			let dist1 = matrix[a][i] !== undefined ? matrix[a][i] : matrix[i][a];
+			let dist2 = matrix[b][i] !== undefined ? matrix[b][i] : matrix[i][b];
 			distances.push(Math.min(dist1, dist2));
 		}
 		// remove the rows and columns in the matrix for the merged clusters,

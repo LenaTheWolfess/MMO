@@ -11,6 +11,8 @@ var g_TargetMarker = {
  */
 var g_PatrolTargets = ["Unit"];
 
+const g_DisabledTags = { "color": "255 140 0" };
+
 /**
  * List of different actions units can execute,
  * this is mostly used to determine which actions can be executed
@@ -338,6 +340,21 @@ var g_UnitActions =
 		"specificness": 7,
 	},
 
+	// "Fake" action to check if an entity can be ordered to "construct"
+	// which is handled differently from repair as the target does not exist.
+	"construct":
+	{
+		"preSelectedActionCheck": function(target, selection)
+		{
+			let state = GetEntityState(selection[0]);
+			if (state && state.builder &&
+			        target && target.constructor && target.constructor.name == "PlacementSupport")
+				return { "type": "construct" };
+			return false;
+		},
+		"specificness": 0,
+	},
+
 	"repair":
 	{
 		"execute": function(target, action, selection, queued)
@@ -351,7 +368,7 @@ var g_UnitActions =
 			});
 
 			Engine.GuiInterfaceCall("PlaySound", {
-				"name": "order_repair",
+				"name": action.foundation ? "order_build" : "order_repair",
 				"entity": selection[0]
 			});
 
@@ -364,18 +381,23 @@ var g_UnitActions =
 			    !playerCheck(entState, targetState, ["Player", "Ally"]))
 				return false;
 
-			return { "possible": true };
+			return {
+				"possible": true,
+				"foundation": targetState.foundation
+			};
 		},
 		"preSelectedActionCheck": function(target, selection)
 		{
 			if (preSelectedAction != ACTION_REPAIR)
 				return false;
 
-			if (getActionInfo("repair", target, selection).possible)
+			let actionInfo = getActionInfo("repair", target, selection);
+			if (actionInfo.possible)
 				return {
 					"type": "repair",
 					"cursor": "action-repair",
-					"target": target
+					"target": target,
+					"foundation": actionInfo.foundation
 				};
 
 			return {
@@ -386,25 +408,29 @@ var g_UnitActions =
 		},
 		"hotkeyActionCheck": function(target, selection)
 		{
+			let actionInfo = getActionInfo("repair", target, selection);
 			if (!Engine.HotkeyIsPressed("session.repair") ||
-			    !getActionInfo("repair", target, selection).possible)
+			    !actionInfo.possible)
 				return false;
 
 			return {
 				"type": "repair",
 				"cursor": "action-repair",
-				"target": target
+				"target": target,
+				"foundation": actionInfo.foundation
 			};
 		},
 		"actionCheck": function(target, selection)
 		{
-			if (!getActionInfo("repair", target, selection).possible)
+			let actionInfo = getActionInfo("repair", target, selection);
+			if (!actionInfo.possible)
 				return false;
 
 			return {
 				"type": "repair",
 				"cursor": "action-repair",
-				"target": target
+				"target": target,
+				"foundation": actionInfo.foundation
 			};
 		},
 		"specificness": 11,
@@ -458,86 +484,6 @@ var g_UnitActions =
 		"specificness": 1,
 	},
 
-	"pick": {
-		"execute": function(target, action, selection, queued) {
-			Engine.PostNetworkCommand({
-				"type": "pick",
-				"entities": selection,
-				"target": action.target,
-				"queued": queued
-			});
-
-			Engine.GuiInterfaceCall("PlaySound", {
-				"name": "order_gather",
-				"entity": selection[0]
-			});
-
-			return true;
-		},
-		"getActionInfo": function(entState, targetState) {
-			if (!targetState.equipment)
-				return false;
-
-			return {
-				"possible": true,
-				"cursor": "action-gather-treasure"
-			};
-		},
-		"actionCheck": function(target, selection) {
-			const actionInfo = getActionInfo("pick", target, selection);
-
-			if (!actionInfo.possible)
-				return false;
-
-			return {
-				"type": "pick",
-				"cursor": actionInfo.cursor,
-				"target": target
-			};
-		},
-		"specificness": 1,
-	},
-
-	"pick-use": {
-		"execute": function(target, action, selection, queued) {
-			Engine.PostNetworkCommand({
-				"type": "pick-use",
-				"entities": selection,
-				"target": action.target,
-				"queued": queued
-			});
-
-			Engine.GuiInterfaceCall("PlaySound", {
-				"name": "order_gather",
-				"entity": selection[0]
-			});
-
-			return true;
-		},
-		"getActionInfo": function(entState, targetState) {
-			if (!targetState.item)
-				return false;
-
-			return {
-				"possible": true,
-				"cursor": "action-gather-treasure"
-			};
-		},
-		"actionCheck": function(target, selection) {
-			const actionInfo = getActionInfo("pick-use", target, selection);
-
-			if (!actionInfo.possible)
-				return false;
-
-			return {
-				"type": "pick-use",
-				"cursor": actionInfo.cursor,
-				"target": target
-			};
-		},
-		"specificness": 1,
-	},
-
 	"returnresource":
 	{
 		"execute": function(target, action, selection, queued)
@@ -561,6 +507,14 @@ var g_UnitActions =
 			if (!targetState.resourceDropsite)
 				return false;
 
+		   
+					 
+									  
+	 
+	
+											  
+															   
+
 			let playerState = GetSimState().players[entState.player];
 			if (playerState.hasSharedDropsites && targetState.resourceDropsite.shared)
 			{
@@ -568,7 +522,7 @@ var g_UnitActions =
 					return false;
 			}
 			else if (!playerCheck(entState, targetState, ["Player"]))
-				return false;
+				return false;	  
 
 			if (!entState.resourceCarrying || !entState.resourceCarrying.length)
 				return false;
@@ -593,6 +547,59 @@ var g_UnitActions =
 				"cursor": actionInfo.cursor,
 				"target": target
 			};
+		},
+		"specificness": 2,
+	},
+
+	"cancel-setup-trade-route":
+	{
+		"execute":function(target, action, selection, queued)
+		{
+			Engine.PostNetworkCommand({
+				"type": "cancel-setup-trade-route",
+				"entities": selection,
+				"target": action.target,
+				"queued": queued
+			});
+			return true;
+		},
+		"getActionInfo": function(entState, targetState)
+		{
+			if (targetState.foundation || !entState.trader || !targetState.market ||
+			    playerCheck(entState, targetState, ["Enemy"]) ||
+			    !(targetState.market.land && hasClass(entState, "Organic") ||
+			      targetState.market.naval && hasClass(entState, "Ship")))
+				  return false;
+
+			let tradingDetails = Engine.GuiInterfaceCall("GetTradingDetails", {
+				"trader": entState.id,
+				"target": targetState.id
+			});
+
+			if (!tradingDetails || !tradingDetails.type)
+																	 
+				return false;
+
+			if (tradingDetails.type == "is first" && !tradingDetails.hasBothMarkets)
+				return {
+					"possible": true,
+					"tooltip": translate("This is the origin trade market.\nRight-click to cancel trade route.")
+				};
+			return false;
+		},
+		"actionCheck": function(target, selection)
+		{
+			let actionInfo = getActionInfo("cancel-setup-trade-route", target, selection);
+
+			if (!actionInfo.possible)
+				return false;
+
+			return {
+				"type": "cancel-setup-trade-route",
+				"cursor": "action-cancel-setup-trade-route",
+				"tooltip": actionInfo.tooltip,
+				"target": target
+			}
 		},
 		"specificness": 2,
 	},
@@ -643,7 +650,7 @@ var g_UnitActions =
 						"gain": getTradingTooltip(tradingDetails.gain)
 					});
 				else
-					tooltip += translate("Right-click on another market to set it as a destination trade market.");
+					return false;
 				break;
 
 			case "is second":
@@ -658,8 +665,12 @@ var g_UnitActions =
 				break;
 
 			case "set second":
-				if (tradingDetails.gain.traderGain == 0) // markets too close
-					return false;
+				if (tradingDetails.gain.traderGain == 0)
+					return {
+						"possible": true,
+						"tooltip": setStringTags(translate("This market is too close to the origin market."), g_DisabledTags),
+						"disabled": true
+					};
 
 				tooltip = translate("Right-click to set as destination trade market.") + "\n" +
 					sprintf(translate("Gain: %(gain)s"), {
@@ -677,6 +688,15 @@ var g_UnitActions =
 		"actionCheck": function(target, selection)
 		{
 			let actionInfo = getActionInfo("setup-trade-route", target, selection);
+
+			if (actionInfo.disabled)
+				return {
+					"type": "none",
+					"cursor": "action-setup-trade-route-disabled",
+					"target": null,
+					"tooltip": actionInfo.tooltip
+				};
+
 			if (!actionInfo.possible)
 				return false;
 
@@ -897,6 +917,7 @@ var g_UnitActions =
 		"getActionInfo": function(entState, targetState)
 		{
 			let tooltip;
+			let disabled = false;
 			// default to walking there (or attack-walking if hotkey pressed)
 			let data = { "command": "walk" };
 			let cursor = "";
@@ -960,7 +981,7 @@ var g_UnitActions =
 			         (!entState.market.naval || targetState.market.naval) &&
 			         !playerCheck(entState, targetState, ["Enemy"]))
 			{
-				// Find a trader (if any) that this building can produce.
+				// Find a trader (if any) that this structure can train.
 				let trader;
 				if (entState.production && entState.production.entities.length)
 					for (let i = 0; i < entState.production.entities.length; ++i)
@@ -974,19 +995,26 @@ var g_UnitActions =
 				};
 
 				let gain = Engine.GuiInterfaceCall("GetTradingRouteGain", traderData);
-				if (gain && gain.traderGain)
+				if (gain)
 				{
 					data.command = "trade";
 					data.target = traderData.secondMarket;
 					data.source = traderData.firstMarket;
 					cursor = "action-setup-trade-route";
 
-					tooltip = translate("Right-click to establish a default route for new traders.") + "\n" +
-						sprintf(
-							trader ?
-								translate("Gain: %(gain)s") :
-								translate("Expected gain: %(gain)s"),
-							{ "gain": getTradingTooltip(gain) });
+					if (gain.traderGain)
+						tooltip = translate("Right-click to establish a default route for new traders.") + "\n" +
+							sprintf(
+								trader ?
+									translate("Gain: %(gain)s") :
+									translate("Expected gain: %(gain)s"),
+								{ "gain": getTradingTooltip(gain) });
+					else
+					{
+						disabled = true;
+						tooltip = setStringTags(translate("This market is too close to the origin market."), g_DisabledTags);
+						cursor = "action-setup-trade-route-disabled";
+					}
 				}
 			}
 			else if ((targetState.needsRepair || targetState.foundation) && playerCheck(entState, targetState, ["Ally"]))
@@ -1016,6 +1044,7 @@ var g_UnitActions =
 				"data": data,
 				"position": targetState.position,
 				"cursor": cursor,
+				"disabled": disabled,
 				"tooltip": tooltip
 			};
 
@@ -1026,6 +1055,15 @@ var g_UnitActions =
 				return false;
 
 			let actionInfo = getActionInfo("set-rallypoint", target, selection);
+
+			if (actionInfo.disabled)
+				return {
+					"type": "none",
+					"cursor": actionInfo.cursor,
+					"target": null,
+					"tooltip": actionInfo.tooltip
+				};
+
 			if (!actionInfo.possible)
 				return false;
 
@@ -1086,7 +1124,91 @@ var g_UnitActions =
 		},
 		"specificness": 100,
 	},
+	
+	
+	"pick": {
+		"execute": function(target, action, selection, queued) {							
+   
+			Engine.PostNetworkCommand({
+				"type": "pick",
+				"entities": selection,
+				"target": action.target,
+				"queued": queued
+			});
+
+			Engine.GuiInterfaceCall("PlaySound", {
+				"name": "order_gather",
+				"entity": selection[0]
+			});
+
+			return true;
+		},
+		"getActionInfo": function(entState, targetState) {
+			if (!targetState || !targetState.equipment) 
+				return false;
+
+			return {
+				"possible": true,
+				"cursor": "action-gather-treasure"
+			};
+		},
+		"actionCheck": function(target, selection) {
+			const actionInfo = getActionInfo("pick", target, selection);
+
+			if (!actionInfo.possible)														
+				return false;
+
+			return {
+				"type": "pick",
+				"cursor": actionInfo.cursor,
+				"target": target
+			};
+		},
+		"specificness": 1,
+	},
+
+	"pick-use": {
+		"execute": function(target, action, selection, queued) {
+			Engine.PostNetworkCommand({
+				"type": "pick-use",
+				"entities": selection,
+				"target": action.target,
+				"queued": queued
+			});
+
+			Engine.GuiInterfaceCall("PlaySound", {
+				"name": "order_gather",
+				"entity": selection[0]
+			});
+
+			return true;
+		},
+		"getActionInfo": function(entState, targetState) {
+			if (!targetState || !targetState.item)
+				return false;
+
+			return {
+				"possible": true,
+				"cursor": "action-gather-treasure"
+			};
+		},
+		"actionCheck": function(target, selection) {
+			const actionInfo = getActionInfo("pick-use", target, selection);
+
+			if (!actionInfo.possible)
+				return false;
+
+			return {
+				"type": "pick-use",
+				"cursor": actionInfo.cursor,
+				"target": target
+			};
+		},
+		"specificness": 1,
+	},
 };
+
+var g_UnitActionsSortedKeys = Object.keys(g_UnitActions).sort((a, b) => g_UnitActions[a].specificness - g_UnitActions[b].specificness);
 
 /**
  * Info and actions for the entity commands
@@ -1125,7 +1247,7 @@ var g_EntityCommands =
 				{
 					"tooltip":
 						colorizeHotkey("%(hotkey)s" + " ", "session.kill") +
-						translate("Destroy the selected units or buildings.") + "\n" +
+						translate("Destroy the selected units or structures.") + "\n" +
 						colorizeHotkey(
 							translate("Use %(hotkey)s to avoid the confirmation dialog."),
 							"session.noconfirmation"
@@ -1162,22 +1284,7 @@ var g_EntityCommands =
 			if (Engine.HotkeyIsPressed("session.noconfirmation"))
 				deleteSelection();
 			else
-			{
-				closeOpenDialogs();
-				g_PauseControl.implicitPause();
-				messageBox(
-					400, 200,
-					translate("Destroy everything currently selected?"),
-					translate("Delete"),
-					[translate("No"), translate("Yes")],
-					[
-						resumeGame,
-						() => {
-							deleteSelection();
-							resumeGame();
-						}
-					]);
-			};
+				(new DeleteSelectionConfirmation(deleteSelection)).display();
 		},
 	},
 
@@ -1208,7 +1315,7 @@ var g_EntityCommands =
 
 			return {
 				"tooltip": colorizeHotkey("%(hotkey)s" + " ", "session.garrison") +
-				           translate("Order the selected units to garrison in a building or unit."),
+				           translate("Order the selected units to garrison in a structure or unit."),
 				"icon": "garrison.png"
 			};
 		},
@@ -1249,7 +1356,7 @@ var g_EntityCommands =
 
 			return {
 				"tooltip": colorizeHotkey("%(hotkey)s" + " ", "session.repair") +
-				           translate("Order the selected units to repair a building or mechanical unit."),
+				           translate("Order the selected units to repair a structure, ship, or siege engine."),
 				"icon": "repair.png"
 			};
 		},
@@ -1304,7 +1411,7 @@ var g_EntityCommands =
 			return {
 				"tooltip": colorizeHotkey("%(hotkey)s" + " ", "session.backtowork") +
 				           translate("Back to Work"),
-				"icon": "production.png"
+				"icon": "back-to-work.png"
 			};
 		},
 		"execute": function()
@@ -1322,7 +1429,7 @@ var g_EntityCommands =
 
 			return {
 				"tooltip": colorizeHotkey("%(hotkey)s" + " ", "session.guard") +
-				           translate("Order the selected units to guard a building or unit."),
+				           translate("Order the selected units to guard a structure or unit."),
 				"icon": "add-guard.png"
 			};
 		},
@@ -1376,7 +1483,7 @@ var g_EntityCommands =
 			return {
 				"tooltip": colorizeHotkey("%(hotkey)s" + " ", "session.patrol") +
 				           translate("Patrol") + "\n" +
-				           translate("Attack all encountered enemy units while avoiding buildings."),
+				           translate("Attack all encountered enemy units while avoiding structures."),
 				"icon": "patrol.png"
 			};
 		},

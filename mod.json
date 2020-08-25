@@ -3,6 +3,6 @@
 	"label": "MMO",
 	"version": "1.0.0",
 	"description": "mmo-rpg",
-	"dependencies": ["0ad=0.0.23"],
+	"dependencies": ["0ad>=0.0.23"],
 	"type": "game"
 }
