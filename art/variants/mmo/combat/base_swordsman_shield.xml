@@ -2,7 +2,7 @@
   <animations>
     <animation file="biped/new/sword_shield_idle_ready.dae" name="idle" id="idle1" speed="100"/>
     <animation file="biped/new/sword_shield_idle_ready.dae" name="idle" id="idle2" speed="90"/>
-    <animation file="biped/new/sword_shield_walk_ready.dae" name="Walk" speed="30"/>
+    <animation file="biped/new/sword_shield_walk_ready.dae" name="Walk" event="1" speed="30"/>
     <animation file="biped/new/sword_shield_walk_ready.dae" name="Run" speed="30"/>
     <animation file="biped/new/sword_shield_idle_ready.dae" name="testudo_front_idle" id="tesfrontidle1" speed="30"/>
     <animation file="biped/new/shield-up-idle.dae" name="idle_shield_up" id="testopidle1" speed="30"/>

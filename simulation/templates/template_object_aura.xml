@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Entity>
+  <Auras datatype="tokens">
+  </Auras>
+  <Footprint>
+    <Circle radius="1.5"/>
+    <Height>2.5</Height>
+  </Footprint>
+  <Identity>
+    <GenericName>Object with aura</GenericName>
+    <Civ>gaia</Civ>
+    <Classes datatype="tokens">AuraObject</Classes>
+    <Undeletable>true</Undeletable>
+  </Identity>
+  <Capturable>
+    <CapturePoints>50</CapturePoints>
+    <RegenRate>0.0</RegenRate>
+    <GarrisonRegenRate>0.0</GarrisonRegenRate>
+  </Capturable>
+  <Minimap>
+    <Type>unit</Type>
+  </Minimap>
+  <Obstruction>
+    <Unit/>
+    <Active>true</Active>
+    <BlockMovement>true</BlockMovement>
+    <BlockPathfinding>true</BlockPathfinding>
+    <BlockFoundation>true</BlockFoundation>
+    <BlockConstruction>true</BlockConstruction>
+    <DisableBlockMovement>false</DisableBlockMovement>
+    <DisableBlockPathfinding>false</DisableBlockPathfinding>
+    <DeleteUponConstruction>false</DeleteUponConstruction>
+  </Obstruction>
+  <Ownership/>
+  <Position>
+    <Altitude>0</Altitude>
+    <Anchor>upright</Anchor>
+    <Floating>false</Floating>
+    <FloatDepth>0.0</FloatDepth>
+    <TurnRate>6.0</TurnRate>
+  </Position>
+  <RangeOverlayManager/>
+  <RangeOverlayRenderer/>
+  <Selectable>
+    <Overlay>
+      <Texture>
+        <MainTexture>circle/128x128.png</MainTexture>
+        <MainTextureMask>circle/128x128_mask.png</MainTextureMask>
+      </Texture>
+    </Overlay>
+  </Selectable>
+  <StatusEffectsReceiver/>
+  <TerritoryDecay>
+    <DecayRate>20</DecayRate>
+  </TerritoryDecay>
+  <Visibility>
+    <RetainInFog>false</RetainInFog>
+    <AlwaysVisible>false</AlwaysVisible>
+    <Corpse>false</Corpse>
+    <Preview>false</Preview>
+  </Visibility>
+  <VisualActor>
+    <SilhouetteDisplay>true</SilhouetteDisplay>
+    <SilhouetteOccluder>false</SilhouetteOccluder>
+    <VisibleInAtlasOnly>false</VisibleInAtlasOnly>
+  </VisualActor>
+</Entity>

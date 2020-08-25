@@ -14,6 +14,12 @@
       <RestrictedClasses datatype="tokens">Structure</RestrictedClasses>
       <PreferredClasses datatype="tokens">Human</PreferredClasses>
     </Melee>
+    <Capture>
+      <Capture>2</Capture>
+      <MaxRange>4</MaxRange>
+      <RepeatTime>1000</RepeatTime>
+      <RestrictedClasses datatype="tokens">Organic</RestrictedClasses>
+    </Capture>
   </Attack>
   <Armour>
     <Hack>0</Hack>
@@ -98,6 +104,15 @@
   </Selectable>
   <Sound>
     <SoundGroups>
+      <select>voice/{lang}/civ/civ_{phenotype}_select.xml</select>
+      <order_walk>voice/{lang}/civ/civ_{phenotype}_walk.xml</order_walk>
+      <order_attack>voice/{lang}/civ/civ_{phenotype}_attack.xml</order_attack>
+      <walk>actor/singlesteps/steps_rock.xml</walk>
+      <run>actor/human/movement/run.xml</run>
+      <attack_impact_ranged>attack/impact/arrow_metal.xml</attack_impact_ranged>
+      <attack_melee>attack/weapon/sword.xml</attack_melee>
+      <attack_ranged>attack/weapon/arrowfly.xml</attack_ranged>
+      <death>actor/human/death/{phenotype}_death.xml</death>
       <attacked>interface/alarm/alarm_attackplayer.xml</attacked>
       <attack_slaughter>attack/weapon/sword.xml</attack_slaughter>
     </SoundGroups>

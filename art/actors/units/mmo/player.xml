@@ -16,11 +16,14 @@
   <group>
      <variant frequency="1" name="cape-none">
      </variant>
-     <variant name="cape-spear-combat">
-      <props><prop actor="props/units/capes/hoplite.xml" attachpoint="root"/></props>
+     <variant name="cape-simple-none">
+      <props><prop actor="props/units/capes/cape.xml" attachpoint="root"/></props>
      </variant>
-     <variant name="cape-sword-combat">
-      <props><prop actor="props/units/capes/hoplite.xml" attachpoint="root"/></props>
+     <variant name="cape-simple-spear-combat">
+      <props><prop actor="props/units/capes/cape-spear.xml" attachpoint="root"/></props>
+     </variant>
+     <variant name="cape-simple-sword-combat">
+      <props><prop actor="props/units/capes/cape-sword.xml" attachpoint="root"/></props>
      </variant>
   </group>
   <group>
@@ -74,6 +77,11 @@
     <variant name="animations-spear-combat" file="mmo/combat/base_hoplite.xml"/>
     <variant name="animations-sword-relax" file="mmo/relax/base_swordsman_shieldarm_fast.xml"/>
     <variant name="animations-sword-combat" file="mmo/combat/base_swordsman_shieldarm_fast.xml"/>
+    <variant>
+       <animations>
+        <animation file="biped/infantry/capturing_a.dae" name="attack_capture" speed="100"/>
+       </animations>
+    </variant>
   </group>
   <material>player_trans.xml</material>
 </actor>

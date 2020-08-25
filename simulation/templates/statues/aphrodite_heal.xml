@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Entity parent="template_object_aura">
+  <Auras datatype="tokens">
+    mmo/statues/heal
+  </Auras>
+  <Identity>
+    <SpecificName>Aphrodite</SpecificName>
+    <Classes datatype="tokens">HealStatue</Classes>
+  </Identity>
+  <VisualActor>
+    <Actor>statues/aphrodite.xml</Actor>
+  </VisualActor>
+</Entity>

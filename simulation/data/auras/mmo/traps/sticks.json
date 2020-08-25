@@ -1,0 +1,16 @@
+{
+	"type": "range",
+	"radius": 5,
+	"affects": ["Organic"],
+	"affectedPlayers": ["Enemy"],
+	"modifications": [
+		{ "value": "Health/DegreesOnMove",  "add":  10}
+	],
+	"auraDescription": "Injure 10 hp per second",
+	"rangeOverlay" : {
+		"lineTexture": "outline_border.png",
+		"lineTextureMask": "outline_border_mask.png",
+		"lineThickness": 0.075
+	},
+	"auraName": "SticksTrap"
+}

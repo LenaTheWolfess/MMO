@@ -9,10 +9,21 @@ Inventory.prototype.Init = function() {
 	this.items = [];
 }
 
-Inventory.prototype.Add = function(id) {
-	const cmpItem = Engine.QueryInterface(id, IID_Equipment);
+Inventory.prototype.Use = function(id) {
+	const cmpItem = Engine.QueryInterface(id, IID_Item);
 	if (!cmpItem)
 		return;
+	cmpItem.Apply(this.entity);
+	if (cmpItem.ShouldBeDestroyed())
+		Engine.DestroyEntity(id);
+}
+
+Inventory.prototype.Add = function(id) {
+	const cmpItem = Engine.QueryInterface(id, IID_Equipment);
+	if (!cmpItem) {
+		this.Use(id);
+		return;
+	}
 	const type = cmpItem.GetType();
 	const specific = cmpItem.GetTypeSpecific();
 	const anim = cmpItem.GetAnimation();
@@ -32,17 +43,19 @@ Inventory.prototype.AddTo = function(id, type, specific, anim) {
 		const n = "animations-"+specific+"-combat";
 		cmpVisual.SetVariant("animations", n);
 		if (this.items["cape"]) {
-			cmpVisual.SetVariant("cape", "cape-"+specific+"-combat")
+			const cmpCape = Engine.QueryInterface(this.items["cape"], IID_Equipment);
+			if (cmpCape)
+				cmpVisual.SetVariant("cape", "cape-"+cmpCape.GetTypeSpecific()+"-"+specific+"-combat")
 		}
 	}
 	if (this.items["weapon"] && type == "cape") {
 		const cmpWeapon = Engine.QueryInterface(this.items["weapon"], IID_Equipment);
 		if (cmpWeapon) {
-			const n = type+"-"+cmpWeapon.GetTypeSpecific()+"-combat";
+			const n = type+"-"+specific+"-"+cmpWeapon.GetTypeSpecific()+"-combat";
 			cmpVisual.SetVariant(type, n);
 		}
 	} else if (type == "cape"){
-		cmpVisual.SetVariant(type, "cape-none");
+		cmpVisual.SetVariant(type, "cape-"+specific+"-none");
 	}
 }
 

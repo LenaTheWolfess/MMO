@@ -153,7 +153,7 @@ var g_UnitActions =
 		},
 		"getActionInfo": function(entState, targetState)
 		{
-			if (!entState.attack || !targetState.hitpoints)
+			if (!entState.attack)
 				return false;
 
 			return {
@@ -491,6 +491,46 @@ var g_UnitActions =
 
 			return {
 				"type": "pick",
+				"cursor": actionInfo.cursor,
+				"target": target
+			};
+		},
+		"specificness": 1,
+	},
+
+	"pick-use": {
+		"execute": function(target, action, selection, queued) {
+			Engine.PostNetworkCommand({
+				"type": "pick-use",
+				"entities": selection,
+				"target": action.target,
+				"queued": queued
+			});
+
+			Engine.GuiInterfaceCall("PlaySound", {
+				"name": "order_gather",
+				"entity": selection[0]
+			});
+
+			return true;
+		},
+		"getActionInfo": function(entState, targetState) {
+			if (!targetState.item)
+				return false;
+
+			return {
+				"possible": true,
+				"cursor": "action-gather-treasure"
+			};
+		},
+		"actionCheck": function(target, selection) {
+			const actionInfo = getActionInfo("pick-use", target, selection);
+
+			if (!actionInfo.possible)
+				return false;
+
+			return {
+				"type": "pick-use",
 				"cursor": actionInfo.cursor,
 				"target": target
 			};

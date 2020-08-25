@@ -159,6 +159,13 @@ var g_Commands = {
 		});
 	},
 
+	"pick-use": function(player, cmd, data)
+	{
+		GetFormationUnitAIs(data.entities, player).forEach(cmpUnitAI => {
+			cmpUnitAI.PickAndUse(cmd.target);
+		});
+	},
+
 	"walk-custom": function(player, cmd, data)
 	{
 		for (let ent in data.entities)

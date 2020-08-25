@@ -6,7 +6,7 @@
   </Identity>
   <Equipment>
     <Type>cape</Type>
-    <TypeSpecific>cape</TypeSpecific>
+    <TypeSpecific>simple</TypeSpecific>
     <Animation>cape</Animation>
   </Equipment>
   <VisualActor>

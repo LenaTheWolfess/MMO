@@ -35,6 +35,7 @@ GuiInterface.prototype.Init = function()
 	this.entsWithAuraAndStatusBars = new Set();
 	this.enabledVisualRangeOverlayTypes = {};
 	this.templateModified = {};
+	this.obstructionSnap = new ObstructionSnap();
 };
 
 /*
@@ -385,6 +386,12 @@ GuiInterface.prototype.GetEntityState = function(player, ent)
 			"specific": cmpEquipment.GetTypeSpecific()
 		};
 
+	const cmpItem = Engine.QueryInterface(ent, IID_Item);
+	if (cmpItem)
+		ret.item = {
+			"type": cmpItem.GetType()
+		}
+
 	let cmpGuard = Engine.QueryInterface(ent, IID_Guard);
 	if (cmpGuard)
 		ret.guard = {
@@ -424,7 +431,7 @@ GuiInterface.prototype.GetEntityState = function(player, ent)
 
 			Object.assign(ret.attack[type], cmpAttack.GetAttackEffectsData(type));
 
-			ret.attack[type].splash = cmpAttack.GetSplashDamage(type);
+			ret.attack[type].splash = cmpAttack.GetSplashData(type);
 			if (ret.attack[type].splash)
 				Object.assign(ret.attack[type].splash, cmpAttack.GetAttackEffectsData(type, true));
 
@@ -568,8 +575,10 @@ GuiInterface.prototype.GetAverageRangeForBuildings = function(player, cmd)
 	return cmpRangeManager.GetElevationAdaptedRange(pos, rot, range, elevationBonus, 2*Math.PI);
 };
 
-GuiInterface.prototype.GetTemplateData = function(player, templateName)
+GuiInterface.prototype.GetTemplateData = function(player, data)
 {
+	let templateName = data.templateName;
+	let owner = !!data.owner ? data.owner : player;
 	let cmpTemplateManager = Engine.QueryInterface(SYSTEM_ENTITY, IID_TemplateManager);
 	let template = cmpTemplateManager.GetTemplate(templateName);
 
@@ -579,15 +588,16 @@ GuiInterface.prototype.GetTemplateData = function(player, templateName)
 	let aurasTemplate = {};
 
 	if (!template.Auras)
-		return GetTemplateDataHelper(template, player, aurasTemplate);
+		return GetTemplateDataHelper(template, owner, aurasTemplate);
 
 	let auraNames = template.Auras._string.split(/\s+/);
 
 	for (let name of auraNames)
 		aurasTemplate[name] = AuraTemplates.Get(name);
 
-	return GetTemplateDataHelper(template, player, aurasTemplate);
+	return GetTemplateDataHelper(template, owner, aurasTemplate);
 };
+
 
 GuiInterface.prototype.IsTechnologyResearched = function(player, data)
 {
@@ -1226,7 +1236,7 @@ GuiInterface.prototype.SetWallPlacementPreview = function(player, cmd)
 			this.placementWallEntities[tpl] = {
 				"numUsed": 0,
 				"entities": [],
-				"templateData": this.GetTemplateData(player, tpl),
+				"templateData": this.GetTemplateData(player, { "templateName": tpl }),
 			};
 
 			// ensure that the loaded template data contains a wallPiece component
@@ -1673,6 +1683,12 @@ GuiInterface.prototype.GetFoundationSnapData = function(player, data)
 			return minDistEntitySnapData;
 	}
 
+	if (data.snapToEdges)
+	{
+		let position = this.obstructionSnap.getPosition(data, template);
+		if (position)
+			return position;
+	}
 	if (template.BuildRestrictions.PlacementType == "shore")
 	{
 		let angle = GetDockAngle(template, data.x, data.z);

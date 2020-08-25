@@ -1,7 +1,7 @@
 <variant>
   <animations>
     <animation file="biped/rider/cavalry/spearman/idle_shield_relax_a.dae" name="Idle" speed="80"/>
-    <animation file="biped/rider/cavalry/generic/walk_shield_relax.dae" name="Walk" speed="7"/>
+    <animation file="biped/rider/cavalry/generic/walk_shield_relax.dae" name="Walk" event="1" speed="7"/>
     <animation file="biped/rider/cavalry/spearman/trot_shield_b.dae" name="Run" speed="7"/>
   </animations>
 </variant>

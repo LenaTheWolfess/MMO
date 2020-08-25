@@ -10,6 +10,7 @@ UnitAI.prototype.Schema =
 			"<value>defensive</value>" +
 			"<value>passive</value>" +
 			"<value>standground</value>" +
+			"<value>none</value>" +
 		"</choice>" +
 	"</element>" +
 	"<element name='FormationController'>" +
@@ -77,7 +78,7 @@ var g_Stances = {
 		"respondChaseBeyondVision": true,
 		"respondStandGround": false,
 		"respondHoldGround": false,
-		"selectable": true
+		"selectable": false
 	},
 	"aggressive": {
 		"targetVisibleEnemies": true,
@@ -87,7 +88,7 @@ var g_Stances = {
 		"respondChaseBeyondVision": false,
 		"respondStandGround": false,
 		"respondHoldGround": false,
-		"selectable": true
+		"selectable": false
 	},
 	"defensive": {
 		"targetVisibleEnemies": true,
@@ -97,7 +98,7 @@ var g_Stances = {
 		"respondChaseBeyondVision": false,
 		"respondStandGround": false,
 		"respondHoldGround": true,
-		"selectable": true
+		"selectable": false
 	},
 	"passive": {
 		"targetVisibleEnemies": false,
@@ -107,7 +108,7 @@ var g_Stances = {
 		"respondChaseBeyondVision": false,
 		"respondStandGround": false,
 		"respondHoldGround": false,
-		"selectable": true
+		"selectable": false
 	},
 	"standground": {
 		"targetVisibleEnemies": true,
@@ -117,7 +118,7 @@ var g_Stances = {
 		"respondChaseBeyondVision": false,
 		"respondStandGround": true,
 		"respondHoldGround": false,
-		"selectable": true
+		"selectable": false
 	},
 	"none": {
 		// Only to be used by AI or trigger scripts
@@ -394,6 +395,7 @@ UnitAI.prototype.UnitFsmSpec = {
 		// Check the target is alive
 		if (!this.TargetIsAlive(this.order.data.target))
 		{
+			warn("not alive");
 			this.FinishOrder();
 			return;
 		}
@@ -4037,8 +4039,12 @@ UnitAI.prototype.TargetIsAlive = function(ent)
 	if (cmpFormation)
 		return true;
 
-	var cmpHealth = QueryMiragedInterface(ent, IID_Health);
-	return cmpHealth && cmpHealth.GetHitpoints() != 0;
+	const cmpHealth = QueryMiragedInterface(ent, IID_Health);
+	if (!cmpHealth) {
+		const cmpCapturable = Engine.QueryInterface(ent, IID_Capturable);
+		return cmpCapturable;
+	}
+	return cmpHealth.GetHitpoints() != 0;
 };
 
 /**
@@ -5184,7 +5190,10 @@ UnitAI.prototype.Pick = function(target)
 {
 	this.PerformPick(target);
 }
-
+UnitAI.prototype.PickAndUse = function(target)
+{
+	this.PerformPick(target);
+}
 /**
  * Internal function to abstract the force parameter.
  */

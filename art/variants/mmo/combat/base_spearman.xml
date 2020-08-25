@@ -1,7 +1,7 @@
 <variant>
   <animations>
     <animation file="biped/new/spear_idle_ready.dae" name="Idle" id="idle1" speed="30"/>
-    <animation file="biped/new/spear_walk_ready.dae" name="Walk" id="walk1" speed="30"/>
+    <animation file="biped/new/spear_walk_ready.dae" name="Walk" event="1" id="walk1" speed="30"/>
     <animation file="biped/new/spear_run_ready.dae" name="Run" id="run1" speed="4"/>
     <animation file="biped/new/sword_shield_idle_ready.dae" name="testudo_front_idle" id="tesfrontidle1" speed="30"/>
     <animation file="biped/new/shield-up-idle.dae" name="idle_shield_up" id="testopidle1" speed="30"/>

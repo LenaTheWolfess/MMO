@@ -2,8 +2,16 @@
 <Entity parent="template_mmo_unit">
   <Identity>
     <SpecificName>Player</SpecificName>
+    <Undeletable>true</Undeletable>
   </Identity>
+  <Garrisonable disable=""/>
   <VisualActor>
     <Actor>units/mmo/player.xml</Actor>
   </VisualActor>
+  <Health>
+    <IdleRegenRate>1</IdleRegenRate>
+  </Health>
+  <UnitAI>
+    <DefaultStance>standground</DefaultStance>
+  </UnitAI>
 </Entity>
