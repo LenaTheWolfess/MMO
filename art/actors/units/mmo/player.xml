@@ -25,6 +25,9 @@
      <variant name="cape-simple-sword-combat">
       <props><prop actor="props/units/capes/cape-sword.xml" attachpoint="root"/></props>
      </variant>
+     <variant name="cape-simple-bow-combat">
+      <props><prop actor="props/units/capes/cape-bow.xml" attachpoint="root"/></props>
+     </variant>
   </group>
   <group>
      <variant frequency="1" name="armour-shield-none">
@@ -47,6 +50,12 @@
          <prop actor="props/units/weapons/sheath_xiphos_e.xml" attachpoint="sheath_L"/>
        </props>
      </variant>
+	 <variant name="weapon-bow">
+	   <props>
+        <prop actor="props/units/weapons/arrow_back.xml" attachpoint="weapon_R"/>
+        <prop actor="props/units/weapons/bow_recurve.xml" attachpoint="weapon_bow"/>
+	   </props>
+	 </variant>
   </group>
   <group>
     <variant frequency="1" name="armour-legs-none"></variant>
@@ -77,6 +86,8 @@
     <variant name="animations-spear-combat" file="mmo/combat/base_hoplite.xml"/>
     <variant name="animations-sword-relax" file="mmo/relax/base_swordsman_shieldarm_fast.xml"/>
     <variant name="animations-sword-combat" file="mmo/combat/base_swordsman_shieldarm_fast.xml"/>
+	<variant name="animations-bow-relax" file="mmo/relax/base_archer.xml"/>
+	<variant name="animations-bow-combat" file="mmo/combat/base_archer.xml"/>
     <variant>
        <animations>
         <animation file="biped/infantry/capturing_a.dae" name="attack_capture" speed="100"/>

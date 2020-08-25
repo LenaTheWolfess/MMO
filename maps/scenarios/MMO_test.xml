@@ -33,7 +33,7 @@
 		</Postproc>
 	</Environment>
 	<Camera>
-		<Position x="130.627" y="33.7204" z="48.7609"/>
+		<Position x="140.232" y="33.6099" z="43.3926"/>
 		<Rotation angle="0"/>
 		<Declination angle="0.610865"/>
 	</Camera>
@@ -2184,31 +2184,6 @@
 			<Position x="428.25335" z="177.50448"/>
 			<Orientation y="0.86826"/>
 		</Entity>
-		<Entity uid="528">
-			<Template>gaia/fauna_hawk</Template>
-			<Position x="418.79456" z="357.23421"/>
-			<Orientation y="2.28608"/>
-		</Entity>
-		<Entity uid="529">
-			<Template>gaia/fauna_hawk</Template>
-			<Position x="343.48018" z="466.70302"/>
-			<Orientation y="2.85335"/>
-		</Entity>
-		<Entity uid="530">
-			<Template>gaia/fauna_hawk</Template>
-			<Position x="395.08774" z="380.89864"/>
-			<Orientation y="-2.4742"/>
-		</Entity>
-		<Entity uid="531">
-			<Template>gaia/fauna_hawk</Template>
-			<Position x="333.2727" z="398.01725"/>
-			<Orientation y="-3.13051"/>
-		</Entity>
-		<Entity uid="532">
-			<Template>gaia/fauna_hawk</Template>
-			<Position x="404.04142" z="460.91718"/>
-			<Orientation y="1.48134"/>
-		</Entity>
 		<Entity uid="533">
 			<Template>gaia/fauna_fish</Template>
 			<Player>0</Player>
@@ -2404,13 +2379,6 @@
 			<Template>actor|props/special/eyecandy/skeleton.xml</Template>
 			<Position x="417.97193" z="369.38556"/>
 			<Orientation y="0.97129"/>
-		</Entity>
-		<Entity uid="568">
-			<Template>units/mmoPlayer</Template>
-			<Player>1</Player>
-			<Position x="134.4821" z="63.17551"/>
-			<Orientation y="1.99949"/>
-			<Actor seed="56760"/>
 		</Entity>
 		<Entity uid="569">
 			<Template>equipment/sword</Template>
@@ -2751,6 +2719,20 @@
 			<Position x="128.47071" z="62.03357"/>
 			<Orientation y="2.35621"/>
 			<Actor seed="26850"/>
+		</Entity>
+		<Entity uid="627">
+			<Template>equipment/bow</Template>
+			<Player>0</Player>
+			<Position x="135.23771" z="63.61883"/>
+			<Orientation y="2.35621"/>
+			<Actor seed="57646"/>
+		</Entity>
+		<Entity uid="628">
+			<Template>units/mmoPlayer</Template>
+			<Player>1</Player>
+			<Position x="133.09217" z="61.1285"/>
+			<Orientation y="2.35621"/>
+			<Actor seed="37572"/>
 		</Entity>
 	</Entities>
 	<Paths/>

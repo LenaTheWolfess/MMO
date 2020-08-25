@@ -14,6 +14,27 @@
       <RestrictedClasses datatype="tokens">Structure</RestrictedClasses>
       <PreferredClasses datatype="tokens">Human</PreferredClasses>
     </Melee>
+	<Ranged>
+	  <Damage>
+         <Hack>0.0</Hack>
+         <Pierce>0.0</Pierce>
+         <Crush>0.0</Crush>
+	  </Damage>
+	  <MaxRange>0.0</MaxRange>
+	  <MinRange>0.0</MinRange>
+      <PrepareTime>500</PrepareTime>
+      <RepeatTime>1000</RepeatTime>
+      <Delay>0</Delay>
+	  <Projectile>
+        <Speed>75.0</Speed>
+        <Gravity>39.81</Gravity>
+        <Spread>0.0</Spread>
+        <FriendlyFire>false</FriendlyFire>
+        <LaunchPoint y="3"/>
+      </Projectile>
+      <RestrictedClasses datatype="tokens">Structure</RestrictedClasses>
+      <PreferredClasses datatype="tokens">Human</PreferredClasses>
+	</Ranged>
     <Capture>
       <Capture>2</Capture>
       <MaxRange>4</MaxRange>
@@ -143,7 +164,7 @@
     <Preview>false</Preview>
   </Visibility>
   <Vision>
-    <Range>12</Range>
+    <Range>20</Range>
   </Vision>
   <VisionSharing>
     <Bribable>false</Bribable>
