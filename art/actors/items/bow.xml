@@ -7,8 +7,8 @@
     </variant>
   </group>
    <group>
-    <variant frequency="1" name="xiphos-steel">
-      <mesh>props/weap_xiphos_d.dae</mesh>
+    <variant frequency="1" name="bow">
+      <mesh>props/weapons/bow_recurve_pers.dae</mesh>
     </variant>
   </group>
   <material>basic_spec.xml</material>
