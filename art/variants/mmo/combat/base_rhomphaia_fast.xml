@@ -1,0 +1,9 @@
+<variant>
+  <animations>
+    <animation file="biped/new/sword_shield_idle_ready.dae" name="Idle" id="idle1" speed="30"/>
+    <animation file="biped/new/sword_shield_idle_ready.dae" name="Idle" id="idle2" speed="31"/>
+    <animation file="biped/new/sword_shield_idle_ready.dae" name="Idle" id="idle3" speed="32"/>
+    <animation file="biped/new/sword_shield_walk_ready.dae" name="Walk" id="walk1" speed="12"/>
+    <animation file="biped/new/sword_shield_jog_relax.dae" name="Run" id="run1" speed="8"/>
+  </animations>
+</variant>

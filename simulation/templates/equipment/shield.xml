@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Entity parent="template_equipment">
+  <Auras datatype="tokens">
+    mmo/armour/shield/shield
+  </Auras>
+  <Identity>
+    <SpecificName>Shield</SpecificName>
+    <Classes datatype="tokens">Shield</Classes>
+  </Identity>
+  <Equipment>
+    <Type>armour-shield</Type>
+    <TypeSpecific>shield</TypeSpecific>
+    <Animation>armour-shield-aspis</Animation>
+  </Equipment>
+  <VisualActor>
+    <Actor>items/shield.xml</Actor>
+  </VisualActor>
+</Entity>

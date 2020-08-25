@@ -1,0 +1,26 @@
+<variant>
+  <animations>
+    <animation file="biped/new/fem_idle_relax.dae" name="idle" speed="100"/>
+    <animation file="biped/new/fem_idle_relax.dae" name="idle" speed="90"/>
+    <animation file="biped/new/sword_shield_walk_relax.dae" name="Walk" speed="30"/>
+    <animation file="biped/new/bow_jog_relax.dae" name="Run" speed="8"/>
+    <animation file="biped/new/sword_shield_idle_ready.dae" name="testudo_front_idle" id="tesfrontidle1" speed="30"/>
+    <animation file="biped/new/shield-up-idle.dae" name="idle_shield_up" id="testopidle1" speed="30"/>
+    <animation file="biped/new/sword_shield_walk_ready.dae" name="testudo_front_walk" id="tesfrontwalk1" speed="30"/>
+    <animation file="biped/new/shield-up-walk.dae" name="walk_shield_up" id="testopwalk1" speed="30"/>
+    <animation file="biped/new/sword_shield_run_ready.dae" name="testudo_front_run" id="tesfrontrun1" speed="4"/>
+    <animation file="biped/new/shield-up-walk.dae" name="run_shield_up" id="testoprun1" speed="4"/>
+    <animation file="biped/new/testudo_front_shield_idle.dae" name="idle_testudo_front" speed="100"/>
+    <animation file="biped/new/testudo_front_left_shield_idle.dae" name="idle_testudo_front_left" speed="100"/>
+    <animation file="biped/new/testudo_front_right_shield_idle.dae" name="idle_testudo_front_right" speed="100"/>
+    <animation file="biped/new/testudo_top_shield_idle.dae" name="idle_testudo_top" speed="100"/>
+    <animation file="biped/new/testudo_right_shield_idle.dae" name="idle_testudo_right" speed="100"/>
+    <animation file="biped/new/testudo_left_shield_idle.dae" name="idle_testudo_left" speed="100"/>
+    <animation file="biped/new/testudo_top_shield_walk.dae" name="walk_testudo_top" speed="15"/>
+    <animation file="biped/new/testudo_right_shield_walk.dae" name="walk_testudo_right" speed="15"/>
+    <animation file="biped/new/testudo_left_shield_walk.dae" name="walk_testudo_left" speed="15"/>
+    <animation file="biped/new/testudo_front_right_shield_walk.dae" name="walk_testudo_front_right" speed="15"/>
+    <animation file="biped/new/testudo_front_left_shield_walk.dae" name="walk_testudo_front_left" speed="15"/>
+    <animation file="biped/new/testudo_front_shield_walk.dae" name="walk_testudo_front" speed="15"/>
+  </animations>
+</variant>

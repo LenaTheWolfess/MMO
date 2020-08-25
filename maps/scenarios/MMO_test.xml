@@ -1,0 +1,425 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Scenario version="6">
+	<Environment>
+		<SkySet>default</SkySet>
+		<SunColor r="0.74902" g="0.74902" b="0.74902"/>
+		<SunElevation angle="0.785398"/>
+		<SunRotation angle="-0.785396"/>
+		<TerrainAmbientColor r="0.501961" g="0.501961" b="0.501961"/>
+		<UnitsAmbientColor r="0.501961" g="0.501961" b="0.501961"/>
+		<Fog>
+			<FogFactor>0</FogFactor>
+			<FogThickness>0.5</FogThickness>
+			<FogColor r="0.8" g="0.8" b="0.894118"/>
+		</Fog>
+		<Water>
+			<WaterBody>
+				<Type>ocean</Type>
+				<Color r="0.294118" g="0.34902" b="0.694118"/>
+				<Tint r="0.27451" g="0.294118" b="0.584314"/>
+				<Height>5</Height>
+				<Waviness>4</Waviness>
+				<Murkiness>0.45</Murkiness>
+				<WindAngle>0</WindAngle>
+			</WaterBody>
+		</Water>
+		<Postproc>
+			<Brightness>0</Brightness>
+			<Contrast>1</Contrast>
+			<Saturation>0.99</Saturation>
+			<Bloom>0.1999</Bloom>
+			<PostEffect>default</PostEffect>
+		</Postproc>
+	</Environment>
+	<Camera>
+		<Position x="508.585" y="246.916" z="82.9246"/>
+		<Rotation angle="0"/>
+		<Declination angle="0.610865"/>
+	</Camera>
+	<ScriptSettings><![CDATA[
+{
+  "AISeed": 0,
+  "CircularMap": true,
+  "Description": "Give an interesting description of your map.",
+  "Keywords": [],
+  "LockTeams": false,
+  "Name": "MMO-test",
+  "PlayerData": [
+    {
+      "Civ": "athen"
+    }
+  ],
+  "Preview": "",
+  "RevealMap": false,
+  "VictoryConditions": []
+}
+]]></ScriptSettings>
+	<Entities>
+		<Entity uid="12">
+			<Template>units/rome_infantry_swordsman_b</Template>
+			<Player>0</Player>
+			<Position x="690.7967" z="327.92676"/>
+			<Orientation y="2.35621"/>
+			<Actor seed="25556"/>
+		</Entity>
+		<Entity uid="13">
+			<Template>units/rome_infantry_swordsman_b</Template>
+			<Player>0</Player>
+			<Position x="691.66663" z="336.55683"/>
+			<Orientation y="2.35621"/>
+			<Actor seed="32634"/>
+		</Entity>
+		<Entity uid="14">
+			<Template>units/rome_infantry_swordsman_b</Template>
+			<Player>0</Player>
+			<Position x="697.68287" z="325.58484"/>
+			<Orientation y="2.35621"/>
+			<Actor seed="12322"/>
+		</Entity>
+		<Entity uid="15">
+			<Template>units/rome_infantry_spearman_b</Template>
+			<Player>0</Player>
+			<Position x="655.331" z="371.87726"/>
+			<Orientation y="2.35621"/>
+			<Actor seed="37598"/>
+		</Entity>
+		<Entity uid="16">
+			<Template>units/rome_infantry_spearman_b</Template>
+			<Player>0</Player>
+			<Position x="659.10425" z="369.33277"/>
+			<Orientation y="2.35621"/>
+			<Actor seed="61920"/>
+		</Entity>
+		<Entity uid="17">
+			<Template>units/rome_infantry_spearman_b</Template>
+			<Player>0</Player>
+			<Position x="655.73475" z="367.30982"/>
+			<Orientation y="2.35621"/>
+			<Actor seed="45284"/>
+		</Entity>
+		<Entity uid="18">
+			<Template>units/rome_infantry_spearman_b</Template>
+			<Player>0</Player>
+			<Position x="658.4253" z="374.26771"/>
+			<Orientation y="2.35621"/>
+			<Actor seed="5280"/>
+		</Entity>
+		<Entity uid="19">
+			<Template>units/mmoPlayer</Template>
+			<Player>1</Player>
+			<Position x="454.4878" z="209.2201"/>
+			<Orientation y="2.35621"/>
+			<Actor seed="17324"/>
+		</Entity>
+		<Entity uid="20">
+			<Template>equipment/spear</Template>
+			<Player>0</Player>
+			<Position x="460.09183" z="211.30594"/>
+			<Orientation y="2.35621"/>
+			<Actor seed="17240"/>
+		</Entity>
+		<Entity uid="21">
+			<Template>equipment/spear</Template>
+			<Player>0</Player>
+			<Position x="461.27707" z="213.74357"/>
+			<Orientation y="2.35621"/>
+			<Actor seed="31330"/>
+		</Entity>
+		<Entity uid="22">
+			<Template>equipment/sword</Template>
+			<Player>0</Player>
+			<Position x="454.4459" z="202.34147"/>
+			<Orientation y="2.35621"/>
+			<Actor seed="13444"/>
+		</Entity>
+		<Entity uid="23">
+			<Template>equipment/sword</Template>
+			<Player>0</Player>
+			<Position x="450.72135" z="203.1649"/>
+			<Orientation y="2.35621"/>
+			<Actor seed="6738"/>
+		</Entity>
+		<Entity uid="24">
+			<Template>equipment/sword</Template>
+			<Player>0</Player>
+			<Position x="453.35126" z="198.97385"/>
+			<Orientation y="2.35622"/>
+			<Actor seed="6738"/>
+		</Entity>
+		<Entity uid="25">
+			<Template>equipment/sword</Template>
+			<Player>0</Player>
+			<Position x="457.07581" z="198.15043"/>
+			<Orientation y="2.35622"/>
+			<Actor seed="13444"/>
+		</Entity>
+		<Entity uid="26">
+			<Template>equipment/sword</Template>
+			<Player>0</Player>
+			<Position x="455.67814" z="195.68213"/>
+			<Orientation y="2.35622"/>
+			<Actor seed="6738"/>
+		</Entity>
+		<Entity uid="27">
+			<Template>equipment/sword</Template>
+			<Player>0</Player>
+			<Position x="459.40268" z="194.85871"/>
+			<Orientation y="2.35622"/>
+			<Actor seed="13444"/>
+		</Entity>
+		<Entity uid="28">
+			<Template>equipment/sword</Template>
+			<Player>0</Player>
+			<Position x="448.94117" z="197.48337"/>
+			<Orientation y="2.35622"/>
+			<Actor seed="6738"/>
+		</Entity>
+		<Entity uid="29">
+			<Template>equipment/sword</Template>
+			<Player>0</Player>
+			<Position x="452.66572" z="196.65995"/>
+			<Orientation y="2.35622"/>
+			<Actor seed="13444"/>
+		</Entity>
+		<Entity uid="30">
+			<Template>equipment/sword</Template>
+			<Player>0</Player>
+			<Position x="447.19797" z="200.87711"/>
+			<Orientation y="2.35622"/>
+			<Actor seed="6738"/>
+		</Entity>
+		<Entity uid="31">
+			<Template>equipment/sword</Template>
+			<Player>0</Player>
+			<Position x="450.92252" z="200.05369"/>
+			<Orientation y="2.35622"/>
+			<Actor seed="13444"/>
+		</Entity>
+		<Entity uid="32">
+			<Template>equipment/sword</Template>
+			<Player>0</Player>
+			<Position x="444.70615" z="207.35798"/>
+			<Orientation y="2.35622"/>
+			<Actor seed="6738"/>
+		</Entity>
+		<Entity uid="33">
+			<Template>equipment/sword</Template>
+			<Player>0</Player>
+			<Position x="448.4307" z="206.53455"/>
+			<Orientation y="2.35622"/>
+			<Actor seed="13444"/>
+		</Entity>
+		<Entity uid="34">
+			<Template>equipment/sword</Template>
+			<Player>0</Player>
+			<Position x="447.42255" z="212.49549"/>
+			<Orientation y="2.35622"/>
+			<Actor seed="6738"/>
+		</Entity>
+		<Entity uid="35">
+			<Template>equipment/sword</Template>
+			<Player>0</Player>
+			<Position x="451.1471" z="211.67206"/>
+			<Orientation y="2.35622"/>
+			<Actor seed="13444"/>
+		</Entity>
+		<Entity uid="36">
+			<Template>equipment/spear</Template>
+			<Player>0</Player>
+			<Position x="462.38163" z="207.00483"/>
+			<Orientation y="2.35622"/>
+			<Actor seed="31330"/>
+		</Entity>
+		<Entity uid="37">
+			<Template>equipment/spear</Template>
+			<Player>0</Player>
+			<Position x="461.19639" z="204.56717"/>
+			<Orientation y="2.35622"/>
+			<Actor seed="17240"/>
+		</Entity>
+		<Entity uid="38">
+			<Template>equipment/spear</Template>
+			<Player>0</Player>
+			<Position x="459.2002" z="206.09504"/>
+			<Orientation y="2.35622"/>
+			<Actor seed="31330"/>
+		</Entity>
+		<Entity uid="39">
+			<Template>equipment/spear</Template>
+			<Player>0</Player>
+			<Position x="458.01496" z="203.65738"/>
+			<Orientation y="2.35622"/>
+			<Actor seed="17240"/>
+		</Entity>
+		<Entity uid="40">
+			<Template>equipment/spear</Template>
+			<Player>0</Player>
+			<Position x="457.87598" z="210.58588"/>
+			<Orientation y="2.35622"/>
+			<Actor seed="31330"/>
+		</Entity>
+		<Entity uid="41">
+			<Template>equipment/spear</Template>
+			<Player>0</Player>
+			<Position x="456.69074" z="208.14823"/>
+			<Orientation y="2.35622"/>
+			<Actor seed="17240"/>
+		</Entity>
+		<Entity uid="42">
+			<Template>equipment/spear</Template>
+			<Player>0</Player>
+			<Position x="458.41193" z="218.66086"/>
+			<Orientation y="2.35622"/>
+			<Actor seed="31330"/>
+		</Entity>
+		<Entity uid="43">
+			<Template>equipment/spear</Template>
+			<Player>0</Player>
+			<Position x="457.22669" z="216.22321"/>
+			<Orientation y="2.35622"/>
+			<Actor seed="17240"/>
+		</Entity>
+		<Entity uid="44">
+			<Template>equipment/spear</Template>
+			<Player>0</Player>
+			<Position x="451.66318" z="218.86344"/>
+			<Orientation y="2.35622"/>
+			<Actor seed="31330"/>
+		</Entity>
+		<Entity uid="45">
+			<Template>equipment/spear</Template>
+			<Player>0</Player>
+			<Position x="450.47794" z="216.42579"/>
+			<Orientation y="2.35622"/>
+			<Actor seed="17240"/>
+		</Entity>
+		<Entity uid="46">
+			<Template>equipment/spear</Template>
+			<Player>0</Player>
+			<Position x="454.59156" z="218.45997"/>
+			<Orientation y="2.35622"/>
+			<Actor seed="31330"/>
+		</Entity>
+		<Entity uid="47">
+			<Template>equipment/spear</Template>
+			<Player>0</Player>
+			<Position x="453.40632" z="216.02231"/>
+			<Orientation y="2.35622"/>
+			<Actor seed="17240"/>
+		</Entity>
+		<Entity uid="48">
+			<Template>equipment/spear</Template>
+			<Player>0</Player>
+			<Position x="448.68277" z="219.9022"/>
+			<Orientation y="2.35622"/>
+			<Actor seed="31330"/>
+		</Entity>
+		<Entity uid="49">
+			<Template>equipment/spear</Template>
+			<Player>0</Player>
+			<Position x="447.49753" z="217.46454"/>
+			<Orientation y="2.35622"/>
+			<Actor seed="17240"/>
+		</Entity>
+		<Entity uid="50">
+			<Template>equipment/spear</Template>
+			<Player>0</Player>
+			<Position x="461.5452" z="199.18976"/>
+			<Orientation y="2.35622"/>
+			<Actor seed="31330"/>
+		</Entity>
+		<Entity uid="51">
+			<Template>equipment/spear</Template>
+			<Player>0</Player>
+			<Position x="460.35996" z="196.75211"/>
+			<Orientation y="2.35622"/>
+			<Actor seed="17240"/>
+		</Entity>
+		<Entity uid="52">
+			<Template>equipment/shield</Template>
+			<Player>0</Player>
+			<Position x="441.44053" z="215.51551"/>
+			<Orientation y="2.35621"/>
+			<Actor seed="52414"/>
+		</Entity>
+		<Entity uid="53">
+			<Template>equipment/shield</Template>
+			<Player>0</Player>
+			<Position x="442.08033" z="220.4661"/>
+			<Orientation y="2.35621"/>
+			<Actor seed="3300"/>
+		</Entity>
+		<Entity uid="54">
+			<Template>equipment/shield</Template>
+			<Player>0</Player>
+			<Position x="444.41861" z="226.1937"/>
+			<Orientation y="2.35621"/>
+			<Actor seed="34406"/>
+		</Entity>
+		<Entity uid="55">
+			<Template>equipment/helm</Template>
+			<Player>0</Player>
+			<Position x="465.09263" z="203.00803"/>
+			<Orientation y="2.35621"/>
+			<Actor seed="44404"/>
+		</Entity>
+		<Entity uid="56">
+			<Template>equipment/helm</Template>
+			<Player>0</Player>
+			<Position x="464.70878" z="200.87662"/>
+			<Orientation y="2.35621"/>
+			<Actor seed="17238"/>
+		</Entity>
+		<Entity uid="57">
+			<Template>equipment/helm</Template>
+			<Player>0</Player>
+			<Position x="463.60233" z="197.49479"/>
+			<Orientation y="2.35621"/>
+			<Actor seed="24544"/>
+		</Entity>
+		<Entity uid="58">
+			<Template>equipment/helm</Template>
+			<Player>0</Player>
+			<Position x="465.81241" z="198.1619"/>
+			<Orientation y="2.35621"/>
+			<Actor seed="34956"/>
+		</Entity>
+		<Entity uid="59">
+			<Template>equipment/cape</Template>
+			<Player>0</Player>
+			<Position x="466.25672" z="207.0157"/>
+			<Orientation y="2.35621"/>
+			<Actor seed="350"/>
+		</Entity>
+		<Entity uid="60">
+			<Template>equipment/cape</Template>
+			<Player>0</Player>
+			<Position x="468.6237" z="205.51883"/>
+			<Orientation y="2.35621"/>
+			<Actor seed="53734"/>
+		</Entity>
+		<Entity uid="61">
+			<Template>equipment/armour</Template>
+			<Player>0</Player>
+			<Position x="470.40751" z="200.76832"/>
+			<Orientation y="2.35621"/>
+			<Actor seed="32008"/>
+		</Entity>
+		<Entity uid="62">
+			<Template>equipment/armour</Template>
+			<Player>0</Player>
+			<Position x="464.47226" z="215.53208"/>
+			<Orientation y="2.35621"/>
+			<Actor seed="44490"/>
+		</Entity>
+		<Entity uid="63">
+			<Template>equipment/armour</Template>
+			<Player>0</Player>
+			<Position x="441.4095" z="208.90668"/>
+			<Orientation y="2.35621"/>
+			<Actor seed="27198"/>
+		</Entity>
+	</Entities>
+	<Paths/>
+</Scenario>

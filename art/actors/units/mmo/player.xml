@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actor version="1">
+  <castshadow/>
+  <group>
+    <variant frequency="1" name="head">
+      <props><prop actor="props/units/heads/new/head_xerxes.xml" attachpoint="head"/></props>
+    </variant>
+  </group>
+  <group>
+    <variant frequency="1" name="armour-helm-none">
+    </variant>
+    <variant name="armour-helm-cor">
+     <props><prop actor="props/units/helmets/hele_corinthian_leonidas.xml" attachpoint="helmet"/></props>
+    </variant>
+  </group>
+  <group>
+     <variant frequency="1" name="cape-none">
+     </variant>
+     <variant name="cape-spear-combat">
+      <props><prop actor="props/units/capes/hoplite.xml" attachpoint="root"/></props>
+     </variant>
+     <variant name="cape-sword-combat">
+      <props><prop actor="props/units/capes/hoplite.xml" attachpoint="root"/></props>
+     </variant>
+  </group>
+  <group>
+     <variant frequency="1" name="armour-shield-none">
+     </variant>
+     <variant name="armour-shield-aspis">
+      <props><prop actor="props/units/shields/aspis_leonidas.xml" attachpoint="shield_arm"/></props>
+     </variant>
+  </group>
+  <group>
+     <variant frequency="1"  name="weapon-none">
+     </variant>
+     <variant name="weapon-spear-hopl">
+      <props>
+        <prop actor="props/units/weapons/spear_hoplite.xml" attachpoint="weapon_R"/>
+      </props>
+     </variant>
+     <variant name="weapon-sword">
+       <props>
+         <prop actor="props/units/weapons/xiphos.xml" attachpoint="weapon_R"/>
+         <prop actor="props/units/weapons/sheath_xiphos_e.xml" attachpoint="sheath_L"/>
+       </props>
+     </variant>
+  </group>
+  <group>
+    <variant frequency="1" name="armour-legs-none"></variant>
+    <variant name="armour-legs-greave">
+      <props>
+        <prop actor="props/units/armor/greave_07_bronze_r.xml" attachpoint="leg_R"/>
+        <prop actor="props/units/armor/greave_07_bronze_l.xml" attachpoint="leg_L"/>
+      </props>
+    </variant>
+  </group>
+  <group>
+    <variant frequency="1" name="armour-body-none">
+      <mesh>skeletal/new/m_tunic_short.dae</mesh>
+      <textures>
+        <texture file="skeletal/hele_isp_b.dds" name="baseTex"/>
+      </textures>
+    </variant>
+    <variant name="armour-body-plate-gold">
+      <mesh>skeletal/new/m_armor_tunic_short.dae</mesh>
+      <textures>
+        <texture file="skeletal/hele_leonidas.dds" name="baseTex"/>
+      </textures>
+    </variant>
+  </group>
+  <group>
+    <variant frequency="1" name="animations-none-relax" file="mmo/relax/base.xml"/>
+    <variant name="animations-spear-relax" file="mmo/relax/base_hoplite.xml"/>
+    <variant name="animations-spear-combat" file="mmo/combat/base_hoplite.xml"/>
+    <variant name="animations-sword-relax" file="mmo/relax/base_swordsman_shieldarm_fast.xml"/>
+    <variant name="animations-sword-combat" file="mmo/combat/base_swordsman_shieldarm_fast.xml"/>
+  </group>
+  <material>player_trans.xml</material>
+</actor>

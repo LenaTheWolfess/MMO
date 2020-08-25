@@ -1,0 +1,20 @@
+<variant>
+  <animations>
+    <animation file="biped/new/hoplite_idle_ready.dae" name="Idle" 	speed="30"/>
+    <animation file="biped/new/hoplite_walk_ready.dae" name="Walk"  speed="30"/>
+    <animation file="biped/new/hoplite_run_ready.dae" name="Run"  speed="15"/>
+    <animation file="biped/new/hoplite_idle_ready.dae" name="phalanx_idle" speed="30"/>
+    <animation file="biped/new/hoplite_idle_ready.dae" name="phalanx_back_idle" speed="30"/>
+    <animation file="biped/new/hoplite_walk_ready.dae" name="phalanx_walk" id="phalwalk1" speed="30"/>
+    <animation file="biped/new/hoplite_walk_ready.dae" name="phalanx_walk" id="phalwalk2" speed="31"/>
+    <animation file="biped/new/hoplite_walk_ready.dae" name="phalanx_walk" id="phalwalk3" speed="32"/>
+    <animation file="biped/new/hoplite_run_ready.dae" name="phalanx_run" id="phalrun1" speed="15"/>
+    <animation file="biped/new/hoplite_run_ready.dae" name="phalanx_run" id="phalrun2" speed="16"/>
+    <animation event="0.5" file="biped/new/hoplite_attack_a.dae" name="phalanx_attack" id="phalattack1" speed="30"/>
+    <animation event="0.5" file="biped/new/hoplite_attack_a.dae" name="Attack_melee" id="attack1" speed="30"/>
+    <animation file="biped/new/anti_cavalry_front_idle.dae" name="idle_anti_cavalry_front" speed="100"/>
+    <animation file="biped/new/anti_cavalry_back_idle.dae" name="idle_anti_cavalry_back" speed="100"/>
+    <animation file="biped/new/anti_cavalry_front_attack.dae" name="attack_anti_cavalry_front" speed="30"/>
+    <animation file="biped/new/anti_cavalry_back_attack.dae" name="attack_anti_cavalry_back" speed="30"/>
+  </animations>
+</variant>

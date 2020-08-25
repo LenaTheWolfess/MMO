@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Entity parent="template_equipment">
+  <Identity>
+    <SpecificName>Cape</SpecificName>
+    <Classes datatype="tokens">Cape</Classes>
+  </Identity>
+  <Equipment>
+    <Type>cape</Type>
+    <TypeSpecific>cape</TypeSpecific>
+    <Animation>cape</Animation>
+  </Equipment>
+  <VisualActor>
+    <Actor>items/cape.xml</Actor>
+  </VisualActor>
+</Entity>

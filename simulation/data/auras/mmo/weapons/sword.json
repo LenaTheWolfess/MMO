@@ -1,0 +1,9 @@
+{
+	"type": "formation",
+	"affects": ["Hero"],
+	"modifications": [
+		{ "value": "Attack/Melee/Damage/Hack",   "add":   40}
+	],
+	"auraDescription": "Hack + 40",
+	"auraName": "Attack"
+}

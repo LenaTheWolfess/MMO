@@ -1,0 +1,16 @@
+<variant>
+  <animations>
+    <animation file="biped/new/pike_idle_relax.dae" name="Idle" speed="30"/>
+    <animation file="biped/new/pike_walk_relax.dae" name="Walk" speed="30"/>
+    <animation file="biped/new/pike_jog_relax.dae" name="Run" speed="10"/>
+    <animation file="biped/new/pike_idle_relax.dae" name="syntagma_front_idle" speed="30"/>
+    <animation file="biped/new/pike_walk_relax.dae" name="syntagma_front_walk" speed="30"/>
+    <animation file="biped/new/pike_jog_relax.dae" name="syntagma_front_run" speed="10"/>
+    <animation file="biped/new/pike_idle_relax.dae" name="syntagma_med_idle" speed="30"/>
+    <animation file="biped/new/pike_walk_relax.dae" name="syntagma_med_walk" speed="30"/>
+    <animation file="biped/new/pike_jog_relax.dae" name="syntagma_med_run" speed="10"/> 
+    <animation file="biped/new/pike_idle_relax.dae" name="syntagma_back_idle" speed="30"/>
+    <animation file="biped/new/pike_walk_relax.dae" name="syntagma_back_walk" speed="30"/>
+    <animation file="biped/new/pike_jog_relax.dae" name="syntagma_back_run" speed="10"/>
+  </animations>
+</variant>

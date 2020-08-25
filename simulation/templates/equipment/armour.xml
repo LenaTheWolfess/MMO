@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Entity parent="template_equipment">
+  <Auras datatype="tokens">
+    mmo/armour/body/armour-body
+  </Auras>
+  <Identity>
+    <SpecificName>Armour</SpecificName>
+    <Classes datatype="tokens">Armour</Classes>
+  </Identity>
+  <Equipment>
+    <Type>armour-body</Type>
+    <TypeSpecific>plate-gold</TypeSpecific>
+    <Animation>armour-body-plate-gold</Animation>
+  </Equipment>
+  <VisualActor>
+    <Actor>items/treasure.xml</Actor>
+  </VisualActor>
+</Entity>

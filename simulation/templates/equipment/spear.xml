@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Entity parent="template_equipment">
+  <Auras datatype="tokens">
+    mmo/weapons/spear
+  </Auras>
+  <Identity>
+    <SpecificName>Spear</SpecificName>
+    <Classes datatype="tokens">Spear</Classes>
+  </Identity>
+  <Equipment>
+    <Type>weapon</Type>
+    <TypeSpecific>spear</TypeSpecific>
+    <Animation>weapon-spear-hopl</Animation>
+  </Equipment>
+  <VisualActor>
+    <Actor>items/spear.xml</Actor>
+  </VisualActor>
+</Entity>

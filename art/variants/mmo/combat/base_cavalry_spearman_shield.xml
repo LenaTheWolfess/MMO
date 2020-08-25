@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<variant>
+  <animations>
+    <animation file="biped/rider/cavalry/generic/idle_shield_ready.dae" name="Idle" speed="80"/>
+    <animation file="biped/rider/cavalry/spearman/gallop_shield.dae" name="Walk" speed="7"/>
+    <animation file="biped/rider/cavalry/spearman/trot_shield_b.dae" name="Run" speed="7"/>
+  </animations>
+</variant>
