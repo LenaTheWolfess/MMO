@@ -2381,7 +2381,7 @@
 			<Orientation y="0.97129"/>
 		</Entity>
 		<Entity uid="569">
-			<Template>equipment/sword</Template>
+			<Template>equipment/weapons/melee/sword/sword_5</Template>
 			<Player>0</Player>
 			<Position x="146.5322" z="72.23827"/>
 			<Orientation y="0.0535"/>
@@ -2454,7 +2454,7 @@
 			<Actor seed="35654"/>
 		</Entity>
 		<Entity uid="582">
-			<Template>equipment/helm</Template>
+			<Template>equipment/armour/helm/helm</Template>
 			<Player>0</Player>
 			<Position x="343.12912" z="136.10148"/>
 			<Orientation y="-0.93306"/>
@@ -2515,56 +2515,56 @@
 			<Actor seed="47540"/>
 		</Entity>
 		<Entity uid="594">
-			<Template>equipment/shield</Template>
+			<Template>equipment/armour/shield/shield</Template>
 			<Player>0</Player>
 			<Position x="212.8953" z="132.5175"/>
 			<Orientation y="4.59765"/>
 			<Actor seed="3702"/>
 		</Entity>
 		<Entity uid="595">
-			<Template>equipment/cape</Template>
+			<Template>equipment/armour/cape/cape</Template>
 			<Player>0</Player>
 			<Position x="298.58536" z="204.90247"/>
 			<Orientation y="-1.16062"/>
 			<Actor seed="58142"/>
 		</Entity>
 		<Entity uid="596">
-			<Template>equipment/cape</Template>
+			<Template>equipment/armour/cape/cape</Template>
 			<Player>0</Player>
 			<Position x="297.30765" z="206.3147"/>
 			<Orientation y="2.21145"/>
 			<Actor seed="58142"/>
 		</Entity>
 		<Entity uid="597">
-			<Template>equipment/spear</Template>
+			<Template>equipment/weapons/melee/spear/spear_8</Template>
 			<Player>0</Player>
 			<Position x="329.17118" z="221.93143"/>
 			<Orientation y="2.35621"/>
 			<Actor seed="52458"/>
 		</Entity>
 		<Entity uid="598">
-			<Template>equipment/spear</Template>
+			<Template>equipment/weapons/melee/spear/spear_8</Template>
 			<Player>0</Player>
 			<Position x="329.15665" z="222.45545"/>
 			<Orientation y="2.35621"/>
 			<Actor seed="43070"/>
 		</Entity>
 		<Entity uid="599">
-			<Template>equipment/spear</Template>
+			<Template>equipment/weapons/melee/spear/spear_8</Template>
 			<Player>0</Player>
 			<Position x="328.42798" z="222.25721"/>
 			<Orientation y="2.35621"/>
 			<Actor seed="39448"/>
 		</Entity>
 		<Entity uid="600">
-			<Template>equipment/spear</Template>
+			<Template>equipment/weapons/melee/spear/spear_8</Template>
 			<Player>0</Player>
 			<Position x="328.52164" z="222.88462"/>
 			<Orientation y="2.35621"/>
 			<Actor seed="1648"/>
 		</Entity>
 		<Entity uid="601">
-			<Template>equipment/spear</Template>
+			<Template>equipment/weapons/melee/spear/spear_8</Template>
 			<Player>0</Player>
 			<Position x="328.73182" z="223.16184"/>
 			<Orientation y="2.35621"/>
@@ -2599,7 +2599,7 @@
 			<Actor seed="51164"/>
 		</Entity>
 		<Entity uid="608">
-			<Template>equipment/armour</Template>
+			<Template>equipment/armour/body/armour</Template>
 			<Player>0</Player>
 			<Position x="420.91944" z="323.79566"/>
 			<Orientation y="2.35621"/>
@@ -2700,14 +2700,14 @@
 			<Actor seed="63212"/>
 		</Entity>
 		<Entity uid="624">
-			<Template>items/apple</Template>
+			<Template>items/consume/apple</Template>
 			<Player>0</Player>
 			<Position x="226.89783" z="130.93168"/>
 			<Orientation y="2.35621"/>
 			<Actor seed="32478"/>
 		</Entity>
 		<Entity uid="625">
-			<Template>items/apple</Template>
+			<Template>items/consume/apple</Template>
 			<Player>0</Player>
 			<Position x="337.01532" z="132.31525"/>
 			<Orientation y="2.35622"/>
@@ -2721,7 +2721,7 @@
 			<Actor seed="26850"/>
 		</Entity>
 		<Entity uid="627">
-			<Template>equipment/bow</Template>
+			<Template>equipment/weapons/ranged/bow/bow</Template>
 			<Player>0</Player>
 			<Position x="135.23771" z="63.61883"/>
 			<Orientation y="2.35621"/>
