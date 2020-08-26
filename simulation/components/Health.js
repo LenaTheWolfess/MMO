@@ -261,6 +261,9 @@ Health.prototype.Reduce = function(amount)
 		this.hitpoints = 0;
 		this.RegisterHealthChanged(oldHitpoints);
 		this.HandleDeath();
+		const cmpInventory = Engine.QueryInterface(this.entity, IID_Inventory);
+		if (cmpInventory)
+			cmpInventory.DropAll();
 		return { "killed": true, "HPchange": -oldHitpoints };
 	}
 

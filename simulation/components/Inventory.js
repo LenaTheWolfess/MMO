@@ -193,6 +193,31 @@ Inventory.prototype.Drop = function(id) {
 	cmpPosition.SetHeightOffset(0);
 }
 
+/*
+ * Optimized for death.
+ * Do not call from elsewhere.
+*/
+Inventory.prototype.DropAll = function() {
+	this.items = undefined;
+	const cmpMyPosition = Engine.QueryInterface(this.entity, IID_Position);
+	if (!cmpMyPosition) {
+		this.bag = undefined;
+		return;
+	}
+	const pos = cmpMyPosition.GetPosition();
+	for (let indx in  this.bag) {
+		let id = this.bag[indx];
+		if (!id)
+			continue;
+		const cmpPosition = Engine.QueryInterface(id, IID_Position);
+		if (cmpPosition) {
+			cmpPosition.JumpTo(pos.x, pos.z);
+			cmpPosition.SetHeightOffset(0);
+		}
+	}
+	this.bag = undefined;
+}
+
 Inventory.prototype.GetItems = function() {
 	let result = [];
 	for (let type in this.items) {
@@ -212,5 +237,6 @@ Inventory.prototype.GetBag = function() {
 Inventory.prototype.HasFreeRoom = function() {
 	return this.bag.length < this.capacity;
 }
+
 
 Engine.RegisterComponentType(IID_Inventory, "Inventory", Inventory);
