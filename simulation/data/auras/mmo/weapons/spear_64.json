@@ -1,0 +1,10 @@
+{
+	"type": "formation",
+	"affects": ["Hero"],
+	"modifications": [
+		{ "value": "Attack/Melee/Damage/Pierce",   "add":   64},
+		{ "value": "Attack/Melee/MaxRange",   "add": 8}
+	],
+	"auraDescription": "Pierce + 64",
+	"auraName": "Attack"
+}

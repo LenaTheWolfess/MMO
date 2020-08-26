@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Entity parent="template_spear">
   <Auras datatype="tokens">
-    mmo/weapons/spear_150
+    mmo/weapons/spear_64
   </Auras>
   <Identity>
-    <SpecificName>Spear Legendary</SpecificName>
+    <SpecificName>Fine Iron Spear</SpecificName>
   </Identity>
 </Entity>
