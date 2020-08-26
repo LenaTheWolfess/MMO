@@ -36,7 +36,7 @@
       <PreferredClasses datatype="tokens">Human</PreferredClasses>
 	</Ranged>
     <Capture>
-      <Capture>10</Capture>
+      <Capture>20</Capture>
       <MaxRange>4</MaxRange>
       <RepeatTime>1000</RepeatTime>
       <RestrictedClasses datatype="tokens">Organic</RestrictedClasses>
