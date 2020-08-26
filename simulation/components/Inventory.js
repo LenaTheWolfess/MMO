@@ -67,6 +67,25 @@ Inventory.prototype.Use = function(id) {
 	this.UseItem(id);
 }
 
+Inventory.prototype.DropSafe = function(id) {
+	if (!id)
+		return;
+	this.UnEquipSafe(id);
+	this.Drop(id);
+}
+
+Inventory.prototype.UnEquipSafe = function(id) {
+	if (!id)
+		return;
+	const cmpEquipment = Engine.QueryInterface(id, IID_Equipment);
+	if (!cmpEquipment)
+		return;
+	const type = cmpEquipment.getType();
+	if (!this.items[type] || this.items[type] != id)
+		return;
+	this.UnEquip(type);
+}
+
 Inventory.prototype.SwitchEquipment = function(id, type) {
 	if (this.items[type] && this.items[type] != id) {
 		const idx = this.UnEquip(type);
