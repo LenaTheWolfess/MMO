@@ -5194,6 +5194,27 @@ UnitAI.prototype.PickAndUse = function(target)
 {
 	this.PerformPick(target);
 }
+UnitAI.prototype.DropItem = function(item)
+{
+	const cmpInventory = Engine.QueryInterface(this.entity, IID_Inventory);
+	if (!cmpInventory)
+		return;
+	cmpInventory.DropSafe(item);
+}
+UnitAI.prototype.UnEquipItem = function(item)
+{
+	const cmpInventory = Engine.QueryInterface(this.entity, IID_Inventory);
+	if (!cmpInventory)
+		return;
+	cmpInventory.UnEquipSafe(item);
+}
+UnitAI.prototype.UseItem = function(item)
+{
+	const cmpInventory = Engine.QueryInterface(this.entity, IID_Inventory);
+	if (!cmpInventory)
+		return;
+	cmpInventory.Use(item);
+}
 /**
  * Internal function to abstract the force parameter.
  */
