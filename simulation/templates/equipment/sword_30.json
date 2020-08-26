@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Entity parent="template_sword">
+  <Auras datatype="tokens">
+    mmo/weapons/sword_30
+  </Auras>
+  <Identity>
+    <SpecificName>Iron sword</SpecificName>
+  </Identity>
+</Entity>
