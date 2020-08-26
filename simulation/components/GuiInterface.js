@@ -288,7 +288,8 @@ GuiInterface.prototype.GetEntityState = function(player, ent)
 	const cmpInventory = Engine.QueryInterface(ent, IID_Inventory);
 	if (cmpInventory)
 		ret.inventory = {
-			"items": cmpInventory.GetItems()
+			"items": cmpInventory.GetItems(),
+			"bag": cmpInventory.GetBag()
 		};
 
 	let cmpPosition = Engine.QueryInterface(ent, IID_Position);
