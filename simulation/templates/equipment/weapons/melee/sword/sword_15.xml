@@ -4,6 +4,6 @@
     mmo/weapons/sword_15
   </Auras>
   <Identity>
-    <SpecificName>Simple sword</SpecificName>
+    <SpecificName>Fine simple sword</SpecificName>
   </Identity>
 </Entity>
