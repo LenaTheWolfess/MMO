@@ -469,6 +469,7 @@ Attack.prototype.PerformAttack = function(type, target)
 		//  * Obstacles like trees could reduce the probability of the target being hit
 		//  * Obstacles like walls should block projectiles entirely
 
+		// Note: this does not work properly
 		let horizSpeed = ApplyValueModificationsToEntity("Attack/Ranged/Speed", +this.template[type].Projectile.Speed, this.entity);
 		let gravity = +this.template[type].Projectile.Gravity;
 		// horizSpeed /= 2; gravity /= 2; // slow it down for testing
