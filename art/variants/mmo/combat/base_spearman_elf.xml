@@ -9,5 +9,6 @@
     <animation file="biped/new/spear_walk_ready.dae" name="testudo_top_walk" id="testopwalk1" speed="30"/>
     <animation file="biped/new/spear_run_ready.dae" name="testudo_front_run" id="tesfrontrun1" speed="4"/>
     <animation file="biped/new/spear_run_ready.dae" name="testudo_top_run" id="testoprun1" speed="4"/>
+	<animation file="biped/infantry/capturing_a.dae" name="attack_capture" speed="100"/>
   </animations>
 </variant>

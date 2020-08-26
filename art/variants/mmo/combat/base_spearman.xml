@@ -11,5 +11,6 @@
     <animation file="biped/new/shield-up-walk.dae" name="run_shield_up" id="testoprun1" speed="4"/>
 	<animation event="0.5" file="biped/new/spear_attack_a.dae" name="Attack_melee" id="attack1" speed="30"/>
     <animation event="0.5" file="biped/new/sword_shield_attack_b.dae" name="Attack_melee" id="attack2" speed="100"/>
+	<animation file="biped/infantry/capturing_a.dae" name="attack_capture" speed="100"/>
   </animations>
 </variant>

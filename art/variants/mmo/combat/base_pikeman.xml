@@ -13,5 +13,6 @@
     <animation file="biped/new/pike_walk_relax.dae" name="syntagma_back_walk" speed="30"/>
     <animation file="biped/new/pike_jog_relax.dae" name="syntagma_back_run" speed="10"/>
     <animation event="0.5" file="biped/new/pike_attack_a.dae" name="attack_melee" id="attack1" speed="10"/>
+	<animation file="biped/infantry/capturing_a.dae" name="attack_capture" speed="100"/>
   </animations>
 </variant>

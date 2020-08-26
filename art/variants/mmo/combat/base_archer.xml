@@ -4,6 +4,7 @@
     <animation file="biped/new/bow_jog_ready.dae" name="Walk" event="1" id="walk1" speed="20"/>
     <animation file="biped/new/bow_run_ready.dae" name="Run" id="run1" speed="4"/>
 	<animation file="biped/new/promotion.dae" name="promotion" speed="80"/>
+	<animation file="biped/infantry/capturing_a.dae" name="attack_capture" speed="100"/>
     <animation event="0.55" file="biped/infantry/archer/attack_ranged.dae" load="0.72" name="attack_ranged" id="Attack1" speed="200"/>
   </animations>
   <props>

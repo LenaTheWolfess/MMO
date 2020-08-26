@@ -16,5 +16,6 @@
     <animation file="biped/new/anti_cavalry_back_idle.dae" name="idle_anti_cavalry_back" speed="100"/>
     <animation file="biped/new/anti_cavalry_front_attack.dae" name="attack_anti_cavalry_front" speed="30"/>
     <animation file="biped/new/anti_cavalry_back_attack.dae" name="attack_anti_cavalry_back" speed="30"/>
+	<animation file="biped/infantry/capturing_a.dae" name="attack_capture" speed="100"/>
   </animations>
 </variant>

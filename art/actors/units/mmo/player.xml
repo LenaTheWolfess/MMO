@@ -88,11 +88,7 @@
     <variant name="animations-sword-combat" file="mmo/combat/base_swordsman_shieldarm_fast.xml"/>
 	<variant name="animations-bow-relax" file="mmo/relax/base_archer.xml"/>
 	<variant name="animations-bow-combat" file="mmo/combat/base_archer.xml"/>
-    <variant>
-       <animations>
-        <animation file="biped/infantry/capturing_a.dae" name="attack_capture" speed="100"/>
-       </animations>
-    </variant>
+	<variant file="biped/death_infantry.xml"/>
   </group>
   <material>player_trans.xml</material>
 </actor>
