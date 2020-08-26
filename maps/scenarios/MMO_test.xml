@@ -2454,7 +2454,7 @@
 			<Actor seed="35654"/>
 		</Entity>
 		<Entity uid="582">
-			<Template>equipment/armour/helm/helm</Template>
+			<Template>equipment/armour/helm/heavy-helm</Template>
 			<Player>0</Player>
 			<Position x="343.12912" z="136.10148"/>
 			<Orientation y="-0.93306"/>
@@ -2515,7 +2515,7 @@
 			<Actor seed="47540"/>
 		</Entity>
 		<Entity uid="594">
-			<Template>equipment/armour/shield/shield</Template>
+			<Template>equipment/armour/shield/shield-heavy</Template>
 			<Player>0</Player>
 			<Position x="212.8953" z="132.5175"/>
 			<Orientation y="4.59765"/>
@@ -2599,7 +2599,7 @@
 			<Actor seed="51164"/>
 		</Entity>
 		<Entity uid="608">
-			<Template>equipment/armour/body/armour</Template>
+			<Template>equipment/armour/body/heavy-armour</Template>
 			<Player>0</Player>
 			<Position x="420.91944" z="323.79566"/>
 			<Orientation y="2.35621"/>

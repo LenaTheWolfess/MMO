@@ -1,0 +1,11 @@
+{
+	"type": "formation",
+	"affects": ["Hero"],
+	"modifications": [
+		{ "value": "Armour/Hack",   "add":   5},
+		{ "value": "Armour/Pierce",   "add":   5},
+		{ "value": "Armour/Crush",   "add":   5}
+	],
+	"auraDescription": "Armour + 5",
+	"auraName": "Medium helm"
+}

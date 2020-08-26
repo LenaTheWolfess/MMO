@@ -1,0 +1,13 @@
+{
+	"type": "formation",
+	"affects": ["Hero"],
+	"modifications": [
+		{ "value": "Armour/Hack",   "add":   10},
+		{ "value": "Armour/Pierce",   "add":   10},
+		{ "value": "Armour/Crush",   "add":   10},
+		{ "value": "UnitMotion/WalkSpeed", "multiply": 0.98},
+		{ "value": "UnitMotion/RunMultiplier", "multiply": 0.98} 
+	],
+	"auraDescription": "Armour +10 Movement -2%",
+	"auraName": "Heavy shield"
+}

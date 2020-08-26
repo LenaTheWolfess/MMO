@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Entity parent="template_shield">
+  <Auras datatype="tokens">
+    mmo/armour/shield/medium-shield
+  </Auras>
+  <Identity>
+    <SpecificName>Medium shield</SpecificName>
+  </Identity>
+</Entity>

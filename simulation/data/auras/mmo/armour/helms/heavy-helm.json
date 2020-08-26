@@ -1,0 +1,12 @@
+{
+	"type": "formation",
+	"affects": ["Hero"],
+	"modifications": [
+		{ "value": "Armour/Hack",   "add":   10},
+		{ "value": "Armour/Pierce",   "add":   10},
+		{ "value": "Armour/Crush",   "add":   10},
+		{ "value": "Vision/Range", "multiply": 0.8}
+	],
+	"auraDescription": "Armour +10 Vision -20%",
+	"auraName": "Heavy helm"
+}

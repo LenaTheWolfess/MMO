@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Entity parent="template_helm">
+  <Auras datatype="tokens">
+    mmo/armour/helms/light-helm
+  </Auras>
+  <Identity>
+    <SpecificName>Light helm</SpecificName>
+  </Identity>
+</Entity>

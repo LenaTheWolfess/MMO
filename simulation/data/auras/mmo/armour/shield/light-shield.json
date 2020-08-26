@@ -1,0 +1,11 @@
+{
+	"type": "formation",
+	"affects": ["Hero"],
+	"modifications": [
+		{ "value": "Armour/Hack",   "add":   2},
+		{ "value": "Armour/Pierce",   "add":   2},
+		{ "value": "Armour/Crush",   "add":   2}
+	],
+	"auraDescription": "Armour +2",
+	"auraName": "Light shield"
+}

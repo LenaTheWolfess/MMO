@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Entity parent="template_armour">
+  <Auras datatype="tokens">
+    mmo/armour/body/armour-medium
+  </Auras>
+  <Identity>
+    <SpecificName>Medium Armour</SpecificName>
+  </Identity>
+</Entity>
