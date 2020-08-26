@@ -1,18 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Entity parent="template_equipment">
+<Entity parent="template_bow">
   <Auras datatype="tokens">
     mmo/weapons/bow
   </Auras>
   <Identity>
     <SpecificName>Bow</SpecificName>
-    <Classes datatype="tokens">Bow</Classes>
   </Identity>
-  <Equipment>
-    <Type>weapon</Type>
-    <TypeSpecific>bow</TypeSpecific>
-    <Animation>weapon-bow</Animation>
-  </Equipment>
-  <VisualActor>
-    <Actor>items/bow.xml</Actor>
-  </VisualActor>
 </Entity>
