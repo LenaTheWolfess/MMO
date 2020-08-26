@@ -2440,7 +2440,7 @@
 			<Actor seed="37412"/>
 		</Entity>
 		<Entity uid="580">
-			<Template>gaia/fauna_wolf</Template>
+			<Template>gaia/fauna_wolf_strong</Template>
 			<Player>0</Player>
 			<Position x="346.61927" z="132.90156"/>
 			<Orientation y="-2.78933"/>
