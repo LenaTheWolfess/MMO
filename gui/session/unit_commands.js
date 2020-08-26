@@ -15,7 +15,8 @@ var g_unitPanelButtons = {
 	"Gate": 0,
 	"Pack": 0,
 	"Upgrade": 0,
-	"Inventory": 0
+	"Inventory": 0,
+	"Bag": 0
 };
 
 /**
@@ -223,7 +224,7 @@ function getNumberOfRightPanelButtons()
 {
 	var sum = 0;
 
-	for (let prop of ["Construction", "Training", "Pack", "Gate", "Upgrade", "Inventory"])
+	for (let prop of ["Construction", "Training", "Pack", "Gate", "Upgrade", "Bag"])
 		if (g_SelectionPanels[prop].used)
 			sum += g_unitPanelButtons[prop];
 
