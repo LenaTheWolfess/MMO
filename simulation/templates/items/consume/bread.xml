@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Entity parent="template_consume_heal">
+  <Identity>
+    <SpecificName>Bread</SpecificName>
+  </Identity>
+  <Item>
+    <Affects>
+      <hp>
+        <Value>50</Value>
+      </hp>
+    </Affects>
+  </Item>
+</Entity>
