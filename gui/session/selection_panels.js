@@ -176,6 +176,46 @@ g_SelectionPanels.Inventory = {
 			getAurasTooltip,
 			getEntityTooltip
 		].map(func => func(template));
+		data.button.onPress = function() { unequipItem(data.item.id, data.playerState); };
+		data.button.onPressRight = function() { dropItem(data.item.id, data.playerState); };
+		data.button.tooltip = tooltips.join("\n");
+		data.button.enabled = true;
+		let modifier = "";
+		if (template.icon)
+			data.icon.sprite = modifier + "stretched:session/items" + template.icon;
+		let index = data.i + getNumberOfRightPanelButtons();
+		setPanelObjectPosition(data.button, index, data.rowLength);
+		
+		return true;
+	}
+
+};
+
+g_SelectionPanels.Bag = {
+	"getMaxNumberOfItems": function()
+	{
+		return 24;
+	},
+	"getItems": function(unitEntStates)
+	{
+		if (unitEntStates.length > 1 || !unitEntStates[0].inventory)
+			return [];
+		return unitEntStates[0].inventory.bag;
+	},
+	"setupButton": function(data)
+	{
+		let entState = GetEntityState(data.item.id);
+		let template = GetTemplateData(entState.template, data.player);
+		if (!template)
+			return false;
+		let tooltips = [
+			getEntityNamesFormatted,
+			getVisibleEntityClassesFormatted,
+			getAurasTooltip,
+			getEntityTooltip
+		].map(func => func(template));
+		data.button.onPress = function() { useItem(data.item.id, data.playerState); };
+		data.button.onPressRight = function() { dropItem(data.item.id, data.playerState); };
 		data.button.tooltip = tooltips.join("\n");
 		data.button.enabled = true;
 		let modifier = "";
@@ -1205,6 +1245,7 @@ let g_PanelsOrder = [
 	"Alert",
 	"Formation",
 	"Stance", // Normal together with formation
+	"Inventory",
 
 	// RIGHT PANE
 	"Gate", // Must always be shown on gates
@@ -1213,7 +1254,7 @@ let g_PanelsOrder = [
 	"Training",
 	"Construction",
 	"Research", // Normal together with training
-	"Inventory",
+	"Bag",
 
 	// UNIQUE PANES (importance doesn't matter)
 	"Command",
