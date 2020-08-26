@@ -51,4 +51,8 @@ Item.prototype.ShouldBeDestroyed = function()
 {
 	return true;
 }
+Item.prototype.CanBeStored = function()
+{
+	return true;
+}
 Engine.RegisterComponentType(IID_Item, "Item", Item);
