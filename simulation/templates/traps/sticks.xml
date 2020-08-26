@@ -4,10 +4,10 @@
     mmo/traps/sticks
   </Auras>
   <Identity>
-    <SpecificName>Sticks</SpecificName>
+    <SpecificName>Spikes</SpecificName>
     <Classes datatype="tokens">Sticks</Classes>
   </Identity>
   <VisualActor>
-    <Actor>items/food_sack.xml</Actor>
+    <Actor>props/special/palisade_small_spikes.xml</Actor>
   </VisualActor>
 </Entity>

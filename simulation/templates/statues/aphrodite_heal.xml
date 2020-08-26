@@ -6,6 +6,7 @@
   <Identity>
     <SpecificName>Aphrodite</SpecificName>
     <Classes datatype="tokens">HealStatue</Classes>
+	<Icon>technologies/vestals.png</Icon>
   </Identity>
   <VisualActor>
     <Actor>statues/aphrodite.xml</Actor>

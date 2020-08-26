@@ -6,4 +6,10 @@
   <Identity>
     <SpecificName>Light shield</SpecificName>
   </Identity>
+  <Equipment>
+    <Animation>armour-shield-light</Animation>
+  </Equipment>
+  <VisualActor>
+    <Actor>items/shield-light.xml</Actor>
+  </VisualActor>
 </Entity>

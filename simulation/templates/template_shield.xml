@@ -2,6 +2,7 @@
 <Entity parent="template_equipment">
   <Identity>
     <Classes datatype="tokens">Shield</Classes>
+	<Icon>technologies/shields_generic_wood.png</Icon>
   </Identity>
   <Equipment>
     <Type>armour-shield</Type>

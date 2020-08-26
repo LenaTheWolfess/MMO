@@ -164,6 +164,7 @@ g_SelectionPanels.Inventory = {
 			return [];
 		return unitEntStates[0].inventory.items;
 	},
+	"rowLength": 3,
 	"setupButton": function(data)
 	{
 		let entState = GetEntityState(data.item.id);
@@ -182,7 +183,7 @@ g_SelectionPanels.Inventory = {
 		data.button.enabled = true;
 		let modifier = "";
 		if (template.icon)
-			data.icon.sprite = modifier + "stretched:session/items" + template.icon;
+			data.icon.sprite = modifier + "stretched:session/portraits/" + template.icon;
 		let index = data.i + getNumberOfRightPanelButtons();
 		setPanelObjectPosition(data.button, index, data.rowLength);
 		
@@ -205,6 +206,8 @@ g_SelectionPanels.Bag = {
 	"setupButton": function(data)
 	{
 		let entState = GetEntityState(data.item.id);
+		if (entState == null)
+			return false;
 		let template = GetTemplateData(entState.template, data.player);
 		if (!template)
 			return false;
@@ -220,7 +223,7 @@ g_SelectionPanels.Bag = {
 		data.button.enabled = true;
 		let modifier = "";
 		if (template.icon)
-			data.icon.sprite = modifier + "stretched:session/items" + template.icon;
+			data.icon.sprite = modifier + "stretched:session/portraits/" + template.icon;
 		let index = data.i + getNumberOfRightPanelButtons();
 		setPanelObjectPosition(data.button, index, data.rowLength);
 		

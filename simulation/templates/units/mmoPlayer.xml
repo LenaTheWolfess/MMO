@@ -3,6 +3,7 @@
   <Identity>
     <SpecificName>Player</SpecificName>
     <Undeletable>true</Undeletable>
+	<Icon>technologies/helmet_hero_side.png</Icon>
   </Identity>
   <Garrisonable disable=""/>
   <VisualActor>

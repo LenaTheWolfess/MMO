@@ -7,10 +7,16 @@
     </variant>
   </group>
   <group>
-    <variant frequency="1" name="armour-helm-none">
+    <variant frequency="1"  name="armour-helm-none">
     </variant>
-    <variant name="armour-helm-cor">
-     <props><prop actor="props/units/helmets/hele_corinthian_leonidas.xml" attachpoint="helmet"/></props>
+    <variant name="armour-helm-light">
+     <props><prop actor="items/helm-light.xml" attachpoint="helmet"/></props>
+    </variant>
+    <variant name="armour-helm-medium">
+     <props><prop actor="items/helm-medium.xml" attachpoint="helmet"/></props>
+    </variant>
+    <variant name="armour-helm-heavy">
+     <props><prop actor="items/helm-heavy.xml" attachpoint="helmet"/></props>
     </variant>
   </group>
   <group>
@@ -32,8 +38,14 @@
   <group>
      <variant frequency="1" name="armour-shield-none">
      </variant>
-     <variant name="armour-shield-aspis">
-      <props><prop actor="props/units/shields/aspis_leonidas.xml" attachpoint="shield_arm"/></props>
+     <variant name="armour-shield-light">
+      <props><prop actor="items/shield-light.xml" attachpoint="shield_arm"/></props>
+     </variant>
+     <variant name="armour-shield-medium">
+      <props><prop actor="items/shield-medium.xml" attachpoint="shield_arm"/></props>
+     </variant>
+     <variant name="armour-shield-heavy">
+      <props><prop actor="items/shield-heavy.xml" attachpoint="shield_arm"/></props>
      </variant>
   </group>
   <group>
@@ -54,6 +66,7 @@
 	   <props>
         <prop actor="props/units/weapons/arrow_back.xml" attachpoint="weapon_R"/>
         <prop actor="props/units/weapons/bow_recurve.xml" attachpoint="weapon_bow"/>
+        <prop actor="props/units/quiver_hip.xml" attachpoint="sheath_L"/>
 	   </props>
 	 </variant>
   </group>
@@ -73,10 +86,22 @@
         <texture file="skeletal/hele_isp_b.dds" name="baseTex"/>
       </textures>
     </variant>
-    <variant name="armour-body-plate-gold">
+    <variant name="armour-body-heavy">
       <mesh>skeletal/new/m_armor_tunic_short.dae</mesh>
       <textures>
         <texture file="skeletal/hele_leonidas.dds" name="baseTex"/>
+      </textures>
+    </variant>
+	<variant name="armour-body-medium">
+      <mesh>skeletal/new/m_armor_tunic_short.dae</mesh>
+      <textures>
+        <texture file="skeletal/hele_isp_a_1.dds" name="baseTex"/>
+      </textures>
+    </variant>
+	<variant name="armour-body-light">
+      <mesh>skeletal/new/m_tunic_short.dae</mesh>
+      <textures>
+        <texture file="skeletal/hele_tunic_fur_1_c.png" name="baseTex"/>
       </textures>
     </variant>
   </group>

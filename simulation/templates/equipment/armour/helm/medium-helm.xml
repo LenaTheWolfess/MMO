@@ -5,5 +5,12 @@
   </Auras>
   <Identity>
     <SpecificName>Medium helm</SpecificName>
+	<Icon>technologies/helmet_corinthian_gold.png</Icon>
   </Identity>
+  <Equipment>
+    <Animation>armour-helm-medium</Animation>
+  </Equipment>
+  <VisualActor>
+    <Actor>items/helm-medium.xml</Actor>
+  </VisualActor>
 </Entity>

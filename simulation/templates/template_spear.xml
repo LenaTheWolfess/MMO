@@ -3,6 +3,7 @@
   <Identity>
     <SpecificName>Spear</SpecificName>
     <Classes datatype="tokens">Spear</Classes>
+	<Icon>technologies/spear.png</Icon>
   </Identity>
   <Equipment>
     <Type>weapon</Type>

@@ -2,6 +2,7 @@
 <Entity parent="template_item">
   <Identity>
     <Classes datatype="tokens">Food</Classes>
+	<Icon>technologies/gather_basket.png</Icon>
   </Identity>
   <Item>
     <Type>consume</Type>

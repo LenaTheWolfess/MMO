@@ -5,5 +5,12 @@
   </Auras>
   <Identity>
     <SpecificName>Medium shield</SpecificName>
+	<Icon>technologies/shields_generic_bronze_2.png</Icon>
   </Identity>
+  <Equipment>
+    <Animation>armour-shield-medium</Animation>
+  </Equipment>
+  <VisualActor>
+    <Actor>items/shield-medium.xml</Actor>
+  </VisualActor>
 </Entity>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Entity parent="template_unit">
+  <Capturable>
+    <CapturePoints>250</CapturePoints>
+    <GarrisonRegenRate>0</GarrisonRegenRate>
+    <RegenRate>0</RegenRate>
+  </Capturable>
+  <Cost disable=""/>
+  <Footprint replace="">
+    <Height>2.0</Height>
+    <Square width="5.0" depth="12.0"/>
+  </Footprint>
+  <Identity>
+    <Classes datatype="tokens">-Organic -ConquestCritical</Classes>
+    <VisibleClasses datatype="tokens">Relic</VisibleClasses>
+    <Formations disable=""/>
+    <Civ>pers</Civ>
+    <Lang>persian</Lang>
+    <GenericName>Phoenician Trireme</GenericName>
+    <SpecificName>Hamaraniyanava Vazarka</SpecificName>
+    <Icon>units/pers_ship_trireme.png</Icon>
+    <Undeletable>true</Undeletable>
+  </Identity>
+  <Minimap>
+    <Color r="148" g="0" b="211"/>
+  </Minimap>
+  <Position>
+    <Anchor>pitch-roll</Anchor>
+  </Position>
+  <ResourceGatherer disable=""/>
+  <Selectable>
+    <Overlay>
+      <Texture>
+        <MainTexture>128x256/cartouche.png</MainTexture>
+        <MainTextureMask>128x256/cartouche_mask.png</MainTextureMask>
+      </Texture>
+    </Overlay>
+  </Selectable>
+  <Sound>
+    <SoundGroups>
+      <order_walk>actor/singlesteps/steps_grass_order.xml</order_walk>
+      <run>actor/singlesteps/steps_grass.xml</run>
+      <select>attack/siege/siege_select.xml</select>
+      <walk>actor/singlesteps/steps_grass.xml</walk>
+    </SoundGroups>
+  </Sound>
+  <UnitAI>
+    <DefaultStance>standground</DefaultStance>
+    <CanGuard>false</CanGuard>
+  </UnitAI>
+  <UnitMotion>
+    <PassabilityClass>large</PassabilityClass>
+    <WalkSpeed op="mul">0.55</WalkSpeed>
+  </UnitMotion>
+  <VisualActor>
+    <Actor>structures/persians/trireme.xml</Actor>
+  </VisualActor>
+</Entity>

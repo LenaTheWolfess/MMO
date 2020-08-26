@@ -5,5 +5,12 @@
   </Auras>
   <Identity>
     <SpecificName>Light helm</SpecificName>
+	<Icon>technologies/helmet_corinthian_bronze.png</Icon>
   </Identity>
+  <Equipment>
+    <Animation>armour-helm-light</Animation>
+  </Equipment>
+  <VisualActor>
+    <Actor>items/helm-light.xml</Actor>
+  </VisualActor>
 </Entity>

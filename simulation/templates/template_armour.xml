@@ -2,6 +2,7 @@
 <Entity parent="template_equipment">
   <Identity>
     <Classes datatype="tokens">Armour</Classes>
+	<Icon>technologies/armor_cuirass_empire.png</Icon>
   </Identity>
   <Equipment>
     <Type>armour-body</Type>

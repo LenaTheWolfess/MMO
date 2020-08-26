@@ -6,4 +6,7 @@
   <Identity>
     <SpecificName>Heavy Armour</SpecificName>
   </Identity>
+  <Equipment>
+    <Animation>armour-body-heavy</Animation>
+  </Equipment>
 </Entity>

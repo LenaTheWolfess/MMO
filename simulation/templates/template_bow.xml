@@ -3,6 +3,7 @@
   <Identity>
     <SpecificName>Bow</SpecificName>
     <Classes datatype="tokens">Bow</Classes>
+	<Icon>technologies/arrow.png</Icon>
   </Identity>
   <Equipment>
     <Type>weapon</Type>

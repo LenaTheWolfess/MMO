@@ -6,4 +6,7 @@
   <Identity>
     <SpecificName>Medium Armour</SpecificName>
   </Identity>
+  <Equipment>
+    <Animation>armour-body-medium</Animation>
+  </Equipment>
 </Entity>

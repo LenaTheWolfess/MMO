@@ -2,6 +2,7 @@
 <Entity parent="template_equipment">
   <Identity>
     <Classes datatype="tokens">Helm</Classes>
+	<Icon>technologies/helmet_corinthian_bronze.png</Icon>
   </Identity>
   <Equipment>
     <Type>armour-helm</Type>
@@ -9,6 +10,6 @@
     <Animation>armour-helm-cor</Animation>
   </Equipment>
   <VisualActor>
-    <Actor>items/helm.xml</Actor>
+    <Actor>items/helm-heavy.xml</Actor>
   </VisualActor>
 </Entity>

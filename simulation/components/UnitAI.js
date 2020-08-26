@@ -395,7 +395,6 @@ UnitAI.prototype.UnitFsmSpec = {
 		// Check the target is alive
 		if (!this.TargetIsAlive(this.order.data.target))
 		{
-			warn("not alive");
 			this.FinishOrder();
 			return;
 		}
@@ -432,7 +431,6 @@ UnitAI.prototype.UnitFsmSpec = {
 				this.SetNextState("INDIVIDUAL.COMBAT.ATTACKING");
 			return;
 		}
-
 		// If we can't reach the target, but are standing ground, then abandon this attack order.
 		// Unless we're hunting, that's a special case where we should continue attacking our target.
 		if (this.GetStance().respondStandGround && !this.order.data.force && !this.order.data.hunting || this.IsTurret())
@@ -4459,7 +4457,6 @@ UnitAI.prototype.CheckTargetRange = function(target, iid, type)
 	if (!cmpRanged)
 		return false;
 	var range = cmpRanged.GetRange(type);
-
 	let cmpObstructionManager = Engine.QueryInterface(SYSTEM_ENTITY, IID_ObstructionManager);
 	return cmpObstructionManager.IsInTargetRange(this.entity, target, range.min, range.max, false);
 };

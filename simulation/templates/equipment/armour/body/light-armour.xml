@@ -6,4 +6,7 @@
   <Identity>
     <SpecificName>Light Armour</SpecificName>
   </Identity>
+  <Equipment>
+    <Animation>armour-body-light</Animation>
+  </Equipment>
 </Entity>

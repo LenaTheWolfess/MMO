@@ -28,6 +28,6 @@ Equipment.prototype.GetAnimation = function()
 }
 Equipment.prototype.CanBeStored = function()
 {
-	return false;
+	return true;
 }
 Engine.RegisterComponentType(IID_Equipment, "Equipment", Equipment);

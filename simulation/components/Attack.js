@@ -285,7 +285,9 @@ Attack.prototype.CanAttack = function(target, wantedTypes)
 		if (type == "Capture" && (!cmpCapturable || !cmpCapturable.CanCapture(entityOwner)))
 			continue;
 
-		if (heightDiff > this.GetRange(type).max)
+		let range = this.GetRange(type).max;
+		
+		if (!range || heightDiff > range)
 			continue;
 
 		let restrictedClasses = this.GetRestrictedClasses(type);

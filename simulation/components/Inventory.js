@@ -20,7 +20,7 @@ Inventory.prototype.UseItem = function(id) {
 		Engine.DestroyEntity(id);
 		const indx = this.bag.indexOf(id);
 		if (indx != -1)
-			this.bag[indx] = undefined;
+			this.bag.splice(indx, 1);
 	}
 }
 
@@ -48,12 +48,26 @@ Inventory.prototype.Add = function(id) {
 		}
 	}
 	if (!hasFreeRoom) {
-		warn("no place in inventory, nor can switch equipment");
+		warn("no place in inventory, nor can switch equipment " + this.bag.length + "/" + this.capacity);
 		return;
 	}
 	this.Take(id);
 	if (!this.items[type])
 		this.Equip(id, type);
+	
+//	this.debug();
+}
+
+Inventory.prototype.debug = function() {
+	const bag = this.GetBag();
+	warn("Bag:");
+	for (let x in bag) {
+		const identity = Engine.QueryInterface(bag[x].id, IID_Identity);
+		if (identity)
+			warn(x + " = " + identity.GetGenericName());
+		else
+			warn(x + " = " + bag[x].id);
+	}
 }
 
 Inventory.prototype.Use = function(id) {
@@ -80,10 +94,15 @@ Inventory.prototype.UnEquipSafe = function(id) {
 	const cmpEquipment = Engine.QueryInterface(id, IID_Equipment);
 	if (!cmpEquipment)
 		return;
-	const type = cmpEquipment.getType();
+	const type = cmpEquipment.GetType();
 	if (!this.items[type] || this.items[type] != id)
 		return;
-	this.UnEquip(type);
+	const idx = this.UnEquip(type);
+	if (idx) {
+		const cmpEquipmentX = Engine.QueryInterface(idx, IID_Equipment);
+		if (!cmpEquipmentX.CanBeStored())
+			this.Drop(idx);
+	}
 }
 
 Inventory.prototype.SwitchEquipment = function(id, type) {
@@ -149,7 +168,7 @@ Inventory.prototype.UnEquip = function(type) {
 	if (!id)
 		return;
 	this.RemoveBonus(id);
-	this.items[type] = undefined;
+	delete this.items[type];
 	const cmpVisual = Engine.QueryInterface(this.entity, IID_Visual);
 	if (!cmpVisual)
 		return id;
@@ -181,7 +200,7 @@ Inventory.prototype.Drop = function(id) {
 		return;
 	const indx = this.bag.indexOf(id);
 	if (indx != -1)
-		this.bag[indx] = undefined;
+		this.bag.splice(indx, 1);
 	const cmpPosition = Engine.QueryInterface(id, IID_Position);
 	if (!cmpPosition)
 		return;
@@ -198,10 +217,10 @@ Inventory.prototype.Drop = function(id) {
  * Do not call from elsewhere.
 */
 Inventory.prototype.DropAll = function() {
-	this.items = undefined;
+	this.items = [];
 	const cmpMyPosition = Engine.QueryInterface(this.entity, IID_Position);
 	if (!cmpMyPosition) {
-		this.bag = undefined;
+		this.bag = [];
 		return;
 	}
 	const pos = cmpMyPosition.GetPosition();
@@ -215,7 +234,7 @@ Inventory.prototype.DropAll = function() {
 			cmpPosition.SetHeightOffset(0);
 		}
 	}
-	this.bag = undefined;
+	this.bag = [];
 }
 
 Inventory.prototype.GetItems = function() {

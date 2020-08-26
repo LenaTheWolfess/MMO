@@ -3,6 +3,7 @@
   <Identity>
     <SpecificName>Cape</SpecificName>
     <Classes datatype="tokens">Cape</Classes>
+	<Icon>technologies/village_phase.png</Icon>
   </Identity>
   <Equipment>
     <Type>cape</Type>
