@@ -1,0 +1,11 @@
+  
+{
+	"type": "formation",
+	"affects": ["Hero"],
+	"modifications": [
+		{ "value": "Attack/Melee/Damage/Hack",   "add":   15},
+		{ "value": "Attack/Melee/MaxRange",   "add": 8}
+	],
+	"auraDescription": "Hack + 40",
+	"auraName": "Attack"
+}
