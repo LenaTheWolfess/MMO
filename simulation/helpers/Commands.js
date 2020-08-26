@@ -51,17 +51,6 @@ function ProcessCommand(player, cmd)
 }
 
 var g_Commands = {
-										   
-  
-					 
-   
-
-									
-  
-																			   
-																									  
-   
-
 	"aichat": function(player, cmd, data)
 	{
 		var cmpGuiInterface = Engine.QueryInterface(SYSTEM_ENTITY, IID_GuiInterface);
@@ -164,7 +153,24 @@ var g_Commands = {
 			cmpUnitAI.PickAndUse(cmd.target);
 		});
 	},
-			
+	"drop": function(player, cmd, data)
+	{
+		GetFormationUnitAIs(data.entities, player).forEach(cmpUnitAI => {
+			cmpUnitAI.DropItem(cmd.item);
+		});
+	},
+	"un-equip": function(player, cmd, data)
+	{
+		GetFormationUnitAIs(data.entities, player).forEach(cmpUnitAI => {
+			cmpUnitAI.UnEquipItem(cmd.item);
+		});
+	},
+	"use-item":  function(player, cmd, data)
+	{
+		GetFormationUnitAIs(data.entities, player).forEach(cmpUnitAI => {
+			cmpUnitAI.UseItem(cmd.item);
+		});
+	},
 	"walk-custom": function(player, cmd, data)
 	{
 		for (let ent in data.entities)
