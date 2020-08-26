@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Entity parent="template_sword">
   <Auras datatype="tokens">
-    mmo/weapons/sword_100
+    mmo/weapons/sword_40
   </Auras>
   <Identity>
-    <SpecificName>Legendary sword</SpecificName>
+    <SpecificName>Fine Iron sword</SpecificName>
   </Identity>
 </Entity>
