@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Entity parent="template_mmo_wall">
+  <Footprint>
+    <Square width="5" depth="3"/>
+    <Height>6</Height>
+  </Footprint>
+  <Obstruction>
+    <Static width="4" depth="2"/>
+  </Obstruction>
+  <VisualActor>
+    <Actor>structures/carthaginians/short_wall_short.xml</Actor>
+  </VisualActor>
+</Entity>

@@ -1,0 +1,5804 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Scenario version="6">
+	<Environment>
+		<SkySet>default</SkySet>
+		<SunColor r="0.74902" g="0.74902" b="0.74902"/>
+		<SunElevation angle="0.785398"/>
+		<SunRotation angle="5.49779"/>
+		<TerrainAmbientColor r="0.501961" g="0.501961" b="0.501961"/>
+		<UnitsAmbientColor r="0.501961" g="0.501961" b="0.501961"/>
+		<Fog>
+			<FogFactor>0</FogFactor>
+			<FogThickness>0.5</FogThickness>
+			<FogColor r="0.8" g="0.8" b="0.898039"/>
+		</Fog>
+		<Water>
+			<WaterBody>
+				<Type>ocean</Type>
+				<Color r="0.3" g="0.35" b="0.7"/>
+				<Tint r="0.28" g="0.3" b="0.59"/>
+				<Height>5</Height>
+				<Waviness>4</Waviness>
+				<Murkiness>0.45</Murkiness>
+				<WindAngle>0</WindAngle>
+			</WaterBody>
+		</Water>
+		<Postproc>
+			<Brightness>0</Brightness>
+			<Contrast>1</Contrast>
+			<Saturation>0.99</Saturation>
+			<Bloom>0.1999</Bloom>
+			<PostEffect>default</PostEffect>
+		</Postproc>
+	</Environment>
+	<Camera>
+		<Position x="288.309" y="468.189" z="1089.07"/>
+		<Rotation angle="2.5295"/>
+		<Declination angle="0.610864"/>
+	</Camera>
+	<ScriptSettings><![CDATA[
+{
+  "AISeed": 0,
+  "CircularMap": true,
+  "Description": "Give an interesting description of your map.",
+  "Keywords": [
+    "demo"
+  ],
+  "LockTeams": true,
+  "Name": "Dungeon",
+  "PlayerData": [
+    {
+      "Civ": "athen"
+    }
+  ],
+  "Preview": "",
+  "RevealMap": true,
+  "VictoryConditions": [
+    "regicide"
+  ]
+}
+]]></ScriptSettings>
+	<Entities>
+		<Entity uid="11">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="798.67524" z="185.87488"/>
+			<Orientation y="0.97275"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="12">
+			<Template>units/mmoPlayer</Template>
+			<Player>1</Player>
+			<Position x="818.51691" z="174.7682"/>
+			<Orientation y="2.35621"/>
+			<Actor seed="54566"/>
+		</Entity>
+		<Entity uid="13">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="813.284" z="196.99488"/>
+			<Orientation y="1.03518"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="14">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="790.66547" z="197.75614"/>
+			<Orientation y="0.97275"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="15">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="782.7721" z="209.33201"/>
+			<Orientation y="0.97275"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="16">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="774.91791" z="221.02335"/>
+			<Orientation y="0.97275"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="17">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="805.5279" z="209.31083"/>
+			<Orientation y="0.98977"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="18">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="797.94721" z="221.22895"/>
+			<Orientation y="0.98977"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="19">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="790.21711" z="233.0951"/>
+			<Orientation y="0.98977"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="20">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="650.49531" z="197.50861"/>
+			<Orientation y="0.93293"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="21">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="629.7342" z="130.09907"/>
+			<Orientation y="0.9159"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="22">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="675.57624" z="162.77744"/>
+			<Orientation y="0.97834"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="23">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="621.06226" z="141.50608"/>
+			<Orientation y="0.9159"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="24">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="612.52387" z="152.61475"/>
+			<Orientation y="0.9159"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="25">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="604.01801" z="163.84089"/>
+			<Orientation y="0.9159"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="26">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="667.13282" z="174.63279"/>
+			<Orientation y="0.93293"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="27">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="658.88715" z="186.10087"/>
+			<Orientation y="0.93293"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="28">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="673.60218" z="153.68317"/>
+			<Orientation y="2.51029"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="29">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="638.7071" z="128.8303"/>
+			<Orientation y="2.55571"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="30">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="650.61768" z="137.19599"/>
+			<Orientation y="2.51029"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="31">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="662.1396" z="145.36634"/>
+			<Orientation y="2.51029"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="32">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="640.96998" z="198.76404"/>
+			<Orientation y="2.51029"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="33">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="606.0749" z="173.91135"/>
+			<Orientation y="2.55571"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="34">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="617.98548" z="182.27686"/>
+			<Orientation y="2.51029"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="35">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="629.5074" z="190.44727"/>
+			<Orientation y="2.51029"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="36">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="814.80372" z="731.21723"/>
+			<Orientation y="0.90084"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="37">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="796.21601" z="663.17664"/>
+			<Orientation y="0.88381"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="38">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="840.98603" z="697.30884"/>
+			<Orientation y="0.94626"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="39">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="787.18256" z="674.2995"/>
+			<Orientation y="0.88381"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="40">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="778.29218" z="685.12848"/>
+			<Orientation y="0.88381"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="41">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="768.83338" z="695.23328"/>
+			<Orientation y="0.77973"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="42">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="832.16657" z="708.88721"/>
+			<Orientation y="0.90084"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="43">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="823.55726" z="720.08484"/>
+			<Orientation y="0.90084"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="44">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="839.30475" z="688.15595"/>
+			<Orientation y="2.4782"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="45">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="805.22504" z="662.19648"/>
+			<Orientation y="2.52363"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="46">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="816.86103" z="670.93982"/>
+			<Orientation y="2.4782"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="47">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="828.11493" z="679.47565"/>
+			<Orientation y="2.4782"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="52">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="765.08802" z="220.77833"/>
+			<Orientation y="2.48441"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="53">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="730.84766" z="195.03144"/>
+			<Orientation y="2.52982"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="54">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="742.53779" z="203.70221"/>
+			<Orientation y="2.48441"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="55">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="753.84449" z="212.16782"/>
+			<Orientation y="2.48441"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="56">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="825.13965" z="270.78058"/>
+			<Orientation y="2.42664"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="57">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="792.18274" z="243.40503"/>
+			<Orientation y="2.47205"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="58">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="803.61298" z="252.43094"/>
+			<Orientation y="2.42664"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="59">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="814.412" z="261.53516"/>
+			<Orientation y="2.42664"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="64">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="719.35035" z="186.51249"/>
+			<Orientation y="2.48441"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="65">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="685.11" z="160.76557"/>
+			<Orientation y="2.52982"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="66">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="696.80011" z="169.43635"/>
+			<Orientation y="2.48441"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="67">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="708.10682" z="177.90195"/>
+			<Orientation y="2.48441"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="68">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="628.32544" z="120.92516"/>
+			<Orientation y="2.48441"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="69">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="594.08509" z="95.17824"/>
+			<Orientation y="2.52982"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="70">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="605.77521" z="103.84902"/>
+			<Orientation y="2.48441"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="71">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="617.08191" z="112.31463"/>
+			<Orientation y="2.48441"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="72">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="582.58777" z="86.65932"/>
+			<Orientation y="2.48441"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="73">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="560.03754" z="69.58318"/>
+			<Orientation y="2.48441"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="74">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="571.34424" z="78.04876"/>
+			<Orientation y="2.48441"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="75">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="548.34742" z="60.91237"/>
+			<Orientation y="2.52982"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="76">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="915.53559" z="340.26362"/>
+			<Orientation y="2.47533"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="77">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="881.5304" z="314.20685"/>
+			<Orientation y="2.52074"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="78">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="893.14136" z="322.9834"/>
+			<Orientation y="2.47533"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="79">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="904.37073" z="331.55134"/>
+			<Orientation y="2.47533"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="80">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="870.11097" z="305.58387"/>
+			<Orientation y="2.47533"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="81">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="847.71668" z="288.30369"/>
+			<Orientation y="2.47533"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="82">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="858.94605" z="296.87159"/>
+			<Orientation y="2.47533"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="83">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="836.10578" z="279.52707"/>
+			<Orientation y="2.52074"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="84">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="514.33716" z="95.6027"/>
+			<Orientation y="0.90084"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="86">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="540.51941" z="61.69431"/>
+			<Orientation y="0.94626"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="90">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="531.69996" z="73.27265"/>
+			<Orientation y="0.90084"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="91">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="523.09058" z="84.47028"/>
+			<Orientation y="0.90084"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="96">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="504.77622" z="96.55192"/>
+			<Orientation y="2.4782"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="97">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="470.745" z="70.61525"/>
+			<Orientation y="2.52364"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="98">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="482.33256" z="79.33597"/>
+			<Orientation y="2.4782"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="99">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="493.58646" z="87.87183"/>
+			<Orientation y="2.4782"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="100">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="837.33198" z="379.01841"/>
+			<Orientation y="0.90084"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="101">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="695.6106" z="217.85224"/>
+			<Orientation y="0.88381"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="102">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="863.51429" z="345.11002"/>
+			<Orientation y="0.94626"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="103">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="686.8133" z="229.12903"/>
+			<Orientation y="0.88381"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="104">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="677.92292" z="239.95804"/>
+			<Orientation y="0.88381"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="105">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="669.06128" z="250.9055"/>
+			<Orientation y="0.88381"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="106">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="854.69483" z="356.68836"/>
+			<Orientation y="0.90084"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="107">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="846.08552" z="367.886"/>
+			<Orientation y="0.90084"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="108">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="772.698" z="267.5058"/>
+			<Orientation y="2.4782"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="109">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="738.6183" z="241.5464"/>
+			<Orientation y="2.52364"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="110">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="750.25428" z="250.28968"/>
+			<Orientation y="2.4782"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="111">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="761.50818" z="258.82554"/>
+			<Orientation y="2.4782"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="112">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="738.63624" z="311.51633"/>
+			<Orientation y="2.4782"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="113">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="704.55652" z="285.5571"/>
+			<Orientation y="2.52364"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="114">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="716.19251" z="294.30039"/>
+			<Orientation y="2.4782"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="115">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="727.44642" z="302.83625"/>
+			<Orientation y="2.4782"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="116">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="795.99946" z="284.78281"/>
+			<Orientation y="2.4782"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="117">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="807.25336" z="293.31867"/>
+			<Orientation y="2.4782"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="118">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="818.44318" z="301.99894"/>
+			<Orientation y="2.4782"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="119">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="784.36347" z="276.03956"/>
+			<Orientation y="2.52364"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="120">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="840.93317" z="318.52424"/>
+			<Orientation y="2.4782"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="121">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="852.18708" z="327.0601"/>
+			<Orientation y="2.4782"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="122">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="863.3769" z="335.74036"/>
+			<Orientation y="2.4782"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="123">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="829.29719" z="309.78098"/>
+			<Orientation y="2.52364"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="124">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="760.87452" z="328.43604"/>
+			<Orientation y="2.4782"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="125">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="772.12842" z="336.9719"/>
+			<Orientation y="2.4782"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="126">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="783.31824" z="345.65217"/>
+			<Orientation y="2.4782"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="127">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="749.23853" z="319.69278"/>
+			<Orientation y="2.52364"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="128">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="805.80823" z="362.17746"/>
+			<Orientation y="2.4782"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="129">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="817.06214" z="370.71332"/>
+			<Orientation y="2.4782"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="130">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="828.25196" z="379.3936"/>
+			<Orientation y="2.4782"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="131">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="794.17225" z="353.43421"/>
+			<Orientation y="2.52364"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="140">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="705.12763" z="215.9969"/>
+			<Orientation y="2.4782"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="141">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="716.38154" z="224.53275"/>
+			<Orientation y="2.4782"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="142">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="727.57136" z="233.21302"/>
+			<Orientation y="2.4782"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="143">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="681.9292" z="268.97278"/>
+			<Orientation y="2.52364"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="144">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="693.5652" z="277.71607"/>
+			<Orientation y="2.4782"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="145">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="670.63367" z="261.2251"/>
+			<Orientation y="2.52364"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="182">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="961.24897" z="375.05805"/>
+			<Orientation y="2.48215"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="183">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="801.58246" z="518.46644"/>
+			<Orientation y="2.46512"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="184">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="927.06708" z="349.23383"/>
+			<Orientation y="2.52758"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="185">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="812.95112" z="527.14466"/>
+			<Orientation y="2.46512"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="186">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="823.87305" z="535.92066"/>
+			<Orientation y="2.46512"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="187">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="834.91315" z="544.66663"/>
+			<Orientation y="2.46512"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="188">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="938.73755" z="357.93104"/>
+			<Orientation y="2.48215"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="189">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="950.02515" z="366.4221"/>
+			<Orientation y="2.48215"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="191">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="824.82294" z="475.21229"/>
+			<Orientation y="4.10495"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="194">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="894.78876" z="474.45835"/>
+			<Orientation y="4.05951"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="195">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="869.18946" z="508.80887"/>
+			<Orientation y="4.10495"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="196">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="877.80988" z="497.0818"/>
+			<Orientation y="4.05951"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="197">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="886.22687" z="485.73881"/>
+			<Orientation y="4.05951"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="198">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="867.45337" z="417.3795"/>
+			<Orientation y="4.05951"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="199">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="858.83301" z="429.10682"/>
+			<Orientation y="4.10495"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="200">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="911.47364" z="452.04334"/>
+			<Orientation y="4.05951"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="201">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="919.89063" z="440.70026"/>
+			<Orientation y="4.05951"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="202">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="928.4527" z="429.41977"/>
+			<Orientation y="4.05951"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="203">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="902.85328" z="463.77063"/>
+			<Orientation y="4.10495"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="204">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="944.74054" z="406.75721"/>
+			<Orientation y="4.05951"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="205">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="953.15754" z="395.41413"/>
+			<Orientation y="4.05951"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="206">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="961.71967" z="384.13361"/>
+			<Orientation y="4.05951"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="207">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="936.12018" z="418.4845"/>
+			<Orientation y="4.10495"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="208">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="799.62714" z="508.96949"/>
+			<Orientation y="4.05951"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="209">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="808.04407" z="497.62671"/>
+			<Orientation y="4.05951"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="210">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="816.60621" z="486.34623"/>
+			<Orientation y="4.05951"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="211">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="852.84406" z="531.60938"/>
+			<Orientation y="4.10495"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="212">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="861.46448" z="519.88209"/>
+			<Orientation y="4.05951"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="213">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="845.21564" z="542.98584"/>
+			<Orientation y="4.10495"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="214">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="875.87037" z="406.03644"/>
+			<Orientation y="4.05951"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="215">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="884.43244" z="394.75593"/>
+			<Orientation y="4.05951"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="216">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="900.72028" z="372.09336"/>
+			<Orientation y="4.05951"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="217">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="909.13727" z="360.75031"/>
+			<Orientation y="4.05951"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="218">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="917.69941" z="349.4698"/>
+			<Orientation y="4.05951"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="219">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="892.09992" z="383.82068"/>
+			<Orientation y="4.10495"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="220">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="623.56794" z="220.66709"/>
+			<Orientation y="2.47278"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="221">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="395.37961" z="458.9834"/>
+			<Orientation y="2.45575"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="222">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="589.62934" z="194.52396"/>
+			<Orientation y="2.51821"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="223">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="406.84284" z="467.7146"/>
+			<Orientation y="2.45575"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="224">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="417.68213" z="476.59247"/>
+			<Orientation y="2.45575"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="225">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="428.56327" z="485.47693"/>
+			<Orientation y="2.45575"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="226">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="601.21784" z="203.33005"/>
+			<Orientation y="2.47278"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="227">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="612.42542" z="211.92643"/>
+			<Orientation y="2.47278"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="229">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="486.21009" z="319.53913"/>
+			<Orientation y="4.09559"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="232">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="557.83332" z="320.67627"/>
+			<Orientation y="4.32891"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="236">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="529.38013" z="262.10804"/>
+			<Orientation y="4.05015"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="237">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="521.34803" z="273.3827"/>
+			<Orientation y="4.09559"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="238">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="573.07392" z="297.18256"/>
+			<Orientation y="4.05015"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="241">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="564.34412" z="308.82862"/>
+			<Orientation y="4.09559"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="242">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="691.6521" z="302.28675"/>
+			<Orientation y="3.7486"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="243">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="702.31641" z="293.04624"/>
+			<Orientation y="3.96933"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="246">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="460.69928" z="353.05927"/>
+			<Orientation y="4.05015"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="247">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="469.22211" z="341.79554"/>
+			<Orientation y="4.05015"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="248">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="477.88944" z="330.59571"/>
+			<Orientation y="4.05015"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="249">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="515.89368" z="378.43934"/>
+			<Orientation y="3.9527"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="250">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="525.51044" z="368.06214"/>
+			<Orientation y="3.98418"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="251">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="506.42914" z="388.66517"/>
+			<Orientation y="3.95373"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="252">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="537.90296" z="250.84461"/>
+			<Orientation y="4.05015"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="253">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="546.57032" z="239.64481"/>
+			<Orientation y="4.05015"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="254">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="563.06965" z="217.13578"/>
+			<Orientation y="4.05015"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="255">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="571.59253" z="205.87201"/>
+			<Orientation y="4.05015"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="256">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="580.25983" z="194.67219"/>
+			<Orientation y="4.05015"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="257">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="554.33979" z="228.78187"/>
+			<Orientation y="4.09559"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="258">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="481.95478" z="119.66102"/>
+			<Orientation y="2.47278"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="259">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="320.95243" z="261.56809"/>
+			<Orientation y="2.45575"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="260">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="448.01618" z="93.51789"/>
+			<Orientation y="2.51821"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="261">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="332.23938" z="270.3524"/>
+			<Orientation y="2.45575"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="262">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="343.07868" z="279.23026"/>
+			<Orientation y="2.45575"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="263">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="354.03638" z="288.0792"/>
+			<Orientation y="2.45575"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="264">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="459.60468" z="102.32398"/>
+			<Orientation y="2.47278"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="265">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="470.81226" z="110.92038"/>
+			<Orientation y="2.47278"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="266">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="370.51691" z="184.42338"/>
+			<Orientation y="4.05016"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="268">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="353.32673" z="206.887"/>
+			<Orientation y="4.05016"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="269">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="361.84958" z="195.6232"/>
+			<Orientation y="4.05016"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="271">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="388.64692" z="252.54398"/>
+			<Orientation y="4.0956"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="274">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="387.76697" z="161.10196"/>
+			<Orientation y="4.05016"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="275">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="379.03718" z="172.74808"/>
+			<Orientation y="4.0956"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="276">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="431.46076" z="196.17649"/>
+			<Orientation y="4.05016"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="277">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="438.64667" z="93.66614"/>
+			<Orientation y="4.05016"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="278">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="439.98359" z="184.9127"/>
+			<Orientation y="4.05016"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="279">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="448.65094" z="173.71287"/>
+			<Orientation y="4.05016"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="281">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="465.15027" z="151.20408"/>
+			<Orientation y="4.05016"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="282">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="473.6731" z="139.9404"/>
+			<Orientation y="4.05016"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="283">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="482.34046" z="128.74058"/>
+			<Orientation y="4.05016"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="284">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="456.42048" z="162.84989"/>
+			<Orientation y="4.0956"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="288">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="372.08875" z="275.1904"/>
+			<Orientation y="4.0956"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="289">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="380.81861" z="263.54435"/>
+			<Orientation y="4.05016"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="290">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="364.35413" z="286.49491"/>
+			<Orientation y="4.0956"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="291">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="396.2898" z="149.83854"/>
+			<Orientation y="4.05016"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="292">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="404.95716" z="138.63874"/>
+			<Orientation y="4.05016"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="293">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="421.45649" z="116.1297"/>
+			<Orientation y="4.05016"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="294">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="429.97938" z="104.86594"/>
+			<Orientation y="4.05016"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="295">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="412.72663" z="127.77582"/>
+			<Orientation y="4.0956"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="296">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="375.1908" z="116.22065"/>
+			<Orientation y="4.05016"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="297">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="400.21302" z="82.44785"/>
+			<Orientation y="4.05016"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="298">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="323.56037" z="184.46891"/>
+			<Orientation y="4.05016"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="299">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="340.75055" z="162.00532"/>
+			<Orientation y="4.05016"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="300">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="358.00062" z="138.68387"/>
+			<Orientation y="4.05016"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="301">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="291.18607" z="239.15"/>
+			<Orientation y="2.45575"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="302">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="314.83057" z="196.115"/>
+			<Orientation y="4.0956"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="303">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="332.08323" z="173.20511"/>
+			<Orientation y="4.05016"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="304">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="349.27082" z="150.33"/>
+			<Orientation y="4.0956"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="305">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="408.88032" z="71.24805"/>
+			<Orientation y="4.05016"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="306">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="289.31977" z="229.63514"/>
+			<Orientation y="4.05016"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="307">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="297.8426" z="218.37137"/>
+			<Orientation y="4.05016"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="308">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="306.50992" z="207.17157"/>
+			<Orientation y="4.05016"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="309">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="366.52344" z="127.42048"/>
+			<Orientation y="4.05016"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="310">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="391.69013" z="93.71161"/>
+			<Orientation y="4.05016"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="311">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="382.96027" z="105.35773"/>
+			<Orientation y="4.0956"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="312">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="301.73053" z="247.63471"/>
+			<Orientation y="2.45575"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="313">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="310.51401" z="254.15302"/>
+			<Orientation y="2.45575"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="315">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="436.42637" z="47.2828"/>
+			<Orientation y="2.75274"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="316">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="447.93647" z="53.68514"/>
+			<Orientation y="2.4782"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="317">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="459.12623" z="62.36522"/>
+			<Orientation y="2.4782"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="318">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="426.07551" z="49.67946"/>
+			<Orientation y="4.05016"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="319">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="417.40821" z="60.87928"/>
+			<Orientation y="4.05016"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="320">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="989.74024" z="491.08838"/>
+			<Orientation y="2.47278"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="321">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="828.73792" z="632.99549"/>
+			<Orientation y="2.45575"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="322">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="955.52332" z="465.06684"/>
+			<Orientation y="2.51821"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="323">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="840.02485" z="641.7798"/>
+			<Orientation y="2.45575"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="324">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="850.86414" z="650.6576"/>
+			<Orientation y="2.45575"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="325">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="861.82184" z="659.5066"/>
+			<Orientation y="2.45575"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="326">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="967.39014" z="473.75135"/>
+			<Orientation y="2.47278"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="327">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="978.59772" z="482.34775"/>
+			<Orientation y="2.47278"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="328">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="878.30237" z="555.85071"/>
+			<Orientation y="4.05016"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="329">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="852.3824" z="589.96045"/>
+			<Orientation y="4.0956"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="330">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="861.11219" z="578.31434"/>
+			<Orientation y="4.05016"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="331">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="869.63501" z="567.05054"/>
+			<Orientation y="4.05016"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="332">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="922.35224" z="589.8617"/>
+			<Orientation y="4.05016"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="333">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="896.43238" z="623.97132"/>
+			<Orientation y="4.0956"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="334">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="905.16224" z="612.3252"/>
+			<Orientation y="4.05016"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="335">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="913.68506" z="601.06153"/>
+			<Orientation y="4.05016"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="336">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="895.55243" z="532.5293"/>
+			<Orientation y="4.05016"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="337">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="886.82264" z="544.17542"/>
+			<Orientation y="4.0956"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="338">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="939.24622" z="567.60389"/>
+			<Orientation y="4.05016"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="339">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="946.43213" z="465.09351"/>
+			<Orientation y="4.05016"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="340">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="947.76905" z="556.3401"/>
+			<Orientation y="4.05016"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="341">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="956.43641" z="545.14026"/>
+			<Orientation y="4.05016"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="342">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="930.51642" z="579.24988"/>
+			<Orientation y="4.0956"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="343">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="972.93573" z="522.63147"/>
+			<Orientation y="4.05016"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="344">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="981.45856" z="511.36777"/>
+			<Orientation y="4.05016"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="345">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="990.12592" z="500.16794"/>
+			<Orientation y="4.05016"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="346">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="964.20594" z="534.27723"/>
+			<Orientation y="4.0956"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="347">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="826.87159" z="623.4806"/>
+			<Orientation y="4.05016"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="348">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="835.39441" z="612.2168"/>
+			<Orientation y="4.05016"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="349">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="844.06177" z="601.01697"/>
+			<Orientation y="4.05016"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="350">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="879.87421" z="646.6178"/>
+			<Orientation y="4.0956"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="351">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="888.60407" z="634.97168"/>
+			<Orientation y="4.05016"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="352">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="872.1396" z="657.92225"/>
+			<Orientation y="4.0956"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="353">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="904.07526" z="521.26587"/>
+			<Orientation y="4.05016"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="354">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="912.74262" z="510.06611"/>
+			<Orientation y="4.05016"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="355">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="929.24195" z="487.55707"/>
+			<Orientation y="4.05016"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="356">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="937.76484" z="476.29331"/>
+			<Orientation y="4.05016"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="357">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="920.5121" z="499.2032"/>
+			<Orientation y="4.0956"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="358">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="926.37739" z="443.0247"/>
+			<Orientation y="2.51821"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="359">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="949.45179" z="460.30561"/>
+			<Orientation y="2.47278"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="360">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="938.24421" z="451.7092"/>
+			<Orientation y="2.47278"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="361">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="795.79761" z="609.53486"/>
+			<Orientation y="0.90084"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="362">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="777.2099" z="541.49427"/>
+			<Orientation y="0.88381"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="363">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="821.97992" z="575.62647"/>
+			<Orientation y="0.94626"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="364">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="768.17646" z="552.61713"/>
+			<Orientation y="0.88381"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="365">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="759.28608" z="563.44611"/>
+			<Orientation y="0.88381"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="366">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="750.42444" z="574.39356"/>
+			<Orientation y="0.88381"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="367">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="813.16047" z="587.20484"/>
+			<Orientation y="0.90084"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="368">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="804.55115" z="598.40247"/>
+			<Orientation y="0.90084"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="369">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="820.29865" z="566.47358"/>
+			<Orientation y="2.4782"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="370">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="786.21894" z="540.5141"/>
+			<Orientation y="2.52364"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="371">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="797.85492" z="549.25745"/>
+			<Orientation y="2.4782"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="372">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="809.10883" z="557.79328"/>
+			<Orientation y="2.4782"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="373">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="726.9444" z="507.36115"/>
+			<Orientation y="2.4782"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="374">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="692.8647" z="481.40195"/>
+			<Orientation y="2.52364"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="375">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="704.50068" z="490.14524"/>
+			<Orientation y="2.4782"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="376">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="715.75458" z="498.68113"/>
+			<Orientation y="2.4782"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="377">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="727.70984" z="460.0637"/>
+			<Orientation y="2.4782"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="378">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="738.96375" z="468.59964"/>
+			<Orientation y="2.4782"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="379">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="750.15357" z="477.2797"/>
+			<Orientation y="2.4782"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="380">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="716.07386" z="451.32041"/>
+			<Orientation y="2.52364"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="381">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="678.66504" z="706.73505"/>
+			<Orientation y="2.4782"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="382">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="689.91895" z="715.271"/>
+			<Orientation y="2.4782"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="383">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="701.10877" z="723.95105"/>
+			<Orientation y="2.4782"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="384">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="667.02906" z="697.99177"/>
+			<Orientation y="2.52364"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="385">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="755.19593" z="665.55805"/>
+			<Orientation y="0.90084"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="386">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="764.31104" z="654.58942"/>
+			<Orientation y="0.90084"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="387">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="773.1305" z="643.01105"/>
+			<Orientation y="0.94626"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="390">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="746.297" z="676.76636"/>
+			<Orientation y="0.92777"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="402">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="979.45215" z="608.90711"/>
+			<Orientation y="4.0956"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="403">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="895.12043" z="721.24769"/>
+			<Orientation y="4.0956"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="404">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="996.70478" z="585.99769"/>
+			<Orientation y="4.05016"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="405">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="887.38581" z="732.55213"/>
+			<Orientation y="4.0956"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="407">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="937.59845" z="664.49158"/>
+			<Orientation y="4.05016"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="408">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="911.6786" z="698.6012"/>
+			<Orientation y="4.0956"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="409">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="920.40845" z="686.95508"/>
+			<Orientation y="4.05016"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="410">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="928.93128" z="675.69141"/>
+			<Orientation y="4.05016"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="411">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="954.49244" z="642.23377"/>
+			<Orientation y="4.05016"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="412">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="963.01526" z="630.96998"/>
+			<Orientation y="4.05016"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="413">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="971.68262" z="619.77015"/>
+			<Orientation y="4.05016"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="414">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="945.76264" z="653.87977"/>
+			<Orientation y="4.0956"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="415">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="988.18195" z="597.26136"/>
+			<Orientation y="4.05016"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="417">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="903.85029" z="709.60157"/>
+			<Orientation y="4.05016"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="418">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="995.07648" z="576.40717"/>
+			<Orientation y="2.4782"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="419">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="983.88666" z="567.72687"/>
+			<Orientation y="2.4782"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="420">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="960.99677" z="550.4477"/>
+			<Orientation y="2.52364"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="421">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="972.63276" z="559.19105"/>
+			<Orientation y="2.4782"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="422">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="828.94459" z="810.61438"/>
+			<Orientation y="4.05016"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="423">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="778.73194" z="878.67493"/>
+			<Orientation y="4.0956"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="424">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="879.52808" z="743.38416"/>
+			<Orientation y="4.05016"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="425">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="811.75458" z="833.07789"/>
+			<Orientation y="4.05016"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="426">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="786.46656" z="867.37049"/>
+			<Orientation y="4.0956"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="427">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="863.02875" z="765.89295"/>
+			<Orientation y="4.05016"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="428">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="795.19642" z="855.72437"/>
+			<Orientation y="4.05016"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="429">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="870.79828" z="755.02991"/>
+			<Orientation y="4.0956"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="430">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="803.02472" z="844.724"/>
+			<Orientation y="4.0956"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="431">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="820.27741" z="821.81421"/>
+			<Orientation y="4.05016"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="432">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="845.83857" z="788.35657"/>
+			<Orientation y="4.05016"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="433">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="854.3614" z="777.09278"/>
+			<Orientation y="4.05016"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="434">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="837.10877" z="800.00257"/>
+			<Orientation y="4.0956"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="435">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="849.48163" z="765.01545"/>
+			<Orientation y="2.4782"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="436">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="827.03791" z="747.79944"/>
+			<Orientation y="2.4782"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="437">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="815.40192" z="739.05616"/>
+			<Orientation y="2.52364"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="438">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="838.29181" z="756.3354"/>
+			<Orientation y="2.4782"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="439">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="854.08185" z="768.13276"/>
+			<Orientation y="2.4782"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="440">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="432.93845" z="204.82007"/>
+			<Orientation y="2.52364"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="441">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="444.52601" z="213.54081"/>
+			<Orientation y="2.4782"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="442">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="455.77991" z="222.07667"/>
+			<Orientation y="2.4782"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="443">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="466.96967" z="230.75675"/>
+			<Orientation y="2.4782"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="444">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="477.27894" z="239.15445"/>
+			<Orientation y="2.52364"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="445">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="488.8665" z="247.87516"/>
+			<Orientation y="2.4782"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="446">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="500.1204" z="256.41105"/>
+			<Orientation y="2.4782"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="447">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="511.31016" z="265.0911"/>
+			<Orientation y="2.4782"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="448">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="397.30634" z="251.06067"/>
+			<Orientation y="2.52364"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="449">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="408.8939" z="259.78138"/>
+			<Orientation y="2.4782"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="450">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="420.1478" z="268.31727"/>
+			<Orientation y="2.4782"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="451">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="431.33756" z="276.99732"/>
+			<Orientation y="2.4782"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="452">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="441.76719" z="285.20002"/>
+			<Orientation y="2.52364"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="453">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="453.35474" z="293.92072"/>
+			<Orientation y="2.4782"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="454">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="464.60865" z="302.45661"/>
+			<Orientation y="2.4782"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="455">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="475.92176" z="311.42331"/>
+			<Orientation y="2.4782"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="456">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="480.33213" z="314.72934"/>
+			<Orientation y="2.4782"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="457">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="515.33924" z="268.66532"/>
+			<Orientation y="2.4782"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="462">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="700.73511" z="321.84412"/>
+			<Orientation y="2.3074"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="465">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="690.75464" z="311.25025"/>
+			<Orientation y="2.35283"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="466">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="748.12763" z="357.72327"/>
+			<Orientation y="2.4782"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="467">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="759.38154" z="366.25913"/>
+			<Orientation y="2.4782"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="486">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="770.40027" z="375.03806"/>
+			<Orientation y="2.4782"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="487">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="815.33399" z="408.77948"/>
+			<Orientation y="2.4782"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="488">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="781.5901" z="383.71833"/>
+			<Orientation y="2.4782"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="489">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="804.08008" z="400.24363"/>
+			<Orientation y="2.4782"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="490">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="792.4441" z="391.50037"/>
+			<Orientation y="2.52364"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="491">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="825.42133" z="416.79853"/>
+			<Orientation y="2.4782"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="493">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="837.47663" z="425.2609"/>
+			<Orientation y="2.55062"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="495">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="849.09314" z="431.59174"/>
+			<Orientation y="2.7334"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="496">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="753.04725" z="414.68537"/>
+			<Orientation y="2.4782"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="498">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="730.15735" z="397.40625"/>
+			<Orientation y="2.52364"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="500">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="662.84803" z="346.68625"/>
+			<Orientation y="2.52364"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="501">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="797.98096" z="448.4268"/>
+			<Orientation y="2.4782"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="502">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="719.55506" z="389.2298"/>
+			<Orientation y="2.4782"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="504">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="741.79334" z="406.14951"/>
+			<Orientation y="2.4782"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="505">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="764.23707" z="423.36564"/>
+			<Orientation y="2.4782"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="506">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="786.72706" z="439.89094"/>
+			<Orientation y="2.4782"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="507">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="775.09107" z="431.14768"/>
+			<Orientation y="2.52364"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="508">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="674.48401" z="355.42954"/>
+			<Orientation y="2.4782"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="509">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="808.9997" z="457.20572"/>
+			<Orientation y="2.4782"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="510">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="820.18952" z="465.886"/>
+			<Orientation y="2.4782"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="511">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="651.5525" z="338.93857"/>
+			<Orientation y="2.52364"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="512">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="607.71613" z="307.184"/>
+			<Orientation y="2.52364"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="513">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="641.63898" z="331.516"/>
+			<Orientation y="2.52364"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="514">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="619.01166" z="314.93168"/>
+			<Orientation y="2.52364"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="515">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="630.64765" z="323.67496"/>
+			<Orientation y="2.4782"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="517">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="597.23725" z="299.40683"/>
+			<Orientation y="2.52364"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="519">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="584.70167" z="293.33405"/>
+			<Orientation y="2.84989"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="520">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="684.34406" z="353.45905"/>
+			<Orientation y="0.81981"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="521">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="693.88776" z="343.10074"/>
+			<Orientation y="0.81981"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="522">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="702.25965" z="332.08518"/>
+			<Orientation y="1.03895"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="523">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="718.84412" z="380.74412"/>
+			<Orientation y="0.8272"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="524">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="728.31092" z="370.31559"/>
+			<Orientation y="0.8272"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="525">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="737.79975" z="360.00693"/>
+			<Orientation y="0.8272"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="526">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="821.56617" z="195.55463"/>
+			<Orientation y="2.47205"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="527">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="832.9964" z="204.58054"/>
+			<Orientation y="2.42664"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="528">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="843.79542" z="213.68476"/>
+			<Orientation y="2.42664"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="529">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="854.52308" z="222.93018"/>
+			<Orientation y="2.42664"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="530">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="877.1001" z="240.45328"/>
+			<Orientation y="2.47533"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="531">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="899.4944" z="257.73346"/>
+			<Orientation y="2.47533"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="532">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="865.4892" z="231.67667"/>
+			<Orientation y="2.52074"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="533">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="888.32947" z="249.02118"/>
+			<Orientation y="2.47533"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="534">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="910.91382" z="266.35645"/>
+			<Orientation y="2.52074"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="535">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="922.52479" z="275.133"/>
+			<Orientation y="2.47533"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="536">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="933.75416" z="283.70093"/>
+			<Orientation y="2.47533"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="537">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="684.60346" z="89.03888"/>
+			<Orientation y="2.47205"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="538">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="696.0337" z="98.0648"/>
+			<Orientation y="2.42664"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="539">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="706.83271" z="107.16901"/>
+			<Orientation y="2.42664"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="540">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="717.56037" z="116.41443"/>
+			<Orientation y="2.42664"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="541">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="740.1374" z="133.93754"/>
+			<Orientation y="2.47533"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="542">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="762.53168" z="151.21772"/>
+			<Orientation y="2.47533"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="543">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="728.5265" z="125.16092"/>
+			<Orientation y="2.52074"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="544">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="751.36677" z="142.50544"/>
+			<Orientation y="2.47533"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="545">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="773.95112" z="159.8407"/>
+			<Orientation y="2.52074"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="546">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="785.56208" z="168.61725"/>
+			<Orientation y="2.47533"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="547">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="796.79145" z="177.18519"/>
+			<Orientation y="2.47533"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="548">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="693.55951" z="70.7293"/>
+			<Orientation y="3.87191"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="549">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="683.17365" z="80.93963"/>
+			<Orientation y="3.91732"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="550">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="703.9441" z="61.15503"/>
+			<Orientation y="3.87191"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="551">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="714.45978" z="51.66926"/>
+			<Orientation y="3.87191"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="552">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="952.86976" z="269.92316"/>
+			<Orientation y="3.99044"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="553">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="943.76404" z="281.2899"/>
+			<Orientation y="4.03585"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="554">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="962.04944" z="259.18818"/>
+			<Orientation y="3.99044"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="555">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="971.36976" z="248.52558"/>
+			<Orientation y="3.99044"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="556">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="643.40076" z="237.60044"/>
+			<Orientation y="2.39678"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="557">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="653.92322" z="247.02305"/>
+			<Orientation y="2.39678"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="558">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="663.8968" z="256.08588"/>
+			<Orientation y="2.43502"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="559">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="632.51441" z="227.93985"/>
+			<Orientation y="2.4422"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="562">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="779.87006" z="632.02588"/>
+			<Orientation y="0.96471"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="563">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="787.89521" z="620.35749"/>
+			<Orientation y="0.96471"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="564">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="672.27063" z="418.03916"/>
+			<Orientation y="2.52364"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="565">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="649.06147" z="448.1207"/>
+			<Orientation y="2.52364"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="566">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="695.16053" z="435.3184"/>
+			<Orientation y="2.4782"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="567">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="671.95136" z="465.39988"/>
+			<Orientation y="2.4782"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="568">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="683.14118" z="474.0799"/>
+			<Orientation y="2.4782"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="569">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="660.69745" z="456.86399"/>
+			<Orientation y="2.4782"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="570">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="683.90662" z="426.78245"/>
+			<Orientation y="2.4782"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="571">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="706.35035" z="443.99845"/>
+			<Orientation y="2.4782"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="572">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="626.3653" z="383.15143"/>
+			<Orientation y="2.52364"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="573">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="603.15613" z="413.23298"/>
+			<Orientation y="2.52364"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="574">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="649.2552" z="400.43067"/>
+			<Orientation y="2.4782"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="575">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="559.35291" z="379.95173"/>
+			<Orientation y="2.52364"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="576">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="626.04603" z="430.51215"/>
+			<Orientation y="2.4782"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="577">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="605.45197" z="367.14942"/>
+			<Orientation y="2.4782"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="578">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="594.19806" z="358.61347"/>
+			<Orientation y="2.4782"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="579">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="570.9889" z="388.69501"/>
+			<Orientation y="2.4782"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="580">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="637.23584" z="439.19217"/>
+			<Orientation y="2.4782"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="581">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="614.79212" z="421.97626"/>
+			<Orientation y="2.4782"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="582">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="638.00129" z="391.89472"/>
+			<Orientation y="2.4782"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="583">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="660.44501" z="409.11072"/>
+			<Orientation y="2.4782"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="584">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="582.2428" z="397.2309"/>
+			<Orientation y="2.4782"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="585">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="616.64179" z="375.82947"/>
+			<Orientation y="2.4782"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="586">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="582.56208" z="349.87018"/>
+			<Orientation y="2.52364"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="587">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="593.43262" z="405.91092"/>
+			<Orientation y="2.4782"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="588">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="560.4803" z="332.43226"/>
+			<Orientation y="2.43119"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="590">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="547.97693" z="371.54291"/>
+			<Orientation y="2.4782"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="591">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="571.1861" z="341.46137"/>
+			<Orientation y="2.4782"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="594">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="536.38917" z="364.91196"/>
+			<Orientation y="2.74558"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="596">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="743.44349" z="497.29181"/>
+			<Orientation y="4.05951"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="597">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="735.02656" z="508.63459"/>
+			<Orientation y="4.05951"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="598">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="752.00562" z="486.01133"/>
+			<Orientation y="4.05951"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="599">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="746.72388" z="686.83075"/>
+			<Orientation y="2.44205"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="601">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="757.93274" z="696.21271"/>
+			<Orientation y="2.4782"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="603">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="579.40961" z="452.68494"/>
+			<Orientation y="0.75824"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="605">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="569.26935" z="462.77128"/>
+			<Orientation y="0.75824"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="606">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="559.09284" z="472.40165"/>
+			<Orientation y="0.75824"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="607">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="548.93" z="482.1532"/>
+			<Orientation y="0.75824"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="610">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="657.43354" z="502.99418"/>
+			<Orientation y="2.4782"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="611">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="623.35383" z="477.0348"/>
+			<Orientation y="2.52364"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="612">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="634.98981" z="485.77805"/>
+			<Orientation y="2.4782"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="613">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="646.24372" z="494.31391"/>
+			<Orientation y="2.4782"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="618">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="680.735" z="520.27118"/>
+			<Orientation y="2.4782"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="619">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="691.9889" z="528.80707"/>
+			<Orientation y="2.4782"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="620">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="703.17872" z="537.48731"/>
+			<Orientation y="2.4782"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="621">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="669.099" z="511.52793"/>
+			<Orientation y="2.52364"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="622">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="725.66871" z="554.01264"/>
+			<Orientation y="2.4782"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="623">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="736.92261" z="562.54847"/>
+			<Orientation y="2.4782"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="624">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="748.11243" z="571.2287"/>
+			<Orientation y="2.4782"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="625">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="714.03272" z="545.26935"/>
+			<Orientation y="2.52364"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="634">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="589.86316" z="451.4853"/>
+			<Orientation y="2.4782"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="635">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="601.11707" z="460.02112"/>
+			<Orientation y="2.4782"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="636">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="612.3069" z="468.7014"/>
+			<Orientation y="2.4782"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="641">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="186.39695" z="364.76236"/>
+			<Orientation y="4.05016"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="642">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="238.02738" z="296.5141"/>
+			<Orientation y="4.05016"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="643">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="263.0496" z="262.74134"/>
+			<Orientation y="4.05016"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="644">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="203.58713" z="342.2988"/>
+			<Orientation y="4.05016"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="645">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="220.8372" z="318.97733"/>
+			<Orientation y="4.05016"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="646">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="177.66715" z="376.40848"/>
+			<Orientation y="4.0956"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="647">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="194.9198" z="353.49857"/>
+			<Orientation y="4.05016"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="648">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="212.1074" z="330.62348"/>
+			<Orientation y="4.0956"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="649">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="271.7169" z="251.54151"/>
+			<Orientation y="4.05016"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="650">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="160.67917" z="398.66483"/>
+			<Orientation y="4.05016"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="651">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="169.3465" z="387.46503"/>
+			<Orientation y="4.05016"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="652">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="229.36002" z="307.71393"/>
+			<Orientation y="4.05016"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="653">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="254.52671" z="274.00507"/>
+			<Orientation y="4.05016"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="654">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="245.79685" z="285.65119"/>
+			<Orientation y="4.0956"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="655">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="280.24479" z="241.17277"/>
+			<Orientation y="4.05016"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="656">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="58.56003" z="532.70594"/>
+			<Orientation y="4.05016"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="657">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="110.19047" z="464.4578"/>
+			<Orientation y="4.05016"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="658">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="135.21274" z="430.68497"/>
+			<Orientation y="4.05016"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="659">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="75.75022" z="510.24247"/>
+			<Orientation y="4.05016"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="660">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="93.53432" z="487.71674"/>
+			<Orientation y="4.16207"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="661">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="49.83024" z="544.35206"/>
+			<Orientation y="4.0956"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="662">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="67.0829" z="521.44214"/>
+			<Orientation y="4.05016"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="663">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="84.93427" z="498.68024"/>
+			<Orientation y="4.01851"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="664">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="143.88004" z="419.48517"/>
+			<Orientation y="4.05016"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="665">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="32.84226" z="566.6084"/>
+			<Orientation y="4.05016"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="666">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="41.50959" z="555.4087"/>
+			<Orientation y="4.05016"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="667">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="101.52311" z="475.65763"/>
+			<Orientation y="4.05016"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="668">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="126.6898" z="441.94874"/>
+			<Orientation y="4.05016"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="669">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="117.95994" z="453.59485"/>
+			<Orientation y="4.0956"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="670">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="152.40793" z="409.11643"/>
+			<Orientation y="4.05016"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="671">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="144.61582" z="685.53602"/>
+			<Orientation y="-0.78522"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="672">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="83.21641" z="625.92353"/>
+			<Orientation y="-0.78522"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="673">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="52.76809" z="596.9474"/>
+			<Orientation y="-0.78522"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="674">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="124.4305" z="665.72004"/>
+			<Orientation y="-0.78522"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="675">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="103.40123" z="645.73945"/>
+			<Orientation y="-0.78522"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="676">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="155.1031" z="695.62848"/>
+			<Orientation y="-0.73978"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="677">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="134.48258" z="675.69581"/>
+			<Orientation y="-0.78522"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="678">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="113.88852" z="655.83191"/>
+			<Orientation y="-0.73978"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="679">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="42.71612" z="586.97168"/>
+			<Orientation y="-0.78522"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="680">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="175.10746" z="715.21833"/>
+			<Orientation y="-0.78522"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="681">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="165.05542" z="705.24262"/>
+			<Orientation y="-0.78522"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="682">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="93.26844" z="635.8993"/>
+			<Orientation y="-0.78522"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="683">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="62.90125" z="606.7876"/>
+			<Orientation y="-0.78522"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="684">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="73.38852" z="616.8802"/>
+			<Orientation y="-0.73978"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="685">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="33.47176" z="577.23627"/>
+			<Orientation y="-0.78522"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="686">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="299.03223" z="826.8614"/>
+			<Orientation y="-0.74392"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="687">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="235.22477" z="769.83448"/>
+			<Orientation y="-0.74392"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="688">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="203.60621" z="742.14002"/>
+			<Orientation y="-0.74392"/>
+		</Entity>
+		<Entity uid="689">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="278.04621" z="807.89563"/>
+			<Orientation y="-0.74392"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="690">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="256.21033" z="788.80018"/>
+			<Orientation y="-0.74392"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="691">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="309.92725" z="836.51233"/>
+			<Orientation y="-0.69848"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="692">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="288.50147" z="817.44788"/>
+			<Orientation y="-0.74392"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="693">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="267.10499" z="798.45112"/>
+			<Orientation y="-0.69848"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="694">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="193.15098" z="732.58777"/>
+			<Orientation y="-0.74392"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="695">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="330.72327" z="855.25971"/>
+			<Orientation y="-0.74392"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="696">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="320.26801" z="845.7074"/>
+			<Orientation y="-0.74392"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="697">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="245.68003" z="779.38678"/>
+			<Orientation y="-0.74392"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="698">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="214.53718" z="750.818"/>
+			<Orientation y="-0.67331"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="699">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="225.49515" z="760.34156"/>
+			<Orientation y="-0.81281"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="700">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="183.51261" z="723.24225"/>
+			<Orientation y="-0.74392"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="701">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="455.11405" z="966.63135"/>
+			<Orientation y="-0.74393"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="702">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="391.30662" z="909.60444"/>
+			<Orientation y="-0.74393"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="703">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="359.68805" z="881.90998"/>
+			<Orientation y="-0.74393"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="704">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="434.12803" z="947.6656"/>
+			<Orientation y="-0.74393"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="705">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="412.29215" z="928.57013"/>
+			<Orientation y="-0.74393"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="706">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="466.00907" z="976.2823"/>
+			<Orientation y="-0.6985"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="707">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="444.58329" z="957.21784"/>
+			<Orientation y="-0.74393"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="708">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="423.1868" z="938.22107"/>
+			<Orientation y="-0.6985"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="709">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="349.23282" z="872.35773"/>
+			<Orientation y="-0.74393"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="710">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="486.80509" z="995.02967"/>
+			<Orientation y="-0.74393"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="711">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="476.34983" z="985.47736"/>
+			<Orientation y="-0.74393"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="712">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="401.76185" z="919.15674"/>
+			<Orientation y="-0.74393"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="713">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="370.21879" z="891.3235"/>
+			<Orientation y="-0.74393"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="714">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="381.11381" z="900.9745"/>
+			<Orientation y="-0.6985"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="715">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="339.59443" z="863.01221"/>
+			<Orientation y="-0.74393"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="716">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="646.16364" z="949.65986"/>
+			<Orientation y="0.29496"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="717">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="564.65351" z="975.72822"/>
+			<Orientation y="0.29496"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="718">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="524.74897" z="988.93207"/>
+			<Orientation y="0.29496"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="719">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="619.17444" z="958.12726"/>
+			<Orientation y="0.29496"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="720">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="591.64246" z="967.26124"/>
+			<Orientation y="0.29496"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="721">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="660.00696" z="945.16498"/>
+			<Orientation y="0.3404"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="722">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="632.70966" z="953.96131"/>
+			<Orientation y="0.29496"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="723">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="605.4856" z="962.76667"/>
+			<Orientation y="0.3404"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="724">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="511.21375" z="993.09797"/>
+			<Orientation y="0.29496"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="725">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="686.82514" z="937.92048"/>
+			<Orientation y="0.14882"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="726">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="673.17634" z="940.91651"/>
+			<Orientation y="0.29496"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="727">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="578.18885" z="971.56232"/>
+			<Orientation y="0.29496"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="728">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="538.20289" z="984.63068"/>
+			<Orientation y="0.29496"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="729">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="552.04627" z="980.13581"/>
+			<Orientation y="0.3404"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="730">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="498.27094" z="996.6648"/>
+			<Orientation y="0.29496"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="732">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="747.0948" z="906.19263"/>
+			<Orientation y="0.6609"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="733">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="713.44459" z="930.36823"/>
+			<Orientation y="0.28827"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="735">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="769.26716" z="888.62928"/>
+			<Orientation y="0.6609"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="739">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="699.88178" z="934.44367"/>
+			<Orientation y="0.28827"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="740">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="786.46088" z="937.54133"/>
+			<Orientation y="-0.74393"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="742">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="758.24323" z="897.45948"/>
+			<Orientation y="0.6609"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="743">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="725.58082" z="923.97016"/>
+			<Orientation y="0.6609"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="744">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="736.8993" z="914.81952"/>
+			<Orientation y="0.70633"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="746">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="483.13032" z="420.81244"/>
+			<Orientation y="4.0956"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="747">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="499.20185" z="397.659"/>
+			<Orientation y="4.10524"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="748">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="490.86493" z="409.50794"/>
+			<Orientation y="4.0956"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="749">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="459.3014" z="454.78275"/>
+			<Orientation y="4.0956"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="750">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="475.37293" z="431.62931"/>
+			<Orientation y="4.10524"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="751">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="467.03602" z="443.47825"/>
+			<Orientation y="4.0956"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="752">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="437.97352" z="485.9394"/>
+			<Orientation y="4.0956"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="753">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="454.04505" z="462.78595"/>
+			<Orientation y="4.10524"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="754">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="445.70813" z="474.6349"/>
+			<Orientation y="4.0956"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="756">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="430.16892" z="396.14371"/>
+			<Orientation y="4.10524"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="757">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="437.92631" z="385.32685"/>
+			<Orientation y="4.0956"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="759">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="453.99784" z="362.17341"/>
+			<Orientation y="4.10524"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="760">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="445.66092" z="374.02234"/>
+			<Orientation y="4.0956"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="762">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="421.83201" z="407.99265"/>
+			<Orientation y="4.0956"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="764">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="498.97147" z="552.81214"/>
+			<Orientation y="2.37056"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="765">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="509.65021" z="562.48707"/>
+			<Orientation y="2.37056"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="766">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="519.69471" z="572.25501"/>
+			<Orientation y="2.37056"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="767">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="529.78052" z="582.03309"/>
+			<Orientation y="2.37056"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="768">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="505.76499" z="533.48597"/>
+			<Orientation y="4.01041"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="770">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="529.66639" z="504.25702"/>
+			<Orientation y="4.01041"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="775">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="497.09656" z="544.09137"/>
+			<Orientation y="4.01041"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="776">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="538.98133" z="493.16041"/>
+			<Orientation y="4.02006"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="777">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="520.99805" z="514.86243"/>
+			<Orientation y="4.01041"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="778">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="515.07972" z="522.38935"/>
+			<Orientation y="4.02006"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="781">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="318.27149" z="547.96167"/>
+			<Orientation y="0.90084"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="782">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="300.55311" z="570.74836"/>
+			<Orientation y="0.90084"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="783">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="273.71943" z="514.71235"/>
+			<Orientation y="0.90084"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="784">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="282.41248" z="593.20093"/>
+			<Orientation y="0.94626"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="785">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="336.20606" z="525.41468"/>
+			<Orientation y="0.94626"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="786">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="281.9585" z="503.20289"/>
+			<Orientation y="0.90084"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="787">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="246.88593" z="548.46766"/>
+			<Orientation y="0.90084"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="788">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="237.86042" z="559.9516"/>
+			<Orientation y="0.94626"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="789">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="331.25202" z="435.02076"/>
+			<Orientation y="0.88381"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="790">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="340.28547" z="423.8979"/>
+			<Orientation y="0.88381"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="791">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="403.09256" z="397.38474"/>
+			<Orientation y="2.4782"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="792">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="313.5" z="456.79719"/>
+			<Orientation y="0.88381"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="793">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="380.20267" z="380.10557"/>
+			<Orientation y="2.52364"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="794">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="367.62671" z="480.8061"/>
+			<Orientation y="0.90084"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="795">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="252.99451" z="597.67463"/>
+			<Orientation y="2.4782"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="796">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="342.94562" z="514.42951"/>
+			<Orientation y="0.96471"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="797">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="305.43378" z="468.25733"/>
+			<Orientation y="0.9857"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="798">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="358.87317" z="491.93848"/>
+			<Orientation y="0.90084"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="799">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="385.05549" z="458.0301"/>
+			<Orientation y="0.94626"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="800">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="322.36164" z="445.84974"/>
+			<Orientation y="0.88381"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="801">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="376.23603" z="469.60846"/>
+			<Orientation y="0.90084"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="802">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="414.28238" z="406.06504"/>
+			<Orientation y="2.4782"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="803">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="391.83866" z="388.84891"/>
+			<Orientation y="2.4782"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="804">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="241.74061" z="589.13868"/>
+			<Orientation y="2.4782"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="805">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="264.18433" z="606.35468"/>
+			<Orientation y="2.4782"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="806">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="230.10462" z="580.3954"/>
+			<Orientation y="2.52364"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="807">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="327.3866" z="536.99305"/>
+			<Orientation y="0.90084"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="808">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="291.438" z="581.71698"/>
+			<Orientation y="0.90084"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="809">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="309.37256" z="559.16999"/>
+			<Orientation y="0.92777"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="810">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="273.59302" z="604.7793"/>
+			<Orientation y="0.90084"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="811">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="229.04096" z="571.52997"/>
+			<Orientation y="0.90084"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="812">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="256.00104" z="537.49903"/>
+			<Orientation y="0.90084"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="813">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="290.32136" z="492.26227"/>
+			<Orientation y="0.97562"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="814">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="264.8205" z="525.92066"/>
+			<Orientation y="0.92777"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="815">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="350.97077" z="502.76111"/>
+			<Orientation y="0.96471"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="818">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="298.08967" z="480.52356"/>
+			<Orientation y="1.01915"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="822">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="519.042" z="706.86158"/>
+			<Orientation y="0.90084"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="824">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="586.4474" z="627.09235"/>
+			<Orientation y="2.45575"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="825">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="465.37482" z="684.58088"/>
+			<Orientation y="0.90084"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="827">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="576.71088" z="627.89863"/>
+			<Orientation y="0.94626"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="828">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="438.54133" z="718.33619"/>
+			<Orientation y="0.90084"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="831">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="559.28211" z="650.67463"/>
+			<Orientation y="0.90084"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="832">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="411.1637" z="812.26484"/>
+			<Orientation y="2.4782"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="833">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="550.52857" z="661.80701"/>
+			<Orientation y="0.90084"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="834">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="505.1554" z="626.66572"/>
+			<Orientation y="0.88381"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="836">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="447.65644" z="707.36756"/>
+			<Orientation y="0.90084"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="837">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="399.52768" z="803.52155"/>
+			<Orientation y="2.52364"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="838">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="514.01703" z="615.71827"/>
+			<Orientation y="0.88381"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="839">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="465.24842" z="774.64783"/>
+			<Orientation y="0.90084"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="840">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="456.4759" z="695.78919"/>
+			<Orientation y="0.92777"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="841">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="483.09339" z="751.58552"/>
+			<Orientation y="0.90084"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="842">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="489.74506" z="650.3921"/>
+			<Orientation y="1.01915"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="843">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="429.51581" z="729.82013"/>
+			<Orientation y="0.94626"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="845">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="492.2085" z="740.61689"/>
+			<Orientation y="0.90084"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="846">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="473.6139" z="673.07142"/>
+			<Orientation y="0.90084"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="848">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="534.60102" z="684.29804"/>
+			<Orientation y="0.96471"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="850">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="531.43958" z="593.06177"/>
+			<Orientation y="1.09835"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="851">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="474.06788" z="763.06946"/>
+			<Orientation y="0.94626"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="852">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="509.92688" z="717.83021"/>
+			<Orientation y="0.90084"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="853">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="527.86146" z="695.28321"/>
+			<Orientation y="0.94626"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="854">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="522.90741" z="604.88929"/>
+			<Orientation y="0.88381"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="856">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="422.41758" z="820.80079"/>
+			<Orientation y="2.4782"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="857">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="497.08918" z="638.12586"/>
+			<Orientation y="0.98571"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="858">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="567.89142" z="639.477"/>
+			<Orientation y="0.90084"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="860">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="501.02796" z="729.03852"/>
+			<Orientation y="0.92777"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="861">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="420.69636" z="741.3985"/>
+			<Orientation y="0.90084"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="862">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="481.97675" z="662.1308"/>
+			<Orientation y="0.97562"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="863">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="542.62616" z="672.62964"/>
+			<Orientation y="0.96471"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="864">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="597.69825" z="635.87897"/>
+			<Orientation y="2.45575"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="865">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="608.83436" z="644.95215"/>
+			<Orientation y="2.45575"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="866">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="641.823" z="670.98127"/>
+			<Orientation y="2.45575"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="867">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="630.6869" z="661.90809"/>
+			<Orientation y="2.45575"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="868">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="619.43604" z="653.12146"/>
+			<Orientation y="2.45575"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="870">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="659.44837" z="689.69422"/>
+			<Orientation y="1.99398"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="871">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="652.6092" z="680.2967"/>
+			<Orientation y="2.45575"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="872">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="309.28876" z="737.51252"/>
+			<Orientation y="2.53797"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="873">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="297.88349" z="729.92737"/>
+			<Orientation y="2.53797"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="874">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="322.23694" z="686.20136"/>
+			<Orientation y="0.89812"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="875">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="313.60193" z="697.60297"/>
+			<Orientation y="0.89812"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="876">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="304.86753" z="708.55811"/>
+			<Orientation y="0.89812"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="877">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="400.02729" z="734.74628"/>
+			<Orientation y="2.49253"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="878">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="365.57938" z="709.27747"/>
+			<Orientation y="2.53797"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="879">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="377.3394" z="717.85322"/>
+			<Orientation y="2.49253"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="880">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="388.71436" z="726.22712"/>
+			<Orientation y="2.49253"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="881">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="366.59897" z="779.23993"/>
+			<Orientation y="2.49253"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="882">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="332.15119" z="753.77125"/>
+			<Orientation y="2.53797"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="883">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="343.9112" z="762.34705"/>
+			<Orientation y="2.49253"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="884">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="355.28605" z="770.7209"/>
+			<Orientation y="2.49253"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="885">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="411.8137" z="743.11219"/>
+			<Orientation y="2.53797"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="886">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="389.07718" z="795.83954"/>
+			<Orientation y="2.49253"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="887">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="377.3173" z="787.2638"/>
+			<Orientation y="2.53797"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="888">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="331.72645" z="684.21003"/>
+			<Orientation y="2.49253"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="889">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="343.10141" z="692.58387"/>
+			<Orientation y="2.49253"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="890">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="354.41434" z="701.1031"/>
+			<Orientation y="2.49253"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="891">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="321.04874" z="746.08838"/>
+			<Orientation y="2.49253"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="892">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="296.16352" z="719.63135"/>
+			<Orientation y="0.89812"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="893">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="281.89054" z="644.72754"/>
+			<Orientation y="5.58875"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="894">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="292.51502" z="653.56672"/>
+			<Orientation y="5.60402"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="895">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="268.59574" z="695.71821"/>
+			<Orientation y="4.01172"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="896">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="277.54633" z="684.56269"/>
+			<Orientation y="4.01172"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="897">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="286.58387" z="673.85615"/>
+			<Orientation y="4.01172"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="902">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="226.8563" z="601.47504"/>
+			<Orientation y="5.60613"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="903">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="260.57605" z="627.89747"/>
+			<Orientation y="5.65157"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="904">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="249.06217" z="618.99604"/>
+			<Orientation y="5.60613"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="905">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="237.92624" z="610.3072"/>
+			<Orientation y="5.60613"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="907">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="204.8513" z="584.25306"/>
+			<Orientation y="5.60613"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="908">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="216.36667" z="593.15448"/>
+			<Orientation y="5.65157"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="912">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="271.45893" z="635.88788"/>
+			<Orientation y="5.60613"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="913">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="294.59522" z="662.67341"/>
+			<Orientation y="4.20221"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="922">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="183.72971" z="567.92347"/>
+			<Orientation y="5.60613"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="923">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="194.86463" z="576.61231"/>
+			<Orientation y="5.60613"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="924">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="172.65995" z="559.09113"/>
+			<Orientation y="5.60613"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="925">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="161.72825" z="550.60761"/>
+			<Orientation y="5.65157"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="926">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="150.21274" z="541.70618"/>
+			<Orientation y="5.60613"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="927">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="128.00635" z="524.18494"/>
+			<Orientation y="5.60613"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="928">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="116.4586" z="515.49256"/>
+			<Orientation y="5.65157"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="929">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="139.07651" z="533.01734"/>
+			<Orientation y="5.60613"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="930">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="94.86536" z="499.4355"/>
+			<Orientation y="5.60613"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="931">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="106.2976" z="507.84296"/>
+			<Orientation y="5.60613"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="944">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="3.19181" z="496.95502"/>
+			<Orientation y="5.65157"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="946">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="325.28736" z="192.77985"/>
+			<Orientation y="2.45575"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="947">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="335.83182" z="201.26456"/>
+			<Orientation y="2.45575"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="948">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="344.6153" z="207.78287"/>
+			<Orientation y="2.45575"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="949">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="733.83802" z="749.79725"/>
+			<Orientation y="2.4782"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="950">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="722.6482" z="741.1172"/>
+			<Orientation y="2.4782"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="951">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="711.3943" z="732.58124"/>
+			<Orientation y="2.4782"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="952">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="766.8235" z="775.23597"/>
+			<Orientation y="2.4782"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="953">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="755.63367" z="766.55591"/>
+			<Orientation y="2.4782"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="954">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="744.37977" z="758.01996"/>
+			<Orientation y="2.4782"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="955">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="798.66663" z="800.18128"/>
+			<Orientation y="2.4782"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="956">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="787.47681" z="791.50123"/>
+			<Orientation y="2.4782"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="957">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="776.22291" z="782.96528"/>
+			<Orientation y="2.4782"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="959">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="819.39423" z="815.88782"/>
+			<Orientation y="2.4782"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="960">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="808.14032" z="807.35187"/>
+			<Orientation y="2.4782"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="961">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="213.59778" z="533.7328"/>
+			<Orientation y="2.49645"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="962">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="189.76056" z="447.16993"/>
+			<Orientation y="2.49645"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="963">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="151.59131" z="463.29429"/>
+			<Orientation y="0.90204"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="964">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="202.25168" z="525.25831"/>
+			<Orientation y="2.49645"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="965">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="168.87278" z="440.86945"/>
+			<Orientation y="0.90204"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="966">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="178.3541" z="438.84076"/>
+			<Orientation y="2.49645"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="967">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="142.9307" z="474.40156"/>
+			<Orientation y="0.90204"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="968">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="179.0522" z="508.39972"/>
+			<Orientation y="2.5419"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="969">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="201.10648" z="455.6446"/>
+			<Orientation y="2.49645"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="970">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="212.30329" z="463.775"/>
+			<Orientation y="2.5419"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="971">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="236.141" z="550.2439"/>
+			<Orientation y="2.49645"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="972">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="156.12632" z="492.23108"/>
+			<Orientation y="2.5419"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="973">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="144.69123" z="484.69077"/>
+			<Orientation y="2.5419"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="974">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="160.28266" z="452.30485"/>
+			<Orientation y="0.90204"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="975">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="224.0969" z="472.30451"/>
+			<Orientation y="2.49645"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="976">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="190.84421" z="516.9292"/>
+			<Orientation y="2.49645"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="977">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="224.34754" z="541.71448"/>
+			<Orientation y="2.5419"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="978">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="167.91993" z="500.76066"/>
+			<Orientation y="2.49645"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="979">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="258.67011" z="497.42786"/>
+			<Orientation y="2.5419"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="980">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="269.34504" z="505.60987"/>
+			<Orientation y="2.49645"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="981">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="246.85102" z="489.10834"/>
+			<Orientation y="2.49645"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="982">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="235.13056" z="480.04657"/>
+			<Orientation y="2.49645"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="983">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="239.51944" z="483.42869"/>
+			<Orientation y="2.49645"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="985">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="235.79188" z="348.51679"/>
+			<Orientation y="5.60613"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="986">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="256.8552" z="435.79627"/>
+			<Orientation y="5.60613"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="987">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="201.13184" z="392.05774"/>
+			<Orientation y="5.60613"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="988">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="189.58408" z="383.36536"/>
+			<Orientation y="5.65157"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="990">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="295.51944" z="420.8979"/>
+			<Orientation y="4.01172"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="991">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="212.202" z="400.89014"/>
+			<Orientation y="5.60613"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="992">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="246.86182" z="357.34894"/>
+			<Orientation y="5.60613"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="993">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="277.53132" z="442.75995"/>
+			<Orientation y="4.01172"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="994">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="267.99012" z="444.48511"/>
+			<Orientation y="5.60613"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="995">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="304.52985" z="410.07258"/>
+			<Orientation y="4.01172"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="996">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="269.51163" z="374.93921"/>
+			<Orientation y="5.65157"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="997">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="245.78544" z="426.96393"/>
+			<Orientation y="5.60613"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="998">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="234.85373" z="418.48041"/>
+			<Orientation y="5.65157"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="999">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="217.9304" z="334.60303"/>
+			<Orientation y="5.60613"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="1000">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="184.06403" z="379.13767"/>
+			<Orientation y="5.60613"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="1002">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="291.90998" z="391.83112"/>
+			<Orientation y="5.65157"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="1003">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="303.09855" z="399.73243"/>
+			<Orientation y="5.65157"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="1004">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="286.48191" z="431.60444"/>
+			<Orientation y="4.01172"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="1005">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="223.33823" z="409.57898"/>
+			<Orientation y="5.60613"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="1006">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="257.99775" z="366.03779"/>
+			<Orientation y="5.60613"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="1007">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="225.30225" z="340.19623"/>
+			<Orientation y="5.65157"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="1008">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="280.39451" z="382.92963"/>
+			<Orientation y="5.60613"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="1010">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="354.01572" z="405.15604"/>
+			<Orientation y="0.93703"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="1011">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="370.74631" z="382.28174"/>
+			<Orientation y="0.93703"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="1012">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="362.31742" z="393.86945"/>
+			<Orientation y="0.93703"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="1013">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="345.74906" z="416.55945"/>
+			<Orientation y="0.93703"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="1014">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="259.30103" z="706.41272"/>
+			<Orientation y="4.01172"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="1015">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="241.3129" z="728.27479"/>
+			<Orientation y="4.01172"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="1016">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="250.2635" z="717.11927"/>
+			<Orientation y="4.01172"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="1017">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="233.60636" z="738.15473"/>
+			<Orientation y="4.01172"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="1019">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="224.56882" z="748.86127"/>
+			<Orientation y="4.01172"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="1020">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="474.5214" z="853.17353"/>
+			<Orientation y="0.9944"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="1021">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="490.13425" z="828.54517"/>
+			<Orientation y="0.9944"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="1022">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="456.62183" z="784.7016"/>
+			<Orientation y="0.90084"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="1023">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="482.22077" z="840.82197"/>
+			<Orientation y="1.03982"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="1024">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="529.98487" z="863.94782"/>
+			<Orientation y="0.97466"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="1025">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="521.94275" z="875.20234"/>
+			<Orientation y="0.94626"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="1026">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="513.1233" z="886.78071"/>
+			<Orientation y="0.90084"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="1027">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="466.07136" z="853.93866"/>
+			<Orientation y="2.4782"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="1028">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="432.41907" z="828.85175"/>
+			<Orientation y="2.49253"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="1029">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="454.50559" z="845.27704"/>
+			<Orientation y="2.4782"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="1030">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="442.86957" z="836.53376"/>
+			<Orientation y="2.52364"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="1031">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="489.54053" z="819.00428"/>
+			<Orientation y="2.4782"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="1032">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="456.20014" z="794.04303"/>
+			<Orientation y="2.49253"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="1033">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="478.28666" z="810.46833"/>
+			<Orientation y="2.4782"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="1034">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="466.65064" z="801.72504"/>
+			<Orientation y="2.52364"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="1035">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="548.63941" z="921.6139"/>
+			<Orientation y="2.4782"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="1036">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="537.07361" z="912.95228"/>
+			<Orientation y="2.4782"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="1037">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="514.98713" z="896.52698"/>
+			<Orientation y="2.49253"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="1038">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="525.43763" z="904.20899"/>
+			<Orientation y="2.52364"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="1039">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="538.7682" z="861.71827"/>
+			<Orientation y="2.49253"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="1040">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="549.2187" z="869.40027"/>
+			<Orientation y="2.52364"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="1041">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="560.85474" z="878.14356"/>
+			<Orientation y="2.4782"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="1042">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="572.10859" z="886.67951"/>
+			<Orientation y="2.4782"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="1043">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="592.4823" z="954.02027"/>
+			<Orientation y="2.4782"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="1044">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="580.91651" z="945.35865"/>
+			<Orientation y="2.4782"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="1045">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="558.83002" z="928.93335"/>
+			<Orientation y="2.49253"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="1046">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="569.28052" z="936.61536"/>
+			<Orientation y="2.52364"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="1047">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="582.61109" z="894.12464"/>
+			<Orientation y="2.49253"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="1048">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="593.06159" z="901.80665"/>
+			<Orientation y="2.52364"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="1049">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="604.69764" z="910.54993"/>
+			<Orientation y="2.4782"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="1050">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="615.95148" z="919.08588"/>
+			<Orientation y="2.4782"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="1051">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="626.65955" z="927.10547"/>
+			<Orientation y="2.49253"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="1052">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="637.11005" z="934.78748"/>
+			<Orientation y="2.52364"/>
+			<Actor seed="58632"/>
+		</Entity>
+		<Entity uid="1053">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="648.7461" z="943.53077"/>
+			<Orientation y="2.4782"/>
+			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="1055">
+			<Template>structures/wall_long</Template>
+			<Player>0</Player>
+			<Position x="603.38794" z="959.89191"/>
+			<Orientation y="-3.42925"/>
+			<Actor seed="688"/>
+		</Entity>
+	</Entities>
+	<Paths/>
+</Scenario>
