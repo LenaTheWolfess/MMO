@@ -60,7 +60,8 @@
   "RelicCount": 1,
   "RelicDuration": 0,
   "VictoryConditions": [
-    "capture_the_relic"
+    "capture_the_relic",
+	"regicide"
   ],
   "mapType": "random"
 }

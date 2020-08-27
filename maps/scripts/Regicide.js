@@ -1,5 +1,6 @@
 Trigger.prototype.InitRegicideGame = function(msg)
 {
+	/*
 	let cmpEndGameManager = Engine.QueryInterface(SYSTEM_ENTITY, IID_EndGameManager);
 	let regicideGarrison = cmpEndGameManager.GetGameSettings().regicideGarrison;
 
@@ -68,6 +69,17 @@ Trigger.prototype.InitRegicideGame = function(msg)
 		}
 
 		this.regicideHeroes[playerID] = this.SpawnRegicideHero(playerID, heroTemplates[playersCivs[playerID]], spawnPoints);
+	}
+	*/
+	const cmpRangeManager = Engine.QueryInterface(SYSTEM_ENTITY, IID_RangeManager);
+	for (let playerID = 1; playerID < TriggerHelper.GetNumberOfPlayers(); ++playerID) {
+		const ents = cmpRangeManager.GetEntitiesByPlayer(playerID);
+		for (let i in ents) {
+			if (TriggerHelper.EntityMatchesClassList(ents[i], "Hero")) {
+				this.regicideHeroes[playerID] = ents[i];
+				break;
+			}
+		}
 	}
 };
 
