@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Entity parent="template_bam">
+   <Attack>
+    <Melee>
+      <Damage>
+         <Hack>0.0</Hack>
+         <Pierce>30.0</Pierce>
+         <Crush>50.0</Crush>
+      </Damage>
+      <MaxRange>10</MaxRange>
+      <PrepareTime>500</PrepareTime>
+      <RepeatTime>2000</RepeatTime>
+      <RestrictedClasses datatype="tokens">Structure</RestrictedClasses>
+      <PreferredClasses datatype="tokens">Human</PreferredClasses>
+    </Melee>
+  </Attack>
+  <Armour>
+    <Hack>20</Hack>
+    <Pierce>20</Pierce>
+    <Crush>20</Crush>
+  </Armour>
+  <Identity>
+    <SpecificName>Minotaur</SpecificName>
+	<Icon>technologies/helmet_hero_side.png</Icon>
+  </Identity>
+  <UnitAI>
+    <DefaultStance>defensive</DefaultStance>
+  </UnitAI>
+  <VisualActor>
+    <Actor>units/bams/minotaur_axeman_b.xml</Actor>
+  </VisualActor>
+</Entity>

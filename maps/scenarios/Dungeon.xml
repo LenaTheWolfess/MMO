@@ -5,19 +5,19 @@
 		<SkySet>default</SkySet>
 		<SunColor r="0.74902" g="0.74902" b="0.74902"/>
 		<SunElevation angle="0.785398"/>
-		<SunRotation angle="5.49779"/>
+		<SunRotation angle="-0.785396"/>
 		<TerrainAmbientColor r="0.501961" g="0.501961" b="0.501961"/>
 		<UnitsAmbientColor r="0.501961" g="0.501961" b="0.501961"/>
 		<Fog>
 			<FogFactor>0</FogFactor>
 			<FogThickness>0.5</FogThickness>
-			<FogColor r="0.8" g="0.8" b="0.898039"/>
+			<FogColor r="0.8" g="0.8" b="0.894118"/>
 		</Fog>
 		<Water>
 			<WaterBody>
 				<Type>ocean</Type>
-				<Color r="0.3" g="0.35" b="0.7"/>
-				<Tint r="0.28" g="0.3" b="0.59"/>
+				<Color r="0.298039" g="0.34902" b="0.698039"/>
+				<Tint r="0.278431" g="0.298039" b="0.588235"/>
 				<Height>5</Height>
 				<Waviness>4</Waviness>
 				<Murkiness>0.45</Murkiness>
@@ -33,9 +33,9 @@
 		</Postproc>
 	</Environment>
 	<Camera>
-		<Position x="288.309" y="468.189" z="1089.07"/>
-		<Rotation angle="2.5295"/>
-		<Declination angle="0.610864"/>
+		<Position x="349.068" y="234.007" z="609.349"/>
+		<Rotation angle="2.40268"/>
+		<Declination angle="0.610865"/>
 	</Camera>
 	<ScriptSettings><![CDATA[
 {
@@ -48,12 +48,13 @@
   "LockTeams": true,
   "Name": "Dungeon",
   "PlayerData": [
+    null,
     {
       "Civ": "athen"
     }
   ],
   "Preview": "",
-  "RevealMap": true,
+  "RevealMap": false,
   "VictoryConditions": [
     "regicide"
   ]
@@ -177,34 +178,6 @@
 			<Player>0</Player>
 			<Position x="658.88715" z="186.10087"/>
 			<Orientation y="0.93293"/>
-			<Actor seed="688"/>
-		</Entity>
-		<Entity uid="28">
-			<Template>structures/wall_long</Template>
-			<Player>0</Player>
-			<Position x="673.60218" z="153.68317"/>
-			<Orientation y="2.51029"/>
-			<Actor seed="688"/>
-		</Entity>
-		<Entity uid="29">
-			<Template>structures/wall_long</Template>
-			<Player>0</Player>
-			<Position x="638.7071" z="128.8303"/>
-			<Orientation y="2.55571"/>
-			<Actor seed="58632"/>
-		</Entity>
-		<Entity uid="30">
-			<Template>structures/wall_long</Template>
-			<Player>0</Player>
-			<Position x="650.61768" z="137.19599"/>
-			<Orientation y="2.51029"/>
-			<Actor seed="688"/>
-		</Entity>
-		<Entity uid="31">
-			<Template>structures/wall_long</Template>
-			<Player>0</Player>
-			<Position x="662.1396" z="145.36634"/>
-			<Orientation y="2.51029"/>
 			<Actor seed="688"/>
 		</Entity>
 		<Entity uid="32">
@@ -837,26 +810,12 @@
 			<Orientation y="2.52364"/>
 			<Actor seed="58632"/>
 		</Entity>
-		<Entity uid="182">
-			<Template>structures/wall_long</Template>
-			<Player>0</Player>
-			<Position x="961.24897" z="375.05805"/>
-			<Orientation y="2.48215"/>
-			<Actor seed="688"/>
-		</Entity>
 		<Entity uid="183">
 			<Template>structures/wall_long</Template>
 			<Player>0</Player>
 			<Position x="801.58246" z="518.46644"/>
 			<Orientation y="2.46512"/>
 			<Actor seed="688"/>
-		</Entity>
-		<Entity uid="184">
-			<Template>structures/wall_long</Template>
-			<Player>0</Player>
-			<Position x="927.06708" z="349.23383"/>
-			<Orientation y="2.52758"/>
-			<Actor seed="58632"/>
 		</Entity>
 		<Entity uid="185">
 			<Template>structures/wall_long</Template>
@@ -879,25 +838,11 @@
 			<Orientation y="2.46512"/>
 			<Actor seed="688"/>
 		</Entity>
-		<Entity uid="188">
-			<Template>structures/wall_long</Template>
-			<Player>0</Player>
-			<Position x="938.73755" z="357.93104"/>
-			<Orientation y="2.48215"/>
-			<Actor seed="688"/>
-		</Entity>
-		<Entity uid="189">
-			<Template>structures/wall_long</Template>
-			<Player>0</Player>
-			<Position x="950.02515" z="366.4221"/>
-			<Orientation y="2.48215"/>
-			<Actor seed="688"/>
-		</Entity>
 		<Entity uid="191">
 			<Template>structures/wall_long</Template>
 			<Player>0</Player>
-			<Position x="824.82294" z="475.21229"/>
-			<Orientation y="4.10495"/>
+			<Position x="823.51307" z="475.6518"/>
+			<Orientation y="4.16726"/>
 			<Actor seed="58632"/>
 		</Entity>
 		<Entity uid="194">
@@ -956,45 +901,10 @@
 			<Orientation y="4.05951"/>
 			<Actor seed="688"/>
 		</Entity>
-		<Entity uid="202">
-			<Template>structures/wall_long</Template>
-			<Player>0</Player>
-			<Position x="928.4527" z="429.41977"/>
-			<Orientation y="4.05951"/>
-			<Actor seed="688"/>
-		</Entity>
 		<Entity uid="203">
 			<Template>structures/wall_long</Template>
 			<Player>0</Player>
 			<Position x="902.85328" z="463.77063"/>
-			<Orientation y="4.10495"/>
-			<Actor seed="58632"/>
-		</Entity>
-		<Entity uid="204">
-			<Template>structures/wall_long</Template>
-			<Player>0</Player>
-			<Position x="944.74054" z="406.75721"/>
-			<Orientation y="4.05951"/>
-			<Actor seed="688"/>
-		</Entity>
-		<Entity uid="205">
-			<Template>structures/wall_long</Template>
-			<Player>0</Player>
-			<Position x="953.15754" z="395.41413"/>
-			<Orientation y="4.05951"/>
-			<Actor seed="688"/>
-		</Entity>
-		<Entity uid="206">
-			<Template>structures/wall_long</Template>
-			<Player>0</Player>
-			<Position x="961.71967" z="384.13361"/>
-			<Orientation y="4.05951"/>
-			<Actor seed="688"/>
-		</Entity>
-		<Entity uid="207">
-			<Template>structures/wall_long</Template>
-			<Player>0</Player>
-			<Position x="936.12018" z="418.4845"/>
 			<Orientation y="4.10495"/>
 			<Actor seed="58632"/>
 		</Entity>
@@ -1530,13 +1440,6 @@
 			<Orientation y="2.45575"/>
 			<Actor seed="688"/>
 		</Entity>
-		<Entity uid="302">
-			<Template>structures/wall_long</Template>
-			<Player>0</Player>
-			<Position x="314.83057" z="196.115"/>
-			<Orientation y="4.0956"/>
-			<Actor seed="58632"/>
-		</Entity>
 		<Entity uid="303">
 			<Template>structures/wall_long</Template>
 			<Player>0</Player>
@@ -1555,27 +1458,6 @@
 			<Template>structures/wall_long</Template>
 			<Player>0</Player>
 			<Position x="408.88032" z="71.24805"/>
-			<Orientation y="4.05016"/>
-			<Actor seed="688"/>
-		</Entity>
-		<Entity uid="306">
-			<Template>structures/wall_long</Template>
-			<Player>0</Player>
-			<Position x="289.31977" z="229.63514"/>
-			<Orientation y="4.05016"/>
-			<Actor seed="688"/>
-		</Entity>
-		<Entity uid="307">
-			<Template>structures/wall_long</Template>
-			<Player>0</Player>
-			<Position x="297.8426" z="218.37137"/>
-			<Orientation y="4.05016"/>
-			<Actor seed="688"/>
-		</Entity>
-		<Entity uid="308">
-			<Template>structures/wall_long</Template>
-			<Player>0</Player>
-			<Position x="306.50992" z="207.17157"/>
 			<Orientation y="4.05016"/>
 			<Actor seed="688"/>
 		</Entity>
@@ -1649,26 +1531,12 @@
 			<Orientation y="4.05016"/>
 			<Actor seed="688"/>
 		</Entity>
-		<Entity uid="320">
-			<Template>structures/wall_long</Template>
-			<Player>0</Player>
-			<Position x="989.74024" z="491.08838"/>
-			<Orientation y="2.47278"/>
-			<Actor seed="688"/>
-		</Entity>
 		<Entity uid="321">
 			<Template>structures/wall_long</Template>
 			<Player>0</Player>
 			<Position x="828.73792" z="632.99549"/>
 			<Orientation y="2.45575"/>
 			<Actor seed="688"/>
-		</Entity>
-		<Entity uid="322">
-			<Template>structures/wall_long</Template>
-			<Player>0</Player>
-			<Position x="955.52332" z="465.06684"/>
-			<Orientation y="2.51821"/>
-			<Actor seed="58632"/>
 		</Entity>
 		<Entity uid="323">
 			<Template>structures/wall_long</Template>
@@ -1689,20 +1557,6 @@
 			<Player>0</Player>
 			<Position x="861.82184" z="659.5066"/>
 			<Orientation y="2.45575"/>
-			<Actor seed="688"/>
-		</Entity>
-		<Entity uid="326">
-			<Template>structures/wall_long</Template>
-			<Player>0</Player>
-			<Position x="967.39014" z="473.75135"/>
-			<Orientation y="2.47278"/>
-			<Actor seed="688"/>
-		</Entity>
-		<Entity uid="327">
-			<Template>structures/wall_long</Template>
-			<Player>0</Player>
-			<Position x="978.59772" z="482.34775"/>
-			<Orientation y="2.47278"/>
 			<Actor seed="688"/>
 		</Entity>
 		<Entity uid="328">
@@ -1796,45 +1650,10 @@
 			<Orientation y="4.05016"/>
 			<Actor seed="688"/>
 		</Entity>
-		<Entity uid="341">
-			<Template>structures/wall_long</Template>
-			<Player>0</Player>
-			<Position x="956.43641" z="545.14026"/>
-			<Orientation y="4.05016"/>
-			<Actor seed="688"/>
-		</Entity>
 		<Entity uid="342">
 			<Template>structures/wall_long</Template>
 			<Player>0</Player>
 			<Position x="930.51642" z="579.24988"/>
-			<Orientation y="4.0956"/>
-			<Actor seed="58632"/>
-		</Entity>
-		<Entity uid="343">
-			<Template>structures/wall_long</Template>
-			<Player>0</Player>
-			<Position x="972.93573" z="522.63147"/>
-			<Orientation y="4.05016"/>
-			<Actor seed="688"/>
-		</Entity>
-		<Entity uid="344">
-			<Template>structures/wall_long</Template>
-			<Player>0</Player>
-			<Position x="981.45856" z="511.36777"/>
-			<Orientation y="4.05016"/>
-			<Actor seed="688"/>
-		</Entity>
-		<Entity uid="345">
-			<Template>structures/wall_long</Template>
-			<Player>0</Player>
-			<Position x="990.12592" z="500.16794"/>
-			<Orientation y="4.05016"/>
-			<Actor seed="688"/>
-		</Entity>
-		<Entity uid="346">
-			<Template>structures/wall_long</Template>
-			<Player>0</Player>
-			<Position x="964.20594" z="534.27723"/>
 			<Orientation y="4.0956"/>
 			<Actor seed="58632"/>
 		</Entity>
@@ -1918,22 +1737,22 @@
 		<Entity uid="358">
 			<Template>structures/wall_long</Template>
 			<Player>0</Player>
-			<Position x="926.37739" z="443.0247"/>
-			<Orientation y="2.51821"/>
+			<Position x="928.12824" z="440.81266"/>
+			<Orientation y="2.33976"/>
 			<Actor seed="58632"/>
 		</Entity>
 		<Entity uid="359">
 			<Template>structures/wall_long</Template>
 			<Player>0</Player>
-			<Position x="949.45179" z="460.30561"/>
+			<Position x="944.60206" z="455.89618"/>
 			<Orientation y="2.47278"/>
 			<Actor seed="688"/>
 		</Entity>
 		<Entity uid="360">
 			<Template>structures/wall_long</Template>
 			<Player>0</Player>
-			<Position x="938.24421" z="451.7092"/>
-			<Orientation y="2.47278"/>
+			<Position x="936.69452" z="449.21283"/>
+			<Orientation y="2.37378"/>
 			<Actor seed="688"/>
 		</Entity>
 		<Entity uid="361">
@@ -2233,36 +2052,29 @@
 		<Entity uid="418">
 			<Template>structures/wall_long</Template>
 			<Player>0</Player>
-			<Position x="995.07648" z="576.40717"/>
+			<Position x="995.32435" z="575.90278"/>
 			<Orientation y="2.4782"/>
 			<Actor seed="688"/>
 		</Entity>
 		<Entity uid="419">
 			<Template>structures/wall_long</Template>
 			<Player>0</Player>
-			<Position x="983.88666" z="567.72687"/>
+			<Position x="983.83204" z="567.26355"/>
 			<Orientation y="2.4782"/>
 			<Actor seed="688"/>
 		</Entity>
 		<Entity uid="420">
 			<Template>structures/wall_long</Template>
 			<Player>0</Player>
-			<Position x="960.99677" z="550.4477"/>
-			<Orientation y="2.52364"/>
+			<Position x="959.766" z="552.54517"/>
+			<Orientation y="2.92502"/>
 			<Actor seed="58632"/>
 		</Entity>
 		<Entity uid="421">
 			<Template>structures/wall_long</Template>
 			<Player>0</Player>
-			<Position x="972.63276" z="559.19105"/>
-			<Orientation y="2.4782"/>
-			<Actor seed="688"/>
-		</Entity>
-		<Entity uid="422">
-			<Template>structures/wall_long</Template>
-			<Player>0</Player>
-			<Position x="828.94459" z="810.61438"/>
-			<Orientation y="4.05016"/>
+			<Position x="972.2823" z="558.79395"/>
+			<Orientation y="2.53731"/>
 			<Actor seed="688"/>
 		</Entity>
 		<Entity uid="423">
@@ -2327,27 +2139,6 @@
 			<Position x="820.27741" z="821.81421"/>
 			<Orientation y="4.05016"/>
 			<Actor seed="688"/>
-		</Entity>
-		<Entity uid="432">
-			<Template>structures/wall_long</Template>
-			<Player>0</Player>
-			<Position x="845.83857" z="788.35657"/>
-			<Orientation y="4.05016"/>
-			<Actor seed="688"/>
-		</Entity>
-		<Entity uid="433">
-			<Template>structures/wall_long</Template>
-			<Player>0</Player>
-			<Position x="854.3614" z="777.09278"/>
-			<Orientation y="4.05016"/>
-			<Actor seed="688"/>
-		</Entity>
-		<Entity uid="434">
-			<Template>structures/wall_long</Template>
-			<Player>0</Player>
-			<Position x="837.10877" z="800.00257"/>
-			<Orientation y="4.0956"/>
-			<Actor seed="58632"/>
 		</Entity>
 		<Entity uid="435">
 			<Template>structures/wall_long</Template>
@@ -2583,7 +2374,7 @@
 		<Entity uid="493">
 			<Template>structures/wall_long</Template>
 			<Player>0</Player>
-			<Position x="837.47663" z="425.2609"/>
+			<Position x="836.40558" z="424.793"/>
 			<Orientation y="2.55062"/>
 			<Actor seed="688"/>
 		</Entity>
@@ -3385,13 +3176,6 @@
 			<Orientation y="2.4782"/>
 			<Actor seed="688"/>
 		</Entity>
-		<Entity uid="641">
-			<Template>structures/wall_long</Template>
-			<Player>0</Player>
-			<Position x="186.39695" z="364.76236"/>
-			<Orientation y="4.05016"/>
-			<Actor seed="688"/>
-		</Entity>
 		<Entity uid="642">
 			<Template>structures/wall_long</Template>
 			<Player>0</Player>
@@ -3403,13 +3187,6 @@
 			<Template>structures/wall_long</Template>
 			<Player>0</Player>
 			<Position x="263.0496" z="262.74134"/>
-			<Orientation y="4.05016"/>
-			<Actor seed="688"/>
-		</Entity>
-		<Entity uid="644">
-			<Template>structures/wall_long</Template>
-			<Player>0</Player>
-			<Position x="203.58713" z="342.2988"/>
 			<Orientation y="4.05016"/>
 			<Actor seed="688"/>
 		</Entity>
@@ -3426,13 +3203,6 @@
 			<Position x="177.66715" z="376.40848"/>
 			<Orientation y="4.0956"/>
 			<Actor seed="58632"/>
-		</Entity>
-		<Entity uid="647">
-			<Template>structures/wall_long</Template>
-			<Player>0</Player>
-			<Position x="194.9198" z="353.49857"/>
-			<Orientation y="4.05016"/>
-			<Actor seed="688"/>
 		</Entity>
 		<Entity uid="648">
 			<Template>structures/wall_long</Template>
@@ -3490,13 +3260,6 @@
 			<Orientation y="4.05016"/>
 			<Actor seed="688"/>
 		</Entity>
-		<Entity uid="656">
-			<Template>structures/wall_long</Template>
-			<Player>0</Player>
-			<Position x="58.56003" z="532.70594"/>
-			<Orientation y="4.05016"/>
-			<Actor seed="688"/>
-		</Entity>
 		<Entity uid="657">
 			<Template>structures/wall_long</Template>
 			<Player>0</Player>
@@ -3511,13 +3274,6 @@
 			<Orientation y="4.05016"/>
 			<Actor seed="688"/>
 		</Entity>
-		<Entity uid="659">
-			<Template>structures/wall_long</Template>
-			<Player>0</Player>
-			<Position x="75.75022" z="510.24247"/>
-			<Orientation y="4.05016"/>
-			<Actor seed="688"/>
-		</Entity>
 		<Entity uid="660">
 			<Template>structures/wall_long</Template>
 			<Player>0</Player>
@@ -3525,45 +3281,10 @@
 			<Orientation y="4.16207"/>
 			<Actor seed="688"/>
 		</Entity>
-		<Entity uid="661">
-			<Template>structures/wall_long</Template>
-			<Player>0</Player>
-			<Position x="49.83024" z="544.35206"/>
-			<Orientation y="4.0956"/>
-			<Actor seed="58632"/>
-		</Entity>
-		<Entity uid="662">
-			<Template>structures/wall_long</Template>
-			<Player>0</Player>
-			<Position x="67.0829" z="521.44214"/>
-			<Orientation y="4.05016"/>
-			<Actor seed="688"/>
-		</Entity>
-		<Entity uid="663">
-			<Template>structures/wall_long</Template>
-			<Player>0</Player>
-			<Position x="84.93427" z="498.68024"/>
-			<Orientation y="4.01851"/>
-			<Actor seed="58632"/>
-		</Entity>
 		<Entity uid="664">
 			<Template>structures/wall_long</Template>
 			<Player>0</Player>
 			<Position x="143.88004" z="419.48517"/>
-			<Orientation y="4.05016"/>
-			<Actor seed="688"/>
-		</Entity>
-		<Entity uid="665">
-			<Template>structures/wall_long</Template>
-			<Player>0</Player>
-			<Position x="32.84226" z="566.6084"/>
-			<Orientation y="4.05016"/>
-			<Actor seed="688"/>
-		</Entity>
-		<Entity uid="666">
-			<Template>structures/wall_long</Template>
-			<Player>0</Player>
-			<Position x="41.50959" z="555.4087"/>
 			<Orientation y="4.05016"/>
 			<Actor seed="688"/>
 		</Entity>
@@ -3595,111 +3316,6 @@
 			<Orientation y="4.05016"/>
 			<Actor seed="688"/>
 		</Entity>
-		<Entity uid="671">
-			<Template>structures/wall_long</Template>
-			<Player>0</Player>
-			<Position x="144.61582" z="685.53602"/>
-			<Orientation y="-0.78522"/>
-			<Actor seed="688"/>
-		</Entity>
-		<Entity uid="672">
-			<Template>structures/wall_long</Template>
-			<Player>0</Player>
-			<Position x="83.21641" z="625.92353"/>
-			<Orientation y="-0.78522"/>
-			<Actor seed="688"/>
-		</Entity>
-		<Entity uid="673">
-			<Template>structures/wall_long</Template>
-			<Player>0</Player>
-			<Position x="52.76809" z="596.9474"/>
-			<Orientation y="-0.78522"/>
-			<Actor seed="688"/>
-		</Entity>
-		<Entity uid="674">
-			<Template>structures/wall_long</Template>
-			<Player>0</Player>
-			<Position x="124.4305" z="665.72004"/>
-			<Orientation y="-0.78522"/>
-			<Actor seed="688"/>
-		</Entity>
-		<Entity uid="675">
-			<Template>structures/wall_long</Template>
-			<Player>0</Player>
-			<Position x="103.40123" z="645.73945"/>
-			<Orientation y="-0.78522"/>
-			<Actor seed="688"/>
-		</Entity>
-		<Entity uid="676">
-			<Template>structures/wall_long</Template>
-			<Player>0</Player>
-			<Position x="155.1031" z="695.62848"/>
-			<Orientation y="-0.73978"/>
-			<Actor seed="58632"/>
-		</Entity>
-		<Entity uid="677">
-			<Template>structures/wall_long</Template>
-			<Player>0</Player>
-			<Position x="134.48258" z="675.69581"/>
-			<Orientation y="-0.78522"/>
-			<Actor seed="688"/>
-		</Entity>
-		<Entity uid="678">
-			<Template>structures/wall_long</Template>
-			<Player>0</Player>
-			<Position x="113.88852" z="655.83191"/>
-			<Orientation y="-0.73978"/>
-			<Actor seed="58632"/>
-		</Entity>
-		<Entity uid="679">
-			<Template>structures/wall_long</Template>
-			<Player>0</Player>
-			<Position x="42.71612" z="586.97168"/>
-			<Orientation y="-0.78522"/>
-			<Actor seed="688"/>
-		</Entity>
-		<Entity uid="680">
-			<Template>structures/wall_long</Template>
-			<Player>0</Player>
-			<Position x="175.10746" z="715.21833"/>
-			<Orientation y="-0.78522"/>
-			<Actor seed="688"/>
-		</Entity>
-		<Entity uid="681">
-			<Template>structures/wall_long</Template>
-			<Player>0</Player>
-			<Position x="165.05542" z="705.24262"/>
-			<Orientation y="-0.78522"/>
-			<Actor seed="688"/>
-		</Entity>
-		<Entity uid="682">
-			<Template>structures/wall_long</Template>
-			<Player>0</Player>
-			<Position x="93.26844" z="635.8993"/>
-			<Orientation y="-0.78522"/>
-			<Actor seed="688"/>
-		</Entity>
-		<Entity uid="683">
-			<Template>structures/wall_long</Template>
-			<Player>0</Player>
-			<Position x="62.90125" z="606.7876"/>
-			<Orientation y="-0.78522"/>
-			<Actor seed="688"/>
-		</Entity>
-		<Entity uid="684">
-			<Template>structures/wall_long</Template>
-			<Player>0</Player>
-			<Position x="73.38852" z="616.8802"/>
-			<Orientation y="-0.73978"/>
-			<Actor seed="58632"/>
-		</Entity>
-		<Entity uid="685">
-			<Template>structures/wall_long</Template>
-			<Player>0</Player>
-			<Position x="33.47176" z="577.23627"/>
-			<Orientation y="-0.78522"/>
-			<Actor seed="688"/>
-		</Entity>
 		<Entity uid="686">
 			<Template>structures/wall_long</Template>
 			<Player>0</Player>
@@ -3713,12 +3329,6 @@
 			<Position x="235.22477" z="769.83448"/>
 			<Orientation y="-0.74392"/>
 			<Actor seed="688"/>
-		</Entity>
-		<Entity uid="688">
-			<Template>structures/wall_long</Template>
-			<Player>0</Player>
-			<Position x="203.60621" z="742.14002"/>
-			<Orientation y="-0.74392"/>
 		</Entity>
 		<Entity uid="689">
 			<Template>structures/wall_long</Template>
@@ -3755,13 +3365,6 @@
 			<Orientation y="-0.69848"/>
 			<Actor seed="58632"/>
 		</Entity>
-		<Entity uid="694">
-			<Template>structures/wall_long</Template>
-			<Player>0</Player>
-			<Position x="193.15098" z="732.58777"/>
-			<Orientation y="-0.74392"/>
-			<Actor seed="688"/>
-		</Entity>
 		<Entity uid="695">
 			<Template>structures/wall_long</Template>
 			<Player>0</Player>
@@ -3783,26 +3386,12 @@
 			<Orientation y="-0.74392"/>
 			<Actor seed="688"/>
 		</Entity>
-		<Entity uid="698">
-			<Template>structures/wall_long</Template>
-			<Player>0</Player>
-			<Position x="214.53718" z="750.818"/>
-			<Orientation y="-0.67331"/>
-			<Actor seed="688"/>
-		</Entity>
 		<Entity uid="699">
 			<Template>structures/wall_long</Template>
 			<Player>0</Player>
 			<Position x="225.49515" z="760.34156"/>
 			<Orientation y="-0.81281"/>
 			<Actor seed="58632"/>
-		</Entity>
-		<Entity uid="700">
-			<Template>structures/wall_long</Template>
-			<Player>0</Player>
-			<Position x="183.51261" z="723.24225"/>
-			<Orientation y="-0.74392"/>
-			<Actor seed="688"/>
 		</Entity>
 		<Entity uid="701">
 			<Template>structures/wall_long</Template>
@@ -3909,13 +3498,6 @@
 			<Orientation y="-0.74393"/>
 			<Actor seed="688"/>
 		</Entity>
-		<Entity uid="716">
-			<Template>structures/wall_long</Template>
-			<Player>0</Player>
-			<Position x="646.16364" z="949.65986"/>
-			<Orientation y="0.29496"/>
-			<Actor seed="688"/>
-		</Entity>
 		<Entity uid="717">
 			<Template>structures/wall_long</Template>
 			<Player>0</Player>
@@ -3927,13 +3509,6 @@
 			<Template>structures/wall_long</Template>
 			<Player>0</Player>
 			<Position x="524.74897" z="988.93207"/>
-			<Orientation y="0.29496"/>
-			<Actor seed="688"/>
-		</Entity>
-		<Entity uid="719">
-			<Template>structures/wall_long</Template>
-			<Player>0</Player>
-			<Position x="619.17444" z="958.12726"/>
 			<Orientation y="0.29496"/>
 			<Actor seed="688"/>
 		</Entity>
@@ -3950,13 +3525,6 @@
 			<Position x="660.00696" z="945.16498"/>
 			<Orientation y="0.3404"/>
 			<Actor seed="58632"/>
-		</Entity>
-		<Entity uid="722">
-			<Template>structures/wall_long</Template>
-			<Player>0</Player>
-			<Position x="632.70966" z="953.96131"/>
-			<Orientation y="0.29496"/>
-			<Actor seed="688"/>
 		</Entity>
 		<Entity uid="723">
 			<Template>structures/wall_long</Template>
@@ -5060,8 +4628,8 @@
 		<Entity uid="930">
 			<Template>structures/wall_long</Template>
 			<Player>0</Player>
-			<Position x="94.86536" z="499.4355"/>
-			<Orientation y="5.60613"/>
+			<Position x="95.86774" z="498.39576"/>
+			<Orientation y="5.45456"/>
 			<Actor seed="688"/>
 		</Entity>
 		<Entity uid="931">
@@ -5798,6 +5366,1770 @@
 			<Position x="603.38794" z="959.89191"/>
 			<Orientation y="-3.42925"/>
 			<Actor seed="688"/>
+		</Entity>
+		<Entity uid="1056">
+			<Template>units/bams/fenrir</Template>
+			<Player>0</Player>
+			<Position x="565.79542" z="766.69965"/>
+			<Orientation y="-0.3593"/>
+			<Actor seed="51278"/>
+		</Entity>
+		<Entity uid="1060">
+			<Template>equipment/weapons/melee/spear/spear</Template>
+			<Player>0</Player>
+			<Position x="401.405" z="337.37461"/>
+			<Orientation y="1.54725"/>
+			<Actor seed="10384"/>
+		</Entity>
+		<Entity uid="1065">
+			<Template>units/bams/minotaur</Template>
+			<Player>0</Player>
+			<Position x="290.43055" z="697.33088"/>
+			<Orientation y="2.35622"/>
+			<Actor seed="9876"/>
+		</Entity>
+		<Entity uid="1066">
+			<Template>statues/aphrodite_heal</Template>
+			<Player>0</Player>
+			<Position x="402.92081" z="334.23881"/>
+			<Orientation y="-1.52619"/>
+			<Actor seed="42188"/>
+		</Entity>
+		<Entity uid="1068">
+			<Template>statues/aphrodite_heal</Template>
+			<Player>0</Player>
+			<Position x="229.2707" z="557.97974"/>
+			<Orientation y="-0.82421"/>
+			<Actor seed="52190"/>
+		</Entity>
+		<Entity uid="1069">
+			<Template>equipment/weapons/ranged/bow/bow</Template>
+			<Player>0</Player>
+			<Position x="226.98682" z="558.66828"/>
+			<Orientation y="2.35621"/>
+			<Actor seed="40918"/>
+		</Entity>
+		<Entity uid="1070">
+			<Template>equipment/armour/body/heavy-armour</Template>
+			<Player>0</Player>
+			<Position x="487.48343" z="627.3418"/>
+			<Orientation y="2.35621"/>
+			<Actor seed="18384"/>
+		</Entity>
+		<Entity uid="1071">
+			<Template>equipment/armour/helm/heavy-helm</Template>
+			<Player>0</Player>
+			<Position x="385.88141" z="467.59891"/>
+			<Orientation y="0.6071"/>
+			<Actor seed="784"/>
+		</Entity>
+		<Entity uid="1072">
+			<Template>equipment/armour/shield/shield-heavy</Template>
+			<Player>0</Player>
+			<Position x="433.61417" z="710.3371"/>
+			<Orientation y="-2.42193"/>
+			<Actor seed="60550"/>
+		</Entity>
+		<Entity uid="1073">
+			<Template>equipment/armour/body/medium-armour</Template>
+			<Player>0</Player>
+			<Position x="970.42286" z="572.28901"/>
+			<Orientation y="2.35621"/>
+			<Actor seed="9300"/>
+		</Entity>
+		<Entity uid="1074">
+			<Template>equipment/armour/helm/medium-helm</Template>
+			<Player>0</Player>
+			<Position x="930.89667" z="453.95899"/>
+			<Orientation y="-0.7293"/>
+			<Actor seed="42958"/>
+		</Entity>
+		<Entity uid="1075">
+			<Template>equipment/armour/shield/shield-medium</Template>
+			<Player>0</Player>
+			<Position x="703.69007" z="304.3158"/>
+			<Orientation y="0.79117"/>
+			<Actor seed="23336"/>
+		</Entity>
+		<Entity uid="1076">
+			<Template>statues/aphrodite_heal</Template>
+			<Player>0</Player>
+			<Position x="702.32166" z="300.84601"/>
+			<Orientation y="0.5582"/>
+			<Actor seed="25260"/>
+		</Entity>
+		<Entity uid="1077">
+			<Template>statues/aphrodite_heal</Template>
+			<Player>0</Player>
+			<Position x="974.0724" z="571.23383"/>
+			<Orientation y="-0.52231"/>
+			<Actor seed="6824"/>
+		</Entity>
+		<Entity uid="1080">
+			<Template>gaia/fauna_wolf</Template>
+			<Player>0</Player>
+			<Position x="969.85663" z="578.79517"/>
+			<Orientation y="-0.62383"/>
+			<Actor seed="27012"/>
+		</Entity>
+		<Entity uid="1081">
+			<Template>gaia/fauna_wolf</Template>
+			<Player>0</Player>
+			<Position x="968.13025" z="577.14667"/>
+			<Orientation y="-0.50838"/>
+			<Actor seed="51524"/>
+		</Entity>
+		<Entity uid="1082">
+			<Template>gaia/fauna_wolf</Template>
+			<Player>0</Player>
+			<Position x="966.13074" z="574.55976"/>
+			<Orientation y="-0.37288"/>
+			<Actor seed="88"/>
+		</Entity>
+		<Entity uid="1083">
+			<Template>gaia/fauna_wolf</Template>
+			<Player>0</Player>
+			<Position x="936.89795" z="636.13611"/>
+			<Orientation y="-0.62383"/>
+			<Actor seed="27012"/>
+		</Entity>
+		<Entity uid="1084">
+			<Template>gaia/fauna_wolf</Template>
+			<Player>0</Player>
+			<Position x="928.50178" z="630.5199"/>
+			<Orientation y="-0.50838"/>
+			<Actor seed="51524"/>
+		</Entity>
+		<Entity uid="1085">
+			<Template>gaia/fauna_wolf</Template>
+			<Player>0</Player>
+			<Position x="918.4911" z="624.44098"/>
+			<Orientation y="-0.37288"/>
+			<Actor seed="88"/>
+		</Entity>
+		<Entity uid="1086">
+			<Template>gaia/fauna_wolf</Template>
+			<Player>0</Player>
+			<Position x="862.40607" z="698.14454"/>
+			<Orientation y="-3.45952"/>
+			<Actor seed="27012"/>
+		</Entity>
+		<Entity uid="1087">
+			<Template>gaia/fauna_wolf</Template>
+			<Player>0</Player>
+			<Position x="872.61298" z="692.20954"/>
+			<Orientation y="-2.24338"/>
+			<Actor seed="51524"/>
+		</Entity>
+		<Entity uid="1088">
+			<Template>gaia/fauna_wolf</Template>
+			<Player>0</Player>
+			<Position x="876.22944" z="679.78034"/>
+			<Orientation y="-1.66468"/>
+			<Actor seed="88"/>
+		</Entity>
+		<Entity uid="1090">
+			<Template>gaia/fauna_wolf</Template>
+			<Player>0</Player>
+			<Position x="934.14045" z="455.8335"/>
+			<Orientation y="-1.36675"/>
+			<Actor seed="48624"/>
+		</Entity>
+		<Entity uid="1091">
+			<Template>gaia/fauna_wolf</Template>
+			<Player>0</Player>
+			<Position x="928.14893" z="452.65046"/>
+			<Orientation y="-0.46569"/>
+			<Actor seed="62784"/>
+		</Entity>
+		<Entity uid="1092">
+			<Template>gaia/fauna_wolf</Template>
+			<Player>0</Player>
+			<Position x="649.26282" z="473.72529"/>
+			<Orientation y="0.91146"/>
+			<Actor seed="62784"/>
+		</Entity>
+		<Entity uid="1093">
+			<Template>gaia/fauna_wolf</Template>
+			<Player>0</Player>
+			<Position x="653.53943" z="468.45838"/>
+			<Orientation y="0.0104"/>
+			<Actor seed="48624"/>
+		</Entity>
+		<Entity uid="1094">
+			<Template>gaia/fauna_wolf</Template>
+			<Player>0</Player>
+			<Position x="648.16736" z="477.42994"/>
+			<Orientation y="1.1074"/>
+			<Actor seed="62784"/>
+		</Entity>
+		<Entity uid="1095">
+			<Template>gaia/fauna_wolf</Template>
+			<Player>0</Player>
+			<Position x="651.33667" z="471.43116"/>
+			<Orientation y="0.20633"/>
+			<Actor seed="48624"/>
+		</Entity>
+		<Entity uid="1096">
+			<Template>gaia/fauna_wolf</Template>
+			<Player>0</Player>
+			<Position x="576.53345" z="414.71946"/>
+			<Orientation y="0.20633"/>
+			<Actor seed="48624"/>
+		</Entity>
+		<Entity uid="1097">
+			<Template>gaia/fauna_wolf</Template>
+			<Player>0</Player>
+			<Position x="578.67493" z="411.693"/>
+			<Orientation y="0.01041"/>
+			<Actor seed="48624"/>
+		</Entity>
+		<Entity uid="1098">
+			<Template>gaia/fauna_wolf</Template>
+			<Player>0</Player>
+			<Position x="574.39832" z="416.9599"/>
+			<Orientation y="0.91146"/>
+			<Actor seed="62784"/>
+		</Entity>
+		<Entity uid="1099">
+			<Template>gaia/fauna_wolf</Template>
+			<Player>0</Player>
+			<Position x="573.36414" z="420.71824"/>
+			<Orientation y="1.10741"/>
+			<Actor seed="62784"/>
+		</Entity>
+		<Entity uid="1100">
+			<Template>gaia/fauna_wolf</Template>
+			<Player>0</Player>
+			<Position x="675.41053" z="369.34144"/>
+			<Orientation y="0.20633"/>
+			<Actor seed="48624"/>
+		</Entity>
+		<Entity uid="1101">
+			<Template>gaia/fauna_wolf</Template>
+			<Player>0</Player>
+			<Position x="683.12281" z="375.11222"/>
+			<Orientation y="0.67539"/>
+			<Actor seed="48624"/>
+		</Entity>
+		<Entity uid="1102">
+			<Template>gaia/fauna_wolf</Template>
+			<Player>0</Player>
+			<Position x="683.00733" z="381.89573"/>
+			<Orientation y="1.57644"/>
+			<Actor seed="62784"/>
+		</Entity>
+		<Entity uid="1103">
+			<Template>gaia/fauna_wolf</Template>
+			<Player>0</Player>
+			<Position x="672.24122" z="375.34021"/>
+			<Orientation y="1.10741"/>
+			<Actor seed="62784"/>
+		</Entity>
+		<Entity uid="1104">
+			<Template>equipment/armour/body/light-armour</Template>
+			<Player>0</Player>
+			<Position x="680.16681" z="170.86481"/>
+			<Orientation y="2.35621"/>
+			<Actor seed="7602"/>
+		</Entity>
+		<Entity uid="1105">
+			<Template>statues/aphrodite_heal</Template>
+			<Player>0</Player>
+			<Position x="676.52063" z="167.52414"/>
+			<Orientation y="0.77968"/>
+			<Actor seed="58746"/>
+		</Entity>
+		<Entity uid="1106">
+			<Template>equipment/armour/shield/shield-light</Template>
+			<Player>0</Player>
+			<Position x="337.2162" z="193.52799"/>
+			<Orientation y="2.57189"/>
+			<Actor seed="17512"/>
+		</Entity>
+		<Entity uid="1107">
+			<Template>statues/aphrodite_heal</Template>
+			<Player>0</Player>
+			<Position x="335.4307" z="196.06482"/>
+			<Orientation y="2.35621"/>
+			<Actor seed="36898"/>
+		</Entity>
+		<Entity uid="1108">
+			<Template>equipment/armour/helm/light-helm</Template>
+			<Player>0</Player>
+			<Position x="335.08353" z="193.36445"/>
+			<Orientation y="2.6508"/>
+			<Actor seed="22200"/>
+		</Entity>
+		<Entity uid="1109">
+			<Template>gaia/fauna_wolf</Template>
+			<Player>0</Player>
+			<Position x="338.03513" z="185.04178"/>
+			<Orientation y="2.35621"/>
+			<Actor seed="48178"/>
+		</Entity>
+		<Entity uid="1110">
+			<Template>gaia/fauna_wolf</Template>
+			<Player>0</Player>
+			<Position x="342.48301" z="191.61591"/>
+			<Orientation y="2.35621"/>
+			<Actor seed="31326"/>
+		</Entity>
+		<Entity uid="1111">
+			<Template>gaia/fauna_wolf</Template>
+			<Player>0</Player>
+			<Position x="340.33414" z="188.40592"/>
+			<Orientation y="2.35621"/>
+			<Actor seed="38604"/>
+		</Entity>
+		<Entity uid="1112">
+			<Template>gaia/fauna_wolf</Template>
+			<Player>0</Player>
+			<Position x="458.02558" z="185.40448"/>
+			<Orientation y="2.16523"/>
+			<Actor seed="52862"/>
+		</Entity>
+		<Entity uid="1113">
+			<Template>gaia/fauna_wolf</Template>
+			<Player>0</Player>
+			<Position x="465.01227" z="188.20624"/>
+			<Orientation y="2.24407"/>
+			<Actor seed="38638"/>
+		</Entity>
+		<Entity uid="1114">
+			<Template>gaia/fauna_wolf</Template>
+			<Player>0</Player>
+			<Position x="470.17631" z="192.20044"/>
+			<Orientation y="2.47306"/>
+			<Actor seed="11092"/>
+		</Entity>
+		<Entity uid="1115">
+			<Template>gaia/fauna_wolf</Template>
+			<Player>0</Player>
+			<Position x="513.96833" z="229.22306"/>
+			<Orientation y="2.16524"/>
+			<Actor seed="52862"/>
+		</Entity>
+		<Entity uid="1116">
+			<Template>gaia/fauna_wolf</Template>
+			<Player>0</Player>
+			<Position x="520.95502" z="232.02482"/>
+			<Orientation y="2.24407"/>
+			<Actor seed="38638"/>
+		</Entity>
+		<Entity uid="1117">
+			<Template>gaia/fauna_wolf</Template>
+			<Player>0</Player>
+			<Position x="526.11902" z="236.01902"/>
+			<Orientation y="2.47306"/>
+			<Actor seed="11092"/>
+		</Entity>
+		<Entity uid="1118">
+			<Template>gaia/fauna_wolf</Template>
+			<Player>0</Player>
+			<Position x="555.81922" z="85.28087"/>
+			<Orientation y="-0.64478"/>
+			<Actor seed="52862"/>
+		</Entity>
+		<Entity uid="1119">
+			<Template>gaia/fauna_wolf</Template>
+			<Player>0</Player>
+			<Position x="548.30097" z="84.9062"/>
+			<Orientation y="-0.56595"/>
+			<Actor seed="38638"/>
+		</Entity>
+		<Entity uid="1120">
+			<Template>gaia/fauna_wolf</Template>
+			<Player>0</Player>
+			<Position x="542.11792" z="82.81069"/>
+			<Orientation y="-0.33696"/>
+			<Actor seed="11092"/>
+		</Entity>
+		<Entity uid="1121">
+			<Template>gaia/fauna_wolf</Template>
+			<Player>0</Player>
+			<Position x="609.85621" z="135.75782"/>
+			<Orientation y="4.91292"/>
+			<Actor seed="52862"/>
+		</Entity>
+		<Entity uid="1122">
+			<Template>gaia/fauna_wolf</Template>
+			<Player>0</Player>
+			<Position x="604.47992" z="130.48911"/>
+			<Orientation y="4.99175"/>
+			<Actor seed="38638"/>
+		</Entity>
+		<Entity uid="1123">
+			<Template>gaia/fauna_wolf</Template>
+			<Player>0</Player>
+			<Position x="601.24445" z="124.81882"/>
+			<Orientation y="5.22074"/>
+			<Actor seed="11092"/>
+		</Entity>
+		<Entity uid="1124">
+			<Template>gaia/fauna_wolf</Template>
+			<Player>0</Player>
+			<Position x="781.37208" z="226.69828"/>
+			<Orientation y="2.35621"/>
+			<Actor seed="4720"/>
+		</Entity>
+		<Entity uid="1125">
+			<Template>gaia/fauna_wolf</Template>
+			<Player>0</Player>
+			<Position x="873.42579" z="350.01157"/>
+			<Orientation y="2.35621"/>
+			<Actor seed="57478"/>
+		</Entity>
+		<Entity uid="1126">
+			<Template>gaia/fauna_wolf</Template>
+			<Player>0</Player>
+			<Position x="877.85743" z="352.27723"/>
+			<Orientation y="2.35621"/>
+			<Actor seed="48762"/>
+		</Entity>
+		<Entity uid="1127">
+			<Template>gaia/fauna_wolf</Template>
+			<Player>0</Player>
+			<Position x="888.20734" z="358.88218"/>
+			<Orientation y="2.35621"/>
+			<Actor seed="31318"/>
+		</Entity>
+		<Entity uid="1128">
+			<Template>gaia/fauna_wolf</Template>
+			<Player>0</Player>
+			<Position x="800.89771" z="370.64258"/>
+			<Orientation y="0.60357"/>
+			<Actor seed="14970"/>
+		</Entity>
+		<Entity uid="1129">
+			<Template>gaia/fauna_wolf</Template>
+			<Player>0</Player>
+			<Position x="798.16803" z="379.45643"/>
+			<Orientation y="1.22132"/>
+			<Actor seed="49220"/>
+		</Entity>
+		<Entity uid="1130">
+			<Template>gaia/fauna_wolf</Template>
+			<Player>0</Player>
+			<Position x="817.42774" z="540.49292"/>
+			<Orientation y="-2.00303"/>
+			<Actor seed="30762"/>
+		</Entity>
+		<Entity uid="1131">
+			<Template>gaia/fauna_wolf</Template>
+			<Player>0</Player>
+			<Position x="812.15308" z="548.5069"/>
+			<Orientation y="-2.21042"/>
+			<Actor seed="8472"/>
+		</Entity>
+		<Entity uid="1132">
+			<Template>gaia/fauna_wolf</Template>
+			<Player>0</Player>
+			<Position x="771.18555" z="473.1537"/>
+			<Orientation y="-2.41326"/>
+			<Actor seed="12106"/>
+		</Entity>
+		<Entity uid="1133">
+			<Template>gaia/fauna_wolf</Template>
+			<Player>0</Player>
+			<Position x="779.34675" z="464.76636"/>
+			<Orientation y="-2.47535"/>
+			<Actor seed="63772"/>
+		</Entity>
+		<Entity uid="1134">
+			<Template>gaia/fauna_wolf_strong</Template>
+			<Player>0</Player>
+			<Position x="502.42603" z="467.22117"/>
+			<Orientation y="2.37726"/>
+			<Actor seed="63300"/>
+		</Entity>
+		<Entity uid="1136">
+			<Template>gaia/fauna_wolf_strong</Template>
+			<Player>0</Player>
+			<Position x="227.9673" z="592.10932"/>
+			<Orientation y="0.86373"/>
+			<Actor seed="30162"/>
+		</Entity>
+		<Entity uid="1137">
+			<Template>equipment/weapons/melee/sword/sword_10</Template>
+			<Player>0</Player>
+			<Position x="820.35267" z="177.54908"/>
+			<Orientation y="2.35621"/>
+			<Actor seed="45556"/>
+		</Entity>
+		<Entity uid="1138">
+			<Template>equipment/weapons/melee/spear/spear_16</Template>
+			<Player>0</Player>
+			<Position x="678.94648" z="168.15748"/>
+			<Orientation y="2.35621"/>
+			<Actor seed="43646"/>
+		</Entity>
+		<Entity uid="1139">
+			<Template>gaia/fauna_wolf</Template>
+			<Player>0</Player>
+			<Position x="628.65125" z="199.05436"/>
+			<Orientation y="2.35622"/>
+			<Actor seed="4720"/>
+		</Entity>
+		<Entity uid="1140">
+			<Template>gaia/fauna_wolf</Template>
+			<Player>0</Player>
+			<Position x="624.18976" z="206.17759"/>
+			<Orientation y="2.35622"/>
+			<Actor seed="4720"/>
+		</Entity>
+		<Entity uid="1141">
+			<Template>gaia/fauna_wolf</Template>
+			<Player>0</Player>
+			<Position x="837.68897" z="297.71961"/>
+			<Orientation y="3.5644"/>
+			<Actor seed="57478"/>
+		</Entity>
+		<Entity uid="1142">
+			<Template>gaia/fauna_wolf</Template>
+			<Player>0</Player>
+			<Position x="841.37934" z="294.37989"/>
+			<Orientation y="3.5644"/>
+			<Actor seed="48762"/>
+		</Entity>
+		<Entity uid="1143">
+			<Template>equipment/weapons/melee/sword/sword_20</Template>
+			<Player>0</Player>
+			<Position x="511.31507" z="246.2386"/>
+			<Orientation y="2.35621"/>
+			<Actor seed="25754"/>
+		</Entity>
+		<Entity uid="1144">
+			<Template>statues/aphrodite_heal</Template>
+			<Player>0</Player>
+			<Position x="841.18787" z="420.01996"/>
+			<Orientation y="2.35621"/>
+			<Actor seed="54204"/>
+		</Entity>
+		<Entity uid="1145">
+			<Template>equipment/weapons/melee/sword/sword_25</Template>
+			<Player>0</Player>
+			<Position x="810.76795" z="481.31525"/>
+			<Orientation y="2.35621"/>
+			<Actor seed="6130"/>
+		</Entity>
+		<Entity uid="1146">
+			<Template>statues/aphrodite_heal</Template>
+			<Player>0</Player>
+			<Position x="814.63099" z="480.78043"/>
+			<Orientation y="2.82245"/>
+			<Actor seed="40568"/>
+		</Entity>
+		<Entity uid="1147">
+			<Template>equipment/weapons/melee/spear/spear_32</Template>
+			<Player>0</Player>
+			<Position x="841.74463" z="740.72046"/>
+			<Orientation y="2.35621"/>
+			<Actor seed="35948"/>
+		</Entity>
+		<Entity uid="1148">
+			<Template>gaia/fauna_wolf</Template>
+			<Player>0</Player>
+			<Position x="844.66095" z="742.15876"/>
+			<Orientation y="-3.0759"/>
+			<Actor seed="88"/>
+		</Entity>
+		<Entity uid="1149">
+			<Template>gaia/fauna_wolf</Template>
+			<Player>0</Player>
+			<Position x="837.37702" z="737.40467"/>
+			<Orientation y="-4.87075"/>
+			<Actor seed="27012"/>
+		</Entity>
+		<Entity uid="1150">
+			<Template>gaia/fauna_wolf</Template>
+			<Player>0</Player>
+			<Position x="839.34968" z="741.44556"/>
+			<Orientation y="-3.65461"/>
+			<Actor seed="51524"/>
+		</Entity>
+		<Entity uid="1151">
+			<Template>gaia/fauna_wolf</Template>
+			<Player>0</Player>
+			<Position x="837.96937" z="732.99671"/>
+			<Orientation y="-4.87075"/>
+			<Actor seed="27012"/>
+		</Entity>
+		<Entity uid="1152">
+			<Template>gaia/fauna_wolf</Template>
+			<Player>0</Player>
+			<Position x="848.56305" z="740.41382"/>
+			<Orientation y="-9.90194"/>
+			<Actor seed="27012"/>
+		</Entity>
+		<Entity uid="1153">
+			<Template>equipment/weapons/melee/sword/sword_40</Template>
+			<Player>0</Player>
+			<Position x="547.26307" z="424.9936"/>
+			<Orientation y="2.35621"/>
+			<Actor seed="20192"/>
+		</Entity>
+		<Entity uid="1154">
+			<Template>statues/aphrodite_heal</Template>
+			<Player>0</Player>
+			<Position x="542.76789" z="427.43985"/>
+			<Orientation y="1.93615"/>
+			<Actor seed="41636"/>
+		</Entity>
+		<Entity uid="1155">
+			<Template>gaia/fauna_wolf_strong</Template>
+			<Player>0</Player>
+			<Position x="149.22361" z="443.1696"/>
+			<Orientation y="-0.77865"/>
+			<Actor seed="35370"/>
+		</Entity>
+		<Entity uid="1157">
+			<Template>gaia/fauna_wolf</Template>
+			<Player>0</Player>
+			<Position x="154.43552" z="439.44001"/>
+			<Orientation y="-0.71323"/>
+			<Actor seed="22026"/>
+		</Entity>
+		<Entity uid="1158">
+			<Template>gaia/fauna_wolf</Template>
+			<Player>0</Player>
+			<Position x="152.25721" z="436.85203"/>
+			<Orientation y="-0.68361"/>
+			<Actor seed="17904"/>
+		</Entity>
+		<Entity uid="1159">
+			<Template>gaia/fauna_wolf</Template>
+			<Player>0</Player>
+			<Position x="148.08878" z="435.46192"/>
+			<Orientation y="-0.42235"/>
+			<Actor seed="39348"/>
+		</Entity>
+		<Entity uid="1160">
+			<Template>gaia/fauna_wolf</Template>
+			<Player>0</Player>
+			<Position x="156.93262" z="441.80106"/>
+			<Orientation y="-0.8519"/>
+			<Actor seed="29156"/>
+		</Entity>
+		<Entity uid="1161">
+			<Template>gaia/fauna_wolf</Template>
+			<Player>0</Player>
+			<Position x="229.20203" z="440.9752"/>
+			<Orientation y="-1.74787"/>
+			<Actor seed="39348"/>
+		</Entity>
+		<Entity uid="1162">
+			<Template>gaia/fauna_wolf</Template>
+			<Player>0</Player>
+			<Position x="224.86863" z="452.04975"/>
+			<Orientation y="-2.17742"/>
+			<Actor seed="29156"/>
+		</Entity>
+		<Entity uid="1163">
+			<Template>gaia/fauna_wolf</Template>
+			<Player>0</Player>
+			<Position x="226.8842" z="448.09797"/>
+			<Orientation y="-2.03875"/>
+			<Actor seed="22026"/>
+		</Entity>
+		<Entity uid="1164">
+			<Template>gaia/fauna_wolf_strong</Template>
+			<Player>0</Player>
+			<Position x="222.00065" z="443.9477"/>
+			<Orientation y="-2.10418"/>
+			<Actor seed="35370"/>
+		</Entity>
+		<Entity uid="1165">
+			<Template>gaia/fauna_wolf</Template>
+			<Player>0</Player>
+			<Position x="228.86576" z="445.35645"/>
+			<Orientation y="-2.00913"/>
+			<Actor seed="17904"/>
+		</Entity>
+		<Entity uid="1166">
+			<Template>gaia/fauna_wolf_strong</Template>
+			<Player>0</Player>
+			<Position x="222.44523" z="440.48093"/>
+			<Orientation y="-2.1042"/>
+			<Actor seed="35370"/>
+		</Entity>
+		<Entity uid="1167">
+			<Template>gaia/fauna_wolf_strong</Template>
+			<Player>0</Player>
+			<Position x="326.37537" z="399.49094"/>
+			<Orientation y="-0.444"/>
+			<Actor seed="35370"/>
+		</Entity>
+		<Entity uid="1168">
+			<Template>gaia/fauna_wolf</Template>
+			<Player>0</Player>
+			<Position x="333.01963" z="399.87775"/>
+			<Orientation y="-0.34893"/>
+			<Actor seed="17904"/>
+		</Entity>
+		<Entity uid="1169">
+			<Template>gaia/fauna_wolf</Template>
+			<Player>0</Player>
+			<Position x="337.33185" z="408.94971"/>
+			<Orientation y="-0.9202"/>
+			<Actor seed="39348"/>
+		</Entity>
+		<Entity uid="1170">
+			<Template>gaia/fauna_wolf</Template>
+			<Player>0</Player>
+			<Position x="323.51856" z="396.51084"/>
+			<Orientation y="-0.51722"/>
+			<Actor seed="29156"/>
+		</Entity>
+		<Entity uid="1171">
+			<Template>gaia/fauna_wolf</Template>
+			<Player>0</Player>
+			<Position x="335.92713" z="401.6066"/>
+			<Orientation y="-0.37856"/>
+			<Actor seed="22026"/>
+		</Entity>
+		<Entity uid="1172">
+			<Template>gaia/fauna_wolf_strong</Template>
+			<Player>0</Player>
+			<Position x="332.7935" z="405.53278"/>
+			<Orientation y="-0.8491"/>
+			<Actor seed="35370"/>
+		</Entity>
+		<Entity uid="1173">
+			<Template>gaia/fauna_wolf</Template>
+			<Player>0</Player>
+			<Position x="321.55518" z="399.9496"/>
+			<Orientation y="-0.31986"/>
+			<Actor seed="39348"/>
+		</Entity>
+		<Entity uid="1174">
+			<Template>gaia/fauna_wolf</Template>
+			<Player>0</Player>
+			<Position x="325.85181" z="400.8154"/>
+			<Orientation y="-0.58112"/>
+			<Actor seed="17904"/>
+		</Entity>
+		<Entity uid="1175">
+			<Template>gaia/fauna_wolf</Template>
+			<Player>0</Player>
+			<Position x="328.27747" z="403.2115"/>
+			<Orientation y="-0.61077"/>
+			<Actor seed="22026"/>
+		</Entity>
+		<Entity uid="1176">
+			<Template>gaia/fauna_wolf</Template>
+			<Player>0</Player>
+			<Position x="324.69443" z="395.30933"/>
+			<Orientation y="-0.29285"/>
+			<Actor seed="39348"/>
+		</Entity>
+		<Entity uid="1177">
+			<Template>gaia/fauna_wolf</Template>
+			<Player>0</Player>
+			<Position x="329.01877" z="396.2238"/>
+			<Orientation y="-0.55411"/>
+			<Actor seed="17904"/>
+		</Entity>
+		<Entity uid="1178">
+			<Template>gaia/fauna_wolf</Template>
+			<Player>0</Player>
+			<Position x="331.51301" z="398.5088"/>
+			<Orientation y="-0.58376"/>
+			<Actor seed="22026"/>
+		</Entity>
+		<Entity uid="1179">
+			<Template>gaia/fauna_wolf</Template>
+			<Player>0</Player>
+			<Position x="331.17811" z="404.14078"/>
+			<Orientation y="-0.92113"/>
+			<Actor seed="39348"/>
+		</Entity>
+		<Entity uid="1180">
+			<Template>gaia/fauna_wolf</Template>
+			<Player>0</Player>
+			<Position x="334.17371" z="407.35557"/>
+			<Orientation y="-1.1824"/>
+			<Actor seed="17904"/>
+		</Entity>
+		<Entity uid="1181">
+			<Template>gaia/fauna_wolf</Template>
+			<Player>0</Player>
+			<Position x="334.83124" z="410.88971"/>
+			<Orientation y="-1.21204"/>
+			<Actor seed="22026"/>
+		</Entity>
+		<Entity uid="1182">
+			<Template>gaia/fauna_wolf</Template>
+			<Player>0</Player>
+			<Position x="426.28953" z="711.69971"/>
+			<Orientation y="2.93876"/>
+			<Actor seed="61678"/>
+		</Entity>
+		<Entity uid="1183">
+			<Template>gaia/fauna_wolf</Template>
+			<Player>0</Player>
+			<Position x="436.58329" z="704.60969"/>
+			<Orientation y="-2.06255"/>
+			<Actor seed="9740"/>
+		</Entity>
+		<Entity uid="1184">
+			<Template>gaia/fauna_wolf</Template>
+			<Player>0</Player>
+			<Position x="429.33173" z="705.42579"/>
+			<Orientation y="-2.96172"/>
+			<Actor seed="11174"/>
+		</Entity>
+		<Entity uid="1185">
+			<Template>gaia/fauna_wolf</Template>
+			<Player>0</Player>
+			<Position x="481.65738" z="627.13331"/>
+			<Orientation y="-2.45759"/>
+			<Actor seed="55136"/>
+		</Entity>
+		<Entity uid="1186">
+			<Template>gaia/fauna_wolf</Template>
+			<Player>0</Player>
+			<Position x="482.90143" z="623.43793"/>
+			<Orientation y="-2.76247"/>
+			<Actor seed="7292"/>
+		</Entity>
+		<Entity uid="1187">
+			<Template>gaia/fauna_wolf</Template>
+			<Player>0</Player>
+			<Position x="487.70398" z="620.83332"/>
+			<Orientation y="-2.42296"/>
+			<Actor seed="31394"/>
+		</Entity>
+		<Entity uid="1188">
+			<Template>statues/aphrodite_heal</Template>
+			<Player>0</Player>
+			<Position x="387.91056" z="464.14097"/>
+			<Orientation y="0.51221"/>
+			<Actor seed="29288"/>
+		</Entity>
+		<Entity uid="1189">
+			<Template>gaia/fauna_wolf</Template>
+			<Player>0</Player>
+			<Position x="393.11347" z="478.6862"/>
+			<Orientation y="-0.34357"/>
+			<Actor seed="7292"/>
+		</Entity>
+		<Entity uid="1190">
+			<Template>gaia/fauna_wolf</Template>
+			<Player>0</Player>
+			<Position x="389.62418" z="478.29871"/>
+			<Orientation y="-0.0387"/>
+			<Actor seed="55136"/>
+		</Entity>
+		<Entity uid="1191">
+			<Template>gaia/fauna_wolf</Template>
+			<Player>0</Player>
+			<Position x="388.4704" z="477.90848"/>
+			<Orientation y="-0.00406"/>
+			<Actor seed="31394"/>
+		</Entity>
+		<Entity uid="1192">
+			<Template>gaia/fauna_wolf</Template>
+			<Player>0</Player>
+			<Position x="395.2924" z="478.19782"/>
+			<Orientation y="-0.4015"/>
+			<Actor seed="7292"/>
+		</Entity>
+		<Entity uid="1193">
+			<Template>gaia/fauna_wolf</Template>
+			<Player>0</Player>
+			<Position x="386.32581" z="478.7306"/>
+			<Orientation y="-0.09662"/>
+			<Actor seed="55136"/>
+		</Entity>
+		<Entity uid="1194">
+			<Template>gaia/fauna_wolf</Template>
+			<Player>0</Player>
+			<Position x="391.32605" z="479.00962"/>
+			<Orientation y="-0.06199"/>
+			<Actor seed="31394"/>
+		</Entity>
+		<Entity uid="1197">
+			<Template>items/consume/water</Template>
+			<Player>0</Player>
+			<Position x="611.82563" z="131.2733"/>
+			<Orientation y="2.35621"/>
+			<Actor seed="6490"/>
+		</Entity>
+		<Entity uid="1198">
+			<Template>items/consume/water</Template>
+			<Player>0</Player>
+			<Position x="610.31525" z="128.137"/>
+			<Orientation y="2.35621"/>
+			<Actor seed="11610"/>
+		</Entity>
+		<Entity uid="1199">
+			<Template>items/consume/apple</Template>
+			<Player>0</Player>
+			<Position x="613.3725" z="128.74848"/>
+			<Orientation y="2.35621"/>
+			<Actor seed="48184"/>
+		</Entity>
+		<Entity uid="1200">
+			<Template>items/consume/water</Template>
+			<Player>0</Player>
+			<Position x="450.22815" z="197.66584"/>
+			<Orientation y="2.35622"/>
+			<Actor seed="11610"/>
+		</Entity>
+		<Entity uid="1201">
+			<Template>items/consume/apple</Template>
+			<Player>0</Player>
+			<Position x="453.31244" z="198.36686"/>
+			<Orientation y="2.35622"/>
+			<Actor seed="48184"/>
+		</Entity>
+		<Entity uid="1202">
+			<Template>items/consume/water</Template>
+			<Player>0</Player>
+			<Position x="451.73853" z="200.80216"/>
+			<Orientation y="2.35622"/>
+			<Actor seed="6490"/>
+		</Entity>
+		<Entity uid="1203">
+			<Template>items/consume/water</Template>
+			<Player>0</Player>
+			<Position x="514.38923" z="245.64634"/>
+			<Orientation y="2.35622"/>
+			<Actor seed="11610"/>
+		</Entity>
+		<Entity uid="1204">
+			<Template>items/consume/apple</Template>
+			<Player>0</Player>
+			<Position x="517.47352" z="246.34736"/>
+			<Orientation y="2.35622"/>
+			<Actor seed="48184"/>
+		</Entity>
+		<Entity uid="1205">
+			<Template>items/consume/water</Template>
+			<Player>0</Player>
+			<Position x="515.8996" z="248.78266"/>
+			<Orientation y="2.35622"/>
+			<Actor seed="6490"/>
+		</Entity>
+		<Entity uid="1206">
+			<Template>items/consume/apple</Template>
+			<Player>0</Player>
+			<Position x="825.66877" z="183.10926"/>
+			<Orientation y="2.35622"/>
+			<Actor seed="48184"/>
+		</Entity>
+		<Entity uid="1207">
+			<Template>items/consume/apple</Template>
+			<Player>0</Player>
+			<Position x="844.38404" z="418.92066"/>
+			<Orientation y="2.35622"/>
+			<Actor seed="48184"/>
+		</Entity>
+		<Entity uid="1208">
+			<Template>items/consume/water</Template>
+			<Player>0</Player>
+			<Position x="840.70386" z="416.46195"/>
+			<Orientation y="2.35621"/>
+			<Actor seed="52486"/>
+		</Entity>
+		<Entity uid="1209">
+			<Template>items/consume/bread</Template>
+			<Player>0</Player>
+			<Position x="705.52765" z="301.12302"/>
+			<Orientation y="2.35621"/>
+			<Actor seed="1806"/>
+		</Entity>
+		<Entity uid="1211">
+			<Template>gaia/fauna_wolf</Template>
+			<Player>0</Player>
+			<Position x="815.24341" z="544.0536"/>
+			<Orientation y="-2.21042"/>
+			<Actor seed="8472"/>
+		</Entity>
+		<Entity uid="1212">
+			<Template>gaia/fauna_wolf_strong</Template>
+			<Player>0</Player>
+			<Position x="505.54163" z="468.73557"/>
+			<Orientation y="2.37726"/>
+			<Actor seed="63300"/>
+		</Entity>
+		<Entity uid="1213">
+			<Template>gaia/fauna_wolf_strong</Template>
+			<Player>0</Player>
+			<Position x="500.31183" z="465.62345"/>
+			<Orientation y="2.37726"/>
+			<Actor seed="63300"/>
+		</Entity>
+		<Entity uid="1214">
+			<Template>gaia/fauna_wolf</Template>
+			<Player>0</Player>
+			<Position x="427.91816" z="709.95832"/>
+			<Orientation y="-2.96172"/>
+			<Actor seed="11174"/>
+		</Entity>
+		<Entity uid="1215">
+			<Template>gaia/fauna_wolf</Template>
+			<Player>0</Player>
+			<Position x="432.309" z="705.42664"/>
+			<Orientation y="-2.96172"/>
+			<Actor seed="11174"/>
+		</Entity>
+		<Entity uid="1216">
+			<Template>gaia/fauna_wolf_strong</Template>
+			<Player>0</Player>
+			<Position x="229.66956" z="589.67133"/>
+			<Orientation y="0.86373"/>
+			<Actor seed="30162"/>
+		</Entity>
+		<Entity uid="1217">
+			<Template>gaia/fauna_wolf_strong</Template>
+			<Player>0</Player>
+			<Position x="226.28348" z="593.99897"/>
+			<Orientation y="0.86373"/>
+			<Actor seed="30162"/>
+		</Entity>
+		<Entity uid="1218">
+			<Template>gaia/fauna_wolf_strong</Template>
+			<Player>0</Player>
+			<Position x="147.04255" z="441.46207"/>
+			<Orientation y="-0.4192"/>
+			<Actor seed="30162"/>
+		</Entity>
+		<Entity uid="1219">
+			<Template>gaia/fauna_wolf_strong</Template>
+			<Player>0</Player>
+			<Position x="152.15476" z="444.36387"/>
+			<Orientation y="-0.68314"/>
+			<Actor seed="30162"/>
+		</Entity>
+		<Entity uid="1220">
+			<Template>gaia/fauna_wolf_strong</Template>
+			<Player>0</Player>
+			<Position x="219.72626" z="447.36963"/>
+			<Orientation y="0.86373"/>
+			<Actor seed="30162"/>
+		</Entity>
+		<Entity uid="1221">
+			<Template>gaia/fauna_wolf_strong</Template>
+			<Player>0</Player>
+			<Position x="218.02402" z="449.80762"/>
+			<Orientation y="0.86373"/>
+			<Actor seed="30162"/>
+		</Entity>
+		<Entity uid="1222">
+			<Template>gaia/fauna_wolf_strong</Template>
+			<Player>0</Player>
+			<Position x="222.69526" z="441.4564"/>
+			<Orientation y="4.10183"/>
+			<Actor seed="35370"/>
+		</Entity>
+		<Entity uid="1223">
+			<Template>gaia/fauna_wolf</Template>
+			<Player>0</Player>
+			<Position x="229.43128" z="443.39032"/>
+			<Orientation y="4.19689"/>
+			<Actor seed="17904"/>
+		</Entity>
+		<Entity uid="1224">
+			<Template>gaia/fauna_wolf_strong</Template>
+			<Player>0</Player>
+			<Position x="220.16376" z="444.69278"/>
+			<Orientation y="7.06974"/>
+			<Actor seed="30162"/>
+		</Entity>
+		<Entity uid="1225">
+			<Template>gaia/fauna_wolf_strong</Template>
+			<Player>0</Player>
+			<Position x="218.2786" z="446.99225"/>
+			<Orientation y="7.06974"/>
+			<Actor seed="30162"/>
+		</Entity>
+		<Entity uid="1226">
+			<Template>gaia/fauna_wolf</Template>
+			<Player>0</Player>
+			<Position x="230.10438" z="439.04804"/>
+			<Orientation y="4.45815"/>
+			<Actor seed="39348"/>
+		</Entity>
+		<Entity uid="1227">
+			<Template>gaia/fauna_wolf</Template>
+			<Player>0</Player>
+			<Position x="224.93" z="449.75547"/>
+			<Orientation y="4.0286"/>
+			<Actor seed="29156"/>
+		</Entity>
+		<Entity uid="1228">
+			<Template>gaia/fauna_wolf</Template>
+			<Player>0</Player>
+			<Position x="227.24427" z="445.97086"/>
+			<Orientation y="4.16726"/>
+			<Actor seed="22026"/>
+		</Entity>
+		<Entity uid="1229">
+			<Template>gaia/fauna_wolf_strong</Template>
+			<Player>0</Player>
+			<Position x="223.40583" z="438.03425"/>
+			<Orientation y="4.10181"/>
+			<Actor seed="35370"/>
+		</Entity>
+		<Entity uid="1230">
+			<Template>gaia/fauna_wolf_strong</Template>
+			<Player>0</Player>
+			<Position x="558.68342" z="763.1136"/>
+			<Orientation y="0.37978"/>
+			<Actor seed="35370"/>
+		</Entity>
+		<Entity uid="1231">
+			<Template>gaia/fauna_wolf_strong</Template>
+			<Player>0</Player>
+			<Position x="570.51227" z="770.75446"/>
+			<Orientation y="-0.02533"/>
+			<Actor seed="35370"/>
+		</Entity>
+		<Entity uid="1232">
+			<Template>gaia/fauna_wolf</Template>
+			<Player>0</Player>
+			<Position x="558.74744" z="775.17408"/>
+			<Orientation y="0.50393"/>
+			<Actor seed="39348"/>
+		</Entity>
+		<Entity uid="1233">
+			<Template>gaia/fauna_wolf</Template>
+			<Player>0</Player>
+			<Position x="572.64313" z="764.49238"/>
+			<Orientation y="-0.38826"/>
+			<Actor seed="22026"/>
+		</Entity>
+		<Entity uid="1234">
+			<Template>gaia/fauna_wolf</Template>
+			<Player>0</Player>
+			<Position x="557.57032" z="769.79267"/>
+			<Orientation y="0.53093"/>
+			<Actor seed="39348"/>
+		</Entity>
+		<Entity uid="1235">
+			<Template>gaia/fauna_wolf</Template>
+			<Player>0</Player>
+			<Position x="563.48176" z="758.50141"/>
+			<Orientation y="0.47486"/>
+			<Actor seed="17904"/>
+		</Entity>
+		<Entity uid="1236">
+			<Template>gaia/fauna_wolf</Template>
+			<Player>0</Player>
+			<Position x="576.10297" z="769.74622"/>
+			<Orientation y="-0.09643"/>
+			<Actor seed="39348"/>
+		</Entity>
+		<Entity uid="1238">
+			<Template>gaia/fauna_wolf</Template>
+			<Player>0</Player>
+			<Position x="566.72571" z="757.5428"/>
+			<Orientation y="0.44523"/>
+			<Actor seed="22026"/>
+		</Entity>
+		<Entity uid="1239">
+			<Template>gaia/fauna_wolf</Template>
+			<Player>0</Player>
+			<Position x="562.36316" z="772.67713"/>
+			<Orientation y="0.24267"/>
+			<Actor seed="17904"/>
+		</Entity>
+		<Entity uid="1240">
+			<Template>gaia/fauna_wolf</Template>
+			<Player>0</Player>
+			<Position x="565.74067" z="772.49073"/>
+			<Orientation y="0.21302"/>
+			<Actor seed="22026"/>
+		</Entity>
+		<Entity uid="1241">
+			<Template>gaia/fauna_wolf</Template>
+			<Player>0</Player>
+			<Position x="561.11738" z="767.19892"/>
+			<Orientation y="0.26967"/>
+			<Actor seed="17904"/>
+		</Entity>
+		<Entity uid="1242">
+			<Template>gaia/fauna_wolf</Template>
+			<Player>0</Player>
+			<Position x="568.30329" z="767.85767"/>
+			<Orientation y="-0.7777"/>
+			<Actor seed="22026"/>
+		</Entity>
+		<Entity uid="1243">
+			<Template>gaia/fauna_wolf</Template>
+			<Player>0</Player>
+			<Position x="565.35834" z="762.74909"/>
+			<Orientation y="-0.09736"/>
+			<Actor seed="39348"/>
+		</Entity>
+		<Entity uid="1244">
+			<Template>gaia/fauna_wolf</Template>
+			<Player>0</Player>
+			<Position x="569.75245" z="762.73542"/>
+			<Orientation y="-0.35863"/>
+			<Actor seed="17904"/>
+		</Entity>
+		<Entity uid="1245">
+			<Template>gaia/fauna_wolf_strong</Template>
+			<Player>0</Player>
+			<Position x="389.01236" z="613.05524"/>
+			<Orientation y="2.37726"/>
+			<Actor seed="63300"/>
+		</Entity>
+		<Entity uid="1246">
+			<Template>gaia/fauna_wolf_strong</Template>
+			<Player>0</Player>
+			<Position x="391.12656" z="614.65296"/>
+			<Orientation y="2.37726"/>
+			<Actor seed="63300"/>
+		</Entity>
+		<Entity uid="1247">
+			<Template>gaia/fauna_wolf_strong</Template>
+			<Player>0</Player>
+			<Position x="394.24216" z="616.16736"/>
+			<Orientation y="2.37726"/>
+			<Actor seed="63300"/>
+		</Entity>
+		<Entity uid="1248">
+			<Template>gaia/fauna_wolf</Template>
+			<Player>0</Player>
+			<Position x="556.81794" z="784.1648"/>
+			<Orientation y="-0.2406"/>
+			<Actor seed="17904"/>
+		</Entity>
+		<Entity uid="1249">
+			<Template>gaia/fauna_wolf</Template>
+			<Player>0</Player>
+			<Position x="559.89527" z="785.5691"/>
+			<Orientation y="-0.27024"/>
+			<Actor seed="22026"/>
+		</Entity>
+		<Entity uid="1250">
+			<Template>gaia/fauna_wolf</Template>
+			<Player>0</Player>
+			<Position x="570.34626" z="787.9538"/>
+			<Orientation y="-0.57967"/>
+			<Actor seed="39348"/>
+		</Entity>
+		<Entity uid="1251">
+			<Template>gaia/fauna_wolf</Template>
+			<Player>0</Player>
+			<Position x="567.98047" z="778.79505"/>
+			<Orientation y="-0.84188"/>
+			<Actor seed="17904"/>
+		</Entity>
+		<Entity uid="1252">
+			<Template>gaia/fauna_wolf_strong</Template>
+			<Player>0</Player>
+			<Position x="558.00324" z="773.98652"/>
+			<Orientation y="-0.1035"/>
+			<Actor seed="35370"/>
+		</Entity>
+		<Entity uid="1253">
+			<Template>gaia/fauna_wolf_strong</Template>
+			<Player>0</Player>
+			<Position x="564.92725" z="786.24885"/>
+			<Orientation y="-0.50858"/>
+			<Actor seed="35370"/>
+		</Entity>
+		<Entity uid="1254">
+			<Template>gaia/fauna_wolf</Template>
+			<Player>0</Player>
+			<Position x="552.45594" z="784.69574"/>
+			<Orientation y="0.02068"/>
+			<Actor seed="39348"/>
+		</Entity>
+		<Entity uid="1255">
+			<Template>gaia/fauna_wolf</Template>
+			<Player>0</Player>
+			<Position x="569.72376" z="781.69391"/>
+			<Orientation y="-0.87151"/>
+			<Actor seed="22026"/>
+		</Entity>
+		<Entity uid="1256">
+			<Template>gaia/fauna_wolf</Template>
+			<Player>0</Player>
+			<Position x="553.91413" z="779.38361"/>
+			<Orientation y="0.04769"/>
+			<Actor seed="39348"/>
+		</Entity>
+		<Entity uid="1257">
+			<Template>gaia/fauna_wolf</Template>
+			<Player>0</Player>
+			<Position x="564.39521" z="772.13209"/>
+			<Orientation y="-0.0084"/>
+			<Actor seed="17904"/>
+		</Entity>
+		<Entity uid="1258">
+			<Template>gaia/fauna_wolf</Template>
+			<Player>0</Player>
+			<Position x="567.71314" z="772.79053"/>
+			<Orientation y="-0.03803"/>
+			<Actor seed="22026"/>
+		</Entity>
+		<Entity uid="1259">
+			<Template>gaia/fauna_wolf</Template>
+			<Player>0</Player>
+			<Position x="558.2602" z="778.73505"/>
+			<Orientation y="-0.21358"/>
+			<Actor seed="17904"/>
+		</Entity>
+		<Entity uid="1260">
+			<Template>gaia/fauna_wolf</Template>
+			<Player>0</Player>
+			<Position x="564.3172" z="782.6573"/>
+			<Orientation y="-1.26096"/>
+			<Actor seed="22026"/>
+		</Entity>
+		<Entity uid="1261">
+			<Template>gaia/fauna_wolf</Template>
+			<Player>0</Player>
+			<Position x="564.0832" z="776.76539"/>
+			<Orientation y="-0.5806"/>
+			<Actor seed="39348"/>
+		</Entity>
+		<Entity uid="1262">
+			<Template>gaia/fauna_wolf</Template>
+			<Player>0</Player>
+			<Position x="545.28376" z="768.87281"/>
+			<Orientation y="-0.24236"/>
+			<Actor seed="17904"/>
+		</Entity>
+		<Entity uid="1263">
+			<Template>gaia/fauna_wolf</Template>
+			<Player>0</Player>
+			<Position x="548.35871" z="770.28254"/>
+			<Orientation y="-0.27201"/>
+			<Actor seed="22026"/>
+		</Entity>
+		<Entity uid="1264">
+			<Template>gaia/fauna_wolf</Template>
+			<Player>0</Player>
+			<Position x="558.80542" z="772.68561"/>
+			<Orientation y="-0.58144"/>
+			<Actor seed="39348"/>
+		</Entity>
+		<Entity uid="1265">
+			<Template>gaia/fauna_wolf</Template>
+			<Player>0</Player>
+			<Position x="556.45582" z="763.52271"/>
+			<Orientation y="-0.84365"/>
+			<Actor seed="17904"/>
+		</Entity>
+		<Entity uid="1266">
+			<Template>gaia/fauna_wolf_strong</Template>
+			<Player>0</Player>
+			<Position x="546.48713" z="758.6966"/>
+			<Orientation y="-0.10526"/>
+			<Actor seed="35370"/>
+		</Entity>
+		<Entity uid="1267">
+			<Template>gaia/fauna_wolf_strong</Template>
+			<Player>0</Player>
+			<Position x="553.38941" z="770.97114"/>
+			<Orientation y="-0.51035"/>
+			<Actor seed="35370"/>
+		</Entity>
+		<Entity uid="1268">
+			<Template>gaia/fauna_wolf</Template>
+			<Player>0</Player>
+			<Position x="540.9209" z="769.396"/>
+			<Orientation y="0.01891"/>
+			<Actor seed="39348"/>
+		</Entity>
+		<Entity uid="1269">
+			<Template>gaia/fauna_wolf</Template>
+			<Player>0</Player>
+			<Position x="558.19404" z="766.42469"/>
+			<Orientation y="-0.87328"/>
+			<Actor seed="22026"/>
+		</Entity>
+		<Entity uid="1270">
+			<Template>gaia/fauna_wolf</Template>
+			<Player>0</Player>
+			<Position x="542.3885" z="764.08643"/>
+			<Orientation y="0.04592"/>
+			<Actor seed="39348"/>
+		</Entity>
+		<Entity uid="1271">
+			<Template>gaia/fauna_wolf</Template>
+			<Player>0</Player>
+			<Position x="552.88233" z="756.85346"/>
+			<Orientation y="-0.01017"/>
+			<Actor seed="17904"/>
+		</Entity>
+		<Entity uid="1272">
+			<Template>gaia/fauna_wolf</Template>
+			<Player>0</Player>
+			<Position x="556.1991" z="757.51777"/>
+			<Orientation y="-0.0398"/>
+			<Actor seed="22026"/>
+		</Entity>
+		<Entity uid="1273">
+			<Template>gaia/fauna_wolf</Template>
+			<Player>0</Player>
+			<Position x="546.73566" z="763.44556"/>
+			<Orientation y="-0.21535"/>
+			<Actor seed="17904"/>
+		</Entity>
+		<Entity uid="1274">
+			<Template>gaia/fauna_wolf</Template>
+			<Player>0</Player>
+			<Position x="552.78577" z="767.37855"/>
+			<Orientation y="-1.26273"/>
+			<Actor seed="22026"/>
+		</Entity>
+		<Entity uid="1275">
+			<Template>gaia/fauna_wolf</Template>
+			<Player>0</Player>
+			<Position x="552.56214" z="761.48615"/>
+			<Orientation y="-0.58237"/>
+			<Actor seed="39348"/>
+		</Entity>
+		<Entity uid="1276">
+			<Template>gaia/fauna_wolf</Template>
+			<Player>0</Player>
+			<Position x="563.23682" z="755.58124"/>
+			<Orientation y="0.24267"/>
+			<Actor seed="17904"/>
+		</Entity>
+		<Entity uid="1277">
+			<Template>gaia/fauna_wolf</Template>
+			<Player>0</Player>
+			<Position x="566.61432" z="755.39484"/>
+			<Orientation y="0.21302"/>
+			<Actor seed="22026"/>
+		</Entity>
+		<Entity uid="1278">
+			<Template>gaia/fauna_wolf</Template>
+			<Player>0</Player>
+			<Position x="576.97657" z="752.65033"/>
+			<Orientation y="-0.09643"/>
+			<Actor seed="39348"/>
+		</Entity>
+		<Entity uid="1279">
+			<Template>gaia/fauna_wolf</Template>
+			<Player>0</Player>
+			<Position x="570.6261" z="745.6396"/>
+			<Orientation y="-0.35863"/>
+			<Actor seed="17904"/>
+		</Entity>
+		<Entity uid="1280">
+			<Template>gaia/fauna_wolf_strong</Template>
+			<Player>0</Player>
+			<Position x="559.55707" z="746.01771"/>
+			<Orientation y="0.37977"/>
+			<Actor seed="35370"/>
+		</Entity>
+		<Entity uid="1281">
+			<Template>gaia/fauna_wolf_strong</Template>
+			<Player>0</Player>
+			<Position x="571.38593" z="753.65857"/>
+			<Orientation y="-0.02533"/>
+			<Actor seed="35370"/>
+		</Entity>
+		<Entity uid="1282">
+			<Template>gaia/fauna_wolf</Template>
+			<Player>0</Player>
+			<Position x="559.62104" z="758.07825"/>
+			<Orientation y="0.50393"/>
+			<Actor seed="39348"/>
+		</Entity>
+		<Entity uid="1283">
+			<Template>gaia/fauna_wolf</Template>
+			<Player>0</Player>
+			<Position x="573.51679" z="747.39649"/>
+			<Orientation y="-0.38826"/>
+			<Actor seed="22026"/>
+		</Entity>
+		<Entity uid="1284">
+			<Template>gaia/fauna_wolf</Template>
+			<Player>0</Player>
+			<Position x="558.44397" z="752.69678"/>
+			<Orientation y="0.53093"/>
+			<Actor seed="39348"/>
+		</Entity>
+		<Entity uid="1285">
+			<Template>gaia/fauna_wolf</Template>
+			<Player>0</Player>
+			<Position x="564.35535" z="741.40552"/>
+			<Orientation y="0.47486"/>
+			<Actor seed="17904"/>
+		</Entity>
+		<Entity uid="1286">
+			<Template>gaia/fauna_wolf</Template>
+			<Player>0</Player>
+			<Position x="567.59931" z="740.4469"/>
+			<Orientation y="0.44523"/>
+			<Actor seed="22026"/>
+		</Entity>
+		<Entity uid="1287">
+			<Template>gaia/fauna_wolf</Template>
+			<Player>0</Player>
+			<Position x="561.99097" z="750.1031"/>
+			<Orientation y="0.26967"/>
+			<Actor seed="17904"/>
+		</Entity>
+		<Entity uid="1288">
+			<Template>gaia/fauna_wolf</Template>
+			<Player>0</Player>
+			<Position x="569.17695" z="750.76178"/>
+			<Orientation y="-0.77771"/>
+			<Actor seed="22026"/>
+		</Entity>
+		<Entity uid="1289">
+			<Template>gaia/fauna_wolf</Template>
+			<Player>0</Player>
+			<Position x="566.23194" z="745.6532"/>
+			<Orientation y="-0.09736"/>
+			<Actor seed="39348"/>
+		</Entity>
+		<Entity uid="1290">
+			<Template>gaia/fauna_wolf</Template>
+			<Player>0</Player>
+			<Position x="575.97407" z="761.20612"/>
+			<Orientation y="-1.21027"/>
+			<Actor seed="17904"/>
+		</Entity>
+		<Entity uid="1291">
+			<Template>gaia/fauna_wolf</Template>
+			<Player>0</Player>
+			<Position x="576.55634" z="764.53834"/>
+			<Orientation y="-1.23992"/>
+			<Actor seed="22026"/>
+		</Entity>
+		<Entity uid="1292">
+			<Template>gaia/fauna_wolf</Template>
+			<Player>0</Player>
+			<Position x="580.50037" z="774.50599"/>
+			<Orientation y="-1.54935"/>
+			<Actor seed="39348"/>
+		</Entity>
+		<Entity uid="1293">
+			<Template>gaia/fauna_wolf</Template>
+			<Player>0</Player>
+			<Position x="586.7157" z="767.37513"/>
+			<Orientation y="-1.81156"/>
+			<Actor seed="17904"/>
+		</Entity>
+		<Entity uid="1294">
+			<Template>gaia/fauna_wolf_strong</Template>
+			<Player>0</Player>
+			<Position x="585.03858" z="756.42731"/>
+			<Orientation y="-1.07317"/>
+			<Actor seed="35370"/>
+		</Entity>
+		<Entity uid="1295">
+			<Template>gaia/fauna_wolf_strong</Template>
+			<Player>0</Player>
+			<Position x="578.84168" z="769.07264"/>
+			<Orientation y="-1.47826"/>
+			<Actor seed="35370"/>
+		</Entity>
+		<Entity uid="1296">
+			<Template>gaia/fauna_wolf</Template>
+			<Player>0</Player>
+			<Position x="573.06922" z="757.90912"/>
+			<Orientation y="-0.94901"/>
+			<Actor seed="39348"/>
+		</Entity>
+		<Entity uid="1297">
+			<Template>gaia/fauna_wolf</Template>
+			<Player>0</Player>
+			<Position x="585.31092" z="770.45228"/>
+			<Orientation y="-1.8412"/>
+			<Actor seed="22026"/>
+		</Entity>
+		<Entity uid="1298">
+			<Template>gaia/fauna_wolf</Template>
+			<Player>0</Player>
+			<Position x="578.27491" z="756.10737"/>
+			<Orientation y="-0.922"/>
+			<Actor seed="39348"/>
+		</Entity>
+		<Entity uid="1299">
+			<Template>gaia/fauna_wolf</Template>
+			<Player>0</Player>
+			<Position x="590.18299" z="760.64997"/>
+			<Orientation y="-0.97808"/>
+			<Actor seed="17904"/>
+		</Entity>
+		<Entity uid="1300">
+			<Template>gaia/fauna_wolf</Template>
+			<Player>0</Player>
+			<Position x="591.51642" z="763.75873"/>
+			<Orientation y="-1.00771"/>
+			<Actor seed="22026"/>
+		</Entity>
+		<Entity uid="1301">
+			<Template>gaia/fauna_wolf</Template>
+			<Player>0</Player>
+			<Position x="581.26771" z="759.32477"/>
+			<Orientation y="-1.18326"/>
+			<Actor seed="17904"/>
+		</Entity>
+		<Entity uid="1302">
+			<Template>gaia/fauna_wolf</Template>
+			<Player>0</Player>
+			<Position x="581.45862" z="766.53834"/>
+			<Orientation y="-2.23064"/>
+			<Actor seed="22026"/>
+		</Entity>
+		<Entity uid="1303">
+			<Template>gaia/fauna_wolf</Template>
+			<Player>0</Player>
+			<Position x="586.18543" z="763.01307"/>
+			<Orientation y="-1.55028"/>
+			<Actor seed="39348"/>
+		</Entity>
+		<Entity uid="1304">
+			<Template>gaia/fauna_wolf_strong</Template>
+			<Player>0</Player>
+			<Position x="230.26493" z="588.59327"/>
+			<Orientation y="0.86373"/>
+			<Actor seed="30162"/>
+		</Entity>
+		<Entity uid="1305">
+			<Template>gaia/fauna_wolf_strong</Template>
+			<Player>0</Player>
+			<Position x="228.56269" z="591.03125"/>
+			<Orientation y="0.86373"/>
+			<Actor seed="30162"/>
+		</Entity>
+		<Entity uid="1306">
+			<Template>gaia/fauna_wolf_strong</Template>
+			<Player>0</Player>
+			<Position x="226.87885" z="592.9209"/>
+			<Orientation y="0.86373"/>
+			<Actor seed="30162"/>
+		</Entity>
+		<Entity uid="1307">
+			<Template>gaia/fauna_wolf</Template>
+			<Player>0</Player>
+			<Position x="147.0431" z="434.27213"/>
+			<Orientation y="-0.42235"/>
+			<Actor seed="39348"/>
+		</Entity>
+		<Entity uid="1308">
+			<Template>gaia/fauna_wolf</Template>
+			<Player>0</Player>
+			<Position x="155.88694" z="440.61127"/>
+			<Orientation y="-0.8519"/>
+			<Actor seed="29156"/>
+		</Entity>
+		<Entity uid="1309">
+			<Template>gaia/fauna_wolf</Template>
+			<Player>0</Player>
+			<Position x="153.38984" z="438.25022"/>
+			<Orientation y="-0.71323"/>
+			<Actor seed="22026"/>
+		</Entity>
+		<Entity uid="1310">
+			<Template>gaia/fauna_wolf_strong</Template>
+			<Player>0</Player>
+			<Position x="148.17795" z="441.9798"/>
+			<Orientation y="-0.77866"/>
+			<Actor seed="35370"/>
+		</Entity>
+		<Entity uid="1311">
+			<Template>gaia/fauna_wolf</Template>
+			<Player>0</Player>
+			<Position x="151.21155" z="435.66224"/>
+			<Orientation y="-0.68361"/>
+			<Actor seed="17904"/>
+		</Entity>
+		<Entity uid="1312">
+			<Template>gaia/fauna_wolf_strong</Template>
+			<Player>0</Player>
+			<Position x="145.9969" z="440.27228"/>
+			<Orientation y="-0.41921"/>
+			<Actor seed="30162"/>
+		</Entity>
+		<Entity uid="1313">
+			<Template>gaia/fauna_wolf_strong</Template>
+			<Player>0</Player>
+			<Position x="151.10907" z="443.17408"/>
+			<Orientation y="-0.68314"/>
+			<Actor seed="30162"/>
+		</Entity>
+		<Entity uid="1314">
+			<Template>gaia/fauna_wolf</Template>
+			<Player>0</Player>
+			<Position x="220.0618" z="446.20771"/>
+			<Orientation y="-2.00913"/>
+			<Actor seed="17904"/>
+		</Entity>
+		<Entity uid="1315">
+			<Template>gaia/fauna_wolf</Template>
+			<Player>0</Player>
+			<Position x="218.44031" z="446.82212"/>
+			<Orientation y="4.16727"/>
+			<Actor seed="22026"/>
+		</Entity>
+		<Entity uid="1316">
+			<Template>gaia/fauna_wolf</Template>
+			<Player>0</Player>
+			<Position x="216.0647" z="452.90101"/>
+			<Orientation y="-2.17742"/>
+			<Actor seed="29156"/>
+		</Entity>
+		<Entity uid="1317">
+			<Template>gaia/fauna_wolf</Template>
+			<Player>0</Player>
+			<Position x="218.08027" z="448.94922"/>
+			<Orientation y="-2.03876"/>
+			<Actor seed="22026"/>
+		</Entity>
+		<Entity uid="1318">
+			<Template>gaia/fauna_wolf</Template>
+			<Player>0</Player>
+			<Position x="220.62732" z="444.24158"/>
+			<Orientation y="4.19689"/>
+			<Actor seed="17904"/>
+		</Entity>
+		<Entity uid="1319">
+			<Template>gaia/fauna_wolf</Template>
+			<Player>0</Player>
+			<Position x="216.12604" z="450.60672"/>
+			<Orientation y="4.0286"/>
+			<Actor seed="29156"/>
+		</Entity>
+		<Entity uid="1320">
+			<Template>gaia/fauna_wolf_strong</Template>
+			<Player>0</Player>
+			<Position x="327.0214" z="404.27894"/>
+			<Orientation y="-0.44401"/>
+			<Actor seed="35370"/>
+		</Entity>
+		<Entity uid="1321">
+			<Template>gaia/fauna_wolf_strong</Template>
+			<Player>0</Player>
+			<Position x="333.90677" z="400.56516"/>
+			<Orientation y="-0.44401"/>
+			<Actor seed="35370"/>
+		</Entity>
+		<Entity uid="1322">
+			<Template>gaia/fauna_wolf_strong</Template>
+			<Player>0</Player>
+			<Position x="337.73627" z="403.71204"/>
+			<Orientation y="-0.44401"/>
+			<Actor seed="35370"/>
+		</Entity>
+		<Entity uid="1323">
+			<Template>gaia/fauna_wolf_strong</Template>
+			<Player>0</Player>
+			<Position x="331.18973" z="403.61811"/>
+			<Orientation y="-0.44401"/>
+			<Actor seed="35370"/>
+		</Entity>
+		<Entity uid="1324">
+			<Template>gaia/fauna_wolf_strong</Template>
+			<Player>0</Player>
+			<Position x="327.5225" z="401.03577"/>
+			<Orientation y="-0.44401"/>
+			<Actor seed="35370"/>
 		</Entity>
 	</Entities>
 	<Paths/>

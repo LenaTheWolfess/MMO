@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Entity parent="template_bam">
+   <Attack>
+    <Melee>
+      <Damage>
+         <Hack>30.0</Hack>
+         <Pierce>30.0</Pierce>
+         <Crush>10.0</Crush>
+      </Damage>
+      <MaxRange>10</MaxRange>
+      <PrepareTime>500</PrepareTime>
+      <RepeatTime>3000</RepeatTime>
+      <RestrictedClasses datatype="tokens">Structure</RestrictedClasses>
+      <PreferredClasses datatype="tokens">Human</PreferredClasses>
+    </Melee>
+  </Attack>
+  <Armour>
+    <Hack>25</Hack>
+    <Pierce>25</Pierce>
+    <Crush>25</Crush>
+  </Armour>
+  <Health>
+    <Max>1000</Max>
+    <IdleRegenRate>10</IdleRegenRate>
+  </Health>
+  <Identity>
+    <SpecificName>Fenrir</SpecificName>
+	<Icon>technologies/helmet_hero_side.png</Icon>
+  </Identity>
+  <VisualActor>
+    <Actor>units/bams/fenrir.xml</Actor>
+  </VisualActor>
+  <Vision>
+    <Range>25</Range>
+  </Vision>
+</Entity>

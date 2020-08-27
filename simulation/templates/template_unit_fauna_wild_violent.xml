@@ -20,6 +20,6 @@
     <NaturalBehaviour>violent</NaturalBehaviour>
   </UnitAI>
   <Vision>
-    <Range>20</Range>
+    <Range>25</Range>
   </Vision>
 </Entity>
