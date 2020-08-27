@@ -57,6 +57,8 @@
   "Script": "pompeii.js",
   "Seed": 0,
   "Size": 128,
+  "RelicCount": 1,
+  "RelicDuration": 0,
   "VictoryConditions": [
     "capture_the_relic"
   ],
