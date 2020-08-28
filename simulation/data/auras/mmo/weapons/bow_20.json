@@ -1,0 +1,12 @@
+
+{
+	"type": "formation",
+	"affects": ["Hero"],
+	"modifications": [
+		{ "value": "Attack/Ranged/Damage/Pierce",   "add":   20},
+		{ "value": "Attack/Ranged/MaxRange",   "add": 20},
+		{ "value": "Attack/Ranged/Projectile/Spread", "add": 1}
+	],
+	"auraDescription": "Pierce + 20",
+	"auraName": "Attack"
+}
