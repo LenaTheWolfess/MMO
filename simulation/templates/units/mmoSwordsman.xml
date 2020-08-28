@@ -7,7 +7,6 @@
   <Inventory>
     <Type>swordsman</Type>
   </Inventory>
-  <Garrisonable disable=""/>
   <VisualActor>
     <Actor>units/mmo/player.xml</Actor>
   </VisualActor>
