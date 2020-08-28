@@ -9,4 +9,7 @@
   <Equipment>
     <Animation>armour-body-medium</Animation>
   </Equipment>
+  <VisualActor>
+    <Actor>armorstand_hele_body_armor_02.xml</Actor>
+  </VisualActor>
 </Entity>
