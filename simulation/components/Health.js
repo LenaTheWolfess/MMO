@@ -47,6 +47,13 @@ Health.prototype.Schema =
 			"<text/>" +
 		"</element>" +
 	"</optional>" +
+	"<optional>" +
+		"<element name='SpawnLootOnDeath' a:help='Same sa SpawnEntityOnDeath just to not interfear with 0ad'>" +
+			"<attribute name='datatype'>" +
+				"<value>tokens</value>" +
+			"</attribute>" +
+		"</element>" +
+	"</optional>" +
 	"<element name='Unhealable' a:help='Indicates that the entity can not be healed by healer units'>" +
 		"<data type='boolean'/>" +
 	"</element>";
@@ -158,6 +165,13 @@ Health.prototype.ExecuteRegeneration = function()
 Health.prototype.GetDegreeRate = function()
 {
 	return this.degreesOnMove;
+}
+
+Health.prototype.GetLootOnDeath = function()
+{
+   if (!this.template.SpawnLootOnDeath)
+	   return [];
+   return this.template.SpawnLootOnDeath._string.split(/\s+/);
 }
 
 Health.prototype.CheckDegreeTimer = function()
@@ -285,7 +299,8 @@ Health.prototype.HandleDeath = function()
 
 	if (this.template.SpawnEntityOnDeath)
 		this.CreateDeathSpawnedEntity();
-
+	if (this.template.SpawnLootOnDeath)
+		this.CreateSpawnedLootEntities();
 	switch (this.template.DeathType)
 	{
 	case "corpse":
@@ -380,6 +395,26 @@ Health.prototype.CreateCorpse = function(leaveResources)
 
 	return corpse;
 };
+
+Health.protoype.CreateSpawnedLootEntities = function()
+{
+	// If the unit died while not in the world, don't spawn a death entity for it
+	// since there's nowhere for it to be placed
+	const cmpPosition = Engine.QueryInterface(this.entity, IID_Position);
+	if (!cmpPosition.IsInWorld())
+		return INVALID_ENTITY;
+	const pos = cmpPosition.GetPosition();
+	const rot = cmpPosition.GetRotation();
+	
+	const loots = this.GetLootOnDeath();
+	for (let i in loots) {
+		let spawnedEntity = Engine.AddEntity(loots[i]);
+		let cmpSpawnedPosition = Engine.QueryInterface(spawnedEntity, IID_Position);
+		cmpSpawnedPosition.JumpTo(pos.x, pos.z);
+		cmpSpawnedPosition.SetYRotation(rot.y);
+		cmpSpawnedPosition.SetXZRotation(rot.x, rot.z);
+	}
+}
 
 Health.prototype.CreateDeathSpawnedEntity = function()
 {
