@@ -11,6 +11,6 @@
     <Animation>armour-helm-light</Animation>
   </Equipment>
   <VisualActor>
-    <Actor>items/helm-light.xml</Actor>
+    <Actor>items/armorstand_hele_helmet_01.xml</Actor>
   </VisualActor>
 </Entity>
