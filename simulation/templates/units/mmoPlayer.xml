@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Entity parent="template_mmo_unit">
+<Entity parent="template_mmo_unit_universal">
   <Identity>
     <SpecificName>Player</SpecificName>
     <Undeletable>true</Undeletable>
