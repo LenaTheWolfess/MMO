@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Entity parent="template_mmo_unit">
+<Entity parent="template_mmo_unit_melee">
   <Identity>
     <SpecificName>Player</SpecificName>
-    <Undeletable>true</Undeletable>
-	<Icon>technologies/helmet_hero_side.png</Icon>
+    <Icon>technologies/helmet_hero_side.png</Icon>
   </Identity>
   <Inventory>
     <Type>swordsman</Type>
