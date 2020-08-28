@@ -14,11 +14,15 @@
       <PreferredClasses datatype="tokens">Human</PreferredClasses>
     </Melee>
   </Attack>
-  <Armour>
-    <Hack>20</Hack>
-    <Pierce>20</Pierce>
-    <Crush>20</Crush>
-  </Armour>
+  <Resistance>
+    <Entity>
+      <Damage>
+		<Hack>20</Hack>
+		<Pierce>20</Pierce>
+		<Crush>20</Crush>
+      </Damage>
+    </Entity>
+  </Resistance>
   <Identity>
     <SpecificName>Minotaur</SpecificName>
 	<Icon>technologies/helmet_hero_side.png</Icon>

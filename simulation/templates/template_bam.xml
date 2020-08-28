@@ -37,10 +37,15 @@
 	</Ranged>
   </Attack>
   <Armour>
-    <Hack>0</Hack>
-    <Pierce>0</Pierce>
-    <Crush>0</Crush>
-  </Armour>
+  <Resistance>
+	<Entity>
+	  <Damage>
+		<Hack>0</Hack>
+		<Pierce>0</Pierce>
+		<Crush>0</Crush>
+      </Damage>
+    </Entity>
+  </Resistance>
   <Footprint>
     <Circle radius="1.5"/>
     <Height>2.5</Height>

@@ -42,11 +42,15 @@
       <RestrictedClasses datatype="tokens">Organic</RestrictedClasses>
     </Capture>
   </Attack>
-  <Armour>
-    <Hack>0</Hack>
-    <Pierce>0</Pierce>
-    <Crush>0</Crush>
-  </Armour>
+  <Resistance>
+    <Entity>
+      <Damage>
+        <Hack>0</Hack>
+        <Pierce>0</Pierce>
+        <Crush>0</Crush>
+      </Damage>
+    </Entity>
+  </Resistance>
   <Decay>
     <Active>false</Active>
     <SinkingAnim>false</SinkingAnim>

@@ -2,9 +2,9 @@
 	"type": "formation",
 	"affects": ["Hero"],
 	"modifications": [
-		{ "value": "Armour/Hack",   "add":   1},
-		{ "value": "Armour/Pierce",   "add":   1},
-		{ "value": "Armour/Crush",   "add":   1}
+		{ "value": "Resistance/Entity/Damage/Hack",   "add":   1},
+		{ "value": "Resistance/Entity/Damage/Pierce",   "add":   1},
+		{ "value": "Resistance/Entity/Damage/Crush",   "add":   1}
 	],
 	"auraDescription": "Armour + 1",
 	"auraName": "Light helm"

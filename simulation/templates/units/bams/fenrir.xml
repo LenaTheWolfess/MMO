@@ -14,11 +14,15 @@
       <PreferredClasses datatype="tokens">Human</PreferredClasses>
     </Melee>
   </Attack>
-  <Armour>
-    <Hack>25</Hack>
-    <Pierce>25</Pierce>
-    <Crush>25</Crush>
-  </Armour>
+  <Resistance>
+    <Entity>
+      <Damage>
+		<Hack>25</Hack>
+		<Pierce>25</Pierce>
+		<Crush>25</Crush>
+      </Damage>
+    </Entity>
+  </Resistance>
   <Health>
     <Max>1000</Max>
     <IdleRegenRate>10</IdleRegenRate>
