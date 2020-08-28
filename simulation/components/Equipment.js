@@ -3,7 +3,7 @@ function Equipment() {}
 Equipment.prototype.Schema = 
 	"<element name='Cat'>"+
 		"<text/>" +
-	"</element>"
+	"</element>" +
 	"<element name='Type'>"+
 		"<text/>" +
 	"</element>"+
@@ -35,7 +35,7 @@ Equipment.prototype.GetCategory = function()
 }
 Equipment.prototype.HasCategory = function(category)
 {
-	if (category == "all")
+	if (category == "all" || this.GetCategory() == "all")
 		return true;
 	return this.GetCategory() == category;
 }
