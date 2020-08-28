@@ -16,6 +16,7 @@ Equipment.prototype.Schema =
 
 Equipment.prototype.Init = function()
 {
+	this.usable = true;
 }
 Equipment.prototype.GetType = function()
 {
@@ -42,5 +43,16 @@ Equipment.prototype.HasCategory = function(category)
 Equipment.prototype.CanBeStored = function()
 {
 	return true;
+}
+/***
+* Marks equipment usable for current owner.
+*/
+Equipment.prototype.MarkUsable = function(category)
+{
+   this.usable = this.HasCategory(category);
+}
+Equipment.prototype.IsUsable = function()
+{
+  return this.usable;
 }
 Engine.RegisterComponentType(IID_Equipment, "Equipment", Equipment);
