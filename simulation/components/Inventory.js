@@ -36,8 +36,13 @@ Inventory.prototype.Add = function(id) {
 		return;
 	}
 	const type = cmpEquipment.GetType();
+	const canBeUsed = cmpEquipment.HasCategory(this.template.Type);
 	const haveToRemove = !cmpEquipment.CanBeStored() && this.items[type];
 	if (haveToRemove) {
+		if (!canBeUsed) {
+			warn("cannot be equiped and cannot be stored");
+			return;
+		}
 		const idx = this.UnEquip(type);
 		if (idx) {
 			const cmpEquipmentX = Engine.QueryInterface(id, IID_Equipment);
@@ -106,9 +111,14 @@ Inventory.prototype.UnEquipSafe = function(id) {
 }
 
 Inventory.prototype.SwitchEquipment = function(id, type) {
+	const cmpEquipment = Engine.QueryInterface(id, IID_Equipment);
+	if (!cmpEquipment.HasCategory(this.template.Type)) {
+		warn("cannot switch equipmet: equipment cannot be used");
+		return;
+	}
 	if (this.items[type] && this.items[type] != id) {
 		const idx = this.UnEquip(type);
-		const cmpEquipmentX = Engine.QueryInterface(id, IID_Equipment);
+		const cmpEquipmentX = Engine.QueryInterface(idx, IID_Equipment);
 		if (!cmpEquipmentX.CanBeStored())
 			this.Drop(idx);
 	}
@@ -191,6 +201,9 @@ Inventory.prototype.Take = function(id) {
 	if (this.bag.indexOf(id) != -1)
 		return;
 	this.bag.push(id);
+	const cmpEquipment = Engine.QueryInterface(id, IID_Equipment);
+	if (cmpEquipment)
+	    cmpEquipment.MarkUsable(this.template.Type);
 	const cmpPosition = Engine.QueryInterface(id, IID_Position);
 	if (!cmpPosition)
 		return;
@@ -221,7 +234,7 @@ Inventory.prototype.Drop = function(id) {
 Inventory.prototype.DropAll = function() {
 	this.items = [];
 	const cmpMyPosition = Engine.QueryInterface(this.entity, IID_Position);
-	if (!cmpMyPosition) {
+	if (!cmpMyPosition || cmpMyPosition.IsOutOfWorld()) {
 		this.bag = [];
 		return;
 	}
