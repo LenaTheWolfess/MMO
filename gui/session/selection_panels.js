@@ -217,11 +217,22 @@ g_SelectionPanels.Bag = {
 			getAurasTooltip,
 			getEntityTooltip
 		].map(func => func(template));
-		data.button.onPress = function() { useItem(data.item.id, data.playerState); };
+		let usable = true;
+		let rc = undefined;
+		if (entState.equipment) {
+			usable = entState.equipment.usable;
+			rc = entState.equipment.category;
+		}
+		if (usable)
+			data.button.onPress = function() { useItem(data.item.id, data.playerState); };
 		data.button.onPressRight = function() { dropItem(data.item.id, data.playerState); };
-		data.button.tooltip = tooltips.join("\n");
 		data.button.enabled = true;
 		let modifier = "";
+		if (!usable) {
+			modifier += "color:0 0 0 127:grayscale:";
+			tooltips.push("Required class: " + rc);
+		}
+		data.button.tooltip = tooltips.join("\n");
 		if (template.icon)
 			data.icon.sprite = modifier + "stretched:session/portraits/" + template.icon;
 		let index = data.i + getNumberOfRightPanelButtons();
