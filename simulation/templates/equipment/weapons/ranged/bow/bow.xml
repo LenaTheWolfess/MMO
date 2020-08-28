@@ -4,6 +4,6 @@
     mmo/weapons/bow
   </Auras>
   <Identity>
-    <SpecificName>Bow</SpecificName>
+    <SpecificName>Legendary bow</SpecificName>
   </Identity>
 </Entity>
