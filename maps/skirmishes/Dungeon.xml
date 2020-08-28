@@ -50,13 +50,17 @@
   "PlayerData": [
     null,
     {
-      "Civ": "athen"
+		"Team": 0,
+		"Civ": "any"
     }
   ],
   "Preview": "",
+  "LockTeams": true,
   "RevealMap": false,
+  "ExploreMap": false,
   "VictoryConditions": [
-    "regicide"
+    "regicide",
+	"boss"
   ]
 }
 ]]></ScriptSettings>
@@ -5368,7 +5372,7 @@
 			<Actor seed="688"/>
 		</Entity>
 		<Entity uid="1056">
-			<Template>units/bams/fenrir</Template>
+			<Template>units/bams/fenrir_boss</Template>
 			<Player>0</Player>
 			<Position x="565.79542" z="766.69965"/>
 			<Orientation y="-0.3593"/>

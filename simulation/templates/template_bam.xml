@@ -36,7 +36,6 @@
       <PreferredClasses datatype="tokens">Human</PreferredClasses>
 	</Ranged>
   </Attack>
-  <Armour>
   <Resistance>
 	<Entity>
 	  <Damage>

@@ -48,34 +48,14 @@
   "LockTeams": false,
   "Name": "MMOEquipment",
   "PlayerData": [
-    "",
+    null,
     {
-      "Civ": "athen"
-    },
-    {
-      "Civ": "cart"
-    },
-    {
-      "Civ": "gaul"
-    },
-    {
-      "Civ": "iber"
-    },
-    {
-      "Civ": "mace"
-    },
-    {
-      "Civ": "pers"
-    },
-    {
-      "Civ": "rome"
-    },
-    {
-      "Civ": "spart"
+      "Civ": "any"
     }
   ],
   "Preview": "",
   "RevealMap": false,
+  "ExploreMap": false,
   "VictoryConditions": []
 }
 ]]></ScriptSettings>

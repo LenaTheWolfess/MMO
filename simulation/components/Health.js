@@ -73,7 +73,7 @@ Health.prototype.Init = function()
 	this.regenRate = ApplyValueModificationsToEntity("Health/RegenRate", +this.template.RegenRate, this.entity);
 	this.idleRegenRate = ApplyValueModificationsToEntity("Health/IdleRegenRate", +this.template.IdleRegenRate, this.entity);
 	this.degreesOnMove = ApplyValueModificationsToEntity("Health/DegreesOnMove", 0, this.entity);
-	this.resurectionTimer;
+ 	this.resurectionTimer = undefined;
 	this.CheckRegenTimer();
 	this.UpdateActor();
 	this.resPos;
@@ -241,13 +241,49 @@ Health.prototype.Kill = function()
  */
 Health.prototype.TakeDamage = function(amount, attacker, attackerOwner)
 {
+	if (!this.hitpoints)
+		return 0;
+	
 	let change = this.Reduce(amount);
 
 	let cmpLoot = Engine.QueryInterface(this.entity, IID_Loot);
 	if (cmpLoot && cmpLoot.GetXp() > 0 && change.HPchange < 0)
 		change.xp = cmpLoot.GetXp() * -change.HPchange / this.GetMaxHitpoints();
 
+	if (!this.hitpoints)
+		this.KilledBy(attacker, attackerOwner);
+	
 	return change;
+};
+
+/**
+ * Called when an entity kills us.
+ * @param {number} attacker - The entityID of the killer.
+ * @param {number} attackerOwner - The playerID of the attacker.
+ */
+Health.prototype.KilledBy = function(attacker, attackerOwner)
+{
+	let cmpAttackerOwnership = Engine.QueryInterface(attacker, IID_Ownership);
+	if (cmpAttackerOwnership)
+	{
+		let currentAttackerOwner = cmpAttackerOwnership.GetOwner();
+		if (currentAttackerOwner != INVALID_PLAYER)
+			attackerOwner = currentAttackerOwner;
+	}
+
+	// Add to killer statistics.
+	let cmpKillerPlayerStatisticsTracker = QueryPlayerIDInterface(attackerOwner, IID_StatisticsTracker);
+	if (cmpKillerPlayerStatisticsTracker)
+		cmpKillerPlayerStatisticsTracker.KilledEntity(this.entity);
+
+	// Add to loser statistics.
+	let cmpTargetPlayerStatisticsTracker = QueryOwnerInterface(this.entity, IID_StatisticsTracker);
+	if (cmpTargetPlayerStatisticsTracker)
+		cmpTargetPlayerStatisticsTracker.LostEntity(this.entity);
+
+	let cmpLooter = Engine.QueryInterface(attacker, IID_Looter);
+	if (cmpLooter)
+		cmpLooter.Collect(this.entity);
 };
 
 /**
@@ -261,7 +297,7 @@ Health.prototype.Reduce = function(amount)
 	// might get called multiple times)
 	// Likewise if the amount is 0.
 	if (!amount || !this.hitpoints)
-		return { "killed": false, "HPchange": 0 };
+		return { "healthChange": 0 };
 
 	// Before changing the value, activate Fogging if necessary to hide changes
 	let cmpFogging = Engine.QueryInterface(this.entity, IID_Fogging);
@@ -278,7 +314,7 @@ Health.prototype.Reduce = function(amount)
 		const cmpInventory = Engine.QueryInterface(this.entity, IID_Inventory);
 		if (cmpInventory)
 			cmpInventory.DropAll();
-		return { "killed": true, "HPchange": -oldHitpoints };
+		return { "healthChange": -oldHitpoints };
 	}
 
 	// If we are not marked as injured, do it now
@@ -291,7 +327,7 @@ Health.prototype.Reduce = function(amount)
 
 	this.hitpoints -= amount;
 	this.RegisterHealthChanged(oldHitpoints);
-	return { "killed": false, "HPchange": this.hitpoints - oldHitpoints };
+	return { "healthChange": this.hitpoints - oldHitpoints };
 };
 
 /**
@@ -330,7 +366,7 @@ Health.prototype.HandleDeath = function()
 		break;
 	}
 	//TODO: check for map settings as well
-	if (thi.template.CanBeResurected)
+	if (this.template.CanBeResurected)
 		this.StartResurectionTimer();
 	else
 		Engine.DestroyEntity(this.entity);
@@ -339,12 +375,12 @@ Health.prototype.HandleDeath = function()
 Health.prototype.StartResurectionTimer = function()
 {
      if (this.hitpoints) {
-	  warn("Trying to start resurection timer on alive entity " + this.entity);
-	  return;
+		warn("Trying to start resurection timer on alive entity " + this.entity);
+		return;
      }
      const cmpPosition = Engine.QueryInterface(this.entity, IID_Position);
      if (cmpPosition)
-	warn("Health.StartResurectionTimer: Entity " + this.entity + " does not have position");
+		warn("Health.StartResurectionTimer: Entity " + this.entity + " does not have position");
      else if (cmpPosition.IsOutOfWorld())
      	warn("Health.StartResurectionTimer: Entity " + this.entity + " is already out of world");
      else {
@@ -446,7 +482,7 @@ Health.prototype.CreateCorpse = function(leaveResources)
 	return corpse;
 };
 
-Health.protoype.CreateSpawnedLootEntities = function()
+Health.prototype.CreateSpawnedLootEntities = function()
 {
 	// If the unit died while not in the world, don't spawn a death entity for it
 	// since there's nowhere for it to be placed

@@ -10,7 +10,7 @@ GameSettingControls.RelicDuration = class extends GameSettingControlSlider
 
 	onMapChange(mapData)
 	{
-		this.setEnabled(g_GameAttributes.mapType != "scenario");
+		this.setEnabled(false);
 
 		let mapValue;
 		if (

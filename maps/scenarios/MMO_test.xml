@@ -43,17 +43,19 @@
   "CircularMap": true,
   "Description": "",
   "Keywords": [],
-  "LockTeams": false,
+  "LockTeams": true,
   "Name": "MMO test",
   "Nomad": false,
   "PlayerData": [
-    "",
+    null,
     {
-      "Civ": "athen"
+      "Civ": "any",
+	  "Team": 0
     }
   ],
   "Preview": "pompeii.png",
   "RevealMap": false,
+  "ExploreMap": false,
   "Script": "pompeii.js",
   "Seed": 0,
   "Size": 128,
@@ -63,7 +65,7 @@
     "capture_the_relic",
 	"regicide"
   ],
-  "mapType": "random"
+  "mapType": ""
 }
 ]]></ScriptSettings>
 	<Entities>

@@ -558,8 +558,9 @@ Attack.prototype.PerformAttack = function(type, target)
 
 		cmpTimer.SetTimeout(SYSTEM_ENTITY, IID_DelayedDamage, "MissileHit", +this.template[type].Delay + timeToTarget * 1000, data);
 	}
-	else
-		Attacking.HandleAttackEffects(target, type, this.GetAttackEffectsData(type), target, this.entity, attackerOwner);
+	else {
+		Attacking.HandleAttackEffects(target, type, this.GetAttackEffectsData(type), this.entity, attackerOwner);
+	}
 };
 
 /**
