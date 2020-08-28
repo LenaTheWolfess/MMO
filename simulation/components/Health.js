@@ -54,6 +54,11 @@ Health.prototype.Schema =
 			"</attribute>" +
 		"</element>" +
 	"</optional>" +
+	"<optional>" +
+		"<element name='CanBeResurected'>" +
+			"<data type='boolean'/>" +
+		"</element>" +
+	"</optional>" +
 	"<element name='Unhealable' a:help='Indicates that the entity can not be healed by healer units'>" +
 		"<data type='boolean'/>" +
 	"</element>";
@@ -68,8 +73,10 @@ Health.prototype.Init = function()
 	this.regenRate = ApplyValueModificationsToEntity("Health/RegenRate", +this.template.RegenRate, this.entity);
 	this.idleRegenRate = ApplyValueModificationsToEntity("Health/IdleRegenRate", +this.template.IdleRegenRate, this.entity);
 	this.degreesOnMove = ApplyValueModificationsToEntity("Health/DegreesOnMove", 0, this.entity);
+	this.resurectionTimer;
 	this.CheckRegenTimer();
 	this.UpdateActor();
+	this.resPos;
 };
 
 /**
@@ -322,9 +329,52 @@ Health.prototype.HandleDeath = function()
 		error("Invalid template.DeathType: " + this.template.DeathType);
 		break;
 	}
-
-	Engine.DestroyEntity(this.entity);
+	//TODO: check for map settings as well
+	if (thi.template.CanBeResurected)
+		this.StartResurectionTimer();
+	else
+		Engine.DestroyEntity(this.entity);
 };
+
+Health.prototype.StartResurectionTimer = function()
+{
+     if (this.hitpoints) {
+	  warn("Trying to start resurection timer on alive entity " + this.entity);
+	  return;
+     }
+     const cmpPosition = Engine.QueryInterface(this.entity, IID_Position);
+     if (cmpPosition)
+	warn("Health.StartResurectionTimer: Entity " + this.entity + " does not have position");
+     else if (cmpPosition.IsOutOfWorld())
+     	warn("Health.StartResurectionTimer: Entity " + this.entity + " is already out of world");
+     else {
+     	this.resPos = cmpPosition.GetPosition();
+     	cmpPosition.MoveOutOfWorld();
+     }
+
+     const cmpTimer = Engine.QueryInterface(SYSTEM_ENTITY, IID_Timer);
+     this.regenerationTimer = cmpTimer.SetTimeout(this.entity, IID_Health, "Resurect", 6 * 1000, null);
+}
+
+Health.prototype.Resurect = function()
+{
+	// Do not resurect alive entity
+	if (this.hitpoints) {
+		warn("Trying to resurect alive entity " + this.entity);
+		return;
+     	}
+	const old = this.hitpoints;
+	this.hitpoints = +(this.template.Initial || this.GetMaxHitpoints());
+
+	const cmpRangeManager = Engine.QueryInterface(SYSTEM_ENTITY, IID_RangeManager);
+	if (cmpRangeManager)
+		cmpRangeManager.SetEntityFlag(this.entity, "injured", this.IsInjured());
+
+	this.RegisterHealthChanged(old);
+	
+     	const cmpPosition = Engine.QueryInterface(this.entity, IID_Position);
+	cmpPosition.JumpTo(this.resPos.x, this.resPos.z);
+}
 
 Health.prototype.Increase = function(amount)
 {
