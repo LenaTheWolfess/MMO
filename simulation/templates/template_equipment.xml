@@ -5,6 +5,7 @@
     <Height>2.5</Height>
   </Footprint>
   <Equipment>
+	<Cat>all</Cat>
   </Equipment>
   <Identity>
     <GenericName>Equipment</GenericName>

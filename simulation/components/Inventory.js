@@ -121,6 +121,8 @@ Inventory.prototype.Equip = function(id, type) {
 	const cmpEquipment = Engine.QueryInterface(id, IID_Equipment);
 	if (!cmpEquipment)
 		return;
+	if (!cmpEquipment.HasCategory(this.template.Type))
+		return;
 	this.items[type] = id;
 	this.AddBonus(id);
 	const cmpVisual = Engine.QueryInterface(this.entity, IID_Visual);

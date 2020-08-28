@@ -7,6 +7,7 @@
   </Identity>
   <Equipment>
     <Type>weapon</Type>
+	<Cat>spearman</Cat>
     <TypeSpecific>spear</TypeSpecific>
     <Animation>weapon-spear-hopl</Animation>
   </Equipment>

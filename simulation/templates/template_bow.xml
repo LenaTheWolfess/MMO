@@ -7,6 +7,7 @@
   </Identity>
   <Equipment>
     <Type>weapon</Type>
+	<Cat>archer</Cat>
     <TypeSpecific>bow</TypeSpecific>
     <Animation>weapon-bow</Animation>
   </Equipment>

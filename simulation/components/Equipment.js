@@ -1,6 +1,9 @@
 function Equipment() {}
 
 Equipment.prototype.Schema = 
+	"<element name='Cat'>"+
+		"<text/>" +
+	"</element>"
 	"<element name='Type'>"+
 		"<text/>" +
 	"</element>"+
@@ -25,6 +28,16 @@ Equipment.prototype.GetTypeSpecific = function()
 Equipment.prototype.GetAnimation = function()
 {
 	return this.template.Animation;
+}
+Equipment.prototype.GetCategory = function()
+{
+	return this.template.Cat;
+}
+Equipment.prototype.HasCategory = function(category)
+{
+	if (category == "all")
+		return true;
+	return this.GetCategory() == category;
 }
 Equipment.prototype.CanBeStored = function()
 {

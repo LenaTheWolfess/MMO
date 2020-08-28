@@ -7,6 +7,7 @@
   </Identity>
   <Equipment>
     <Type>weapon</Type>
+	<Cat>swordsman</Cat>
     <TypeSpecific>sword</TypeSpecific>
     <Animation>weapon-sword</Animation>
   </Equipment>
