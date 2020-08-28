@@ -10,6 +10,6 @@
     <Animation>armour-body-heavy</Animation>
   </Equipment>
   <VisualActor>
-    <Actor>armorstand_hele_body_armor_03.xml</Actor>
+    <Actor>items/armorstand_hele_body_armor_03.xml</Actor>
   </VisualActor>
 </Entity>

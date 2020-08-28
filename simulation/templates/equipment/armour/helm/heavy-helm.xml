@@ -11,6 +11,6 @@
     <Animation>armour-helm-heavy</Animation>
   </Equipment>
   <VisualActor>
-    <Actor>armorstand_hele_helmet_03.xml</Actor>
+    <Actor>items/armorstand_hele_helmet_03.xml</Actor>
   </VisualActor>
 </Entity>

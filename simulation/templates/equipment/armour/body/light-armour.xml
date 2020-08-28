@@ -10,6 +10,6 @@
     <Animation>armour-body-light</Animation>
   </Equipment>
   <VisualActor>
-    <Actor>armorstand_hele_body_armor_01.xml</Actor>
+    <Actor>items/armorstand_hele_body_armor_01.xml</Actor>
   </VisualActor>
 </Entity>
