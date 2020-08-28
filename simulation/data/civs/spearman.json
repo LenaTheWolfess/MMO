@@ -1,0 +1,64 @@
+{
+  "Code": "sp",
+  "Culture": "sp",
+  "Name": "Spearman",
+  "Emblem": "session/portraits/emblems/emblem_athenians.png",
+  "History": "",
+  "Music": [
+    {
+      "File": "Harvest_Festival.ogg",
+      "Type": "peace"
+    },
+    {
+      "File": "Forging_a_City-State.ogg",
+      "Type": "peace"
+    },
+    {
+      "File": "Highland_Mist.ogg",
+      "Type": "peace"
+    },
+    {
+      "File": "The_Hellespont.ogg",
+      "Type": "peace"
+    }
+  ],
+  "Factions": [
+  ],
+  "CivBonuses": [
+  ],
+  "TeamBonuses": [
+  ],
+  "Structures": [
+  ],
+  "WallSets": [
+  ],
+  "StartEntities": [
+    {
+      "Template": "units/mmoSpearman.xml"
+    }
+  ],
+  "Formations": [
+  ],
+  "AINames": [
+    "Themistocles",
+    "Pericles",
+    "Cimon",
+    "Aristides",
+    "Xenophon",
+    "Hippias",
+    "Cleisthenes",
+    "Thucydides",
+    "Alcibiades",
+    "Miltiades",
+    "Cleon",
+    "Cleophon",
+    "Thrasybulus",
+    "Iphicrates",
+    "Demosthenes"
+  ],
+  "SkirmishReplacements": {
+    "skirmish/units/default_infantry_ranged_b": "units/athen_infantry_slinger_b",
+    "skirmish/structures/default_house_10": "structures/{civ}_house"
+  },
+  "SelectableInGameSetup": true
+}
