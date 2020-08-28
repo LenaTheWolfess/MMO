@@ -1,0 +1,20 @@
+  
+<?xml version="1.0" encoding="utf-8"?>
+<Entity parent="template_mmo_unit_ranged">
+  <Identity>
+    <SpecificName>Player</SpecificName>
+    <Icon>technologies/helmet_hero_side.png</Icon>
+  </Identity>
+  <Inventory>
+    <Type>archer</Type>
+  </Inventory>
+  <VisualActor>
+    <Actor>units/mmo/player.xml</Actor>
+  </VisualActor>
+  <Health>
+    <IdleRegenRate>1</IdleRegenRate>
+  </Health>
+  <UnitAI>
+    <DefaultStance>standground</DefaultStance>
+  </UnitAI>
+</Entity>
