@@ -276,7 +276,9 @@ GuiInterface.prototype.GetEntityState = function(player, ent)
 	if (cmpEquipment)
 		ret.equipment = {
 			"type": cmpEquipment.GetType(),
-			"specific": cmpEquipment.GetTypeSpecific()
+			"specific": cmpEquipment.GetTypeSpecific(),
+			"usable": cmpEquipment.IsUsable(),
+			"category": cmpEquipment.GetCategory()
 		};
 
 	const cmpItem = Engine.QueryInterface(ent, IID_Item);
