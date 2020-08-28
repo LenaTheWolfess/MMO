@@ -32,7 +32,6 @@
     <Circle radius="1.5"/>
     <Height>2.5</Height>
   </Footprint>
-  <Garrisonable/>
   <Health>
     <DeathType>corpse</DeathType>
     <Max>100</Max>
@@ -45,7 +44,7 @@
     <Classes datatype="tokens">Unit Organic ConquestCritical Hero</Classes>
     <GenericName>Unit</GenericName>
     <Phenotype datatype="tokens">male</Phenotype>
-    <Undeletable>false</Undeletable>
+    <Undeletable>true</Undeletable>
   </Identity>
   <Looter/>
   <Minimap>
