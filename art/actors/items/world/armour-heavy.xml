@@ -2,18 +2,17 @@
 <actor version="1">
   <castshadow/>
   <group>
-    <variant frequency="1" name="barrel">
-      <mesh>props/rome_blacksmith_armorstand_struct_b.dae</mesh>
-      <props>
-        <prop actor="props/structures/celts/blacksmith_armorstand_armor.xml" attachpoint="root"/>
-      </props>
-      <textures>
-        <texture file="structural/rome_struct_2.png" name="baseTex"/>
-        <texture file="structural/rome_struct_2_norm.png" name="normTex"/>
-        <texture file="structural/rome_struct_2_spec.png" name="specTex"/>
-        <texture file="structural/ao/rome_blacksmith.png" name="aoTex"/>
-      </textures>
+    <variant frequency="1" name="barrels">
+      <mesh>world/armour.dae</mesh>
     </variant>
   </group>
-  <material>player_trans_ao_parallax_spec.xml</material>
+  <group>
+    <variant frequency="1" name="chainmail-2a">
+      <textures>
+        <texture file="skeletal/celt_chainmail_2_a.png" name="baseTex"/>
+        <texture file="skeletal/celt_chainmail_2_spec.png" name="specTex"/>
+      </textures>
+	</variant>
+  </group>
+  <material>basic_trans_spec.xml</material>
 </actor>
