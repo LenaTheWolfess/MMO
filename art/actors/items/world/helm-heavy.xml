@@ -3,6 +3,9 @@
   <castshadow/>
   <group>
     <variant name="Corinthian">
+	 <props>
+        <prop actor="particle/item_mark.xml" attachpoint="root"/>
+	 </props>
       <mesh>props/helmet/hele_corinthian_b.dae</mesh>
     </variant>
   </group>

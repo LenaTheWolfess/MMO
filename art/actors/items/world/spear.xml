@@ -3,6 +3,9 @@
   <castshadow/>
   <group>
     <variant frequency="1">
+	 <props>
+        <prop actor="particle/item_mark.xml" attachpoint="root"/>
+	 </props>
       <mesh>world/spear.dae</mesh>
       <textures><texture file="props/prop_weap.dds" name="baseTex"/></textures>
     </variant>

@@ -3,6 +3,9 @@
   <castshadow/>
   <group>
     <variant name="Pilos-01">
+	 <props>
+        <prop actor="particle/item_mark.xml" attachpoint="root"/>
+	 </props>
       <mesh>world/helm-light.dae</mesh>
     </variant>
   </group>

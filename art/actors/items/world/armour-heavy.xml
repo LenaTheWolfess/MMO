@@ -3,6 +3,9 @@
   <castshadow/>
   <group>
     <variant frequency="1" name="barrels">
+	 <props>
+        <prop actor="particle/item_mark.xml" attachpoint="root"/>
+	 </props>
       <mesh>world/armour.dae</mesh>
     </variant>
   </group>

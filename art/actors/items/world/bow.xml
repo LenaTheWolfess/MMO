@@ -3,6 +3,9 @@
   <castshadow/>
   <group>
     <variant frequency="1" name="Base">
+	 <props>
+        <prop actor="particle/item_mark.xml" attachpoint="root"/>
+	 </props>
       <textures><texture file="props/prop_weap.dds" name="baseTex"/></textures>
     </variant>
   </group>

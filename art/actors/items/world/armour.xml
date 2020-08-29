@@ -3,6 +3,9 @@
   <castshadow/>
   <group>
     <variant frequency="1" name="barrel">
+	 <props>
+        <prop actor="particle/item_mark.xml" attachpoint="root"/>
+	 </props>
       <mesh>world/armour.dae</mesh>
       <textures>
 		<texture file="skeletal/rome_csp_a.dds" name="baseTex"/>
