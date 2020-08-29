@@ -1,0 +1,12 @@
+{
+	"type": "formation",
+	"affects": ["Tank"],
+	"modifications": [
+		{ "value": "Resistance/Entity/Damage/Hack",   "add":  2},
+		{ "value": "Resistance/Entity/Damage/Pierce",    "add":  2},
+		{ "value": "Resistance/Entity/Damage/Crush",    "add":  2}
+	],
+	"stackable": true,
+	"auraDescription": "Armour +2",
+	"auraName": "Tank class"
+}

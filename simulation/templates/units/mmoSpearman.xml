@@ -4,7 +4,17 @@
     <SpecificName>Player</SpecificName>
 	<GenericName>Spearman</GenericName>
     <Icon>technologies/helmet_hero_side.png</Icon>
+	<Classes datatype="tokens">Tank</Classes>
   </Identity>
+  <Resistance>
+    <Entity>
+      <Damage>
+        <Hack>2</Hack>
+        <Pierce>2</Pierce>
+        <Crush>2</Crush>
+      </Damage>
+    </Entity>
+  </Resistance>
   <Inventory>
     <Type>spearman</Type>
   </Inventory>
@@ -12,7 +22,7 @@
     <Actor>units/mmo/player.xml</Actor>
   </VisualActor>
   <Health>
-    <IdleRegenRate>1</IdleRegenRate>
+    <IdleRegenRate>3</IdleRegenRate>
   </Health>
   <UnitAI>
     <DefaultStance>standground</DefaultStance>

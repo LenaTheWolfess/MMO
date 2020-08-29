@@ -12,7 +12,7 @@
       <PrepareTime>500</PrepareTime>
       <RepeatTime>1000</RepeatTime>
       <RestrictedClasses datatype="tokens">Structure</RestrictedClasses>
-      <PreferredClasses datatype="tokens">Human</PreferredClasses>
+      <PreferredClasses datatype="tokens">Tank Human</PreferredClasses>
     </Melee>
 	<Ranged>
 	  <Damage>

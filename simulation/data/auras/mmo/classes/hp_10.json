@@ -1,0 +1,10 @@
+{
+	"type": "formation",
+	"affects": ["Tank"],
+	"modifications": [
+		{ "value": "Health/Max",   "add":  10}
+	],
+	"stackable": true,
+	"auraDescription": "HP +10",
+	"auraName": "Tank class"
+}

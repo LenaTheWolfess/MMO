@@ -2,6 +2,9 @@
 <Entity parent="template_armour">
   <Auras datatype="tokens">
     mmo/armour/body/armour-light
+	mmo/classes/hp_10
+	mmo/classes/tank
+	mmo/classes/dps_1
   </Auras>
   <Identity>
     <SpecificName>Light Armour</SpecificName>

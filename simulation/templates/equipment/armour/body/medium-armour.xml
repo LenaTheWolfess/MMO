@@ -2,6 +2,9 @@
 <Entity parent="template_armour">
   <Auras datatype="tokens">
     mmo/armour/body/armour-medium
+	mmo/classes/hp_20
+	mmo/classes/tank_2
+	mmo/classes/dps_2
   </Auras>
   <Identity>
     <SpecificName>Medium Armour</SpecificName>

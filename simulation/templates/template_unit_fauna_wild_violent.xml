@@ -10,6 +10,7 @@
       <MaxRange>4</MaxRange>
       <PrepareTime>500</PrepareTime>
       <RepeatTime>1000</RepeatTime>
+	  <PreferredClasses datatype="tokens">Tank</PreferredClasses>
       <RestrictedClasses datatype="tokens">Structure Ship Siege</RestrictedClasses>
     </Melee>
   </Attack>

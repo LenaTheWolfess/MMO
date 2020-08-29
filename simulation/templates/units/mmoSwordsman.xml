@@ -4,6 +4,7 @@
     <SpecificName>Player</SpecificName>
 	<GenericName>Swordsman</GenericName>
     <Icon>technologies/helmet_hero_side.png</Icon>
+	<Classes datatype="tokens">DPS</Classes>
   </Identity>
   <Inventory>
     <Type>swordsman</Type>

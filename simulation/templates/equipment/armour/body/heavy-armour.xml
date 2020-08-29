@@ -2,6 +2,9 @@
 <Entity parent="template_armour">
   <Auras datatype="tokens">
     mmo/armour/body/armour-heavy
+	mmo/classes/hp_20
+	mmo/classes/tank_3
+	mmo/classes/dps_3
   </Auras>
   <Identity>
     <SpecificName>Heavy Armour</SpecificName>

@@ -5,19 +5,19 @@
 		<SkySet>default</SkySet>
 		<SunColor r="0.74902" g="0.74902" b="0.74902"/>
 		<SunElevation angle="0.785398"/>
-		<SunRotation angle="5.49779"/>
+		<SunRotation angle="-0.785396"/>
 		<TerrainAmbientColor r="0.501961" g="0.501961" b="0.501961"/>
 		<UnitsAmbientColor r="0.501961" g="0.501961" b="0.501961"/>
 		<Fog>
 			<FogFactor>0</FogFactor>
 			<FogThickness>0.5</FogThickness>
-			<FogColor r="0.8" g="0.8" b="0.898039"/>
+			<FogColor r="0.8" g="0.8" b="0.894118"/>
 		</Fog>
 		<Water>
 			<WaterBody>
 				<Type>ocean</Type>
-				<Color r="0.3" g="0.35" b="0.7"/>
-				<Tint r="0.28" g="0.3" b="0.59"/>
+				<Color r="0.298039" g="0.34902" b="0.698039"/>
+				<Tint r="0.278431" g="0.298039" b="0.588235"/>
 				<Height>5</Height>
 				<Waviness>4</Waviness>
 				<Murkiness>0.45</Murkiness>
@@ -33,8 +33,8 @@
 		</Postproc>
 	</Environment>
 	<Camera>
-		<Position x="351.029" y="191.964" z="164.005"/>
-		<Rotation angle="-0.479905"/>
+		<Position x="352.758" y="191.799" z="164.681"/>
+		<Rotation angle="-0.679045"/>
 		<Declination angle="0.610865"/>
 	</Camera>
 	<ScriptSettings><![CDATA[
@@ -48,29 +48,15 @@
   "LockTeams": false,
   "Name": "Class spawn test",
   "PlayerData": [
+    null,
     {
-		"Team": 1
+      "Team": 0
     },
     {
-		"Team": 1
+      "Team": 0
     },
     {
-		"Team": 1
-    },
-    {
-		"Team": 1
-    },
-    {
-		"Team": 1
-    },
-    {
-		"Team": 1
-    },
-    {
-		"Team": 1
-    },
-    {
-		"Team": 1
+      "Team": 0
     }
   ],
   "Preview": "",
@@ -99,41 +85,6 @@
 			<Position x="339.843" z="191.61344"/>
 			<Orientation y="2.35621"/>
 			<Actor seed="21878"/>
-		</Entity>
-		<Entity uid="14">
-			<Template>units/mmoPlayerSkirmish</Template>
-			<Player>4</Player>
-			<Position x="343.10224" z="192.79249"/>
-			<Orientation y="2.35621"/>
-			<Actor seed="5246"/>
-		</Entity>
-		<Entity uid="15">
-			<Template>units/mmoPlayerSkirmish</Template>
-			<Player>5</Player>
-			<Position x="336.29355" z="182.29636"/>
-			<Orientation y="2.35621"/>
-			<Actor seed="11320"/>
-		</Entity>
-		<Entity uid="16">
-			<Template>units/mmoPlayerSkirmish</Template>
-			<Player>6</Player>
-			<Position x="339.75571" z="183.98896"/>
-			<Orientation y="2.35621"/>
-			<Actor seed="4594"/>
-		</Entity>
-		<Entity uid="17">
-			<Template>units/mmoPlayerSkirmish</Template>
-			<Player>7</Player>
-			<Position x="342.15055" z="186.25882"/>
-			<Orientation y="2.35621"/>
-			<Actor seed="55282"/>
-		</Entity>
-		<Entity uid="18">
-			<Template>units/mmoPlayerSkirmish</Template>
-			<Player>8</Player>
-			<Position x="345.32313" z="187.99946"/>
-			<Orientation y="2.35621"/>
-			<Actor seed="42696"/>
 		</Entity>
 		<Entity uid="19">
 			<Template>equipment/weapons/melee/spear/spear</Template>
@@ -323,6 +274,202 @@
 			<Position x="332.51633" z="204.64628"/>
 			<Orientation y="2.35621"/>
 			<Actor seed="15648"/>
+		</Entity>
+		<Entity uid="46">
+			<Template>equipment/armour/shield/shield-heavy</Template>
+			<Player>0</Player>
+			<Position x="314.59525" z="185.75483"/>
+			<Orientation y="2.35621"/>
+			<Actor seed="60024"/>
+		</Entity>
+		<Entity uid="47">
+			<Template>equipment/armour/shield/shield-heavy</Template>
+			<Player>0</Player>
+			<Position x="316.48707" z="188.36387"/>
+			<Orientation y="2.35621"/>
+			<Actor seed="50452"/>
+		</Entity>
+		<Entity uid="48">
+			<Template>equipment/armour/shield/shield-heavy</Template>
+			<Player>0</Player>
+			<Position x="318.4019" z="191.66736"/>
+			<Orientation y="2.35621"/>
+			<Actor seed="58108"/>
+		</Entity>
+		<Entity uid="49">
+			<Template>equipment/armour/shield/shield-heavy</Template>
+			<Player>0</Player>
+			<Position x="320.46164" z="194.28199"/>
+			<Orientation y="2.35621"/>
+			<Actor seed="52726"/>
+		</Entity>
+		<Entity uid="50">
+			<Template>equipment/armour/shield/shield-heavy</Template>
+			<Player>0</Player>
+			<Position x="322.97202" z="197.63138"/>
+			<Orientation y="2.35621"/>
+			<Actor seed="54606"/>
+		</Entity>
+		<Entity uid="51">
+			<Template>equipment/armour/shield/shield-medium</Template>
+			<Player>0</Player>
+			<Position x="312.52216" z="186.97123"/>
+			<Orientation y="2.35621"/>
+			<Actor seed="2140"/>
+		</Entity>
+		<Entity uid="52">
+			<Template>equipment/armour/shield/shield-medium</Template>
+			<Player>0</Player>
+			<Position x="313.78251" z="189.49433"/>
+			<Orientation y="2.35621"/>
+			<Actor seed="42024"/>
+		</Entity>
+		<Entity uid="53">
+			<Template>equipment/armour/shield/shield-medium</Template>
+			<Player>0</Player>
+			<Position x="315.97385" z="193.07102"/>
+			<Orientation y="2.35621"/>
+			<Actor seed="33064"/>
+		</Entity>
+		<Entity uid="54">
+			<Template>equipment/armour/shield/shield-medium</Template>
+			<Player>0</Player>
+			<Position x="317.89838" z="196.26902"/>
+			<Orientation y="2.35621"/>
+			<Actor seed="4178"/>
+		</Entity>
+		<Entity uid="55">
+			<Template>equipment/armour/shield/shield-medium</Template>
+			<Player>0</Player>
+			<Position x="320.00367" z="199.72742"/>
+			<Orientation y="2.35621"/>
+			<Actor seed="51758"/>
+		</Entity>
+		<Entity uid="56">
+			<Template>equipment/armour/body/heavy-armour</Template>
+			<Player>0</Player>
+			<Position x="320.63639" z="176.35605"/>
+			<Orientation y="2.35621"/>
+			<Actor seed="8328"/>
+		</Entity>
+		<Entity uid="57">
+			<Template>equipment/armour/body/heavy-armour</Template>
+			<Player>0</Player>
+			<Position x="323.30936" z="174.50193"/>
+			<Orientation y="2.35621"/>
+			<Actor seed="62338"/>
+		</Entity>
+		<Entity uid="58">
+			<Template>equipment/armour/body/heavy-armour</Template>
+			<Player>0</Player>
+			<Position x="326.5589" z="173.65775"/>
+			<Orientation y="2.35621"/>
+			<Actor seed="60740"/>
+		</Entity>
+		<Entity uid="59">
+			<Template>equipment/armour/body/light-armour</Template>
+			<Player>0</Player>
+			<Position x="318.73957" z="173.63462"/>
+			<Orientation y="2.35621"/>
+			<Actor seed="32044"/>
+		</Entity>
+		<Entity uid="60">
+			<Template>equipment/armour/body/light-armour</Template>
+			<Player>0</Player>
+			<Position x="322.12253" z="171.64179"/>
+			<Orientation y="2.35621"/>
+			<Actor seed="4104"/>
+		</Entity>
+		<Entity uid="61">
+			<Template>equipment/armour/body/light-armour</Template>
+			<Player>0</Player>
+			<Position x="325.02646" z="170.11472"/>
+			<Orientation y="2.35621"/>
+			<Actor seed="14550"/>
+		</Entity>
+		<Entity uid="62">
+			<Template>equipment/armour/body/medium-armour</Template>
+			<Player>0</Player>
+			<Position x="315.4238" z="170.95853"/>
+			<Orientation y="2.35621"/>
+			<Actor seed="28500"/>
+		</Entity>
+		<Entity uid="63">
+			<Template>equipment/armour/body/medium-armour</Template>
+			<Player>0</Player>
+			<Position x="320.39667" z="169.29804"/>
+			<Orientation y="2.35621"/>
+			<Actor seed="23118"/>
+		</Entity>
+		<Entity uid="64">
+			<Template>equipment/armour/body/medium-armour</Template>
+			<Player>0</Player>
+			<Position x="323.44941" z="167.94562"/>
+			<Orientation y="2.35621"/>
+			<Actor seed="55368"/>
+		</Entity>
+		<Entity uid="65">
+			<Template>equipment/armour/helm/heavy-helm</Template>
+			<Player>0</Player>
+			<Position x="343.99723" z="205.17334"/>
+			<Orientation y="2.35621"/>
+			<Actor seed="39098"/>
+		</Entity>
+		<Entity uid="66">
+			<Template>equipment/armour/helm/heavy-helm</Template>
+			<Player>0</Player>
+			<Position x="346.59861" z="206.59501"/>
+			<Orientation y="2.35621"/>
+			<Actor seed="33860"/>
+		</Entity>
+		<Entity uid="67">
+			<Template>equipment/armour/helm/heavy-helm</Template>
+			<Player>0</Player>
+			<Position x="347.36164" z="207.21085"/>
+			<Orientation y="2.35621"/>
+			<Actor seed="28784"/>
+		</Entity>
+		<Entity uid="68">
+			<Template>equipment/armour/helm/light-helm</Template>
+			<Player>0</Player>
+			<Position x="347.65497" z="201.76496"/>
+			<Orientation y="2.35621"/>
+			<Actor seed="25632"/>
+		</Entity>
+		<Entity uid="69">
+			<Template>equipment/armour/helm/light-helm</Template>
+			<Player>0</Player>
+			<Position x="349.03681" z="203.07526"/>
+			<Orientation y="2.35621"/>
+			<Actor seed="7874"/>
+		</Entity>
+		<Entity uid="70">
+			<Template>equipment/armour/helm/light-helm</Template>
+			<Player>0</Player>
+			<Position x="350.62229" z="204.15983"/>
+			<Orientation y="2.35621"/>
+			<Actor seed="23386"/>
+		</Entity>
+		<Entity uid="71">
+			<Template>equipment/armour/helm/medium-helm</Template>
+			<Player>0</Player>
+			<Position x="349.17707" z="199.52341"/>
+			<Orientation y="2.35621"/>
+			<Actor seed="24408"/>
+		</Entity>
+		<Entity uid="72">
+			<Template>equipment/armour/helm/medium-helm</Template>
+			<Player>0</Player>
+			<Position x="351.46671" z="201.02613"/>
+			<Orientation y="2.35621"/>
+			<Actor seed="43898"/>
+		</Entity>
+		<Entity uid="73">
+			<Template>equipment/armour/helm/medium-helm</Template>
+			<Player>0</Player>
+			<Position x="353.54078" z="202.43708"/>
+			<Orientation y="2.35621"/>
+			<Actor seed="4766"/>
 		</Entity>
 	</Entities>
 	<Paths/>

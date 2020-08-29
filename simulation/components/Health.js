@@ -242,13 +242,13 @@ Health.prototype.Kill = function()
 Health.prototype.TakeDamage = function(amount, attacker, attackerOwner)
 {
 	if (!this.hitpoints)
-		return 0;
+		return {"healthChange": 0};
 	
 	let change = this.Reduce(amount);
 
 	let cmpLoot = Engine.QueryInterface(this.entity, IID_Loot);
-	if (cmpLoot && cmpLoot.GetXp() > 0 && change.HPchange < 0)
-		change.xp = cmpLoot.GetXp() * -change.HPchange / this.GetMaxHitpoints();
+	if (cmpLoot && cmpLoot.GetXp() > 0 && change.healthChange < 0)
+		change.xp = cmpLoot.GetXp() * -change.healthChange / this.GetMaxHitpoints();
 
 	if (!this.hitpoints)
 		this.KilledBy(attacker, attackerOwner);

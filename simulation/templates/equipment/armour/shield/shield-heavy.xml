@@ -2,6 +2,7 @@
 <Entity parent="template_shield">
   <Auras datatype="tokens">
     mmo/armour/shield/heavy-shield
+	mmo/classes/hp_20
   </Auras>
   <Identity>
     <SpecificName>Heavy shield</SpecificName>

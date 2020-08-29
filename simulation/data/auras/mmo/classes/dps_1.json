@@ -1,0 +1,9 @@
+{
+	"type": "formation",
+	"affects": ["DPS"],
+	"modifications": [
+		{ "value": "Health/RegenRate",   "add":  1}
+	],
+	"auraDescription": "HP+ +1",
+	"auraName": "DPS class"
+}

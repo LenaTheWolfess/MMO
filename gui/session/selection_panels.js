@@ -231,7 +231,7 @@ g_SelectionPanels.Bag = {
 		data.button.enabled = true;
 		let modifier = "";
 		if (!usable) {
-			modifier += "color:0 0 0 127:grayscale:";
+			modifier += "color: 100 0 0 127:grayscale:";
 			tooltips.push("Required class: " + rc);
 		}
 		data.button.tooltip = tooltips.join("\n");

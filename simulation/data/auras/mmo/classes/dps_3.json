@@ -1,0 +1,9 @@
+{
+	"type": "formation",
+	"affects": ["DPS"],
+	"modifications": [
+		{ "value": "Health/Max",   "add":  20}
+	],
+	"auraDescription": "HP +20",
+	"auraName": "DPS class"
+}

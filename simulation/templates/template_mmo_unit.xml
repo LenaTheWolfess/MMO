@@ -38,6 +38,7 @@
     <RegenRate>0</RegenRate>
     <IdleRegenRate>0</IdleRegenRate>
     <Unhealable>false</Unhealable>
+	<CanBeResurected>true</CanBeResurected>
   </Health>
   <Identity>
     <Civ>gaia</Civ>

@@ -17,4 +17,8 @@
   <UnitAI>
     <DefaultStance>standground</DefaultStance>
   </UnitAI>
+  <UnitMotion>
+    <WalkSpeed>10.0</WalkSpeed>
+    <RunMultiplier>1.5</RunMultiplier>
+  </UnitMotion>
 </Entity>
