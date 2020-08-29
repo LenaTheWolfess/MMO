@@ -2,6 +2,7 @@
 <Entity parent="template_mmo_unit_ranged">
   <Identity>
     <SpecificName>Player</SpecificName>
+	<GenericName>Archer</GenericName>
     <Icon>technologies/helmet_hero_side.png</Icon>
   </Identity>
   <Inventory>

@@ -225,6 +225,8 @@ g_SelectionPanels.Bag = {
 		}
 		if (usable)
 			data.button.onPress = function() { useItem(data.item.id, data.playerState); };
+		else
+			data.button.onPress = function() {};
 		data.button.onPressRight = function() { dropItem(data.item.id, data.playerState); };
 		data.button.enabled = true;
 		let modifier = "";
