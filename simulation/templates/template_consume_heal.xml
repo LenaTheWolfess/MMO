@@ -14,6 +14,6 @@
     </Affects>
   </Item>
   <VisualActor>
-    <Actor>items/food_sack.xml</Actor>
+    <Actor>items/world/food_sack.xml</Actor>
   </VisualActor>
 </Entity>

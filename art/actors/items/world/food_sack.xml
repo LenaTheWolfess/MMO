@@ -11,9 +11,6 @@
     </variant>
   </group>
   <group>
-    <variant frequency="100" name="food sack 1">
-      <mesh>props/wrld_food_sack_01.dae</mesh>
-    </variant>
     <variant frequency="100" name="food sack 2">
       <mesh>props/wrld_food_sack_02.dae</mesh>
     </variant>
