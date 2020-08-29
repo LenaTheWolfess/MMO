@@ -12,6 +12,6 @@
     <Animation>weapon-sword</Animation>
   </Equipment>
   <VisualActor>
-    <Actor>items/sword.xml</Actor>
+    <Actor>items/world/sword.xml</Actor>
   </VisualActor>
 </Entity>

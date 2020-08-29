@@ -12,6 +12,6 @@
     <Animation>weapon-spear-hopl</Animation>
   </Equipment>
   <VisualActor>
-    <Actor>items/spear.xml</Actor>
+    <Actor>items/world/spear.xml</Actor>
   </VisualActor>
 </Entity>

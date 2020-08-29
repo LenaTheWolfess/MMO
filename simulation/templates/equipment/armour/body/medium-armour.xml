@@ -9,4 +9,7 @@
   <Equipment>
     <Animation>armour-body-medium</Animation>
   </Equipment>
+  <VisualActor>
+    <Actor>items/world/armour-medium.xml</Actor>
+  </VisualActor>
 </Entity>

@@ -12,6 +12,6 @@
     <Animation>weapon-bow</Animation>
   </Equipment>
   <VisualActor>
-    <Actor>items/bow.xml</Actor>
+    <Actor>items/world/bow.xml</Actor>
   </VisualActor>
 </Entity>

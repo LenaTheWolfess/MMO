@@ -11,6 +11,6 @@
     <Animation>armour-shield-medium</Animation>
   </Equipment>
   <VisualActor>
-    <Actor>items/shield-medium.xml</Actor>
+    <Actor>items/world/shield-medium.xml</Actor>
   </VisualActor>
 </Entity>

@@ -10,6 +10,6 @@
     <Animation>armour-shield-light</Animation>
   </Equipment>
   <VisualActor>
-    <Actor>items/shield-light.xml</Actor>
+    <Actor>items/world/shield-light.xml</Actor>
   </VisualActor>
 </Entity>

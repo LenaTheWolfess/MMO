@@ -11,6 +11,6 @@
     <Animation>armour-shield-heavy</Animation>
   </Equipment>
   <VisualActor>
-    <Actor>items/shield-heavy.xml</Actor>
+    <Actor>items/world/shield-heavy.xml</Actor>
   </VisualActor>
 </Entity>

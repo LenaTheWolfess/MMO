@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actor version="1">
+  <castshadow/>
+  <group>
+    <variant frequency="1" name="Base">
+      <textures><texture file="props/prop_weap.dds" name="baseTex"/></textures>
+    </variant>
+  </group>
+   <group>
+    <variant frequency="1" name="xiphos-steel">
+      <mesh>world/sword.dae</mesh>
+    </variant>
+  </group>
+  <material>basic_spec.xml</material>
+</actor>

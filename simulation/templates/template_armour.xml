@@ -10,6 +10,6 @@
     <Animation>armour-body-plate-gold</Animation>
   </Equipment>
   <VisualActor>
-    <Actor>items/treasure.xml</Actor>
+    <Actor>items/world/armour.xml</Actor>
   </VisualActor>
 </Entity>

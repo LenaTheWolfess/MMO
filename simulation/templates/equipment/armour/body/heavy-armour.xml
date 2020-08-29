@@ -9,4 +9,7 @@
   <Equipment>
     <Animation>armour-body-heavy</Animation>
   </Equipment>
+  <VisualActor>
+    <Actor>items/world/armour-heavy.xml</Actor>
+  </VisualActor>
 </Entity>
