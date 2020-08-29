@@ -36,9 +36,10 @@
   </Position>
   <Selectable>
     <Overlay>
+      <AlwaysVisible/>
       <Texture>
-        <MainTexture>circle/128x128.png</MainTexture>
-        <MainTextureMask>circle/128x128_mask.png</MainTextureMask>
+        <MainTexture>256x256/star.png</MainTexture>
+        <MainTextureMask>256x256/star_mask.png</MainTextureMask>
       </Texture>
     </Overlay>
   </Selectable>
