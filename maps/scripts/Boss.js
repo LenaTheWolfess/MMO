@@ -1,7 +1,8 @@
 Trigger.prototype.InitBossGame = function(msg)
 {
+	this.bosses = [];
 	const cmpRangeManager = Engine.QueryInterface(SYSTEM_ENTITY, IID_RangeManager);
-	for (let playerID = 1; playerID < TriggerHelper.GetNumberOfPlayers(); ++playerID) {
+	for (let playerID = 0; playerID < TriggerHelper.GetNumberOfPlayers(); ++playerID) {
 		const ents = cmpRangeManager.GetEntitiesByPlayer(playerID);
 		for (let i in ents) {
 			if (TriggerHelper.EntityMatchesClassList(ents[i], "Boss")) {
@@ -19,17 +20,17 @@ Trigger.prototype.RenameBoss = function(data)
 		this.bosses[index] = data.newentity;
 };
 
-Trigger.prototype.CheckBossefeat = function(data)
+Trigger.prototype.CheckBossDefeat = function(data)
 {
 	if (data.entity == this.bosses[data.from]) {
 		const cmpRangeManager = Engine.QueryInterface(SYSTEM_ENTITY, IID_RangeManager);
 		for (let playerID = 1; playerID < TriggerHelper.GetNumberOfPlayers(); ++playerID) {
 			if (playerID != data.from)
-			TriggerHelper.SetPlayerWon(
-				playerID,
-				markForTranslation("WIN"),
-				""
-			);
+				TriggerHelper.SetPlayerWon(
+					playerID,
+					n => markForTranslation("WIN"),
+					""
+				);
 		}
 	}
 };
@@ -37,7 +38,7 @@ Trigger.prototype.CheckBossefeat = function(data)
 {
 	let cmpTrigger = Engine.QueryInterface(SYSTEM_ENTITY, IID_Trigger);
 	cmpTrigger.regicideHeroes = [];
-	cmpTrigger.DoAfterDelay(0, "InitRegicideGame", {});
+	cmpTrigger.DoAfterDelay(0, "InitBossGame", {});
 	cmpTrigger.RegisterTrigger("OnOwnershipChanged", "CheckBossDefeat", { "enabled": true });
 	cmpTrigger.RegisterTrigger("OnEntityRenamed", "RenameBoss", { "enabled": true });
 }
