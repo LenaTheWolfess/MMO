@@ -234,7 +234,7 @@ Inventory.prototype.Drop = function(id) {
 Inventory.prototype.DropAll = function() {
 	this.items = [];
 	const cmpMyPosition = Engine.QueryInterface(this.entity, IID_Position);
-	if (!cmpMyPosition || cmpMyPosition.IsOutOfWorld()) {
+	if (!cmpMyPosition || !cmpMyPosition.IsInWorld()) {
 		this.bag = [];
 		return;
 	}

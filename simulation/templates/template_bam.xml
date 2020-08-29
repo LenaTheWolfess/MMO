@@ -61,7 +61,7 @@
     <Classes datatype="tokens">Unit Organic Bam</Classes>
     <GenericName>BAM</GenericName>
     <Phenotype datatype="tokens">male</Phenotype>
-    <Undeletable>false</Undeletable>
+    <Undeletable>true</Undeletable>
   </Identity>
   <Minimap>
     <Type>unit</Type>

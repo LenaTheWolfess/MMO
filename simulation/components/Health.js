@@ -76,7 +76,7 @@ Health.prototype.Init = function()
  	this.resurectionTimer = undefined;
 	this.CheckRegenTimer();
 	this.UpdateActor();
-	this.resPos;
+	this.resPos = undefined;
 };
 
 /**
@@ -311,9 +311,6 @@ Health.prototype.Reduce = function(amount)
 		this.hitpoints = 0;
 		this.RegisterHealthChanged(oldHitpoints);
 		this.HandleDeath();
-		const cmpInventory = Engine.QueryInterface(this.entity, IID_Inventory);
-		if (cmpInventory)
-			cmpInventory.DropAll();
 		return { "healthChange": -oldHitpoints };
 	}
 
@@ -368,8 +365,12 @@ Health.prototype.HandleDeath = function()
 	//TODO: check for map settings as well
 	if (this.template.CanBeResurected)
 		this.StartResurectionTimer();
-	else
+	else {
+		const cmpInventory = Engine.QueryInterface(this.entity, IID_Inventory);
+		if (cmpInventory)
+			cmpInventory.DropAll();
 		Engine.DestroyEntity(this.entity);
+	}
 };
 
 Health.prototype.StartResurectionTimer = function()
@@ -379,15 +380,14 @@ Health.prototype.StartResurectionTimer = function()
 		return;
      }
      const cmpPosition = Engine.QueryInterface(this.entity, IID_Position);
-     if (cmpPosition)
+     if (!cmpPosition)
 		warn("Health.StartResurectionTimer: Entity " + this.entity + " does not have position");
-     else if (cmpPosition.IsOutOfWorld())
+     else if (!cmpPosition.IsInWorld())
      	warn("Health.StartResurectionTimer: Entity " + this.entity + " is already out of world");
      else {
      	this.resPos = cmpPosition.GetPosition();
      	cmpPosition.MoveOutOfWorld();
      }
-
      const cmpTimer = Engine.QueryInterface(SYSTEM_ENTITY, IID_Timer);
      this.regenerationTimer = cmpTimer.SetTimeout(this.entity, IID_Health, "Resurect", 6 * 1000, null);
 }
@@ -398,7 +398,7 @@ Health.prototype.Resurect = function()
 	if (this.hitpoints) {
 		warn("Trying to resurect alive entity " + this.entity);
 		return;
-     	}
+    }
 	const old = this.hitpoints;
 	this.hitpoints = +(this.template.Initial || this.GetMaxHitpoints());
 
@@ -408,7 +408,7 @@ Health.prototype.Resurect = function()
 
 	this.RegisterHealthChanged(old);
 	
-     	const cmpPosition = Engine.QueryInterface(this.entity, IID_Position);
+    const cmpPosition = Engine.QueryInterface(this.entity, IID_Position);
 	cmpPosition.JumpTo(this.resPos.x, this.resPos.z);
 }
 
