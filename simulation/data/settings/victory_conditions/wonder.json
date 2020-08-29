@@ -1,0 +1,14 @@
+{
+	"TranslatedKeys": ["Title", "Description"],
+	"Data":
+	{
+		"Title": "Capture structure",
+		"Description": "Capture enemy structure to win.",
+		"Scripts":
+		[
+			"scripts/TriggerHelper.js",
+			"scripts/WonderVictory.js"
+		],
+		"GUIOrder": 10
+	}
+}

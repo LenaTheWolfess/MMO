@@ -1,0 +1,16 @@
+{
+	"TranslatedKeys": ["Title", "Description"],
+	"Data":
+	{
+		"Title": "Conquest Units",
+		"Description": "Defeat opponents by killing all their units.",
+		"Scripts":
+		[
+			"scripts/TriggerHelper.js",
+			"scripts/ConquestCommon.js",
+			"scripts/ConquestUnits.js"
+		],
+		"DisabledWhenChecked": ["conquest"],
+		"GUIOrder": 1
+	}
+}

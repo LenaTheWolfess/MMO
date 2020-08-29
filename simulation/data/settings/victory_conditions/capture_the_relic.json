@@ -1,0 +1,14 @@
+{
+	"TranslatedKeys": ["Title", "Description"],
+	"Data":
+	{
+		"Title": "Aquire object",
+		"Description": "Aquire special object to win the game.",
+		"Scripts":
+		[
+			"scripts/TriggerHelper.js",
+			"scripts/CaptureTheRelic.js"
+		],
+		"GUIOrder": 10
+	}
+}

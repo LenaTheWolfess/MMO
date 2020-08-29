@@ -1,0 +1,14 @@
+{
+	"TranslatedKeys": ["Title", "Description"],
+	"Data":
+	{
+		"Title": "Defeat on death",
+		"Description": "Loose when you die.",
+		"Scripts":
+		[
+			"scripts/TriggerHelper.js",
+			"scripts/Regicide.js"
+		],
+		"GUIOrder": 10
+	}
+}

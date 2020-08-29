@@ -59,7 +59,8 @@
   "RevealMap": false,
   "ExploreMap": false,
   "VictoryConditions": [
-	"boss"
+	"boss",
+	"regicide"
   ]
 }
 ]]></ScriptSettings>
