@@ -15,8 +15,12 @@ function PreInitGame()
 	for (let i = 1; i < numPlayers; ++i) // ignore gaia
 	{
 		let cmpTechnologyManager = QueryPlayerIDInterface(i, IID_TechnologyManager);
-		if (cmpTechnologyManager)
+		if (cmpTechnologyManager) {
 			cmpTechnologyManager.UpdateAutoResearch();
+			const cmpPlayer = QueryPlayerIDInterface(i, IID_Player);
+			cmpTechnologyManager.ResearchTechnology(cmpPlayer.template.SharedLosTech);
+			cmpPlayer.UpdateSharedLos();
+		}
 	}
 
 	// Explore the map inside the players' territory borders
