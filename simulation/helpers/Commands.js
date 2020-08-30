@@ -620,7 +620,7 @@ var g_Commands = {
 		if (!data.cmpPlayer.GetCheatsEnabled())
 			return;
 
-		var cmpGuiInterface = Engine.QueryInterface(SYSTEM_ENTITY, IID_GuiInterface);
+		let cmpGuiInterface = Engine.QueryInterface(SYSTEM_ENTITY, IID_GuiInterface);
 		cmpGuiInterface.PushNotification({
 			"type": "aichat",
 			"players": [player],
@@ -630,9 +630,9 @@ var g_Commands = {
 
 		for (let ent of cmd.entities)
 		{
-			var cmpPromotion = Engine.QueryInterface(ent, IID_Promotion);
-			if (cmpPromotion)
-				cmpPromotion.IncreaseXp(cmpPromotion.GetRequiredXp() - cmpPromotion.GetCurrentXp());
+			const cmpExperience = Engine.QueryInterface(ent, IID_Experience);
+			if (cmpExperience)
+				cmpExperience.IncreaseXp(cmpExperience.GetRequiredXp() - cmpExperience.GetCurrentXp());
 		}
 	},
 

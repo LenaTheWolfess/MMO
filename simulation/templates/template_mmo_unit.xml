@@ -40,6 +40,10 @@
     <Unhealable>false</Unhealable>
 	<CanBeResurected>true</CanBeResurected>
   </Health>
+  <Experience>
+    <MaxLevel>3</MaxLevel>
+    <RequiredXp>100</RequiredXp>
+  </Experience>
   <Identity>
     <Civ>gaia</Civ>
     <Classes datatype="tokens">Unit Organic ConquestCritical Hero</Classes>
