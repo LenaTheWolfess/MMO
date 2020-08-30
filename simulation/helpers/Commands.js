@@ -171,6 +171,12 @@ var g_Commands = {
 			cmpUnitAI.UseItem(cmd.item);
 		});
 	},
+	"ability": function(player, cmd, data)
+	{
+		GetFormationUnitAIs(data.entities, player).forEach(cmpUnitAI => {
+			cmpUnitAI.Ability(cmd);
+		});
+	},
 	"walk-custom": function(player, cmd, data)
 	{
 		for (let ent in data.entities)

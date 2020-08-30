@@ -6160,6 +6160,11 @@ UnitAI.prototype.TestAllMemberFunction = function(funcname, args)
 	});
 };
 
+UnitAI.prototype.UseAbility = function(cmd)
+{
+	warn("Ability " + cmd.number);
+}
+
 UnitAI.prototype.UnitFsm = new FSM(UnitAI.prototype.UnitFsmSpec);
 
 Engine.RegisterComponentType(IID_UnitAI, "UnitAI", UnitAI);

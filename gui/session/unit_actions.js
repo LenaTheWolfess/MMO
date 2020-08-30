@@ -180,6 +180,60 @@ var g_UnitActions =
 		"specificness": 9,
 	},
 
+	"ability1":
+	{
+		"execute": function(target, action, selection, queued)
+		{
+			Engine.PostNetworkCommand({
+				"type": "ability",
+				"entities": selection,
+				"target": action.target,
+				"number": 1,
+				"queued": queued
+			});
+
+			Engine.GuiInterfaceCall("PlaySound", {
+				"name": "order_attack",
+				"entity": selection[0]
+			});
+
+			return true;
+		},
+		"getActionInfo": function(entState, targetState)
+		{
+			if (!entState.attack || !targetState.hitpoints)
+				return false;
+
+			return {
+				"possible": true
+			};
+		},
+		"hotkeyActionCheck": function(target, selection)
+		{
+			if (!getActionInfo("ability", target, selection).possible)
+				return false;
+			let number = -1;
+			for (let n = 1; n < 6; ++n) {
+				if (Engine.HotkeyIsPressed("session.ability"+n)) {
+					number = n;
+					break;
+				}
+			}
+			if (number == -1)
+				return false;
+			return {
+				"type": "ability",
+				"number": number,
+				"cursor": "action-attack",
+				"target": target
+			};
+		},
+		"actionCheck": function(target, selection)
+		{
+			return false;
+		},
+		"specificness": 10,
+	},
 	"attack":
 	{
 		"execute": function(target, action, selection, queued)
