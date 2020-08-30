@@ -85,7 +85,6 @@ Experience.prototype.LevelUp = function(level)
 		let derivedModifiers = DeriveModificationsFromTech(template);
 		for (let modifierPath in derivedModifiers)
 		{
-			warn(uneval(derivedModifiers[modifierPath]));
 			if (!this.modifications[modifierPath])
 				this.modifications[modifierPath] = [];
 			this.modifications[modifierPath] = this.modifications[modifierPath].concat(derivedModifiers[modifierPath]);
