@@ -567,6 +567,7 @@ Health.prototype.RecalculateValues = function()
 	if (oldMaxHitpoints != newMaxHitpoints)
 	{
 		let newHitpoints = this.hitpoints * newMaxHitpoints/oldMaxHitpoints;
+		warn ("newHitpoints:" + newHitpoints);
 		this.maxHitpoints = newMaxHitpoints;
 		this.SetHitpoints(newHitpoints);
 	}

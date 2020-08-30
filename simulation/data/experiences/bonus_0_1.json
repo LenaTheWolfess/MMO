@@ -1,0 +1,6 @@
+{
+	"modifications": [
+		{"value": "Health/Max", "add": 10, "affects": "Unit"}
+	],
+	"affects": ["Unit"]
+}
