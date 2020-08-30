@@ -159,6 +159,10 @@ UnitAI.prototype.UnitFsmSpec = {
 	"Attacked": function(msg) {
 		// ignore attacker
 	},
+	
+	"FinishAbility": function() {
+		// ignore
+	},
 
 	"HealthChanged": function(msg) {
 		// ignore
@@ -389,6 +393,34 @@ UnitAI.prototype.UnitFsmSpec = {
 			this.SetNextState("ANIMAL.FLEEING");
 		else
 			this.SetNextState("INDIVIDUAL.FLEEING");
+	},
+
+
+	"Order.Ability": function(msg) {
+		if (this.IsAnimal()){
+			this.FinishOrder();
+			return;
+		}
+		
+		if (!this.TargetIsAlive(this.order.data.target))
+		{
+			this.FinishOrder();
+			return;
+		}
+		
+		const cmpAbilities = Engine.QueryInterface(this.entity, IID_Abilities);
+		if (!cmpAbilities) {
+			this.FinishOrder();
+			return;
+		}
+		
+		if (!cmpAbilities.HasAbility(this.order.data.number)){
+			this.FinishOrder();
+			return;
+		}
+		
+		this.SetNextState("INDIVIDUAL.ABILITY.EXECUTE");
+			
 	},
 
 	"Order.Attack": function(msg) {
@@ -1434,6 +1466,25 @@ UnitAI.prototype.UnitFsmSpec = {
 			}
 		},
 
+		"ABILITY": {
+			"EXECUTE": {
+				"enter": function() {
+					const cmpAbilities = Engine.QueryInterface(this.entity, IID_Abilities);
+					let number = this.order.data.number;
+					let name = cmpAbilities.GetName(number);
+					warn(name);
+					return !cmpAbilities.Execute(number, this.order.data);
+				},
+				"FinishAbility": function() {
+					this.FinishOrder();
+				},
+				"leave": function() {
+					warn("leaving ability state");
+					this.ResetAnimation();
+					this.SetDefaultAnimationVariant();
+				}
+			}
+		},
 		"IDLE": {
 			"enter": function() {
 				// Switch back to idle animation to guarantee we won't
@@ -6160,9 +6211,16 @@ UnitAI.prototype.TestAllMemberFunction = function(funcname, args)
 	});
 };
 
-UnitAI.prototype.UseAbility = function(cmd)
+UnitAI.prototype.Ability = function(cmd)
 {
 	warn("Ability " + cmd.number);
+	this.PushOrderFront("Ability", {"number": cmd.number, "target": cmd.target});
+}
+
+UnitAI.prototype.FinishAbility = function()
+{
+	warn("Finish ability");
+	this.UnitFsm.ProcessMessage(this, {"type": "FinishAbility"});
 }
 
 UnitAI.prototype.UnitFsm = new FSM(UnitAI.prototype.UnitFsmSpec);

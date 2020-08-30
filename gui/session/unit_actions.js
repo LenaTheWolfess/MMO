@@ -180,7 +180,7 @@ var g_UnitActions =
 		"specificness": 9,
 	},
 
-	"ability1":
+	"ability":
 	{
 		"execute": function(target, action, selection, queued)
 		{
@@ -188,7 +188,7 @@ var g_UnitActions =
 				"type": "ability",
 				"entities": selection,
 				"target": action.target,
-				"number": 1,
+				"number": action.number,
 				"queued": queued
 			});
 
@@ -201,9 +201,6 @@ var g_UnitActions =
 		},
 		"getActionInfo": function(entState, targetState)
 		{
-			if (!entState.attack || !targetState.hitpoints)
-				return false;
-
 			return {
 				"possible": true
 			};
@@ -214,7 +211,7 @@ var g_UnitActions =
 				return false;
 			let number = -1;
 			for (let n = 1; n < 6; ++n) {
-				if (Engine.HotkeyIsPressed("session.ability"+n)) {
+				if (Engine.HotkeyIsPressed("session.ability."+n)) {
 					number = n;
 					break;
 				}
@@ -232,7 +229,7 @@ var g_UnitActions =
 		{
 			return false;
 		},
-		"specificness": 10,
+		"specificness": 1,
 	},
 	"attack":
 	{

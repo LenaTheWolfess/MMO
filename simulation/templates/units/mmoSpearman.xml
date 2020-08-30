@@ -1,5 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Entity parent="template_mmo_unit_melee">
+  <Abilities>
+	<Ability1>
+		<AbilityName>Jump</AbilityName>
+		<AnimationName>attack_melee</AnimationName>
+		<Range>15</Range>
+		<Duration>80</Duration>
+		<Damage>true</Damage>
+		<Reposition>true</Reposition>
+	</Ability1>
+  </Abilities>
   <Identity>
     <SpecificName>Player</SpecificName>
 	<GenericName>Spearman</GenericName>
