@@ -133,20 +133,6 @@ var g_Stances = {
 	}
 };
 
-// These orders always require a packed unit, so if a unit that is unpacking is given one of these orders,
-// it will immediately cancel unpacking.
-var g_OrdersCancelUnpacking = new Set([
-	"FormationWalk",
-	"Walk",
-	"WalkAndFight",
-	"WalkToTarget",
-	"Patrol",
-	"Garrison"
-]);
-
-// When leaving a foundation, we want to be clear of it by this distance.
-var g_LeaveFoundationRange = 4;
-
 // See ../helpers/FSM.js for some documentation of this FSM specification syntax
 UnitAI.prototype.UnitFsmSpec = {
 
@@ -163,21 +149,17 @@ UnitAI.prototype.UnitFsmSpec = {
 	},
 
 	"LosRangeUpdate": function(msg) {
-		// Ignore newly-seen units by default.
+		// ignore newly-seen units by default
 	},
 
 	"LosHealRangeUpdate": function(msg) {
-		// Ignore newly-seen injured units by default.
-	},
-
-	"LosAttackRangeUpdate": function(msg) {
-		// Ignore newly-seen enemy units by default.
+		// ignore newly-seen injured units by default
 	},
 
 	"Attacked": function(msg) {
 		// ignore attacker
 	},
-
+	
 	"FinishAbility": function() {
 		// ignore
 	},
@@ -202,13 +184,6 @@ UnitAI.prototype.UnitFsmSpec = {
 		// ignore
 	},
 
-	"OrderTargetRenamed": function() {
-		// By default, trigger an exit-reenter
-		// so that state preconditions are checked against the new entity
-		// (there is no reason to assume the target is still valid).
-		this.SetNextState(this.GetCurrentState());
-	},
-
 	// Formation handlers:
 
 	"FormationLeave": function(msg) {
@@ -218,7 +193,7 @@ UnitAI.prototype.UnitFsmSpec = {
 	// Called when being told to walk as part of a formation
 	"Order.FormationWalk": function(msg) {
 		// Let players move captured domestic animals around
-		if (this.IsAnimal() && !this.IsDomestic() || !this.AbleToMove())
+		if (this.IsAnimal() && !this.IsDomestic() || this.IsTurret())
 		{
 			this.FinishOrder();
 			return;
@@ -242,13 +217,22 @@ UnitAI.prototype.UnitFsmSpec = {
 	"Order.LeaveFoundation": function(msg) {
 		// If foundation is not ally of entity, or if entity is unpacked siege,
 		// ignore the order
-		if (!this.WillMoveFromFoundation(msg.data.target))
+		if (!IsOwnedByAllyOfEntity(this.entity, msg.data.target) && !Engine.QueryInterface(SYSTEM_ENTITY, IID_CeasefireManager).IsCeasefireActive() ||
+			this.IsPacking() || this.CanPack() || this.IsTurret())
 		{
 			this.FinishOrder();
 			return;
 		}
-		this.order.data.min = g_LeaveFoundationRange;
-		this.SetNextState("INDIVIDUAL.WALKING");
+
+		// Move a tile outside the building if necessary.
+		let range = 4;
+		if (this.CheckTargetRangeExplicit(msg.data.target, range, -1))
+			this.FinishOrder();
+		else
+		{
+			this.order.data.min = range;
+			this.SetNextState("INDIVIDUAL.WALKING");
+		}
 	},
 
 	// Individual orders:
@@ -269,8 +253,6 @@ UnitAI.prototype.UnitFsmSpec = {
 		// No orders left, we're an individual now
 		if (this.IsAnimal())
 			this.SetNextState("ANIMAL.IDLE");
-		else if (this.IsFormationMember())
-			this.SetNextState("FORMATIONMEMBER.IDLE");
 		else
 			this.SetNextState("INDIVIDUAL.IDLE");
 
@@ -278,7 +260,7 @@ UnitAI.prototype.UnitFsmSpec = {
 
 	"Order.Walk": function(msg) {
 		// Let players move captured domestic animals around
-		if (this.IsAnimal() && !this.IsDomestic() || !this.AbleToMove())
+		if (this.IsAnimal() && !this.IsDomestic() || this.IsTurret())
 		{
 			this.FinishOrder();
 			return;
@@ -304,7 +286,7 @@ UnitAI.prototype.UnitFsmSpec = {
 
 	"Order.WalkAndFight": function(msg) {
 		// Let players move captured domestic animals around
-		if (this.IsAnimal() && !this.IsDomestic() || !this.AbleToMove())
+		if (this.IsAnimal() && !this.IsDomestic() || this.IsTurret())
 		{
 			this.FinishOrder();
 			return;
@@ -331,7 +313,7 @@ UnitAI.prototype.UnitFsmSpec = {
 
 	"Order.WalkToTarget": function(msg) {
 		// Let players move captured domestic animals around
-		if (this.IsAnimal() && !this.IsDomestic() || !this.AbleToMove())
+		if (this.IsAnimal() && !this.IsDomestic() || this.IsTurret())
 		{
 			this.FinishOrder();
 			return;
@@ -371,24 +353,26 @@ UnitAI.prototype.UnitFsmSpec = {
 			return;
 		}
 
-		let range = cmpGarrisonHolder.GetLoadingRange();
-		this.order.data.min = range.min;
-		this.order.data.max = range.max;
 		if (this.CheckRange(this.order.data))
 		{
 			this.FinishOrder();
 			return;
 		}
+
 		// Check if we need to move
-		// If the target can reach us and we are reasonably close, don't move.
-		// TODO: it would be slightly more optimal to check for real, not bird-flight distance.
-		let cmpPassengerMotion = Engine.QueryInterface(this.order.data.target, IID_UnitMotion);
-		if (cmpPassengerMotion &&
-		        cmpPassengerMotion.IsTargetRangeReachable(this.entity, range.min, range.max) &&
-		        DistanceBetweenEntities(this.entity, this.order.data.target) < 200)
-			this.SetNextState("INDIVIDUAL.PICKUP.LOADING");
-		else
+		// TODO implement a better way to know if we are on the shoreline
+		let needToMove = true;
+		let cmpPosition = Engine.QueryInterface(this.entity, IID_Position);
+		if (this.lastShorelinePosition && cmpPosition && (this.lastShorelinePosition.x == cmpPosition.GetPosition().x) &&
+		   (this.lastShorelinePosition.z == cmpPosition.GetPosition().z))
+			// we were already on the shoreline, and have not moved since
+			if (DistanceBetweenEntities(this.entity, this.order.data.target) < 50)
+				needToMove = false;
+
+		if (needToMove)
 			this.SetNextState("INDIVIDUAL.PICKUP.APPROACHING");
+		else
+			this.SetNextState("INDIVIDUAL.PICKUP.LOADING");
 	},
 
 	"Order.Guard": function(msg) {
@@ -411,31 +395,32 @@ UnitAI.prototype.UnitFsmSpec = {
 			this.SetNextState("INDIVIDUAL.FLEEING");
 	},
 
+
 	"Order.Ability": function(msg) {
 		if (this.IsAnimal()){
 			this.FinishOrder();
 			return;
 		}
-
+		
 		if (!this.TargetIsAlive(this.order.data.target))
 		{
 			this.FinishOrder();
 			return;
 		}
-
+		
 		const cmpAbilities = Engine.QueryInterface(this.entity, IID_Abilities);
 		if (!cmpAbilities) {
 			this.FinishOrder();
 			return;
 		}
-
+		
 		if (!cmpAbilities.HasAbility(this.order.data.number)){
 			this.FinishOrder();
 			return;
 		}
-
+		
 		this.SetNextState("INDIVIDUAL.ABILITY.EXECUTE");
-
+			
 	},
 
 	"Order.Attack": function(msg) {
@@ -472,20 +457,15 @@ UnitAI.prototype.UnitFsmSpec = {
 				return;
 			}
 
-			// Cancel any current packing order.
-			if (!this.EnsureCorrectPackStateForAttack(false))
-				return;
-
 			if (this.IsAnimal())
 				this.SetNextState("ANIMAL.COMBAT.ATTACKING");
 			else
 				this.SetNextState("INDIVIDUAL.COMBAT.ATTACKING");
 			return;
 		}
-
 		// If we can't reach the target, but are standing ground, then abandon this attack order.
 		// Unless we're hunting, that's a special case where we should continue attacking our target.
-		if (this.GetStance().respondStandGround && !this.order.data.force && !this.order.data.hunting || !this.AbleToMove())
+		if (this.GetStance().respondStandGround && !this.order.data.force && !this.order.data.hunting || this.IsTurret())
 		{
 			this.FinishOrder();
 			return;
@@ -500,10 +480,6 @@ UnitAI.prototype.UnitFsmSpec = {
 			return;
 		}
 
-		// If we're currently packing/unpacking, make sure we are packed, so we can move.
-		if (!this.EnsureCorrectPackStateForAttack(true))
-			return;
-
 		if (this.IsAnimal())
 			this.SetNextState("ANIMAL.COMBAT.APPROACHING");
 		else
@@ -511,7 +487,7 @@ UnitAI.prototype.UnitFsmSpec = {
 	},
 
 	"Order.Patrol": function(msg) {
-		if (this.IsAnimal() || !this.AbleToMove())
+		if (this.IsAnimal() || this.IsTurret())
 		{
 			this.FinishOrder();
 			return;
@@ -612,35 +588,38 @@ UnitAI.prototype.UnitFsmSpec = {
 			this.SetNextState("INDIVIDUAL.GATHER.APPROACHING");
 	},
 
+	"Order.Pick": function(msg) {
+		if (this.CheckTargetRange(this.order.data.target, IID_ResourceGatherer))
+			this.SetNextState("INDIVIDUAL.PICK.PICKING");
+		else
+			this.SetNextState("INDIVIDUAL.PICK.APPROACHING");
+	},
+
 	"Order.GatherNearPosition": function(msg) {
 		this.SetNextState("INDIVIDUAL.GATHER.WALKING");
 		this.order.data.initPos = { 'x': this.order.data.x, 'z': this.order.data.z };
 		this.order.data.relaxed = true;
 	},
 
-    "Order.Pick": function(msg) {
-        if (this.CheckTargetRange(this.order.data.target, IID_ResourceGatherer))
-            this.SetNextState("INDIVIDUAL.PICK.PICKING");
-        else
-            this.SetNextState("INDIVIDUAL.PICK.APPROACHING");
-     },
-
-
 	"Order.ReturnResource": function(msg) {
 		// Check if the dropsite is already in range
-		let cmpResourceGatherer = Engine.QueryInterface(this.entity, IID_ResourceGatherer);
-		if (this.CheckTargetRange(this.order.data.target, IID_ResourceGatherer) &&
-		    this.CanReturnResource(this.order.data.target, true, cmpResourceGatherer))
+		if (this.CheckTargetRange(this.order.data.target, IID_ResourceGatherer) && this.CanReturnResource(this.order.data.target, true))
 		{
-			cmpResourceGatherer.CommitResources(this.order.data.target);
+			var cmpResourceDropsite = Engine.QueryInterface(this.order.data.target, IID_ResourceDropsite);
+			if (cmpResourceDropsite)
+			{
+				// Dump any resources we can
+				var dropsiteTypes = cmpResourceDropsite.GetTypes();
 
-			// Stop showing the carried resource animation.
-			this.SetDefaultAnimationVariant();
+				Engine.QueryInterface(this.entity, IID_ResourceGatherer).CommitResources(dropsiteTypes);
+				// Stop showing the carried resource animation.
+				this.SetDefaultAnimationVariant();
 
-			// Our next order should always be a Gather,
-			// so just switch back to that order.
-			this.FinishOrder();
-			return;
+				// Our next order should always be a Gather,
+				// so just switch back to that order
+				this.FinishOrder();
+				return;
+			}
 		}
 		this.SetNextState("INDIVIDUAL.RETURNRESOURCE.APPROACHING");
 	},
@@ -668,17 +647,14 @@ UnitAI.prototype.UnitFsmSpec = {
 	},
 
 	"Order.Garrison": function(msg) {
-		if (!this.AbleToMove())
+		if (this.IsTurret())
 		{
 			this.SetNextState("IDLE");
 			return;
 		}
 		else if (this.IsGarrisoned())
 		{
-			if (this.IsAnimal())
-				this.SetNextState("ANIMAL.GARRISON.GARRISONED");
-			else
-				this.SetNextState("INDIVIDUAL.GARRISON.GARRISONED");
+			this.SetNextState("INDIVIDUAL.GARRISON.GARRISONED");
 			return;
 		}
 
@@ -691,10 +667,7 @@ UnitAI.prototype.UnitFsmSpec = {
 			return;
 		}
 
-		if (this.IsAnimal())
-			this.SetNextState("ANIMAL.GARRISON.APPROACHING");
-		else
-			this.SetNextState("INDIVIDUAL.GARRISON.APPROACHING");
+		this.SetNextState("INDIVIDUAL.GARRISON.APPROACHING");
 	},
 
 	"Order.Ungarrison": function() {
@@ -703,10 +676,7 @@ UnitAI.prototype.UnitFsmSpec = {
 	},
 
 	"Order.Cheering": function(msg) {
-		if (this.IsFormationMember())
-			this.SetNextState("FORMATIONMEMBER.CHEERING");
-		else
-			this.SetNextState("INDIVIDUAL.CHEERING");
+		this.SetNextState("INDIVIDUAL.CHEERING");
 	},
 
 	"Order.Pack": function(msg) {
@@ -785,26 +755,22 @@ UnitAI.prototype.UnitFsmSpec = {
 		},
 
 		"Order.Stop": function(msg) {
-			let cmpFormation = Engine.QueryInterface(this.entity, IID_Formation);
-			cmpFormation.ResetOrderVariant();
 			if (!this.IsAttackingAsFormation())
 				this.CallMemberFunction("Stop", [false]);
 			this.StopMoving();
 			this.FinishOrder();
-			// Don't move the members back into formation,
-			// as the formation then resets and it looks odd when walk-stopping.
-			// TODO: this should be improved in the formation reshaping code.
 		},
 
 		"Order.Attack": function(msg) {
-			let target = msg.data.target;
-			let allowCapture = msg.data.allowCapture;
-			let cmpTargetUnitAI = Engine.QueryInterface(target, IID_UnitAI);
+			var target = msg.data.target;
+			var allowCapture = msg.data.allowCapture;
+			var cmpTargetUnitAI = Engine.QueryInterface(target, IID_UnitAI);
 			if (cmpTargetUnitAI && cmpTargetUnitAI.IsFormationMember())
 				target = cmpTargetUnitAI.GetFormationController();
 
+			var cmpAttack = Engine.QueryInterface(this.entity, IID_Attack);
 			// Check if we are already in range, otherwise walk there
-			if (!this.CheckFormationTargetAttackRange(target))
+			if (!this.CheckTargetAttackRange(target, target))
 			{
 				if (this.TargetIsAlive(target) && this.CheckTargetVisible(target))
 				{
@@ -815,8 +781,7 @@ UnitAI.prototype.UnitFsmSpec = {
 				return;
 			}
 			this.CallMemberFunction("Attack", [target, allowCapture, false]);
-			let cmpAttack = Engine.QueryInterface(this.entity, IID_Attack);
-			if (cmpAttack && cmpAttack.CanAttackAsFormation())
+			if (cmpAttack.CanAttackAsFormation())
 				this.SetNextState("COMBAT.ATTACKING");
 			else
 				this.SetNextState("MEMBER");
@@ -982,7 +947,8 @@ UnitAI.prototype.UnitFsmSpec = {
 
 		"IDLE": {
 			"enter": function(msg) {
-				return false;
+				var cmpFormation = Engine.QueryInterface(this.entity, IID_Formation);
+				cmpFormation.SetRearrange(false);
 			},
 		},
 
@@ -996,7 +962,6 @@ UnitAI.prototype.UnitFsmSpec = {
 				let cmpFormation = Engine.QueryInterface(this.entity, IID_Formation);
 				cmpFormation.SetRearrange(true);
 				cmpFormation.MoveMembersIntoFormation(true, true);
-				return false;
 			},
 
 			"leave": function() {
@@ -1005,7 +970,10 @@ UnitAI.prototype.UnitFsmSpec = {
 
 			"MovementUpdate": function(msg) {
 				if (msg.likelyFailure || this.CheckRange(this.order.data))
+				{
 					this.FinishOrder();
+					this.CallMemberFunction("ResetFinishOrder", []);
+				}
 			},
 		},
 
@@ -1019,8 +987,7 @@ UnitAI.prototype.UnitFsmSpec = {
 				this.StartTimer(0, 1000);
 				let cmpFormation = Engine.QueryInterface(this.entity, IID_Formation);
 				cmpFormation.SetRearrange(true);
-				cmpFormation.MoveMembersIntoFormation(true, true, "combat");
-				return false;
+				cmpFormation.MoveMembersIntoFormation(true, true);
 			},
 
 			"leave": function() {
@@ -1035,7 +1002,10 @@ UnitAI.prototype.UnitFsmSpec = {
 
 			"MovementUpdate": function(msg) {
 				if (msg.likelyFailure || this.CheckRange(this.order.data))
+				{
 					this.FinishOrder();
+					this.CallMemberFunction("ResetFinishOrder", []);
+				}
 			},
 		},
 
@@ -1046,7 +1016,7 @@ UnitAI.prototype.UnitFsmSpec = {
 				if (!cmpPosition || !cmpPosition.IsInWorld())
 				{
 					this.FinishOrder();
-					return true;
+					return;
 				}
 				if (!this.patrolStartPosOrder)
 				{
@@ -1064,8 +1034,7 @@ UnitAI.prototype.UnitFsmSpec = {
 
 				let cmpFormation = Engine.QueryInterface(this.entity, IID_Formation);
 				cmpFormation.SetRearrange(true);
-				cmpFormation.MoveMembersIntoFormation(true, true, "combat");
-				return false;
+				cmpFormation.MoveMembersIntoFormation(true, true);
 			},
 
 			"Timer": function(msg) {
@@ -1101,6 +1070,26 @@ UnitAI.prototype.UnitFsmSpec = {
 		},
 
 		"GARRISON":{
+			"enter": function() {
+				// If the garrisonholder should pickup, warn it so it can take needed action
+				var cmpGarrisonHolder = Engine.QueryInterface(this.order.data.target, IID_GarrisonHolder);
+				if (cmpGarrisonHolder && cmpGarrisonHolder.CanPickup(this.entity))
+				{
+					this.pickup = this.order.data.target;       // temporary, deleted in "leave"
+					Engine.PostMessage(this.pickup, MT_PickupRequested, { "entity": this.entity });
+				}
+			},
+
+			"leave": function() {
+				// If a pickup has been requested and not yet canceled, cancel it
+				if (this.pickup)
+				{
+					Engine.PostMessage(this.pickup, MT_PickupCanceled, { "entity": this.entity });
+					delete this.pickup;
+				}
+			},
+
+
 			"APPROACHING": {
 				"enter": function() {
 					if (!this.MoveToGarrisonRange(this.order.data.target))
@@ -1111,26 +1100,10 @@ UnitAI.prototype.UnitFsmSpec = {
 					let cmpFormation = Engine.QueryInterface(this.entity, IID_Formation);
 					cmpFormation.SetRearrange(true);
 					cmpFormation.MoveMembersIntoFormation(true, true);
-
-					// If the garrisonholder should pickup, warn it so it can take needed action.
-					let cmpGarrisonHolder = Engine.QueryInterface(this.order.data.target, IID_GarrisonHolder);
-					if (cmpGarrisonHolder && cmpGarrisonHolder.CanPickup(this.entity))
-					{
-						this.pickup = this.order.data.target;       // temporary, deleted in "leave"
-						Engine.PostMessage(this.pickup, MT_PickupRequested, { "entity": this.entity });
-					}
-					return false;
 				},
 
 				"leave": function() {
 					this.StopMoving();
-
-					// If a pickup has been requested and not yet canceled, cancel it.
-					if (this.pickup)
-					{
-						Engine.PostMessage(this.pickup, MT_PickupCanceled, { "entity": this.entity });
-						delete this.pickup;
-					}
 				},
 
 				"MovementUpdate": function(msg) {
@@ -1141,9 +1114,14 @@ UnitAI.prototype.UnitFsmSpec = {
 
 			"GARRISONING": {
 				"enter": function() {
+					// If a pickup has been requested, cancel it as it will be requested by members
+					if (this.pickup)
+					{
+						Engine.PostMessage(this.pickup, MT_PickupCanceled, { "entity": this.entity });
+						delete this.pickup;
+					}
 					this.CallMemberFunction("Garrison", [this.order.data.target, false]);
 					this.SetNextState("MEMBER");
-					return true;
 				},
 			},
 		},
@@ -1158,7 +1136,6 @@ UnitAI.prototype.UnitFsmSpec = {
 				let cmpFormation = Engine.QueryInterface(this.entity, IID_Formation);
 				cmpFormation.SetRearrange(true);
 				cmpFormation.MoveMembersIntoFormation(true, true);
-				return false;
 			},
 
 			"leave": function() {
@@ -1169,22 +1146,28 @@ UnitAI.prototype.UnitFsmSpec = {
 				if (!msg.likelyFailure && !this.CheckRange(this.order.data))
 					return;
 
-				this.FinishOrder();
+				if (this.FinishOrder())
+				{
+					this.CallMemberFunction("ResetFinishOrder", []);
+					return;
+				}
+				var cmpFormation = Engine.QueryInterface(this.entity, IID_Formation);
+
+				cmpFormation.FindInPosition();
 			}
 		},
 
 		"COMBAT": {
 			"APPROACHING": {
 				"enter": function() {
-					if (!this.MoveFormationToTargetAttackRange(this.order.data.target))
+					if (!this.MoveTo(this.order.data))
 					{
 						this.FinishOrder();
 						return true;
 					}
 					let cmpFormation = Engine.QueryInterface(this.entity, IID_Formation);
 					cmpFormation.SetRearrange(true);
-					cmpFormation.MoveMembersIntoFormation(true, true, "combat");
-					return false;
+					cmpFormation.MoveMembersIntoFormation(true, true);
 				},
 
 				"leave": function() {
@@ -1192,12 +1175,8 @@ UnitAI.prototype.UnitFsmSpec = {
 				},
 
 				"MovementUpdate": function(msg) {
-					let target = this.order.data.target;
-					let cmpTargetUnitAI = Engine.QueryInterface(target, IID_UnitAI);
-					if (cmpTargetUnitAI && cmpTargetUnitAI.IsFormationMember())
-						target = cmpTargetUnitAI.GetFormationController();
 					let cmpAttack = Engine.QueryInterface(this.entity, IID_Attack);
-					this.CallMemberFunction("Attack", [target, this.order.data.allowCapture, false]);
+					this.CallMemberFunction("Attack", [this.order.data.target, this.order.data.allowCapture, false]);
 					if (cmpAttack.CanAttackAsFormation())
 						this.SetNextState("COMBAT.ATTACKING");
 					else
@@ -1208,10 +1187,10 @@ UnitAI.prototype.UnitFsmSpec = {
 			"ATTACKING": {
 				// Wait for individual members to finish
 				"enter": function(msg) {
-					let target = this.order.data.target;
-					let allowCapture = this.order.data.allowCapture;
+					var target = this.order.data.target;
+					var allowCapture = this.order.data.allowCapture;
 					// Check if we are already in range, otherwise walk there
-					if (!this.CheckFormationTargetAttackRange(target))
+					if (!this.CheckTargetAttackRange(target, target))
 					{
 						if (this.TargetIsAlive(target) && this.CheckTargetVisible(target))
 						{
@@ -1223,19 +1202,19 @@ UnitAI.prototype.UnitFsmSpec = {
 						return true;
 					}
 
-					let cmpFormation = Engine.QueryInterface(this.entity, IID_Formation);
+					var cmpFormation = Engine.QueryInterface(this.entity, IID_Formation);
 					// TODO fix the rearranging while attacking as formation
 					cmpFormation.SetRearrange(!this.IsAttackingAsFormation());
-					cmpFormation.MoveMembersIntoFormation(false, false, "combat");
+					cmpFormation.MoveMembersIntoFormation(false, false);
 					this.StartTimer(200, 200);
 					return false;
 				},
 
 				"Timer": function(msg) {
-					let target = this.order.data.target;
-					let allowCapture = this.order.data.allowCapture;
+					var target = this.order.data.target;
+					var allowCapture = this.order.data.allowCapture;
 					// Check if we are already in range, otherwise walk there
-					if (!this.CheckFormationTargetAttackRange(target))
+					if (!this.CheckTargetAttackRange(target, target))
 					{
 						if (this.TargetIsAlive(target) && this.CheckTargetVisible(target))
 						{
@@ -1257,44 +1236,21 @@ UnitAI.prototype.UnitFsmSpec = {
 			},
 		},
 
-		// Wait for individual members to finish
 		"MEMBER": {
-			"OrderTargetRenamed": function(msg) {
-				// In general, don't react - we don't want to send spurious messages to members.
-				// This looks odd for hunting hwoever because we wait for all
-				// entities to ahve clumped around the dead resource before proceeding
-				// so explicitly handle this case.
-				if (this.order && this.order.data && this.order.data.hunting &&
-				     this.order.data.target == msg.data.newentity &&
-				     this.orderQueue.length > 1)
-					this.FinishOrder();
-			},
-
+			// Wait for individual members to finish
 			"enter": function(msg) {
-				// Don't rearrange the formation, as that forces all units to stop
-				// what they're doing.
-				let cmpFormation = Engine.QueryInterface(this.entity, IID_Formation);
-				if (cmpFormation)
-					cmpFormation.SetRearrange(false);
-				// While waiting on members, the formation is more like
-				// a group of unit and does not have a well-defined position,
-				// so move the controller out of the world to enforce that.
-				let cmpPosition = Engine.QueryInterface(this.entity, IID_Position);
-				if (cmpPosition && cmpPosition.IsInWorld())
-				{
-					this.StopMoving();
-					cmpPosition.MoveOutOfWorld();
-				}
-
+				var cmpFormation = Engine.QueryInterface(this.entity, IID_Formation);
+				cmpFormation.SetRearrange(false);
+				this.StopMoving();
 				this.StartTimer(1000, 1000);
-				return false;
 			},
 
 			"Timer": function(msg) {
 				// Have all members finished the task?
-				let cmpFormation = Engine.QueryInterface(this.entity, IID_Formation);
-				if (cmpFormation && !cmpFormation.AreAllMembersWaiting())
+				if (!this.TestAllMemberFunction("HasFinishedOrder", []))
 					return;
+
+				this.CallMemberFunction("ResetFinishOrder", []);
 
 				// Execute the next order
 				if (this.FinishOrder())
@@ -1304,23 +1260,12 @@ UnitAI.prototype.UnitFsmSpec = {
 						this.FindWalkAndFightTargets();
 					return;
 				}
-				return;
 			},
 
 			"leave": function(msg) {
 				this.StopTimer();
-				// Reform entirely as members might be all over the place now.
 				let cmpFormation = Engine.QueryInterface(this.entity, IID_Formation);
-				if (cmpFormation)
-					cmpFormation.MoveMembersIntoFormation(true);
-
-				// Update the held position so entities respond to orders.
-				let cmpPosition = Engine.QueryInterface(this.entity, IID_Position);
-				if (cmpPosition && cmpPosition.IsInWorld())
-				{
-					let pos = cmpPosition.GetPosition2D();
-					this.CallMemberFunction("SetHeldPosition", [pos.x, pos.y]);
-				}
+				cmpFormation.MoveToMembersCenter();
 			},
 		},
 	},
@@ -1329,12 +1274,11 @@ UnitAI.prototype.UnitFsmSpec = {
 	// States for entities moving as part of a formation:
 	"FORMATIONMEMBER": {
 		"FormationLeave": function(msg) {
+			// We're not in a formation anymore, so no need to track this.
+			this.finishedOrder = false;
+
 			// Stop moving as soon as the formation disbands
-			// Keep current rotation
-			let facePointAfterMove = this.GetFacePointAfterMove();
-			this.SetFacePointAfterMove(false);
 			this.StopMoving();
-			this.SetFacePointAfterMove(facePointAfterMove);
 
 			// If the controller handled an order but some members rejected it,
 			// they will have no orders and be in the FORMATIONMEMBER.IDLE state.
@@ -1346,7 +1290,6 @@ UnitAI.prototype.UnitFsmSpec = {
 			}
 
 			// No orders left, we're an individual now
-			this.formationAnimationVariant = undefined;
 			this.SetNextState("INDIVIDUAL.IDLE");
 		},
 
@@ -1356,13 +1299,24 @@ UnitAI.prototype.UnitFsmSpec = {
 		"Order.LeaveFoundation": function(msg) {
 			// If foundation is not ally of entity, or if entity is unpacked siege,
 			// ignore the order
-			if (!this.WillMoveFromFoundation(msg.data.target))
+			if (!IsOwnedByAllyOfEntity(this.entity, msg.data.target) && !Engine.QueryInterface(SYSTEM_ENTITY, IID_CeasefireManager).IsCeasefireActive() ||
+				this.IsPacking() || this.CanPack() || this.IsTurret())
 			{
 				this.FinishOrder();
 				return;
 			}
-			this.order.data.min = g_LeaveFoundationRange;
-			this.SetNextState("WALKINGTOPOINT");
+			// Move a tile outside the building
+			let range = 4;
+			if (this.CheckTargetRangeExplicit(msg.data.target, range, -1))
+			{
+				// We are already at the target, or can't move at all
+				this.FinishOrder();
+			}
+			else
+			{
+				this.order.data.min = range;
+				this.SetNextState("WALKINGTOPOINT");
+			}
 		},
 
 		"enter": function() {
@@ -1377,77 +1331,61 @@ UnitAI.prototype.UnitFsmSpec = {
 
 			let cmpFormation = Engine.QueryInterface(this.formationController, IID_Formation);
 			if (cmpFormation)
-			{
-				this.formationAnimationVariant = cmpFormation.GetFormationAnimationVariant(this.entity);
-				if (this.formationAnimationVariant)
-					this.SetAnimationVariant(this.formationAnimationVariant);
-				else
-					this.SetDefaultAnimationVariant();
-			}
-			return false;
+				this.SetAnimationVariant(cmpFormation.GetFormationAnimation(this.entity));
 		},
 
 		"leave": function() {
 			this.SetDefaultAnimationVariant();
-			this.formationAnimationVariant = undefined;
 		},
 
 		"IDLE": "INDIVIDUAL.IDLE",
 
-		"CHEERING": "INDIVIDUAL.CHEERING",
-
 		"WALKING": {
 			"enter": function() {
+				this.formationOffset = { "x": this.order.data.x, "z": this.order.data.z };
 				let cmpUnitMotion = Engine.QueryInterface(this.entity, IID_UnitMotion);
 				cmpUnitMotion.MoveToFormationOffset(this.order.data.target, this.order.data.x, this.order.data.z);
-				if (this.order.data.offsetsChanged)
-				{
-					let cmpFormation = Engine.QueryInterface(this.formationController, IID_Formation);
-					if (cmpFormation)
-						this.formationAnimationVariant = cmpFormation.GetFormationAnimationVariant(this.entity);
-				}
-				if (this.formationAnimationVariant)
-					this.SetAnimationVariant(this.formationAnimationVariant);
-				else if (this.order.data.variant)
-					this.SetAnimationVariant(this.order.data.variant);
-				else
-					this.SetDefaultAnimationVariant();
-				return false;
 			},
 
 			"leave": function() {
-				// Don't use the logic from unitMotion, as SetInPosition
-				// has already given us a custom rotation
-				// (or we failed to move and thus don't care.)
-				let facePointAfterMove = this.GetFacePointAfterMove();
-				this.SetFacePointAfterMove(false);
 				this.StopMoving();
-				// Reset previous behaviour.
-				this.SetFacePointAfterMove(facePointAfterMove);
 			},
 
 			// Occurs when the unit has reached its destination and the controller
 			// is done moving. The controller is notified.
 			"MovementUpdate": function(msg) {
-				// When walking in formation, we'll only get notified in case of failure
-				// if the formation controller has stopped walking.
-				// Formations can start lagging a lot if many entities request short path
-				// so prefer to finish order early than retry pathing.
-				// (see https://code.wildfiregames.com/rP23806)
-				// (if the message is likelyFailure of likelySuccess, we also want to stop).
-				this.FinishOrder();
+				// We can only finish this order if the move was really completed.
+				let cmpPosition = Engine.QueryInterface(this.formationController, IID_Position);
+				let atDestination = cmpPosition && cmpPosition.IsInWorld();
+				if (!atDestination && cmpPosition)
+				{
+					let pos = cmpPosition.GetPosition2D();
+					atDestination = this.CheckPointRangeExplicit(pos.X + this.order.data.x, pos.Y + this.order.data.z, 0, 1);
+				}
+				if (!atDestination && !msg.likelyFailure)
+					return;
+
+				if (this.FinishOrder())
+					return;
+
+				let cmpFormation = Engine.QueryInterface(this.formationController, IID_Formation);
+				if (cmpFormation)
+					cmpFormation.SetInPosition(this.entity);
 			},
 		},
 
 		// Special case used by Order.LeaveFoundation
 		"WALKINGTOPOINT": {
 			"enter": function() {
+				var cmpFormation = Engine.QueryInterface(this.formationController, IID_Formation);
+				if (cmpFormation)
+					cmpFormation.UnsetInPosition(this.entity);
+
 				if (!this.MoveTo(this.order.data))
 				{
 					this.FinishOrder();
 					return true;
 				}
-				return false;
 			},
 
 			"MovementUpdate": function() {
@@ -1467,7 +1405,6 @@ UnitAI.prototype.UnitFsmSpec = {
 			// Sanity-checking
 			if (this.IsAnimal())
 				error("Animal got moved into INDIVIDUAL.* state");
-			return false;
 		},
 
 		"Attacked": function(msg) {
@@ -1548,7 +1485,6 @@ UnitAI.prototype.UnitFsmSpec = {
 				}
 			}
 		},
-
 		"IDLE": {
 			"enter": function() {
 				// Switch back to idle animation to guarantee we won't
@@ -1564,17 +1500,14 @@ UnitAI.prototype.UnitFsmSpec = {
 				// but sending this info in Idle.enter will send spurious messages.
 				// Pick 100 to execute on the next turn in SP and MP.
 				this.StartTimer(100);
-				return false;
 			},
 
 			"leave": function() {
-				let cmpRangeManager = Engine.QueryInterface(SYSTEM_ENTITY, IID_RangeManager);
+				var cmpRangeManager = Engine.QueryInterface(SYSTEM_ENTITY, IID_RangeManager);
 				if (this.losRangeQuery)
 					cmpRangeManager.DisableActiveQuery(this.losRangeQuery);
 				if (this.losHealRangeQuery)
 					cmpRangeManager.DisableActiveQuery(this.losHealRangeQuery);
-				if (this.losAttackRangeQuery)
-					cmpRangeManager.DisableActiveQuery(this.losAttackRangeQuery);
 
 				this.StopTimer();
 
@@ -1585,28 +1518,20 @@ UnitAI.prototype.UnitFsmSpec = {
 				}
 			},
 
-			// On the range updates:
-			// We check for idleness to prevent an entity to react only to newly seen entities
-			// when receiving a Los*RangeUpdate on the same turn as the entity becomes idle
-			// since this.FindNew*Targets is called in the timer.
-
 			"LosRangeUpdate": function(msg) {
-				if (this.isIdle && msg && msg.data && msg.data.added && msg.data.added.length)
-					this.RespondToSightedEntities(msg.data.added);
+				if (this.GetStance().targetVisibleEnemies)
+				{
+					// Start attacking one of the newly-seen enemy (if any)
+					this.AttackEntitiesByPreference(msg.data.added);
+				}
 			},
 
 			"LosHealRangeUpdate": function(msg) {
-				if (this.isIdle && msg && msg.data && msg.data.added && msg.data.added.length)
-					this.RespondToHealableEntities(msg.data.added);
-			},
-
-			"LosAttackRangeUpdate": function(msg) {
-				if (this.isIdle && msg && msg.data && msg.data.added && msg.data.added.length && this.GetStance().targetVisibleEnemies)
-					this.AttackEntitiesByPreference(msg.data.added);
+				this.RespondToHealableEntities(msg.data.added);
 			},
 
 			"Timer": function(msg) {
-				// If the unit is guarding/escorting, go back to its duty.
+				// If the unit is guarding/escorting, go back to its duty
 				if (this.isGuardOf)
 				{
 					this.Guard(this.isGuardOf, false);
@@ -1618,27 +1543,26 @@ UnitAI.prototype.UnitFsmSpec = {
 				// (If anyone approaches later it'll be handled via LosHealRangeUpdate.)
 				// If anyone in sight gets hurt that will be handled via LosHealRangeUpdate.
 				if (this.IsHealer() && this.FindNewHealTargets())
-					return;
+					return; // (abort the FSM transition since we may have already switched state)
 
 				// If we entered the idle state we must have nothing better to do,
 				// so immediately check whether there's anybody nearby to attack.
-				// (If anyone approaches later, it'll be handled via LosAttackRangeUpdate.)
+				// (If anyone approaches later, it'll be handled via LosRangeUpdate.)
 				if (this.FindNewTargets())
-					return;
+					return; // (abort the FSM transition since we may have already switched state)
 
-				if (this.FindSightedEnemies())
+				if (this.formationOffset && this.formationController)
+				{
+					this.PushOrder("FormationWalk", {
+						"target": this.formationController,
+						"x": this.formationOffset.x,
+						"z": this.formationOffset.z,
+					});
 					return;
+				}
 
 				if (!this.isIdle)
 				{
-					// Move back to the held position if we drifted away.
-					// (only if not a formation member).
-					if (!this.IsFormationMember() &&
-					     this.GetStance().respondHoldGround && this.heldPosition &&
-					     !this.CheckPointRangeExplicit(this.heldPosition.x, this.heldPosition.z, 0, 10) &&
-					     this.WalkToHeldPosition())
-						return;
-
 					this.isIdle = true;
 					Engine.PostMessage(this.entity, MT_UnitIdleChanged, { "idle": this.isIdle });
 				}
@@ -1652,7 +1576,6 @@ UnitAI.prototype.UnitFsmSpec = {
 					this.FinishOrder();
 					return true;
 				}
-				return false;
 			},
 
 			"leave": function() {
@@ -1679,7 +1602,6 @@ UnitAI.prototype.UnitFsmSpec = {
 				this.SetAnimationVariant("combat");
 
 				this.StartTimer(0, 1000);
-				return false;
 			},
 
 			"Timer": function(msg) {
@@ -1721,7 +1643,6 @@ UnitAI.prototype.UnitFsmSpec = {
 
 				this.StartTimer(0, 1000);
 				this.SetAnimationVariant("combat");
-				return false;
 			},
 
 			"leave": function() {
@@ -1780,7 +1701,15 @@ UnitAI.prototype.UnitFsmSpec = {
 					// Adapt the speed to the one of the target if needed
 					let cmpObstructionManager = Engine.QueryInterface(SYSTEM_ENTITY, IID_ObstructionManager);
 					if (cmpObstructionManager.IsInTargetRange(this.entity, this.isGuardOf, 0, 3 * this.guardRange, false))
-						this.TryMatchTargetSpeed(this.isGuardOf, false);
+					{
+						let cmpUnitAI = Engine.QueryInterface(this.isGuardOf, IID_UnitAI);
+						if (cmpUnitAI)
+						{
+							let speed = cmpUnitAI.GetWalkSpeed();
+							if (speed < this.GetWalkSpeed())
+								this.SetSpeedMultiplier(speed / this.GetWalkSpeed());
+						}
+					}
 
 					this.SetHeldPositionOnEntity(this.isGuardOf);
 				},
@@ -1808,7 +1737,8 @@ UnitAI.prototype.UnitFsmSpec = {
 					return false;
 				},
 
-				"LosAttackRangeUpdate": function(msg) {
+				"LosRangeUpdate": function(msg) {
+					// Start attacking one of the newly-seen enemy (if any)
 					if (this.GetStance().targetVisibleEnemies)
 						this.AttackEntitiesByPreference(msg.data.added);
 				},
@@ -1864,15 +1794,6 @@ UnitAI.prototype.UnitFsmSpec = {
 
 				// Run quickly
 				this.SetSpeedMultiplier(this.GetRunMultiplier());
-				return false;
-			},
-
-			"OrderTargetRenamed": function(msg) {
-				// To avoid replaying the panic sound, handle this explicitly.
-				let cmpUnitMotion = Engine.QueryInterface(this.entity, IID_UnitMotion);
-				if (this.CheckTargetRangeExplicit(this.order.data.target, this.order.data.distanceToFlee, -1) ||
-				    !cmpUnitMotion || !cmpUnitMotion.MoveToTargetRange(this.order.data.target, this.order.data.distanceToFlee, -1))
-					this.FinishOrder();
 			},
 
 			"HealthChanged": function() {
@@ -1906,11 +1827,6 @@ UnitAI.prototype.UnitFsmSpec = {
 					this.RespondToTargetedEntities([msg.data.attacker]);
 			},
 
-			"leave": function() {
-				if (!this.formationAnimationVariant)
-					this.SetDefaultAnimationVariant();
-			},
-
 			"APPROACHING": {
 				"enter": function() {
 					if (!this.MoveToTargetAttackRange(this.order.data.target, this.order.data.attackType))
@@ -1919,14 +1835,15 @@ UnitAI.prototype.UnitFsmSpec = {
 						return true;
 					}
 
-					if (!this.formationAnimationVariant)
-						this.SetAnimationVariant("combat");
+					// Show weapons rather than carried resources.
+					this.SetAnimationVariant("combat");
 
 					this.StartTimer(1000, 1000);
-					return false;
 				},
 
 				"leave": function() {
+					// Show carried resources when walking.
+					this.SetDefaultAnimationVariant();
 					this.StopMoving();
 					this.StopTimer();
 				},
@@ -1959,7 +1876,7 @@ UnitAI.prototype.UnitFsmSpec = {
 							this.FinishOrder();
 							return;
 						}
-						else if (!this.order.data.force || !this.order.data.lastPos)
+						else if (!this.order.data.force)
 						{
 							this.SetNextState("COMBAT.FINDINGNEWTARGET");
 							return;
@@ -2033,7 +1950,7 @@ UnitAI.prototype.UnitFsmSpec = {
 						prepare = Math.max(prepare, repeatLeft);
 					}
 
-					if (!this.formationAnimationVariant)
+					if (!this.IsFormationMember())
 						this.SetAnimationVariant("combat");
 
 					this.oldAttackType = this.order.data.attackType;
@@ -2051,7 +1968,6 @@ UnitAI.prototype.UnitFsmSpec = {
 					let cmpBuildingAI = Engine.QueryInterface(this.entity, IID_BuildingAI);
 					if (cmpBuildingAI)
 						cmpBuildingAI.SetUnitAITarget(this.order.data.target);
-					return false;
 				},
 
 				"leave": function() {
@@ -2059,12 +1975,12 @@ UnitAI.prototype.UnitFsmSpec = {
 					if (cmpBuildingAI)
 						cmpBuildingAI.SetUnitAITarget(0);
 					this.StopTimer();
+					this.SetDefaultAnimationVariant();
 					this.ResetAnimation();
 				},
 
 				"Timer": function(msg) {
 					let target = this.order.data.target;
-					let attackType = this.order.data.attackType;
 
 					// Check the target is still alive and attackable
 					if (!this.CanAttack(target))
@@ -2087,17 +2003,11 @@ UnitAI.prototype.UnitFsmSpec = {
 					if (!cmpBuildingAI)
 					{
 						let cmpAttack = Engine.QueryInterface(this.entity, IID_Attack);
-						cmpAttack.PerformAttack(attackType, target);
+						cmpAttack.PerformAttack(this.order.data.attackType, target);
 					}
 
-					// PerformAttack might have triggered messages that moved us to another state.
-					// (use 'ends with' to handle animals/formation members copying our state).
-					if (!this.GetCurrentState().endsWith("COMBAT.ATTACKING"))
-						return;
-
-
 					// Check we can still reach the target for the next attack
-					if (this.CheckTargetAttackRange(target, attackType))
+					if (this.CheckTargetAttackRange(target, this.order.data.attackType))
 					{
 						if (this.resyncAnimation)
 						{
@@ -2173,17 +2083,6 @@ UnitAI.prototype.UnitFsmSpec = {
 			},
 
 			"CHASING": {
-				"Order.MoveToChasingPoint": function(msg) {
-					if (this.CheckPointRangeExplicit(msg.data.x, msg.data.z, 0, msg.data.max))
-					{
-						this.StopMoving();
-						this.FinishOrder();
-						return;
-					}
-					this.order.data.relaxed = true;
-					this.StopTimer();
-					this.SetNextState("MOVINGTOPOINT");
-				},
 				"enter": function() {
 					if (!this.MoveToTargetAttackRange(this.order.data.target, this.order.data.attackType))
 					{
@@ -2191,20 +2090,23 @@ UnitAI.prototype.UnitFsmSpec = {
 						return true;
 					}
 
-					if (!this.formationAnimationVariant)
-						this.SetAnimationVariant("combat");
+					// Show weapons rather than carried resources.
+					this.SetAnimationVariant("combat");
 
 					var cmpUnitAI = Engine.QueryInterface(this.order.data.target, IID_UnitAI);
 					if (cmpUnitAI && cmpUnitAI.IsFleeing())
+					{
+						// Run after a fleeing target
 						this.SetSpeedMultiplier(this.GetRunMultiplier());
-
+					}
 					this.StartTimer(1000, 1000);
-					return false;
 				},
 
 				"leave": function() {
 					this.ResetSpeedMultiplier();
 
+					// Show carried resources when walking.
+					this.SetDefaultAnimationVariant();
 					this.StopMoving();
 					this.StopTimer();
 				},
@@ -2219,42 +2121,9 @@ UnitAI.prototype.UnitFsmSpec = {
 						if (this.GetStance().respondHoldGround)
 							this.WalkToHeldPosition();
 					}
-					else
-					{
-						this.RememberTargetPosition();
-						if (this.order.data.hunting && this.orderQueue.length > 1 &&
-						     this.orderQueue[1].type === "Gather")
-							this.RememberTargetPosition(this.orderQueue[1].data);
-					}
 				},
 
 				"MovementUpdate": function(msg) {
-					if (msg.likelyFailure)
-					{
-						// This also handles hunting.
-						if (this.orderQueue.length > 1)
-						{
-							this.FinishOrder();
-							return;
-						}
-						else if (!this.order.data.force)
-						{
-							this.SetNextState("COMBAT.FINDINGNEWTARGET");
-							return;
-						}
-						else if (this.order.data.lastPos)
-						{
-							let lastPos = this.order.data.lastPos;
-							let cmpAttack = Engine.QueryInterface(this.entity, IID_Attack);
-							this.PushOrder("MoveToChasingPoint", {
-								"x": lastPos.x,
-								"z": lastPos.z,
-								"max": cmpAttack.GetRange(this.order.data.attackType).max,
-								"force": true
-							});
-							return;
-						}
-					}
 					if (this.CheckTargetAttackRange(this.order.data.target, this.order.data.attackType))
 					{
 						// If the unit needs to unpack, do so
@@ -2271,70 +2140,43 @@ UnitAI.prototype.UnitFsmSpec = {
 						if (!this.MoveToTargetAttackRange(this.order.data.target, this.order.data.attackType))
 							this.FinishOrder();
 				},
-				"MOVINGTOPOINT": {
-					"enter": function() {
-						if (!this.MoveTo(this.order.data))
-						{
-							this.FinishOrder();
-							return true;
-						}
-						return false;
-					},
-					"leave": function() {
-						this.StopMoving();
-					},
-					"MovementUpdate": function(msg) {
-						// If it looks like the path is failing, and we are close enough (3 tiles) from wanted range
-						// stop anyways. This avoids pathing for an unreachable goal and reduces lag considerably.
-						if (msg.likelyFailure || 
-							msg.obstructed && this.RelaxedMaxRangeCheck(this.order.data, this.order.data.max + this.DefaultRelaxedMaxRange) ||
-							!msg.obstructed && this.CheckRange(this.order.data))
-							this.FinishOrder();
-					},
-				},
 			},
 		},
 
-        "PICK": {
-            "APPROACHING": {
-                "enter": function() {
-                    if (!this.MoveTo(this.order.data, IID_ResourceGatherer)) {
-                        this.SetNextState("INDIVIDUAL.IDLE");
-                        return true;
-                    }
-                    return false;
-                },
-                "MovementUpdate": function(msg) {
-                    if (msg.likelyFailure)
-                        this.SetNextState("INDIVIDUAL.IDLE");
-                    else if (this.CheckRange(this.order.data, IID_ResourceGatherer))
-                        this.SetNextState("PICKING");
-                },
-                "leave": function() {
-                    this.StopMoving();
-                }
-            },
-            "PICKING": {
-                "enter": function() {
-                    const cmpInventory = Engine.QueryInterface(this.entity, IID_Inventory);
-                    if (!cmpInventory) {
-                        this.FinishOrder();
-                        return true;
-                    }
-                    cmpInventory.Add(this.order.data.target);
-                    this.FinishOrder();
-                    return true;
-                }
-            }
-        },
-
+		"PICK": {
+			"APPROACHING": {
+				"enter": function() {
+					if (!this.MoveTo(this.order.data, IID_ResourceGatherer)) {
+						this.SetNextState("INDIVIDUAL.IDLE");
+						return true;
+					}
+					return false;
+				},
+				"MovementUpdate": function(msg) {
+					if (msg.likelyFailure)
+						this.SetNextState("INDIVIDUAL.IDLE");
+					else if (this.CheckRange(this.order.data, IID_ResourceGatherer))
+						this.SetNextState("PICKING");
+				},
+				"leave": function() {
+					this.StopMoving();
+				}
+			},
+			"PICKING": {
+				"enter": function() {
+					const cmpInventory = Engine.QueryInterface(this.entity, IID_Inventory);
+					if (!cmpInventory) {
+						this.FinishOrder();
+						return true;
+					}
+					cmpInventory.Add(this.order.data.target);
+					this.FinishOrder();
+					return true;
+				}
+			}
+		},
 
 		"GATHER": {
-			"leave": function() {
-				// Show the carried resource, if we've gathered anything.
-				this.SetDefaultAnimationVariant();
-			},
-
 			"APPROACHING": {
 				"enter": function() {
 					this.gatheringTarget = this.order.data.target;	// temporary, deleted in "leave".
@@ -2362,7 +2204,6 @@ UnitAI.prototype.UnitFsmSpec = {
 						this.SetNextState("FINDINGNEWTARGET");
 						return true;
 					}
-					this.SetAnimationVariant("approach_" + this.order.data.type.specific);
 					return false;
 				},
 
@@ -2377,11 +2218,12 @@ UnitAI.prototype.UnitFsmSpec = {
 				"leave": function() {
 					this.StopMoving();
 
+					this.SetDefaultAnimationVariant();
 					if (!this.gatheringTarget)
 						return;
 					// don't use ownership because this is called after a conversion/resignation
 					// and the ownership would be invalid then.
-					let cmpSupply = Engine.QueryInterface(this.gatheringTarget, IID_ResourceSupply);
+					var cmpSupply = Engine.QueryInterface(this.gatheringTarget, IID_ResourceSupply);
 					if (cmpSupply)
 						cmpSupply.RemoveGatherer(this.entity);
 					delete this.gatheringTarget;
@@ -2396,8 +2238,6 @@ UnitAI.prototype.UnitFsmSpec = {
 						this.FinishOrder();
 						return true;
 					}
-					this.SetAnimationVariant("approach_" + this.order.data.type.specific);
-					return false;
 				},
 
 				"leave": function() {
@@ -2435,8 +2275,8 @@ UnitAI.prototype.UnitFsmSpec = {
 
 					// Calculate timing based on gather rates
 					// This allows the gather rate to control how often we gather, instead of how much.
-					let cmpResourceGatherer = Engine.QueryInterface(this.entity, IID_ResourceGatherer);
-					let rate = cmpResourceGatherer.GetTargetGatherRate(this.gatheringTarget);
+					var cmpResourceGatherer = Engine.QueryInterface(this.entity, IID_ResourceGatherer);
+					var rate = cmpResourceGatherer.GetTargetGatherRate(this.gatheringTarget);
 
 					if (!rate)
 					{
@@ -2454,8 +2294,9 @@ UnitAI.prototype.UnitFsmSpec = {
 
 					// Scale timing interval based on rate, and start timer
 					// The offset should be at least as long as the repeat time so we use the same value for both.
-					let offset = 1000 / rate;
-					this.StartTimer(offset, offset);
+					var offset = 1000/rate;
+					var repeat = offset;
+					this.StartTimer(offset, repeat);
 
 					// We want to start the gather animation as soon as possible,
 					// but only if we're actually at the target and it's still alive
@@ -2475,14 +2316,16 @@ UnitAI.prototype.UnitFsmSpec = {
 				"leave": function() {
 					this.StopTimer();
 
-					// Don't use ownership because this is called after a conversion/resignation
+					// don't use ownership because this is called after a conversion/resignation
 					// and the ownership would be invalid then.
-					let cmpSupply = Engine.QueryInterface(this.gatheringTarget, IID_ResourceSupply);
+					var cmpSupply = Engine.QueryInterface(this.gatheringTarget, IID_ResourceSupply);
 					if (cmpSupply)
 						cmpSupply.RemoveGatherer(this.entity);
 					delete this.gatheringTarget;
 
+					// Show the carried resource, if we've gathered anything.
 					this.ResetAnimation();
+					this.SetDefaultAnimationVariant();
 				},
 
 				"Timer": function(msg) {
@@ -2547,8 +2390,8 @@ UnitAI.prototype.UnitFsmSpec = {
 					// return to the nearest dropsite
 					if (status.filled)
 					{
-						let nearestDropsite = this.FindNearestDropsite(resourceType.generic);
-						if (nearestDropsite)
+						let nearby = this.FindNearestDropsite(resourceType.generic);
+						if (nearby)
 						{
 							// (Keep this Gather order on the stack so we'll
 							// continue gathering after returning)
@@ -2556,7 +2399,7 @@ UnitAI.prototype.UnitFsmSpec = {
 							// trying to gather from it.
 							if (status.exhausted)
 								this.order.data.target = INVALID_ENTITY;
-							this.PushOrderFront("ReturnResource", { "target": nearestDropsite, "force": false });
+							this.PushOrderFront("ReturnResource", { "target": nearby, "force": false });
 							return;
 						}
 
@@ -2584,9 +2427,9 @@ UnitAI.prototype.UnitFsmSpec = {
 						this.orderQueue.length > 1 && this.orderQueue[1] !== "ReturnResource" &&
 						(this.orderQueue[1].type !== "Gather" || this.orderQueue[1].data.type.generic !== resourceType.generic))
 					{
-						let nearestDropsite = this.FindNearestDropsite(resourceType.generic);
-						if (nearestDropsite)
-							this.orderQueue.splice(1, 0, { "type": "ReturnResource", "data": { "target": nearestDropsite, "force": false } });
+						let nearby = this.FindNearestDropsite(resourceType.generic);
+						if (nearby)
+							this.orderQueue.splice(1, 0, { "type": "ReturnResource", "data": { "target": nearby, "force": false } });
 					}
 
 					// Must go before FinishOrder or this.order will be undefined.
@@ -2597,23 +2440,23 @@ UnitAI.prototype.UnitFsmSpec = {
 
 					// No remaining orders - pick a useful default behaviour
 
-					// Give up if we're not in the world right now.
-					let cmpPosition = Engine.QueryInterface(this.entity, IID_Position);
-					if (!cmpPosition || !cmpPosition.IsInWorld())
-						return true;
-
 					// If we have no known initial position of our target, look around our own position
 					// as a fallback.
 					if (!initPos)
 					{
-						let pos = cmpPosition.GetPosition();
-						initPos = { 'x': pos.X, 'z': pos.Z };
+						let cmpPosition = Engine.QueryInterface(this.entity, IID_Position);
+						if (cmpPosition && cmpPosition.IsInWorld())
+						{
+							let pos = cmpPosition.GetPosition();
+							initPos = { 'x': pos.X, 'z': pos.Z };
+						}
 					}
 
-					// Try to find a new resource of the same specific type near the initial resource position:
-					// Also don't switch to a different type of huntable animal
-					let nearbyResource = this.FindNearbyResource(new Vector2D(initPos.x, initPos.z),
-						(ent, type, template) => {
+					if (initPos)
+					{
+						// Try to find a new resource of the same specific type near the initial resource position:
+						// Also don't switch to a different type of huntable animal
+						let nearby = this.FindNearbyResource((ent, type, template) => {
 							if (previousTarget == ent)
 								return false;
 
@@ -2622,32 +2465,34 @@ UnitAI.prototype.UnitFsmSpec = {
 
 							return type.specific == resourceType.specific &&
 							    (type.specific != "meat" || resourceTemplate == template);
-					});
+						}, new Vector2D(initPos.x, initPos.z));
 
-					if (nearbyResource)
-					{
-						this.PerformGather(nearbyResource, false, false);
-						return true;
-					}
+						if (nearby)
+						{
+							this.PerformGather(nearby, false, false);
+							return true;
+						}
 
-					// Failing that, try to move there and se if we are more lucky: maybe there are resources in FOW.
-					// Only move if we are some distance away (TODO: pick the distance better?)
-					if (!this.CheckPointRangeExplicit(initPos.x, initPos.z, 0, 10))
-					{
-						this.GatherNearPosition(initPos.x, initPos.z, resourceType, resourceTemplate);
-						return true;
+						// Failing that, try to move there and se if we are more lucky: maybe there are resources in FOW.
+						// Only move if we are some distance away (TODO: pick the distance better?)
+						if (!this.CheckPointRangeExplicit(initPos.x, initPos.z, 0, 10))
+						{
+							this.GatherNearPosition(initPos.x, initPos.z, resourceType, resourceTemplate);
+							return true;
+						}
 					}
 
 					// Nothing else to gather - if we're carrying anything then we should
 					// drop it off, and if not then we might as well head to the dropsite
 					// anyway because that's a nice enough place to congregate and idle
 
-					let nearestDropsite = this.FindNearestDropsite(resourceType.generic);
-					if (nearestDropsite)
+					let nearby = this.FindNearestDropsite(resourceType.generic);
+					if (nearby)
 					{
-						this.PushOrderFront("ReturnResource", { "target": nearestDropsite, "force": false });
+						this.PushOrderFront("ReturnResource", { "target": nearby, "force": false });
 						return true;
 					}
+
 					// No dropsites - just give up.
 					return true;
 				},
@@ -2676,7 +2521,6 @@ UnitAI.prototype.UnitFsmSpec = {
 					}
 
 					this.StartTimer(1000, 1000);
-					return false;
 				},
 
 				"leave": function() {
@@ -2731,7 +2575,6 @@ UnitAI.prototype.UnitFsmSpec = {
 					this.resyncAnimation = prepare != this.healTimers.prepare;
 
 					this.FaceTowardsTarget(this.order.data.target);
-					return false;
 				},
 
 				"leave": function() {
@@ -2809,7 +2652,6 @@ UnitAI.prototype.UnitFsmSpec = {
 						this.FinishOrder();
 						return true;
 					}
-					return false;
 				},
 
 				"leave": function() {
@@ -2819,19 +2661,25 @@ UnitAI.prototype.UnitFsmSpec = {
 				"MovementUpdate": function(msg) {
 					// Check the dropsite is in range and we can return our resource there
 					// (we didn't get stopped before reaching it)
-					let cmpResourceGatherer = Engine.QueryInterface(this.entity, IID_ResourceGatherer);
-					if (this.CheckTargetRange(this.order.data.target, IID_ResourceGatherer) &&
-					    this.CanReturnResource(this.order.data.target, true, cmpResourceGatherer))
+					if (this.CheckTargetRange(this.order.data.target, IID_ResourceGatherer) && this.CanReturnResource(this.order.data.target, true))
 					{
-						cmpResourceGatherer.CommitResources(this.order.data.target);
+						let cmpResourceDropsite = Engine.QueryInterface(this.order.data.target, IID_ResourceDropsite);
+						if (cmpResourceDropsite)
+						{
+							// Dump any resources we can
+							let dropsiteTypes = cmpResourceDropsite.GetTypes();
 
-						// Stop showing the carried resource animation.
-						this.SetDefaultAnimationVariant();
+							let cmpResourceGatherer = Engine.QueryInterface(this.entity, IID_ResourceGatherer);
+							cmpResourceGatherer.CommitResources(dropsiteTypes);
 
-						// Our next order should always be a Gather,
-						// so just switch back to that order.
-						this.FinishOrder();
-						return;
+							// Stop showing the carried resource animation.
+							this.SetDefaultAnimationVariant();
+
+							// Our next order should always be a Gather,
+							// so just switch back to that order
+							this.FinishOrder();
+							return;
+						}
 					}
 
 					if (msg.obstructed)
@@ -2840,6 +2688,8 @@ UnitAI.prototype.UnitFsmSpec = {
 					// If we are here: we are in range but not carrying the right resources (or resources at all),
 					// the dropsite was destroyed, or we couldn't reach it, or ownership changed.
 					// Look for a new one.
+
+					let cmpResourceGatherer = Engine.QueryInterface(this.entity, IID_ResourceGatherer);
 					let genericType = cmpResourceGatherer.GetMainCarryingType();
 					let nearby = this.FindNearestDropsite(genericType);
 					if (nearby)
@@ -2868,7 +2718,6 @@ UnitAI.prototype.UnitFsmSpec = {
 						this.FinishOrder();
 						return true;
 					}
-					return false;
 				},
 
 				"leave": function() {
@@ -2908,7 +2757,6 @@ UnitAI.prototype.UnitFsmSpec = {
 						this.FinishOrder();
 						return true;
 					}
-					return false;
 				},
 
 				"leave": function() {
@@ -2930,13 +2778,11 @@ UnitAI.prototype.UnitFsmSpec = {
 
 					this.order.data.force = false;
 
-					// Needed to remove the entity from the builder list when leaving this state.
-					this.repairTarget = this.order.data.target;
-
-					// Check we can still reach and repair the target.
+					this.repairTarget = this.order.data.target;	// temporary, deleted in "leave".
+					// Check we can still reach and repair the target
 					if (!this.CanRepair(this.repairTarget))
 					{
-						// Can't reach it, no longer owned by ally, or it doesn't exist any more.
+						// Can't reach it, no longer owned by ally, or it doesn't exist any more
 						this.FinishOrder();
 						return true;
 					}
@@ -2946,13 +2792,13 @@ UnitAI.prototype.UnitFsmSpec = {
 						this.SetNextState("APPROACHING");
 						return true;
 					}
-					// Check if the target is still repairable.
-					let cmpHealth = Engine.QueryInterface(this.repairTarget, IID_Health);
+					// Check if the target is still repairable
+					var cmpHealth = Engine.QueryInterface(this.repairTarget, IID_Health);
 					if (cmpHealth && cmpHealth.GetHitpoints() >= cmpHealth.GetMaxHitpoints())
 					{
 						// The building was already finished/fully repaired before we arrived;
 						// let the ConstructionFinished handler handle this.
-						this.ConstructionFinished({ "entity": this.repairTarget, "newentity": this.repairTarget });
+						this.OnGlobalConstructionFinished({"entity": this.repairTarget, "newentity": this.repairTarget});
 						return true;
 					}
 
@@ -2962,7 +2808,7 @@ UnitAI.prototype.UnitFsmSpec = {
 					if (cmpBuilderList)
 						cmpBuilderList.AddBuilder(this.entity);
 
-					this.FaceTowardsTarget(this.repairTarget);
+					this.FaceTowardsTarget(this.order.data.target);
 
 					this.SelectAnimation("build");
 					this.StartTimer(1000, 1000);
@@ -2979,21 +2825,21 @@ UnitAI.prototype.UnitFsmSpec = {
 				},
 
 				"Timer": function(msg) {
-					// Check we can still reach and repair the target.
+					// Check we can still reach and repair the target
 					if (!this.CanRepair(this.repairTarget))
 					{
-						// No longer owned by ally, or it doesn't exist any more.
+						// No longer owned by ally, or it doesn't exist any more
 						this.FinishOrder();
 						return;
 					}
 
-					this.FaceTowardsTarget(this.repairTarget);
+					this.FaceTowardsTarget(this.order.data.target);
 
 					let cmpBuilder = Engine.QueryInterface(this.entity, IID_Builder);
 					cmpBuilder.PerformBuilding(this.repairTarget);
-					// If the building is completed, the leave() function will be called
-					// by the ConstructionFinished message.
-					// In that case, the repairTarget is deleted, and we can just return.
+					// if the building is completed, the leave() function will be called
+					// by the ConstructionFinished message
+					// in that case, the repairTarget is deleted, and we can just return
 					if (!this.repairTarget)
 						return;
 					if (!this.CheckTargetRange(this.repairTarget, IID_Builder))
@@ -3015,10 +2861,12 @@ UnitAI.prototype.UnitFsmSpec = {
 
 				// Drop any resource we can if we are in range when the construction finishes
 				let cmpResourceGatherer = Engine.QueryInterface(this.entity, IID_ResourceGatherer);
-				let canReturnResources = this.CanReturnResource(msg.data.newentity, true, cmpResourceGatherer);
-				if (this.CheckTargetRange(msg.data.newentity, IID_Builder) && canReturnResources)
+				let cmpResourceDropsite = Engine.QueryInterface(msg.data.newentity, IID_ResourceDropsite);
+				if (cmpResourceGatherer && cmpResourceDropsite && this.CheckTargetRange(msg.data.newentity, IID_Builder) &&
+					this.CanReturnResource(msg.data.newentity, true))
 				{
-					cmpResourceGatherer.CommitResources(msg.data.newentity);
+					let dropsiteTypes = cmpResourceDropsite.GetTypes();
+					cmpResourceGatherer.CommitResources(dropsiteTypes);
 					this.SetDefaultAnimationVariant();
 				}
 
@@ -3026,20 +2874,12 @@ UnitAI.prototype.UnitFsmSpec = {
 				// Switch to the next order (if any)
 				if (this.FinishOrder())
 				{
-					if (canReturnResources)
+					if (this.CanReturnResource(msg.data.newentity, true))
 					{
-						// We aren't in range, but we can still return resources there: always do so.
 						this.SetDefaultAnimationVariant();
 						this.PushOrderFront("ReturnResource", { "target": msg.data.newentity, "force": false });
 					}
 					return;
-				}
-
-				if (canReturnResources)
-				{
-					// We aren't in range, but we can still return resources there: always do so.
-					this.SetDefaultAnimationVariant();
-					this.PushOrderFront("ReturnResource", { "target": msg.data.newentity, "force": false });
 				}
 
 				// No remaining orders - pick a useful default behaviour
@@ -3053,21 +2893,30 @@ UnitAI.prototype.UnitFsmSpec = {
 				// the build command should start gathering from it
 				if ((oldData.force || oldData.autoharvest) && this.CanGather(msg.data.newentity))
 				{
+					if (this.CanReturnResource(msg.data.newentity, true))
+					{
+						this.SetDefaultAnimationVariant();
+						this.PushOrder("ReturnResource", { "target": msg.data.newentity, "force": false });
+					}
 					this.PerformGather(msg.data.newentity, true, false);
 					return;
 				}
 
 				// If this building was e.g. a farmstead of ours, entities that received
 				// the build command should look for nearby resources to gather
-				if ((oldData.force || oldData.autoharvest) &&
-				    this.CanReturnResource(msg.data.newentity, false, cmpResourceGatherer))
+				if ((oldData.force || oldData.autoharvest) && this.CanReturnResource(msg.data.newentity, false))
 				{
-					let cmpResourceDropsite = Engine.QueryInterface(msg.data.newentity, IID_ResourceDropsite);
 					let types = cmpResourceDropsite.GetTypes();
+					let pos;
+					let cmpPosition = Engine.QueryInterface(msg.data.newentity, IID_Position);
+					if (cmpPosition && cmpPosition.IsInWorld())
+						pos = cmpPosition.GetPosition2D();
+
 					// TODO: Slightly undefined behavior here, we don't know what type of resource will be collected,
 					//   may cause problems for AIs (especially hunting fast animals), but avoid ugly hacks to fix that!
-					let nearby = this.FindNearbyResource(this.TargetPosOrEntPos(msg.data.newentity),
-						(ent, type, template) => types.indexOf(type.generic) != -1);
+					let nearby = this.FindNearbyResource(function(ent, type, template) {
+						return (types.indexOf(type.generic) != -1);
+					}, pos);
 
 					if (nearby)
 					{
@@ -3076,8 +2925,8 @@ UnitAI.prototype.UnitFsmSpec = {
 					}
 				}
 
-				// Look for a nearby foundation to help with.
-				let nearbyFoundation = this.FindNearbyFoundation(this.TargetPosOrEntPos(msg.data.newentity));
+				// Look for a nearby foundation to help with
+				let nearbyFoundation = this.FindNearbyFoundation();
 				if (nearbyFoundation)
 				{
 					this.AddOrder("Repair", { "target": nearbyFoundation, "autocontinue": oldData.autocontinue, "force": false }, true);
@@ -3085,21 +2934,31 @@ UnitAI.prototype.UnitFsmSpec = {
 				}
 
 				// Unit was approaching and there's nothing to do now, so switch to walking
-				if (oldState.endsWith("REPAIR.APPROACHING"))
+				if (oldState === "INDIVIDUAL.REPAIR.APPROACHING")
 					// We're already walking to the given point, so add this as a order.
 					this.WalkToTarget(msg.data.newentity, true);
 			},
 		},
 
 		"GARRISON": {
+			"enter": function() {
+				// If the garrisonholder should pickup, warn it so it can take needed action
+				var cmpGarrisonHolder = Engine.QueryInterface(this.order.data.target, IID_GarrisonHolder);
+				if (cmpGarrisonHolder && cmpGarrisonHolder.CanPickup(this.entity))
+				{
+					this.pickup = this.order.data.target;       // temporary, deleted in "leave"
+					Engine.PostMessage(this.pickup, MT_PickupRequested, { "entity": this.entity });
+				}
+			},
+
 			"leave": function() {
-				// If a pickup has been requested and not yet canceled, cancel it.
+				// If a pickup has been requested and not yet canceled, cancel it
 				if (this.pickup)
 				{
 					Engine.PostMessage(this.pickup, MT_PickupCanceled, { "entity": this.entity });
 					delete this.pickup;
 				}
-				return false;
+
 			},
 
 			"APPROACHING": {
@@ -3109,19 +2968,6 @@ UnitAI.prototype.UnitFsmSpec = {
 						this.FinishOrder();
 						return true;
 					}
-
-					// If a pickup was still pending, cancel that.
-					if (this.pickup)
-						Engine.PostMessage(this.pickup, MT_PickupCanceled, { "entity": this.entity });
-
-					// If the garrisonholder should pickup, warn it so it can take needed action.
-					let cmpGarrisonHolder = Engine.QueryInterface(this.order.data.target, IID_GarrisonHolder);
-					if (cmpGarrisonHolder && cmpGarrisonHolder.CanPickup(this.entity))
-					{
-						this.pickup = this.order.data.target;       // temporary, deleted in "leave"
-						Engine.PostMessage(this.pickup, MT_PickupRequested, { "entity": this.entity });
-					}
-					return false;
 				},
 
 				"leave": function() {
@@ -3156,7 +3002,6 @@ UnitAI.prototype.UnitFsmSpec = {
 							if (cmpGarrisonHolder.Garrison(this.entity))
 							{
 								this.isGarrisoned = true;
-								this.SetImmobile(true);
 
 								if (this.formationController)
 								{
@@ -3173,17 +3018,27 @@ UnitAI.prototype.UnitFsmSpec = {
 									}
 								}
 
-								// Check if we are garrisoned in a dropsite.
-								let cmpResourceGatherer = Engine.QueryInterface(this.entity, IID_ResourceGatherer);
-								if (this.CanReturnResource(target, true, cmpResourceGatherer))
+								// Check if we are garrisoned in a dropsite
+								var cmpResourceDropsite = Engine.QueryInterface(target, IID_ResourceDropsite);
+								if (cmpResourceDropsite && this.CanReturnResource(target, true))
 								{
-									cmpResourceGatherer.CommitResources(target);
-									this.SetDefaultAnimationVariant();
+									// Dump any resources we can
+									var dropsiteTypes = cmpResourceDropsite.GetTypes();
+									var cmpResourceGatherer = Engine.QueryInterface(this.entity, IID_ResourceGatherer);
+									if (cmpResourceGatherer)
+									{
+										cmpResourceGatherer.CommitResources(dropsiteTypes);
+										this.SetDefaultAnimationVariant();
+									}
 								}
 
 								// If a pickup has been requested, remove it
 								if (this.pickup)
 								{
+									var cmpHolderPosition = Engine.QueryInterface(target, IID_Position);
+									var cmpHolderUnitAI = Engine.QueryInterface(target, IID_UnitAI);
+									if (cmpHolderUnitAI && cmpHolderPosition)
+										cmpHolderUnitAI.lastShorelinePosition = cmpHolderPosition.GetPosition();
 									Engine.PostMessage(this.pickup, MT_PickupCanceled, { "entity": this.entity });
 									delete this.pickup;
 								}
@@ -3204,8 +3059,7 @@ UnitAI.prototype.UnitFsmSpec = {
 							if (this.pickup)
 							{
 								var cmpUnitAI = Engine.QueryInterface(this.pickup, IID_UnitAI);
-								if (!cmpUnitAI || (!cmpUnitAI.HasPickupOrder(this.entity) &&
-									!cmpUnitAI.IsIdle()))
+								if (!cmpUnitAI || !cmpUnitAI.HasPickupOrder(this.entity))
 								{
 									this.FinishOrder();
 									return true;
@@ -3238,10 +3092,6 @@ UnitAI.prototype.UnitFsmSpec = {
 			"leave": function() {
 				this.StopTimer();
 				this.ResetAnimation();
-				if (this.formationAnimationVariant)
-					this.SetAnimationVariant(this.formationAnimationVariant)
-				else
-					this.SetDefaultAnimationVariant();
 				var cmpResistance = Engine.QueryInterface(this.entity, IID_Resistance);
 				cmpResistance.SetInvulnerability(false);
 			},
@@ -3257,7 +3107,6 @@ UnitAI.prototype.UnitFsmSpec = {
 
 				var cmpPack = Engine.QueryInterface(this.entity, IID_Pack);
 				cmpPack.Pack();
-				return false;
 			},
 
 			"PackFinished": function(msg) {
@@ -3278,7 +3127,6 @@ UnitAI.prototype.UnitFsmSpec = {
 
 				var cmpPack = Engine.QueryInterface(this.entity, IID_Pack);
 				cmpPack.Unpack();
-				return false;
 			},
 
 			"PackFinished": function(msg) {
@@ -3301,7 +3149,6 @@ UnitAI.prototype.UnitFsmSpec = {
 						this.FinishOrder();
 						return true;
 					}
-					return false;
 				},
 
 				"leave": function() {
@@ -3359,12 +3206,13 @@ UnitAI.prototype.UnitFsmSpec = {
 
 		"Order.LeaveFoundation": function(msg) {
 			// Move a tile outside the building
-			if (this.CheckTargetRangeExplicit(msg.data.target, g_LeaveFoundationRange, -1))
+			let range = 4;
+			if (this.CheckTargetRangeExplicit(msg.data.target, range, -1))
 			{
 				this.FinishOrder();
 				return;
 			}
-			this.order.data.min = g_LeaveFoundationRange;
+			this.order.data.min = range;
 			this.SetNextState("WALKING");
 		},
 
@@ -3385,7 +3233,6 @@ UnitAI.prototype.UnitFsmSpec = {
 				this.MoveRandomly(+this.template.RoamDistance);
 				// Set a random timer to switch to feeding state
 				this.StartTimer(randIntInclusive(+this.template.RoamTimeMin, +this.template.RoamTimeMax));
-				return false;
 			},
 
 			"leave": function() {
@@ -3395,16 +3242,22 @@ UnitAI.prototype.UnitFsmSpec = {
 			},
 
 			"LosRangeUpdate": function(msg) {
-				if (msg && msg.data && msg.data.added && msg.data.added.length)
-					this.RespondToSightedEntities(msg.data.added);
-			},
-
-			"LosAttackRangeUpdate": function(msg) {
-				if (this.IsDangerousAnimal() && msg && msg.data && msg.data.added && msg.data.added.length)
+				if (this.template.NaturalBehaviour == "skittish")
+				{
+					if (msg.data.added.length > 0)
+					{
+						this.Flee(msg.data.added[0], false);
+						return;
+					}
+				}
+				// Start attacking one of the newly-seen enemy (if any)
+				else if (this.IsDangerousAnimal())
+				{
 					this.AttackVisibleEntity(msg.data.added);
+				}
 
 				// TODO: if two units enter our range together, we'll attack the
-				// first and then the second won't trigger another LosAttackRangeUpdate
+				// first and then the second won't trigger another LosRangeUpdate
 				// so we won't notice it. Probably we should do something with
 				// ResetActiveQuery in ROAMING.enter/FEEDING.enter in order to
 				// find any units that are already in range.
@@ -3425,7 +3278,6 @@ UnitAI.prototype.UnitFsmSpec = {
 				this.SelectAnimation("feeding");
 				this.StopMoving();
 				this.StartTimer(randIntInclusive(+this.template.FeedTimeMin, +this.template.FeedTimeMax));
-				return false;
 			},
 
 			"leave": function() {
@@ -3434,13 +3286,19 @@ UnitAI.prototype.UnitFsmSpec = {
 			},
 
 			"LosRangeUpdate": function(msg) {
-				if (msg && msg.data && msg.data.added && msg.data.added.length)
-					this.RespondToSightedEntities(msg.data.added);
-			},
-
-			"LosAttackRangeUpdate": function(msg) {
-				if (this.template.NaturalBehaviour == "violent" && msg && msg.data && msg.data.added && msg.data.added.length)
+				if (this.template.NaturalBehaviour == "skittish")
+				{
+					if (msg.data.added.length > 0)
+					{
+						this.Flee(msg.data.added[0], false);
+						return;
+					}
+				}
+				// Start attacking one of the newly-seen enemy (if any)
+				else if (this.template.NaturalBehaviour == "violent")
+				{
 					this.AttackVisibleEntity(msg.data.added);
+				}
 			},
 
 			"Timer": function(msg) {
@@ -3454,9 +3312,6 @@ UnitAI.prototype.UnitFsmSpec = {
 
 		"WALKING": "INDIVIDUAL.WALKING",	// reuse the same walking behaviour for animals
 							// only used for domestic animals
-
-		// Reuse the same garrison behaviour for animals.
-		"GARRISON": "INDIVIDUAL.GARRISON",
 	},
 };
 
@@ -3467,7 +3322,7 @@ UnitAI.prototype.Init = function()
 	this.formationController = INVALID_ENTITY; // entity with IID_Formation that we belong to
 	this.isGarrisoned = false;
 	this.isIdle = false;
-	this.isImmobile = false; // True if the unit is currently unable to move (garrisoned,...)
+	this.finishedOrder = false; // used to find if all formation members finished the order
 
 	this.heldPosition = undefined;
 
@@ -3480,14 +3335,14 @@ UnitAI.prototype.Init = function()
 	this.lastAttacked = undefined;
 	this.lastHealed = undefined;
 
-	this.formationAnimationVariant = undefined;
-
 	this.SetStance(this.template.DefaultStance);
 };
 
 UnitAI.prototype.IsTurret = function()
 {
-	let cmpPosition = Engine.QueryInterface(this.entity, IID_Position);
+	if (!this.IsGarrisoned())
+		return false;
+	var cmpPosition = Engine.QueryInterface(this.entity, IID_Position);
 	return cmpPosition && cmpPosition.GetTurretParent() != INVALID_ENTITY;
 };
 
@@ -3499,6 +3354,16 @@ UnitAI.prototype.IsFormationController = function()
 UnitAI.prototype.IsFormationMember = function()
 {
 	return (this.formationController != INVALID_ENTITY);
+};
+
+UnitAI.prototype.HasFinishedOrder = function()
+{
+	return this.finishedOrder;
+};
+
+UnitAI.prototype.ResetFinishOrder = function()
+{
+	this.finishedOrder = false;
 };
 
 UnitAI.prototype.IsAnimal = function()
@@ -3552,30 +3417,6 @@ UnitAI.prototype.GetGarrisonHolder = function()
 UnitAI.prototype.ShouldRespondToEndOfAlert = function()
 {
 	return !this.orderQueue.length || this.orderQueue[0].type == "Garrison";
-};
-
-UnitAI.prototype.SetImmobile = function(immobile)
-{
-	this.isImmobile = immobile;
-	Engine.PostMessage(this.entity, MT_UnitAbleToMoveChanged, {
-		"entity": this.entity,
-		"ableToMove": this.AbleToMove()
-	});
-};
-
-/**
- * @param cmpUnitMotion - optionally pass unitMotion to avoid querying it here
- * @returns true if the entity can move, i.e. has UnitMotion and isn't immobile.
- */
-UnitAI.prototype.AbleToMove = function(cmpUnitMotion)
-{
-	if (this.isImmobile || this.IsTurret())
-		return false;
-
-	if (!cmpUnitMotion)
-		cmpUnitMotion = Engine.QueryInterface(this.entity, IID_UnitMotion);
-
-	return !!cmpUnitMotion;
 };
 
 UnitAI.prototype.IsFleeing = function()
@@ -3663,13 +3504,12 @@ UnitAI.prototype.OnDestroy = function()
 	// Switch to an empty state to let states execute their leave handlers.
 	this.UnitFsm.SwitchToNextState(this, "");
 
-	let cmpRangeManager = Engine.QueryInterface(SYSTEM_ENTITY, IID_RangeManager);
+	// Clean up range queries
+	var cmpRangeManager = Engine.QueryInterface(SYSTEM_ENTITY, IID_RangeManager);
 	if (this.losRangeQuery)
 		cmpRangeManager.DestroyActiveQuery(this.losRangeQuery);
 	if (this.losHealRangeQuery)
 		cmpRangeManager.DestroyActiveQuery(this.losHealRangeQuery);
-	if (this.losAttackRangeQuery)
-		cmpRangeManager.DestroyActiveQuery(this.losAttackRangeQuery);
 };
 
 UnitAI.prototype.OnVisionRangeChanged = function(msg)
@@ -3708,73 +3548,60 @@ UnitAI.prototype.OnPickupCanceled = function(msg)
 	}
 };
 
-/**
- * Wrapper function that sets up the LOS, healer and attack range queries.
- * This should be called whenever our ownership changes.
- */
+// Wrapper function that sets up the normal and healer range queries.
 UnitAI.prototype.SetupRangeQueries = function()
 {
-	// Only skittish animals use this for now.
-	if (this.template.NaturalBehaviour && this.template.NaturalBehaviour == "skittish")
-		this.SetupLOSRangeQuery();
+	this.SetupRangeQuery();
 
 	if (this.IsHealer())
 		this.SetupHealRangeQuery();
-
-	if (Engine.QueryInterface(this.entity, IID_Attack))
-		this.SetupAttackRangeQuery();
 };
 
 UnitAI.prototype.UpdateRangeQueries = function()
 {
-	let cmpRangeManager = Engine.QueryInterface(SYSTEM_ENTITY, IID_RangeManager);
+	var cmpRangeManager = Engine.QueryInterface(SYSTEM_ENTITY, IID_RangeManager);
 	if (this.losRangeQuery)
-		this.SetupLOSRangeQuery(cmpRangeManager.IsActiveQueryEnabled(this.losRangeQuery));
+		this.SetupRangeQuery(cmpRangeManager.IsActiveQueryEnabled(this.losRangeQuery));
 
-	if (this.losHealRangeQuery)
+	if (this.IsHealer() && this.losHealRangeQuery)
 		this.SetupHealRangeQuery(cmpRangeManager.IsActiveQueryEnabled(this.losHealRangeQuery));
-
-	if (this.losAttackRangeQuery)
-		this.SetupAttackRangeQuery(cmpRangeManager.IsActiveQueryEnabled(this.losAttackRangeQuery));
 };
 
-/**
- * Set up a range query for all enemy units within LOS range.
- * @param {boolean} enable - Optional parameter whether to enable the query.
- */
-UnitAI.prototype.SetupLOSRangeQuery = function(enable = true)
+// Set up a range query for all enemy and gaia units within LOS range
+// which can be attacked.
+// This should be called whenever our ownership changes.
+UnitAI.prototype.SetupRangeQuery = function(enable = true)
 {
-	let cmpRangeManager = Engine.QueryInterface(SYSTEM_ENTITY, IID_RangeManager);
+	var cmpRangeManager = Engine.QueryInterface(SYSTEM_ENTITY, IID_RangeManager);
+
 	if (this.losRangeQuery)
 	{
 		cmpRangeManager.DestroyActiveQuery(this.losRangeQuery);
 		this.losRangeQuery = undefined;
 	}
 
-	let cmpPlayer = QueryOwnerInterface(this.entity);
-	// If we are being destructed (owner == -1), creating a range query is pointless.
+	var cmpPlayer = QueryOwnerInterface(this.entity);
+	// If we are being destructed (owner -1), creating a range query is pointless
 	if (!cmpPlayer)
 		return;
 
-	let players = cmpPlayer.GetEnemies();
-	if (!players.length)
-		return;
+	// Exclude allies, and self
+	// TODO: How to handle neutral players - Special query to attack military only?
+	var players = cmpPlayer.GetEnemies();
+	var range = this.GetQueryRange(IID_Attack);
 
-	let range = this.GetQueryRange(IID_Vision);
-	this.losRangeQuery = cmpRangeManager.CreateActiveQuery(this.entity, range.min, range.max, players, IID_Identity, cmpRangeManager.GetEntityFlagMask("normal"));
+	this.losRangeQuery = cmpRangeManager.CreateActiveQuery(this.entity, range.min, range.max, players, IID_Resistance, cmpRangeManager.GetEntityFlagMask("normal"));
 
 	if (enable)
 		cmpRangeManager.EnableActiveQuery(this.losRangeQuery);
 };
 
-/**
- * Set up a range query for all own or ally units within LOS range
- * which can be healed.
- * @param {boolean} enable - Optional parameter whether to enable the query.
- */
+// Set up a range query for all own or ally units within LOS range
+// which can be healed.
+// This should be called whenever our ownership changes.
 UnitAI.prototype.SetupHealRangeQuery = function(enable = true)
 {
-	let cmpRangeManager = Engine.QueryInterface(SYSTEM_ENTITY, IID_RangeManager);
+	var cmpRangeManager = Engine.QueryInterface(SYSTEM_ENTITY, IID_RangeManager);
 
 	if (this.losHealRangeQuery)
 	{
@@ -3782,50 +3609,18 @@ UnitAI.prototype.SetupHealRangeQuery = function(enable = true)
 		this.losHealRangeQuery = undefined;
 	}
 
-	let cmpPlayer = QueryOwnerInterface(this.entity);
-	// If we are being destructed (owner == -1), creating a range query is pointless.
+	var cmpPlayer = QueryOwnerInterface(this.entity);
+	// If we are being destructed (owner -1), creating a range query is pointless
 	if (!cmpPlayer)
 		return;
 
-	let players = cmpPlayer.GetAllies();
-	let range = this.GetQueryRange(IID_Heal);
+	var players = cmpPlayer.GetAllies();
+	var range = this.GetQueryRange(IID_Heal);
 
 	this.losHealRangeQuery = cmpRangeManager.CreateActiveQuery(this.entity, range.min, range.max, players, IID_Health, cmpRangeManager.GetEntityFlagMask("injured"));
 
 	if (enable)
 		cmpRangeManager.EnableActiveQuery(this.losHealRangeQuery);
-};
-
-/**
- * Set up a range query for all enemy and gaia units within range
- * which can be attacked.
- * @param {boolean} enable - Optional parameter whether to enable the query.
- */
-UnitAI.prototype.SetupAttackRangeQuery = function(enable = true)
-{
-	let cmpRangeManager = Engine.QueryInterface(SYSTEM_ENTITY, IID_RangeManager);
-
-	if (this.losAttackRangeQuery)
-	{
-		cmpRangeManager.DestroyActiveQuery(this.losAttackRangeQuery);
-		this.losAttackRangeQuery = undefined;
-	}
-
-	let cmpPlayer = QueryOwnerInterface(this.entity);
-	// If we are being destructed (owner == -1), creating a range query is pointless.
-	if (!cmpPlayer)
-		return;
-
-	// TODO: How to handle neutral players - Special query to attack military only?
-	let players = cmpPlayer.GetEnemies();
-	if (!players.length)
-		return;
-
-	let range = this.GetQueryRange(IID_Attack);
-	this.losAttackRangeQuery = cmpRangeManager.CreateActiveQuery(this.entity, range.min, range.max, players, IID_Resistance, cmpRangeManager.GetEntityFlagMask("normal"));
-
-	if (enable)
-		cmpRangeManager.EnableActiveQuery(this.losAttackRangeQuery);
 };
 
 
@@ -3873,8 +3668,7 @@ UnitAI.prototype.FinishOrder = function()
 	this.order = this.orderQueue[0];
 
 	let cmpPosition = Engine.QueryInterface(this.entity, IID_Position);
-	if (this.orderQueue.length && (this.IsGarrisoned() || this.IsFormationController() ||
-	        cmpPosition && cmpPosition.IsInWorld()))
+	if (this.orderQueue.length && (this.IsGarrisoned() || cmpPosition && cmpPosition.IsInWorld()))
 	{
 		let ret = this.UnitFsm.ProcessMessage(this,
 			{ "type": "Order."+this.order.type, "data": this.order.data }
@@ -3902,13 +3696,11 @@ UnitAI.prototype.FinishOrder = function()
 	// Check if there are queued formation orders
 	if (this.IsFormationMember())
 	{
-		this.SetNextState("FORMATIONMEMBER.IDLE");
 		let cmpUnitAI = Engine.QueryInterface(this.formationController, IID_UnitAI);
 		if (cmpUnitAI)
 		{
 			// Inform the formation controller that we finished this task
-			let cmpFormation = Engine.QueryInterface(this.formationController, IID_Formation);
-			cmpFormation.SetWaitingOnController(this.entity);
+			this.finishedOrder = true;
 			// We don't want to carry out the default order
 			// if there are still queued formation orders left
 			if (cmpUnitAI.GetOrders().length > 1)
@@ -3948,7 +3740,7 @@ UnitAI.prototype.PushOrder = function(type, data)
  * Add an order onto the front of the queue,
  * and execute it immediately.
  */
-UnitAI.prototype.PushOrderFront = function(type, data, ignorePacking = false)
+UnitAI.prototype.PushOrderFront = function(type, data)
 {
 	var order = { "type": type, "data": data };
 	// If current order is cheering then add new order after it
@@ -3958,7 +3750,7 @@ UnitAI.prototype.PushOrderFront = function(type, data, ignorePacking = false)
 		var cheeringOrder = this.orderQueue.shift();
 		this.orderQueue.unshift(cheeringOrder, order);
 	}
-	else if (!ignorePacking && this.order && this.IsPacking())
+	else if (this.order && this.IsPacking())
 	{
 		var packingOrder = this.orderQueue.shift();
 		this.orderQueue.unshift(packingOrder, order);
@@ -4012,61 +3804,6 @@ UnitAI.prototype.PushOrderAfterForced = function(type, data)
 	Engine.PostMessage(this.entity, MT_UnitAIOrderDataChanged, { "to": this.GetOrderData() });
 };
 
-/**
- * For a unit that is packing and trying to attack something,
- * either cancel packing or continue with packing, as appropriate.
- * Precondition:  if the unit is packing/unpacking, then orderQueue
- * should have the Attack order at index 0,
- * and the Pack/Unpack order at index 1.
- * This precondition holds because if we are packing while processing "Order.Attack",
- * then we must have come from ReplaceOrder, which guarantees it.
- *
- * @param {boolean} requirePacked - true if the unit needs to be packed to continue attacking,
- *   false if it needs to be unpacked.
- * @return {boolean} true if the unit can attack now, false if it must continue packing (or unpacking) first.
- */
-UnitAI.prototype.EnsureCorrectPackStateForAttack = function(requirePacked)
-{
-	let cmpPack = Engine.QueryInterface(this.entity, IID_Pack);
-	if (!cmpPack ||
-	  !cmpPack.IsPacking() ||
-	  this.orderQueue.length != 2 ||
-	  this.orderQueue[0].type != "Attack" ||
-	  this.orderQueue[1].type != "Pack" &&
-	  this.orderQueue[1].type != "Unpack")
-		return true;
-
-	if (cmpPack.IsPacked() == requirePacked)
-	{
-		// The unit is already in the packed/unpacked state we want.
-		// Delete the packing order.
-		this.orderQueue.splice(1, 1);
-		cmpPack.CancelPack();
-		Engine.PostMessage(this.entity, MT_UnitAIOrderDataChanged, { "to": this.GetOrderData() });
-		// Continue with the attack order.
-		return true;
-	}
-	// Move the attack order behind the unpacking order, to continue unpacking.
-	let tmp = this.orderQueue[0];
-	this.orderQueue[0] = this.orderQueue[1];
-	this.orderQueue[1] = tmp;
-	Engine.PostMessage(this.entity, MT_UnitAIOrderDataChanged, { "to": this.GetOrderData() });
-	return false;
-};
-
-UnitAI.prototype.WillMoveFromFoundation = function(target, checkPacking = true)
-{
-	// If foundation is not ally of entity, or if entity is unpacked siege,
-	// ignore the order.
-	if (!IsOwnedByAllyOfEntity(this.entity, target) &&
-	    !Engine.QueryInterface(SYSTEM_ENTITY, IID_CeasefireManager).IsCeasefireActive() ||
-	    checkPacking && this.IsPacking() || this.CanPack() || !this.AbleToMove())
-		return false;
-
-	// Move a tile outside the building.
-	return !this.CheckTargetRangeExplicit(target, g_LeaveFoundationRange, -1);
-};
-
 UnitAI.prototype.ReplaceOrder = function(type, data)
 {
 	// Remember the previous work orders to be able to go back to them later if required
@@ -4094,22 +3831,7 @@ UnitAI.prototype.ReplaceOrder = function(type, data)
 	{
 		var order = { "type": type, "data": data };
 		var packingOrder = this.orderQueue.shift();
-		if (type == "Attack")
-		{
-			// The Attack order is able to handle a packing unit, while other orders can't.
-			this.orderQueue = [packingOrder];
-			this.PushOrderFront(type, data, true);
-		}
-		else if (packingOrder.type == "Unpack" && g_OrdersCancelUnpacking.has(type))
-		{
-			// Immediately cancel unpacking before processing an order that demands a packed unit.
-			let cmpPack = Engine.QueryInterface(this.entity, IID_Pack);
-			cmpPack.CancelPack();
-			this.orderQueue = [];
-			this.PushOrder(type, data);
-		}
-		else
-			this.orderQueue = [packingOrder, order];
+		this.orderQueue = [packingOrder, order];
 	}
 	else
 	{
@@ -4283,52 +4005,36 @@ UnitAI.prototype.OnMotionUpdate = function(msg)
 	this.UnitFsm.ProcessMessage(this, Object.assign({ "type": "MovementUpdate" }, msg));
 };
 
-/**
- * Called directly by cmpFoundation and cmpRepairable to
- * inform builders that repairing has finished.
- * This not done by listening to a global message due to performance.
- */
-UnitAI.prototype.ConstructionFinished = function(msg)
+UnitAI.prototype.OnGlobalConstructionFinished = function(msg)
 {
-	this.UnitFsm.ProcessMessage(this, { "type": "ConstructionFinished", "data": msg });
+	// TODO: This is a bit inefficient since every unit listens to every
+	// construction message - ideally we could scope it to only the one we're building
+
+	this.UnitFsm.ProcessMessage(this, {"type": "ConstructionFinished", "data": msg});
 };
 
 UnitAI.prototype.OnGlobalEntityRenamed = function(msg)
 {
 	let changed = false;
-	let currentOrderChanged = false;
-	for (let i = 0; i < this.orderQueue.length; ++i)
+	for (let order of this.orderQueue)
 	{
-		let order = this.orderQueue[i];
 		if (order.data && order.data.target && order.data.target == msg.entity)
 		{
 			changed = true;
-			if (i == 0)
-				currentOrderChanged = true;
 			order.data.target = msg.newentity;
 		}
 		if (order.data && order.data.formationTarget && order.data.formationTarget == msg.entity)
 		{
 			changed = true;
-			if (i == 0)
-				currentOrderChanged = true;
 			order.data.formationTarget = msg.newentity;
 		}
 	}
-	if (!changed)
-		return;
-
-	if (currentOrderChanged)
-		this.UnitFsm.ProcessMessage(this, { "type": "OrderTargetRenamed", "data": msg });
-
-	Engine.PostMessage(this.entity, MT_UnitAIOrderDataChanged, { "to": this.GetOrderData() });
+	if (changed)
+		Engine.PostMessage(this.entity, MT_UnitAIOrderDataChanged, { "to": this.GetOrderData() });
 };
 
 UnitAI.prototype.OnAttacked = function(msg)
 {
-	if (msg.fromStatusEffect)
-		return;
-
 	this.UnitFsm.ProcessMessage(this, {"type": "Attacked", "data": msg});
 };
 
@@ -4345,11 +4051,9 @@ UnitAI.prototype.OnHealthChanged = function(msg)
 UnitAI.prototype.OnRangeUpdate = function(msg)
 {
 	if (msg.tag == this.losRangeQuery)
-		this.UnitFsm.ProcessMessage(this, { "type": "LosRangeUpdate", "data": msg });
+		this.UnitFsm.ProcessMessage(this, {"type": "LosRangeUpdate", "data": msg});
 	else if (msg.tag == this.losHealRangeQuery)
-		this.UnitFsm.ProcessMessage(this, { "type": "LosHealRangeUpdate", "data": msg });
-	else if (msg.tag == this.losAttackRangeQuery)
-		this.UnitFsm.ProcessMessage(this, { "type": "LosAttackRangeUpdate", "data": msg });
+		this.UnitFsm.ProcessMessage(this, {"type": "LosHealRangeUpdate", "data": msg});
 };
 
 UnitAI.prototype.OnPackFinished = function(msg)
@@ -4409,34 +4113,14 @@ UnitAI.prototype.MustKillGatherTarget = function(ent)
 };
 
 /**
- * Returns the position of target or, if there is none,
- * the entity's position, or undefined.
- */
-UnitAI.prototype.TargetPosOrEntPos = function(target)
-{
-	let cmpTargetPosition = Engine.QueryInterface(target, IID_Position);
-	if (cmpTargetPosition && cmpTargetPosition.IsInWorld())
-		return cmpTargetPosition.GetPosition2D();
-
-	let cmpPosition = Engine.QueryInterface(this.entity, IID_Position);
-	if (cmpPosition && cmpPosition.IsInWorld())
-		return cmpPosition.GetPosition2D();
-
-	return undefined;
-};
-
-
-/**
  * Returns the entity ID of the nearest resource supply where the given
  * filter returns true, or undefined if none can be found.
- * "Nearest" is nearest from @param position.
- * TODO: extend this to exclude resources that already have lots of gatherers.
+ * if position (as a vector2D) is given, the nearest is computed versus this position.
+ * TODO: extend this to exclude resources that already have lots of
+ * gatherers.
  */
-UnitAI.prototype.FindNearbyResource = function(position, filter)
+UnitAI.prototype.FindNearbyResource = function(filter, position)
 {
-	if (!position)
-		return undefined;
-
 	let cmpOwnership = Engine.QueryInterface(this.entity, IID_Ownership);
 	if (!cmpOwnership || cmpOwnership.GetOwner() == INVALID_PLAYER)
 		return undefined;
@@ -4449,7 +4133,14 @@ UnitAI.prototype.FindNearbyResource = function(position, filter)
 
 	let cmpTemplateManager = Engine.QueryInterface(SYSTEM_ENTITY, IID_TemplateManager);
 	let cmpRangeManager = Engine.QueryInterface(SYSTEM_ENTITY, IID_RangeManager);
-	let nearby = cmpRangeManager.ExecuteQueryAroundPos(position, 0, range, players, IID_ResourceSupply);
+	let pos = position;
+	if (!pos)
+	{
+		let cmpPosition = Engine.QueryInterface(this.entity, IID_Position);
+		if (cmpPosition && cmpPosition.IsInWorld())
+			pos = cmpPosition.GetPosition2D();
+	}
+	let nearby = cmpRangeManager.ExecuteQueryAroundPos(pos, 0, range, players, IID_ResourceSupply);
 	return nearby.find(ent => {
 		if (!this.CanGather(ent) || !this.CheckTargetVisible(ent))
 			return false;
@@ -4490,11 +4181,11 @@ UnitAI.prototype.FindNearestDropsite = function(genericType)
 	let owner = cmpOwnership.GetOwner();
 	let cmpPlayer = QueryOwnerInterface(this.entity);
 	let players = cmpPlayer && cmpPlayer.HasSharedDropsites() ? cmpPlayer.GetMutualAllies() : [owner];
-	let nearestDropsites = Engine.QueryInterface(SYSTEM_ENTITY, IID_RangeManager).ExecuteQuery(this.entity, 0, -1, players, IID_ResourceDropsite);
+	let nearbyDropsites = Engine.QueryInterface(SYSTEM_ENTITY, IID_RangeManager).ExecuteQuery(this.entity, 0, -1, players, IID_ResourceDropsite);
 
 	let isShip = Engine.QueryInterface(this.entity, IID_Identity).HasClass("Ship");
 	let cmpObstructionManager = Engine.QueryInterface(SYSTEM_ENTITY, IID_ObstructionManager);
-	for (let dropsite of nearestDropsites)
+	for (let dropsite of nearbyDropsites)
 	{
 		// Ships are unable to reach land dropsites and shouldn't attempt to do so.
 		if (isShip && !Engine.QueryInterface(dropsite, IID_Identity).HasClass("Naval"))
@@ -4524,24 +4215,22 @@ UnitAI.prototype.FindNearestDropsite = function(genericType)
 };
 
 /**
- * Returns the entity ID of the nearest building that needs to be constructed.
- * "Nearest" is nearest from @param position.
+ * Returns the entity ID of the nearest building that needs to be constructed,
+ * or undefined if none can be found close enough.
  */
-UnitAI.prototype.FindNearbyFoundation = function(position)
+UnitAI.prototype.FindNearbyFoundation = function()
 {
-	if (!position)
-		return undefined;
-
-	let cmpOwnership = Engine.QueryInterface(this.entity, IID_Ownership);
+	var cmpOwnership = Engine.QueryInterface(this.entity, IID_Ownership);
 	if (!cmpOwnership || cmpOwnership.GetOwner() == INVALID_PLAYER)
 		return undefined;
 
 	// Find buildings owned by this unit's player
-	let players = [cmpOwnership.GetOwner()];
+	var players = [cmpOwnership.GetOwner()];
 
-	let range = 64; // TODO: what's a sensible number?
-	let cmpRangeManager = Engine.QueryInterface(SYSTEM_ENTITY, IID_RangeManager);
-	let nearby = cmpRangeManager.ExecuteQueryAroundPos(position, 0, range, players, IID_Foundation);
+	var range = 64; // TODO: what's a sensible number?
+
+	var cmpRangeManager = Engine.QueryInterface(SYSTEM_ENTITY, IID_RangeManager);
+	var nearby = cmpRangeManager.ExecuteQuery(this.entity, 0, range, players, IID_Foundation);
 
 	// Skip foundations that are already complete. (This matters since
 	// we process the ConstructionFinished message before the foundation
@@ -4583,30 +4272,34 @@ UnitAI.prototype.SetAnimationVariant = function(type)
 		return;
 
 	cmpVisual.SetVariant("animationVariant", type);
+	return;
 };
 
 /*
- * Reset the animation variant to default behavior.
+ * Reset the animation variant to default behavior
  * Default behavior is to pick a resource-carrying variant if resources are being carried.
  * Otherwise pick nothing in particular.
  */
 UnitAI.prototype.SetDefaultAnimationVariant = function()
 {
 	let cmpResourceGatherer = Engine.QueryInterface(this.entity, IID_ResourceGatherer);
-	if (cmpResourceGatherer)
+	if (!cmpResourceGatherer)
 	{
-		let type = cmpResourceGatherer.GetLastCarriedType();
-		if (type)
-		{
-			let typename = "carry_" + type.generic;
+		this.SetAnimationVariant("");
+		return;
+	}
 
-			// Special case for meat.
-			if (type.specific == "meat")
-				typename = "carry_" + type.specific;
+	let type = cmpResourceGatherer.GetLastCarriedType();
+	if (type)
+	{
+		let typename = "carry_" + type.generic;
 
-			this.SetAnimationVariant(typename);
-			return;
-		}
+		// Special case for meat
+		if (type.specific == "meat")
+			typename = "carry_" + type.specific;
+
+		this.SetAnimationVariant(typename);
+		return;
 	}
 
 	this.SetAnimationVariant("");
@@ -4642,9 +4335,8 @@ UnitAI.prototype.SetAnimationSync = function(actiontime, repeattime)
 
 UnitAI.prototype.StopMoving = function()
 {
-	let cmpUnitMotion = Engine.QueryInterface(this.entity, IID_UnitMotion);
-	if (cmpUnitMotion)
-		cmpUnitMotion.StopMoving();
+	var cmpUnitMotion = Engine.QueryInterface(this.entity, IID_UnitMotion);
+	cmpUnitMotion.StopMoving();
 };
 
 /**
@@ -4672,14 +4364,14 @@ UnitAI.prototype.MoveTo = function(data, iid, type)
 
 UnitAI.prototype.MoveToPoint = function(x, z)
 {
-	let cmpUnitMotion = Engine.QueryInterface(this.entity, IID_UnitMotion);
-	return this.AbleToMove(cmpUnitMotion) && cmpUnitMotion.MoveToPointRange(x, z, 0, 0); // For point goals, allow a max range of 0.
+	var cmpUnitMotion = Engine.QueryInterface(this.entity, IID_UnitMotion);
+	return cmpUnitMotion.MoveToPointRange(x, z, 0, 0); // For point goals, allow a max range of 0.
 };
 
 UnitAI.prototype.MoveToPointRange = function(x, z, rangeMin, rangeMax)
 {
-	let cmpUnitMotion = Engine.QueryInterface(this.entity, IID_UnitMotion);
-	return this.AbleToMove(cmpUnitMotion) && cmpUnitMotion.MoveToPointRange(x, z, rangeMin, rangeMax);
+	var cmpUnitMotion = Engine.QueryInterface(this.entity, IID_UnitMotion);
+	return cmpUnitMotion.MoveToPointRange(x, z, rangeMin, rangeMax);
 };
 
 UnitAI.prototype.MoveToTarget = function(target)
@@ -4687,21 +4379,22 @@ UnitAI.prototype.MoveToTarget = function(target)
 	if (!this.CheckTargetVisible(target))
 		return false;
 
-	let cmpUnitMotion = Engine.QueryInterface(this.entity, IID_UnitMotion);
-	return this.AbleToMove(cmpUnitMotion) && cmpUnitMotion.MoveToTargetRange(target, 0, 1);
+	var cmpUnitMotion = Engine.QueryInterface(this.entity, IID_UnitMotion);
+	return cmpUnitMotion.MoveToTargetRange(target, 0, 1);
 };
 
 UnitAI.prototype.MoveToTargetRange = function(target, iid, type)
 {
-	if (!this.CheckTargetVisible(target))
+	if (!this.CheckTargetVisible(target) || this.IsTurret())
 		return false;
 
-	let range = this.GetRange(iid, type);
-	if (!range)
+	var cmpRanged = Engine.QueryInterface(this.entity, iid);
+	if (!cmpRanged)
 		return false;
+	var range = cmpRanged.GetRange(type);
 
-	let cmpUnitMotion = Engine.QueryInterface(this.entity, IID_UnitMotion);
-	return this.AbleToMove(cmpUnitMotion) && cmpUnitMotion.MoveToTargetRange(target, range.min, range.max);
+	var cmpUnitMotion = Engine.QueryInterface(this.entity, IID_UnitMotion);
+	return cmpUnitMotion.MoveToTargetRange(target, range.min, range.max);
 };
 
 /**
@@ -4719,10 +4412,6 @@ UnitAI.prototype.MoveToTargetAttackRange = function(target, type)
 			return false;
 	}
 
-	let cmpUnitMotion = Engine.QueryInterface(this.entity, IID_UnitMotion);
-	if (!this.AbleToMove(cmpUnitMotion))
-		return false;
-
 	let cmpFormation = Engine.QueryInterface(target, IID_Formation);
 	if (cmpFormation)
 		target = cmpFormation.GetClosestMember(this.entity);
@@ -4733,9 +4422,8 @@ UnitAI.prototype.MoveToTargetAttackRange = function(target, type)
 	if (!this.CheckTargetVisible(target))
 		return false;
 
-	let range = this.GetRange(IID_Attack, type);
-	if (!range)
-		return false;
+	let cmpAttack = Engine.QueryInterface(this.entity, IID_Attack);
+	let range = cmpAttack.GetRange(type);
 
 	let thisCmpPosition = Engine.QueryInterface(this.entity, IID_Position);
 	if (!thisCmpPosition.IsInWorld())
@@ -4759,7 +4447,8 @@ UnitAI.prototype.MoveToTargetAttackRange = function(target, type)
 	// The parabole changes while walking so be cautious:
 	let guessedMaxRange = parabolicMaxRange > range.max ? (range.max + parabolicMaxRange) / 2 : parabolicMaxRange;
 
-	return cmpUnitMotion && cmpUnitMotion.MoveToTargetRange(target, range.min, guessedMaxRange);
+	let cmpUnitMotion = Engine.QueryInterface(this.entity, IID_UnitMotion);
+	return cmpUnitMotion.MoveToTargetRange(target, range.min, guessedMaxRange);
 };
 
 UnitAI.prototype.MoveToTargetRangeExplicit = function(target, min, max)
@@ -4767,32 +4456,8 @@ UnitAI.prototype.MoveToTargetRangeExplicit = function(target, min, max)
 	if (!this.CheckTargetVisible(target))
 		return false;
 
-	let cmpUnitMotion = Engine.QueryInterface(this.entity, IID_UnitMotion);
-	return this.AbleToMove(cmpUnitMotion) && cmpUnitMotion.MoveToTargetRange(target, min, max);
-};
-
-/**
- * Move unit so we hope the target is in the attack range of the formation.
- *
- * @param {number} target - The target entity ID to attack.
- * @return {boolean} - Whether the order to move has succeeded.
- */
-UnitAI.prototype.MoveFormationToTargetAttackRange = function(target)
-{
-	let cmpTargetFormation = Engine.QueryInterface(target, IID_Formation);
-	if (cmpTargetFormation)
-		target = cmpTargetFormation.GetClosestMember(this.entity);
-
-	if (!this.CheckTargetVisible(target))
-		return false;
-
-	let cmpFormationAttack = Engine.QueryInterface(this.entity, IID_Attack);
-	if (!cmpFormationAttack)
-		return false;
-	let range = cmpFormationAttack.GetRange(target);
-
-	let cmpUnitMotion = Engine.QueryInterface(this.entity, IID_UnitMotion);
-	return this.AbleToMove(cmpUnitMotion) && cmpUnitMotion.MoveToTargetRange(target, range.min, range.max);
+	var cmpUnitMotion = Engine.QueryInterface(this.entity, IID_UnitMotion);
+	return cmpUnitMotion.MoveToTargetRange(target, min, max);
 };
 
 UnitAI.prototype.MoveToGarrisonRange = function(target)
@@ -4805,8 +4470,8 @@ UnitAI.prototype.MoveToGarrisonRange = function(target)
 		return false;
 	var range = cmpGarrisonHolder.GetLoadingRange();
 
-	let cmpUnitMotion = Engine.QueryInterface(this.entity, IID_UnitMotion);
-	return this.AbleToMove(cmpUnitMotion) && cmpUnitMotion.MoveToTargetRange(target, range.min, range.max);
+	var cmpUnitMotion = Engine.QueryInterface(this.entity, IID_UnitMotion);
+	return cmpUnitMotion.MoveToTargetRange(target, range.min, range.max);
 };
 
 /**
@@ -4839,10 +4504,10 @@ UnitAI.prototype.CheckPointRangeExplicit = function(x, z, min, max)
 
 UnitAI.prototype.CheckTargetRange = function(target, iid, type)
 {
-	let range = this.GetRange(iid, type);
-	if (!range)
+	var cmpRanged = Engine.QueryInterface(this.entity, iid);
+	if (!cmpRanged)
 		return false;
-
+	var range = cmpRanged.GetRange(type);
 	let cmpObstructionManager = Engine.QueryInterface(SYSTEM_ENTITY, IID_ObstructionManager);
 	return cmpObstructionManager.IsInTargetRange(this.entity, target, range.min, range.max, false);
 };
@@ -4875,9 +4540,8 @@ UnitAI.prototype.CheckTargetAttackRange = function(target, type)
 	if (!targetCmpPosition || !targetCmpPosition.IsInWorld())
 		return false;
 
-	let range = this.GetRange(IID_Attack, type);
-	if (!range)
-		return false;
+	let cmpAttack = Engine.QueryInterface(this.entity, IID_Attack);
+	let range = cmpAttack.GetRange(type);
 
 	let thisCmpPosition = Engine.QueryInterface(this.entity, IID_Position);
 	if (!thisCmpPosition.IsInWorld())
@@ -4903,35 +4567,19 @@ UnitAI.prototype.CheckTargetRangeExplicit = function(target, min, max)
 	return cmpObstructionManager.IsInTargetRange(this.entity, target, min, max, false);
 };
 
-/**
- * Check if the target is inside the attack range of the formation.
- *
- * @param {number} target - The target entity ID to attack.
- * @return {boolean} - Whether the entity is within attacking distance.
- */
-UnitAI.prototype.CheckFormationTargetAttackRange = function(target)
+UnitAI.prototype.CheckGarrisonRange = function(target)
 {
-	let cmpTargetFormation = Engine.QueryInterface(target, IID_Formation);
-	if (cmpTargetFormation)
-		target = cmpTargetFormation.GetClosestMember(this.entity);
-
-	let cmpFormationAttack = Engine.QueryInterface(this.entity, IID_Attack);
-	if (!cmpFormationAttack)
+	var cmpGarrisonHolder = Engine.QueryInterface(target, IID_GarrisonHolder);
+	if (!cmpGarrisonHolder)
 		return false;
-	let range = cmpFormationAttack.GetRange(target);
+	var range = cmpGarrisonHolder.GetLoadingRange();
+
+	var cmpObstruction = Engine.QueryInterface(this.entity, IID_Obstruction);
+	if (cmpObstruction)
+		range.max += cmpObstruction.GetUnitRadius()*1.5; // multiply by something larger than sqrt(2)
 
 	let cmpObstructionManager = Engine.QueryInterface(SYSTEM_ENTITY, IID_ObstructionManager);
 	return cmpObstructionManager.IsInTargetRange(this.entity, target, range.min, range.max, false);
-};
-
-UnitAI.prototype.CheckGarrisonRange = function(target)
-{
-	let cmpGarrisonHolder = Engine.QueryInterface(target, IID_GarrisonHolder);
-	if (!cmpGarrisonHolder)
-		return false;
-
-	let range = cmpGarrisonHolder.GetLoadingRange();
-	return this.CheckTargetRangeExplicit(target, range.min, range.max);
 };
 
 /**
@@ -5022,21 +4670,20 @@ UnitAI.prototype.FaceTowardsTarget = function(target)
 
 UnitAI.prototype.CheckTargetDistanceFromHeldPosition = function(target, iid, type)
 {
-	let range = this.GetRange(iid, type);
-	if (!range)
-		return false;
+	var cmpRanged = Engine.QueryInterface(this.entity, iid);
+	var range = iid !== IID_Attack ? cmpRanged.GetRange() : cmpRanged.GetRange(type);
 
-	let cmpPosition = Engine.QueryInterface(target, IID_Position);
+	var cmpPosition = Engine.QueryInterface(target, IID_Position);
 	if (!cmpPosition || !cmpPosition.IsInWorld())
 		return false;
 
-	let cmpVision = Engine.QueryInterface(this.entity, IID_Vision);
+	var cmpVision = Engine.QueryInterface(this.entity, IID_Vision);
 	if (!cmpVision)
 		return false;
-	let halfvision = cmpVision.GetRange() / 2;
+	var halfvision = cmpVision.GetRange() / 2;
 
-	let pos = cmpPosition.GetPosition();
-	let heldPosition = this.heldPosition;
+	var pos = cmpPosition.GetPosition();
+	var heldPosition = this.heldPosition;
 	if (heldPosition === undefined)
 		heldPosition = { "x": pos.x, "z": pos.z };
 
@@ -5045,12 +4692,12 @@ UnitAI.prototype.CheckTargetDistanceFromHeldPosition = function(target, iid, typ
 
 UnitAI.prototype.CheckTargetIsInVisionRange = function(target)
 {
-	let cmpVision = Engine.QueryInterface(this.entity, IID_Vision);
+	var cmpVision = Engine.QueryInterface(this.entity, IID_Vision);
 	if (!cmpVision)
 		return false;
+	var range = cmpVision.GetRange();
 
-	let range = cmpVision.GetRange();
-	let distance = DistanceBetweenEntities(this.entity, target);
+	var distance = DistanceBetweenEntities(this.entity, target);
 
 	return distance < range;
 };
@@ -5118,27 +4765,7 @@ UnitAI.prototype.RespondToTargetedEntities = function(ents)
 
 	if (this.GetStance().respondFlee)
 	{
-		if (this.order && this.order.type == "Flee")
-			this.orderQueue.shift();
 		this.PushOrderFront("Flee", { "target": ents[0], "force": false });
-		return true;
-	}
-
-	return false;
-};
-
-/**
- * @param {number} ents - An array of the IDs of the spotted entities.
- * @return {boolean} - Whether we responded.
- */
-UnitAI.prototype.RespondToSightedEntities = function(ents)
-{
-	if (!ents || !ents.length)
-		return false;
-
-	if (this.template.NaturalBehaviour && this.template.NaturalBehaviour == "skittish")
-	{
-		this.Flee(ents[0], false);
 		return true;
 	}
 
@@ -5151,7 +4778,7 @@ UnitAI.prototype.RespondToSightedEntities = function(ents)
  */
 UnitAI.prototype.RespondToHealableEntities = function(ents)
 {
-	let ent = ents.find(ent => this.CanHeal(ent));
+	var ent = ents.find(ent => this.CanHeal(ent));
 	if (!ent)
 		return false;
 
@@ -5204,7 +4831,7 @@ UnitAI.prototype.ShouldAbandonChase = function(target, force, iid, type)
  */
 UnitAI.prototype.ShouldChaseTargetedEntity = function(target, force)
 {
-	if (!this.AbleToMove())
+	if (this.IsTurret())
 		return false;
 
 	if (this.GetStance().respondChase)
@@ -5530,19 +5157,9 @@ UnitAI.prototype.LeaveFoundation = function(target)
 {
 	// If we're already being told to leave a foundation, then
 	// ignore this new request so we don't end up being too indecisive
-	// to ever actually move anywhere.
-	if (this.order && (this.order.type == "LeaveFoundation" || (this.order.type == "Flee" && this.order.data.target == target)))
-		return;
-
-	// Ignore also the request if we are packing.
-	if (this.orderQueue.length && this.orderQueue[0].type == "Unpack" && this.WillMoveFromFoundation(target, false))
-	{
-		let cmpPack = Engine.QueryInterface(this.entity, IID_Pack);
-		if (cmpPack)
-			cmpPack.CancelPack();
-	}
-
-	if (this.IsPacking())
+	// to ever actually move anywhere
+	// Ignore also the request if we are packing
+	if (this.order && (this.order.type == "LeaveFoundation" || (this.order.type == "Flee" && this.order.data.target == target) || this.IsPacking()))
 		return;
 
 	this.PushOrderFront("LeaveFoundation", { "target": target, "force": true });
@@ -5596,10 +5213,7 @@ UnitAI.prototype.Garrison = function(target, queued)
 UnitAI.prototype.Ungarrison = function()
 {
 	if (this.IsGarrisoned())
-	{
-		this.SetImmobile(false);
 		this.AddOrder("Ungarrison", null, false);
-	}
 };
 
 /**
@@ -5622,38 +5236,33 @@ UnitAI.prototype.Gather = function(target, queued)
 
 UnitAI.prototype.Pick = function(target)
 {
-    this.PerformPick(target);
+	this.PerformPick(target);
 }
-
 UnitAI.prototype.PickAndUse = function(target)
 {
-    this.PerformPick(target);
+	this.PerformPick(target);
 }
-
 UnitAI.prototype.DropItem = function(item)
 {
-    const cmpInventory = Engine.QueryInterface(this.entity, IID_Inventory);
-    if (!cmpInventory)
-        return;
-    cmpInventory.DropSafe(item);
+	const cmpInventory = Engine.QueryInterface(this.entity, IID_Inventory);
+	if (!cmpInventory)
+		return;
+	cmpInventory.DropSafe(item);
 }
-
 UnitAI.prototype.UnEquipItem = function(item)
 {
-    const cmpInventory = Engine.QueryInterface(this.entity, IID_Inventory);
-    if (!cmpInventory)
-        return;
-    cmpInventory.UnEquipSafe(item);
+	const cmpInventory = Engine.QueryInterface(this.entity, IID_Inventory);
+	if (!cmpInventory)
+		return;
+	cmpInventory.UnEquipSafe(item);
 }
-
 UnitAI.prototype.UseItem = function(item)
 {
-    const cmpInventory = Engine.QueryInterface(this.entity, IID_Inventory);
-    if (!cmpInventory)
-        return;
-    cmpInventory.Use(item);
+	const cmpInventory = Engine.QueryInterface(this.entity, IID_Inventory);
+	if (!cmpInventory)
+		return;
+	cmpInventory.Use(item);
 }
-
 /**
  * Internal function to abstract the force parameter.
  */
@@ -5750,16 +5359,6 @@ UnitAI.prototype.ReturnResource = function(target, queued)
 	this.AddOrder("ReturnResource", { "target": target, "force": true }, queued);
 };
 
-UnitAI.prototype.CancelSetupTradeRoute = function(target)
-{
-	let cmpTrader = Engine.QueryInterface(this.entity, IID_Trader);
-	if (!cmpTrader)
-		return;
-	cmpTrader.RemoveTargetMarket(target);
-
-	if (this.IsFormationController())
-		this.CallMemberFunction("CancelSetupTradeRoute", [target]);
-}
 /**
  * Adds trade order to the queue. Either walk to the first market, or
  * start a new route. Not forced, so it can be interrupted by attacks.
@@ -5939,11 +5538,11 @@ UnitAI.prototype.Flee = function(target, queued)
 };
 
 /**
- * Pushes a cheer order to the front of the queue. Forced so it won't be interrupted by attacks.
+ * Adds cheer order to the queue. Forced so it won't be interrupted by attacks.
  */
 UnitAI.prototype.Cheer = function()
 {
-	this.PushOrderFront("Cheering", { "force": true });
+	this.AddOrder("Cheering", { "force": true }, false);
 };
 
 UnitAI.prototype.Pack = function(queued)
@@ -6027,45 +5626,19 @@ UnitAI.prototype.ResetTurretStance = function()
 };
 
 /**
- * Resets the losRangeQuery.
- * @return {boolean} - Whether there are targets in range that we ought to react upon.
- */
-UnitAI.prototype.FindSightedEnemies = function()
-{
-	if (!this.losRangeQuery)
-		return false;
-
-	let cmpRangeManager = Engine.QueryInterface(SYSTEM_ENTITY, IID_RangeManager);
-	return this.RespondToSightedEntities(cmpRangeManager.ResetActiveQuery(this.losRangeQuery));
-};
-
-/**
- * Resets losHealRangeQuery, and if there are some targets in range that we can heal
- * then we start healing and this returns true; otherwise, returns false.
- */
-UnitAI.prototype.FindNewHealTargets = function()
-{
-	if (!this.losHealRangeQuery)
-		return false;
-
-	let cmpRangeManager = Engine.QueryInterface(SYSTEM_ENTITY, IID_RangeManager);
-	return this.RespondToHealableEntities(cmpRangeManager.ResetActiveQuery(this.losHealRangeQuery));
-};
-
-/**
- * Resets losAttackRangeQuery, and if there are some targets in range that we can
+ * Resets losRangeQuery, and if there are some targets in range that we can
  * attack then we start attacking and this returns true; otherwise, returns false.
  */
 UnitAI.prototype.FindNewTargets = function()
 {
-	if (!this.losAttackRangeQuery)
+	if (!this.losRangeQuery)
 		return false;
 
 	if (!this.GetStance().targetVisibleEnemies)
 		return false;
 
-	let cmpRangeManager = Engine.QueryInterface(SYSTEM_ENTITY, IID_RangeManager);
-	return this.AttackEntitiesByPreference(cmpRangeManager.ResetActiveQuery(this.losAttackRangeQuery));
+	var cmpRangeManager = Engine.QueryInterface(SYSTEM_ENTITY, IID_RangeManager);
+	return this.AttackEntitiesByPreference(cmpRangeManager.ResetActiveQuery(this.losRangeQuery));
 };
 
 UnitAI.prototype.FindWalkAndFightTargets = function()
@@ -6136,69 +5709,90 @@ UnitAI.prototype.FindWalkAndFightTargets = function()
 
 UnitAI.prototype.GetTargetsFromUnit = function()
 {
-	if (!this.losAttackRangeQuery)
+	if (!this.losRangeQuery)
 		return [];
 
 	if (!this.GetStance().targetVisibleEnemies)
 		return [];
 
-	let cmpAttack = Engine.QueryInterface(this.entity, IID_Attack);
+	var cmpAttack = Engine.QueryInterface(this.entity, IID_Attack);
 	if (!cmpAttack)
 		return [];
 
-	let attackfilter = function(e) {
-		let cmpOwnership = Engine.QueryInterface(e, IID_Ownership);
+	var attackfilter = function(e) {
+		var cmpOwnership = Engine.QueryInterface(e, IID_Ownership);
 		if (cmpOwnership && cmpOwnership.GetOwner() > 0)
 			return true;
-		let cmpUnitAI = Engine.QueryInterface(e, IID_UnitAI);
+		var cmpUnitAI = Engine.QueryInterface(e, IID_UnitAI);
 		return cmpUnitAI && (!cmpUnitAI.IsAnimal() || cmpUnitAI.IsDangerousAnimal());
 	};
 
-	let cmpRangeManager = Engine.QueryInterface(SYSTEM_ENTITY, IID_RangeManager);
-	let entities = cmpRangeManager.ResetActiveQuery(this.losAttackRangeQuery);
-	let targets = entities.filter(function(v) { return cmpAttack.CanAttack(v) && attackfilter(v); })
+	var cmpRangeManager = Engine.QueryInterface(SYSTEM_ENTITY, IID_RangeManager);
+	var entities = cmpRangeManager.ResetActiveQuery(this.losRangeQuery);
+	var targets = entities.filter(function(v) { return cmpAttack.CanAttack(v) && attackfilter(v); })
 		.sort(function(a, b) { return cmpAttack.CompareEntitiesByPreference(a, b); });
 
 	return targets;
 };
 
+/**
+ * Resets losHealRangeQuery, and if there are some targets in range that we can heal
+ * then we start healing and this returns true; otherwise, returns false.
+ */
+UnitAI.prototype.FindNewHealTargets = function()
+{
+	if (!this.losHealRangeQuery)
+		return false;
+
+	var cmpRangeManager = Engine.QueryInterface(SYSTEM_ENTITY, IID_RangeManager);
+	return this.RespondToHealableEntities(cmpRangeManager.ResetActiveQuery(this.losHealRangeQuery));
+};
+
 UnitAI.prototype.GetQueryRange = function(iid)
 {
-	let ret = { "min": 0, "max": 0 };
-
-	let cmpVision = Engine.QueryInterface(this.entity, IID_Vision);
-	if (!cmpVision)
-		return ret;
-	let visionRange = cmpVision.GetRange();
-
-	if (iid === IID_Vision)
-	{
-		ret.max = visionRange;
-		return ret;
-	}
-
+	var ret = { "min": 0, "max": 0 };
 	if (this.GetStance().respondStandGround)
 	{
-		let range = this.GetRange(iid);
-		if (!range)
+		var cmpRanged = Engine.QueryInterface(this.entity, iid);
+		if (!cmpRanged)
+			return ret;
+		var range = iid !== IID_Attack ? cmpRanged.GetRange() : cmpRanged.GetFullAttackRange();
+		var cmpVision = Engine.QueryInterface(this.entity, IID_Vision);
+		if (!cmpVision)
 			return ret;
 		ret.min = range.min;
-		ret.max = Math.min(range.max, visionRange);
+		ret.max = Math.min(range.max, cmpVision.GetRange());
 	}
 	else if (this.GetStance().respondChase)
-		ret.max = visionRange;
+	{
+		var cmpVision = Engine.QueryInterface(this.entity, IID_Vision);
+		if (!cmpVision)
+			return ret;
+		var range = cmpVision.GetRange();
+		ret.max = range;
+	}
 	else if (this.GetStance().respondHoldGround)
 	{
-		let range = this.GetRange(iid);
-		if (!range)
+		var cmpRanged = Engine.QueryInterface(this.entity, iid);
+		if (!cmpRanged)
 			return ret;
-		ret.max = Math.min(range.max + visionRange / 2, visionRange);
+		var range = iid !== IID_Attack ? cmpRanged.GetRange() : cmpRanged.GetFullAttackRange();
+		var cmpVision = Engine.QueryInterface(this.entity, IID_Vision);
+		if (!cmpVision)
+			return ret;
+		var vision = cmpVision.GetRange();
+		ret.max = Math.min(range.max + vision / 2, vision);
 	}
 	// We probably have stance 'passive' and we wouldn't have a range,
 	// but as it is the default for healers we need to set it to something sane.
 	else if (iid === IID_Heal)
-		ret.max = visionRange;
-
+	{
+		var cmpVision = Engine.QueryInterface(this.entity, IID_Vision);
+		if (!cmpVision)
+			return ret;
+		var range = cmpVision.GetRange();
+		ret.max = range;
+	}
 	return ret;
 };
 
@@ -6234,23 +5828,6 @@ UnitAI.prototype.SetSpeedMultiplier = function(speed)
 	let cmpUnitMotion = Engine.QueryInterface(this.entity, IID_UnitMotion);
 	if (cmpUnitMotion)
 		cmpUnitMotion.SetSpeedMultiplier(speed);
-};
-
-/**
- * Try to match the targets current movement speed.
- *
- * @param {number} target - The entity ID of the target to match.
- * @param {boolean} mayRun - Whether the entity is allowed to run to match the speed.
- */
-UnitAI.prototype.TryMatchTargetSpeed = function(target, mayRun = true)
-{
-	let cmpUnitMotionTarget = Engine.QueryInterface(target, IID_UnitMotion);
-	if (cmpUnitMotionTarget)
-	{
-		let targetSpeed = cmpUnitMotionTarget.GetCurrentSpeed();
-		if (targetSpeed)
-			this.SetSpeedMultiplier(Math.min(mayRun ? this.GetRunMultiplier() : 1, targetSpeed / this.GetWalkSpeed()));
-	}
 };
 
 /*
@@ -6298,25 +5875,6 @@ UnitAI.prototype.WalkToHeldPosition = function()
 
 //// Helper functions ////
 
-/**
- * General getter for ranges.
- *
- * @param {number} iid
- * @param {string} type - [Optional]
- * @return {Object | undefined} - The range in the form
- *	{ "min": number, "max": number }
- *	Object."elevationBonus": number may be present when iid == IID_Attack.
- *	Returns undefined when the entity does not have the requested component.
- */
-UnitAI.prototype.GetRange = function(iid, type)
-{
-	let component = Engine.QueryInterface(this.entity, iid);
-	if (!component)
-		return undefined;
-
-	return component.GetRange(type);
-}
-
 UnitAI.prototype.CanAttack = function(target)
 {
 	// Formation controllers should always respond to commands
@@ -6335,13 +5893,19 @@ UnitAI.prototype.CanGarrison = function(target)
 	if (this.IsFormationController())
 		return true;
 
-	let cmpGarrisonHolder = Engine.QueryInterface(target, IID_GarrisonHolder);
+	var cmpGarrisonHolder = Engine.QueryInterface(target, IID_GarrisonHolder);
 	if (!cmpGarrisonHolder)
 		return false;
 
 	// Verify that the target is owned by this entity's player or a mutual ally of this player
-	let cmpOwnership = Engine.QueryInterface(this.entity, IID_Ownership);
+	var cmpOwnership = Engine.QueryInterface(this.entity, IID_Ownership);
 	if (!cmpOwnership || !(IsOwnedByPlayer(cmpOwnership.GetOwner(), target) || IsOwnedByMutualAllyOfPlayer(cmpOwnership.GetOwner(), target)))
+		return false;
+
+	// Don't let animals garrison for now
+	// (If we want to support that, we'll need to change Order.Garrison so it
+	// doesn't move the animal into an INVIDIDUAL.* state)
+	if (this.IsAnimal())
 		return false;
 
 	return true;
@@ -6385,16 +5949,41 @@ UnitAI.prototype.CanHeal = function(target)
 	if (this.IsFormationController())
 		return true;
 
-	let cmpHeal = Engine.QueryInterface(this.entity, IID_Heal);
-	return cmpHeal && cmpHeal.CanHeal(target);
+	// Verify that we're able to respond to Heal commands
+	var cmpHeal = Engine.QueryInterface(this.entity, IID_Heal);
+	if (!cmpHeal)
+		return false;
+
+	// Verify that the target is alive
+	if (!this.TargetIsAlive(target))
+		return false;
+
+	// Verify that the target is owned by the same player as the entity or of an ally
+	var cmpOwnership = Engine.QueryInterface(this.entity, IID_Ownership);
+	if (!cmpOwnership || !(IsOwnedByPlayer(cmpOwnership.GetOwner(), target) || IsOwnedByAllyOfPlayer(cmpOwnership.GetOwner(), target)))
+		return false;
+
+	// Verify that the target is not unhealable (or at max health)
+	var cmpHealth = Engine.QueryInterface(target, IID_Health);
+	if (!cmpHealth || cmpHealth.IsUnhealable())
+		return false;
+
+	// Verify that the target has no unhealable class
+	var cmpIdentity = Engine.QueryInterface(target, IID_Identity);
+	if (!cmpIdentity)
+		return false;
+
+	if (MatchesClassList(cmpIdentity.GetClassesList(), cmpHeal.GetUnhealableClasses()))
+		return false;
+
+	// Verify that the target is a healable class
+	if (MatchesClassList(cmpIdentity.GetClassesList(), cmpHeal.GetHealableClasses()))
+		return true;
+
+	return false;
 };
 
-/**
- * Check if the entity can return carried resources at @param target
- * @param checkCarriedResource check we are carrying resources
- * @param cmpResourceGatherer if present, use this directly instead of re-querying.
- */
-UnitAI.prototype.CanReturnResource = function(target, checkCarriedResource, cmpResourceGatherer = undefined)
+UnitAI.prototype.CanReturnResource = function(target, checkCarriedResource)
 {
 	if (this.IsTurret())
 		return false;
@@ -6404,15 +5993,12 @@ UnitAI.prototype.CanReturnResource = function(target, checkCarriedResource, cmpR
 		return true;
 
 	// Verify that we're able to respond to ReturnResource commands
+	var cmpResourceGatherer = Engine.QueryInterface(this.entity, IID_ResourceGatherer);
 	if (!cmpResourceGatherer)
-	{
-		cmpResourceGatherer = Engine.QueryInterface(this.entity, IID_ResourceGatherer);
-		if (!cmpResourceGatherer)
-			return false;
-	}
+		return false;
 
 	// Verify that the target is a dropsite
-	let cmpResourceDropsite = Engine.QueryInterface(target, IID_ResourceDropsite);
+	var cmpResourceDropsite = Engine.QueryInterface(target, IID_ResourceDropsite);
 	if (!cmpResourceDropsite)
 		return false;
 
@@ -6420,16 +6006,16 @@ UnitAI.prototype.CanReturnResource = function(target, checkCarriedResource, cmpR
 	{
 		// Verify that we are carrying some resources,
 		// and can return our current resource to this target
-		let type = cmpResourceGatherer.GetMainCarryingType();
+		var type = cmpResourceGatherer.GetMainCarryingType();
 		if (!type || !cmpResourceDropsite.AcceptsType(type))
 			return false;
 	}
 
 	// Verify that the dropsite is owned by this entity's player (or a mutual ally's if allowed)
-	let cmpOwnership = Engine.QueryInterface(this.entity, IID_Ownership);
+	var cmpOwnership = Engine.QueryInterface(this.entity, IID_Ownership);
 	if (cmpOwnership && IsOwnedByPlayer(cmpOwnership.GetOwner(), target))
 		return true;
-	let cmpPlayer = QueryOwnerInterface(this.entity);
+	var cmpPlayer = QueryOwnerInterface(this.entity);
 	return cmpPlayer && cmpPlayer.HasSharedDropsites() && cmpResourceDropsite.IsShared() &&
 	       cmpOwnership && IsOwnedByMutualAllyOfPlayer(cmpOwnership.GetOwner(), target);
 };
@@ -6547,12 +6133,6 @@ UnitAI.prototype.SetFacePointAfterMove = function(val)
 		cmpMotion.SetFacePointAfterMove(val);
 };
 
-UnitAI.prototype.GetFacePointAfterMove = function()
-{
-	let cmpUnitMotion = Engine.QueryInterface(this.entity, IID_UnitMotion);
-	return cmpUnitMotion && cmpUnitMotion.GetFacePointAfterMove();
-}
-
 UnitAI.prototype.AttackEntitiesByPreference = function(ents)
 {
 	if (!ents.length)
@@ -6601,24 +6181,16 @@ UnitAI.prototype.AttackEntitiesByPreference = function(ents)
 };
 
 /**
- * Call UnitAI.funcname(args) on all formation members.
- * @param resetWaitingEntities - If true, call ResetWaitingEntities first.
- *     If the controller wants to wait on its members to finish their order,
- *     this needs to be reset before sending new orders (in case they instafail)
- *     so it makes sense to do it here.
- *     Only set this to false if you're sure it's safe.
+ * Call obj.funcname(args) on UnitAI components of all formation members.
  */
-UnitAI.prototype.CallMemberFunction = function(funcname, args, resetWaitingEntities = true)
+UnitAI.prototype.CallMemberFunction = function(funcname, args)
 {
 	var cmpFormation = Engine.QueryInterface(this.entity, IID_Formation);
 	if (!cmpFormation)
 		return;
 
-	if (resetWaitingEntities)
-		cmpFormation.ResetWaitingEntities();
-
 	cmpFormation.GetMembers().forEach(ent => {
-		let cmpUnitAI = Engine.QueryInterface(ent, IID_UnitAI);
+		var cmpUnitAI = Engine.QueryInterface(ent, IID_UnitAI);
 		cmpUnitAI[funcname].apply(cmpUnitAI, args);
 	});
 };
@@ -6641,19 +6213,14 @@ UnitAI.prototype.TestAllMemberFunction = function(funcname, args)
 
 UnitAI.prototype.Ability = function(cmd)
 {
-    warn("Ability " + cmd.number);
-    this.PushOrderFront("Ability", {"number": cmd.number, "target": cmd.target});
+	warn("Ability " + cmd.number);
+	this.PushOrderFront("Ability", {"number": cmd.number, "target": cmd.target});
 }
 
 UnitAI.prototype.FinishAbility = function()
 {
-    warn("Finish ability");
-    this.UnitFsm.ProcessMessage(this, {"type": "FinishAbility"});
-}
-
-UnitAI.prototype.UseAbility = function(cmd)
-{
-	warn("Ability " + cmd.number);
+	warn("Finish ability");
+	this.UnitFsm.ProcessMessage(this, {"type": "FinishAbility"});
 }
 
 UnitAI.prototype.UnitFsm = new FSM(UnitAI.prototype.UnitFsmSpec);
