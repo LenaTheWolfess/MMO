@@ -3,11 +3,20 @@
   <Abilities>
 	<Ability1>
 		<AbilityName>Jump</AbilityName>
-		<AnimationName>attack_melee</AnimationName>
 		<Range>15</Range>
-		<Duration>80</Duration>
-		<Damage>true</Damage>
+		<PreAnimation>
+			<Name>jump_start</Name>
+			<Duration>500</Duration>
+		</PreAnimation>
 		<Reposition>true</Reposition>
+		<MoveOutOfWorld>true</MoveOutOfWorld>
+		<Delay>300</Delay>
+		<Animation>
+			<Name>jump_end</Name>
+			<Duration>200</Duration>
+		</Animation>
+		<Damage>true</Damage>
+		<PostDelay>500</PostDelay>
 	</Ability1>
   </Abilities>
   <Identity>

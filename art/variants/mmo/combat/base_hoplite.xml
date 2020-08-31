@@ -1,6 +1,8 @@
 <variant>
   <animations>
     <animation file="biped/new/hoplite_idle_ready.dae" name="Idle" 	speed="30"/>
+	<animation file="biped/mmo/jump.dae" name="jump_end" speed="80"/>
+	<animation file="biped/mmo/jump_start.dae" name="jump_start" speed="80"/>
     <animation file="biped/new/hoplite_walk_ready.dae" name="Walk" event="1"  speed="30"/>
     <animation file="biped/new/hoplite_run_ready.dae" name="Run"  speed="15"/>
     <animation file="biped/new/hoplite_idle_ready.dae" name="phalanx_idle" speed="30"/>
