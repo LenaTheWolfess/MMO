@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Unit details for Single Unit -->
+<object size="50%-112 100%-100 50%+112 100%" name="detailsAreaSingleMMO">
+	<!-- Name -->
+	<object size="0 1 100% 24" name="playerName" style="largeCenteredOutlinedText" type="text">
+	</object>
+	<!-- Health bar -->
+	<object size="-112 25 50%-10 34" name="healthSectionMMO">
+		<object size="1 4 100% 20" name="healthMMO" type="image" tooltip_style="sessionToolTip">
+			<translatableAttribute id="tooltip">Health</translatableAttribute>
+			<object type="image" sprite="barBorder" ghost="true" size="-1 -1 100%+1 100%+1"/>
+			<object type="image" sprite="healthForeground" ghost="true" name="healthBarMMO"/>
+			<object type="image" sprite="statsBarShaderHorizontal" ghost="true"/>
+			<object size="0 1 100% 12" name="healthStatsMMO" type="text" style="largeCenteredOutlinedText" ghost="true"/>
+		</object>
+	</object>
+	<!-- Level -->
+	<object size="50%-10 28 50%+10 46" name="playerLevel" type="text" style="largeCenteredOutlinedText">
+			<translatableAttribute id="tooltip">Level</translatableAttribute>
+	</object>
+	<!-- Mana bar -->
+	<object size="50%+10 25 100%+112 34" name="manaSection">
+		<object size="1 4 100% 20" name="mana" type="image" tooltip_style="sessionToolTip">
+			<translatableAttribute id="tooltip">Mana</translatableAttribute>
+			<object type="image" sprite="barBorder" ghost="true" size="-1 -1 100%+1 100%+1"/>
+			<object type="image" sprite="healthForeground" ghost="true" name="manaBar"/>
+			<object type="image" sprite="statsBarShaderHorizontal" ghost="true"/>
+			<object size="0 1 100% 12" name="manaStats" type="text" style="largeCenteredOutlinedText" ghost="true"/>
+		</object>
+	</object>
+	<object size="-112 100%-46 100%+112 100%" name="Abilities">
+		<repeat count="6">
+			<object name="abilityButton[n]" hidden="false" style="iconButton" type="button" size="0 0 46 46" tooltip_style="sessionToolTipBottom">
+				<object name="abilityIcon[n]" type="image" ghost="true" size="3 3 43 43"/>
+				<object size="-28 2 100% 22" name="abilityKey[n]" type="text" style="largeCenteredOutlinedText" ghost="true"/>
+			</object>
+		</repeat>
+	</object>
+	<object size="100%-46 100%-46 100% 100%" name="inventoryButton" style="iconButton" type="button" tooltip_style="sessionToolTipBottom">
+		<translatableAttribute id="tooltip">Inventory</translatableAttribute>
+	</object>
+	<object size="100% 100%-46 100%+46 100%" name="bagButton" style="iconButton" type="button" tooltip_style="sessionToolTipBottom">
+		<translatableAttribute id="tooltip">Bag</translatableAttribute>
+	</object>
+</object>
+

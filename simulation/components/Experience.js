@@ -38,6 +38,11 @@ Experience.prototype.GetRank = function()
 	}
 }
 
+Experience.prototype.GetLevel = function()
+{
+	return this.level;
+}
+
 Experience.prototype.GetRankExt = function()
 {
 	if ( this.level == 0 )

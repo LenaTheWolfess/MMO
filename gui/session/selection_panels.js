@@ -152,7 +152,7 @@ g_SelectionPanels.Command = {
 		return true;
 	}
 };
-
+/*
 g_SelectionPanels.Inventory = {
 	"getMaxNumberOfItems": function()
 	{
@@ -191,8 +191,7 @@ g_SelectionPanels.Inventory = {
 	}
 
 };
-
-g_SelectionPanels.Bag = {
+SelectionPanels.Bag = {
 	"getMaxNumberOfItems": function()
 	{
 		return 24;
@@ -244,7 +243,7 @@ g_SelectionPanels.Bag = {
 	}
 
 };
-
+*/
 g_SelectionPanels.AllyCommand = {
 	"getMaxNumberOfItems": function()
 	{
@@ -1255,26 +1254,6 @@ function showTemplateDetails(templateName, civCode)
  * Note that the panel needs to appear in the list to get rendered.
  */
 let g_PanelsOrder = [
-	// LEFT PANE
-	"Barter", // Must always be visible on markets
-	"Garrison", // More important than Formation, as you want to see the garrisoned units in ships
-	"Alert",
-	"Formation",
-	"Stance", // Normal together with formation
-	"Inventory",
-
-	// RIGHT PANE
-	"Gate", // Must always be shown on gates
-	"Pack", // Must always be shown on packable entities
-	"Upgrade", // Must always be shown on upgradable entities
-	"Training",
-	"Construction",
-	"Research", // Normal together with training
-	"Bag",
-
-	// UNIQUE PANES (importance doesn't matter)
-	"Command",
-	"AllyCommand",
-	"Queue",
-	"Selection",
+	//"Inventory",
+//	"Bag"
 ];

@@ -300,7 +300,8 @@ GuiInterface.prototype.GetEntityState = function(player, ent)
 			"rank": cmpExperience.GetRank(),
 			"maxLevel": cmpExperience.IsMaxLeveled(),
 			"curr": cmpExperience.GetCurrentXp(),
-			"req": cmpExperience.GetRequiredXp()
+			"req": cmpExperience.GetRequiredXp(),
+			"level": cmpExperience.GetLevel()
 		};
 		
 	let cmpPosition = Engine.QueryInterface(ent, IID_Position);
