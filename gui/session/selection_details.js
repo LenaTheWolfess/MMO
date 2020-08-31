@@ -134,14 +134,14 @@ function displaySingleMMO(entState)
 			let icon = Engine.GetGUIObjectByName("inventoryIcon["+i+"]");
 			if (!item) {
 				hideButton(button);
-				hideButton(icon);
+				hideButton(icon, true);
 				continue;
 			}
 			let itemState = GetEntityState(item.id);
 			let template = GetTemplateData(itemState.template);
 			if (!template) {
 				hideButton(button);
-				hideButton(icon);
+				hideButton(icon, true);
 				continue;
 			}
 			let tooltips = [
@@ -155,8 +155,10 @@ function displaySingleMMO(entState)
 			button.tooltip = tooltips.join("\n");
 			button.enabled = true;
 			let modifier = "";
-			if (template.icon)
-				icon.sprite = modifier + "stretched:session/portraits/" + template.icon;		
+			if (template.icon) {
+				icon.hidden = false;
+				icon.sprite = modifier + "stretched:session/portraits/" + template.icon;
+			}				
 		}
 	}
 	
@@ -199,14 +201,14 @@ function displaySingleMMO(entState)
 			let icon = Engine.GetGUIObjectByName("bagIcon["+i+"]");
 			if (!item) {
 				hideButton(button);
-				hideButton(icon);
+				hideButton(icon, true);
 				continue;
 			}
 			let itemState = GetEntityState(item.id);
 			let template = GetTemplateData(itemState.template);
 			if (!template) {
 				hideButton(button);
-				hideButton(icon);
+				hideButton(icon, true);
 				continue;
 			}
 			let tooltips = [
@@ -235,8 +237,10 @@ function displaySingleMMO(entState)
 				tooltips.push("Required class: " + rc);
 			}
 			button.tooltip = tooltips.join("\n");
-			if (template.icon)
-				icon.sprite = modifier + "stretched:session/portraits/" + template.icon;		
+			if (template.icon) {
+				icon.hidden = false;
+				icon.sprite = modifier + "stretched:session/portraits/" + template.icon;
+			}				
 		}
 	}
 	
@@ -246,14 +250,16 @@ function displaySingleMMO(entState)
 	
 }
 
-function hideButton(button)
+function hideButton(button, icon = false)
 {
 	button.onPress = function() { };
 	button.onPressRight = function() { };
 	button.tooltip = "";
 	button.enabled = false;
-	if (button.sprite)
+	if (icon) {
+		button.hidden = true;
 		button.sprite = "";
+	}
 }
 
 // Fills out information that most entities have
