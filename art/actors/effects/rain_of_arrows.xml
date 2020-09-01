@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actor version="1">
+  <castshadow/>
+  <group>
+    <variant name="Idle" frequency="1">
+      <mesh>skeletal/mmo/rain_of_arrows.dae</mesh>
+      <props>
+        <prop actor="props/units/weapons/arrow_front.xml" attachpoint="a1"/>
+        <prop actor="props/units/weapons/arrow_front.xml" attachpoint="a2"/>
+        <prop actor="props/units/weapons/arrow_front.xml" attachpoint="a3"/>
+        <prop actor="props/units/weapons/arrow_front.xml" attachpoint="a4"/>
+        <prop actor="props/units/weapons/arrow_front.xml" attachpoint="a5"/>
+        <prop actor="props/units/weapons/arrow_front.xml" attachpoint="a6"/>
+        <prop actor="props/units/weapons/arrow_front.xml" attachpoint="a7"/>
+        <prop actor="props/units/weapons/arrow_front.xml" attachpoint="a8"/>
+        <prop actor="props/units/weapons/arrow_front.xml" attachpoint="a9"/>
+      </props>
+      <textures>
+        <texture file="skeletal/athen_epilektos_1.png" name="baseTex"/>
+      </textures>
+    </variant>
+  </group>
+  <material>player_trans.xml</material>
+</actor>

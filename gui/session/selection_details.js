@@ -90,19 +90,48 @@ function displaySingleMMO(entState)
 			"maxHitpoints": Math.ceil(entState.maxHitpoints)
 		});
 	
-	// Abilities
 	let aRef;
-	for (let i = 0; i < 6; ++i) {
-		let aButton = Engine.GetGUIObjectByName("abilityButton["+i+"]");
-		if (aButton) {
-			if (!aRef)
-				aRef = aButton;
-			let aSize = aButton.size;
-			aSize.left = aRef.size.left + 46*i;
-			aSize.right = aRef.size.right + 46*i;
-			aButton.size = aSize;
-			let abilityKey = Engine.GetGUIObjectByName("abilityKey["+i+"]");
-			abilityKey.caption = (i+1);
+	// Abilities
+	if (!entState.abilities) {
+		for (let i = 0; i < 6; ++i) {
+			let aButton = Engine.GetGUIObjectByName("abilityButton["+i+"]");
+			if (aButton)
+				aButton.hidden = true;
+		}
+	} else {
+		for (let i = 0; i < 6; ++i) {
+			const aButton = Engine.GetGUIObjectByName("abilityButton["+i+"]");
+			if (aButton) {
+				const aIcon = Engine.GetGUIObjectByName("abilityIcon["+i+"]");
+				aButton.hidden = false;
+				if (!aRef)
+					aRef = aButton;
+				let aSize = aButton.size;
+				aSize.left = aRef.size.left + 46*i;
+				aSize.right = aRef.size.right + 46*i;
+				aButton.size = aSize;
+				let abilityKey = Engine.GetGUIObjectByName("abilityKey["+i+"]");
+				abilityKey.caption = (i+1);
+				const abilityCooldown = Engine.GetGUIObjectByName("abilityCooldown["+i+"]");
+				const ability = entState.abilities[i+1];
+				abilityCooldown.caption = "";
+				aButton.tooltip = "";
+				if (!ability) {
+					aIcon.hidden = true;
+					continue;
+				}
+				let modifier;
+				const cooldown = entState.abilities[i+1].Cooldown;
+				if (cooldown) {
+					abilityCooldown.caption = cooldown;
+					modifier = "grayscale:";
+				}
+				if (ability.Name)
+					aButton.tooltip = ability.Name;
+				const aTemplate = ability.template;
+				aIcon.sprite = modifier + "stretched:session/portraits/" + aTemplate.Icon + ".png";
+				aIcon.hidden = false;
+			}
 		}
 	}
 	

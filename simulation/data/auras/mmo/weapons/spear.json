@@ -3,7 +3,7 @@
 	"affects": ["Hero"],
 	"modifications": [
 		{ "value": "Attack/Melee/Damage/Pierce",   "add":   40},
-		{ "value": "Attack/Melee/MaxRange",   "add": 8}
+		{ "value": "Attack/Melee/MaxRange",   "add": 4}
 	],
 	"auraDescription": "Pierce + 40",
 	"auraName": "Attack"

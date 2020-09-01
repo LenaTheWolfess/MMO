@@ -4,7 +4,7 @@
 	"affects": ["Hero"],
 	"modifications": [
 		{ "value": "Attack/Melee/Damage/Hack",   "add":   25},
-		{ "value": "Attack/Melee/MaxRange",   "add": 8}
+		{ "value": "Attack/Melee/MaxRange",   "add": 2}
 	],
 	"auraDescription": "Hack + 25",
 	"auraName": "Attack"

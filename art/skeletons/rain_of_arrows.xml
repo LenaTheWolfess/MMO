@@ -1,0 +1,33 @@
+<skeletons>
+<standard_skeleton title="RainOfArrows" id="RainOfArrows">
+  <bone name="root">
+    <bone name="a1"></bone>
+    <bone name="a2"></bone>
+    <bone name="a3"></bone>
+    <bone name="a4"></bone>
+    <bone name="a5"></bone>
+    <bone name="a6"></bone>
+    <bone name="a7"></bone>
+    <bone name="a8"></bone>
+    <bone name="a9"></bone>
+    <bone name="a10"></bone>
+  </bone>
+</standard_skeleton>
+  <skeleton title="RainOfArrows" target="RainOfArrows">
+    <identifier>
+      <root>root</root>
+    </identifier>
+    <bone name="root"><target>root</target>
+      <bone name="a1"><target>a1</target></bone>
+      <bone name="a2"><target>a2</target></bone>
+      <bone name="a3"><target>a3</target></bone>
+      <bone name="a4"><target>a4</target></bone>
+      <bone name="a5"><target>a5</target></bone>
+      <bone name="a6"><target>a6</target></bone>
+      <bone name="a7"><target>a7</target></bone>
+      <bone name="a8"><target>a8</target></bone>
+      <bone name="a9"><target>a9</target></bone>
+      <bone name="a10"><target>a10</target></bone>
+    </bone>
+  </skeleton>
+</skeletons>
