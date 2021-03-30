@@ -33,6 +33,7 @@
 			<object name="abilityButton[n]" hidden="false" style="iconButton" type="button" size="0 0 46 46" tooltip_style="sessionToolTipBottom">
 				<object name="abilityIcon[n]" type="image" ghost="true" size="3 3 43 43"/>
 				<object size="-28 2 100% 22" name="abilityKey[n]" type="text" style="largeCenteredOutlinedText" ghost="true"/>
+				<object size="-2 -2 100% 100%" name="abilityCooldown[n]" type="text" style="largeCenteredOutlinedText" ghost="true"/>
 			</object>
 		</repeat>
 	</object>

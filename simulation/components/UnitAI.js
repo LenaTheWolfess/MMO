@@ -424,17 +424,21 @@ UnitAI.prototype.UnitFsmSpec = {
 		}
 
 		const cmpAbilities = Engine.QueryInterface(this.entity, IID_Abilities);
-		if (!cmpAbilities) {
+		if (!cmpAbilities ) {
 			this.FinishOrder();
 			return;
 		}
-
-		if (!cmpAbilities.HasAbility(this.order.data.number)){
+		const number = this.order.data.number;
+		if (!cmpAbilities.HasAbility(number) || cmpAbilities.IsOnCooldown(number)){
+			warn("skip");
 			this.FinishOrder();
 			return;
 		}
-
-		this.SetNextState("INDIVIDUAL.ABILITY.EXECUTE");
+		let st = "INDIVIDUAL.ABILITY.EXECUTE";
+		if (!this.CheckTargetRange(this.order.data.target, IID_Abilities, number))
+			st = "INDIVIDUAL.ABILITY.APPROACHING";
+		
+		this.SetNextState(st);
 
 	},
 
@@ -1530,6 +1534,32 @@ UnitAI.prototype.UnitFsmSpec = {
 		},
 
 		"ABILITY": {
+			"APPROACHING": {
+				"enter": function() {
+					if (!this.MoveToTargetAbilityRange(this.order.data.target, this.order.data.number))
+					{
+						this.FinishOrder();
+						return true;
+					}
+					return false;
+				},
+				"leave": function() {
+					this.StopMoving();
+				},
+				"MovementUpdate": function(msg) {
+					if (msg.likelyFailure) {
+						this.FinishOrder();
+					}
+					else if (this.CheckTargetRange(this.order.data.target, IID_Abilities, this.order.data.number)) {
+						warn(this.order.data.number + " in range");
+						this.SetNextState("EXECUTE");
+					}
+					else if(msg.likelySuccess) {
+						if (!this.MoveToTargetAbilityRange(this.order.data.target, this.order.data.number))
+							this.FinishOrder();
+					}
+				}
+			},
 			"EXECUTE": {
 				"enter": function() {
 					const cmpAbilities = Engine.QueryInterface(this.entity, IID_Abilities);
@@ -1545,6 +1575,7 @@ UnitAI.prototype.UnitFsmSpec = {
 					warn("leaving ability state");
 					this.ResetAnimation();
 					this.SetDefaultAnimationVariant();
+					this.StopMoving();
 				}
 			}
 		},
@@ -4761,6 +4792,11 @@ UnitAI.prototype.MoveToTargetAttackRange = function(target, type)
 
 	return cmpUnitMotion && cmpUnitMotion.MoveToTargetRange(target, range.min, guessedMaxRange);
 };
+
+UnitAI.prototype.MoveToTargetAbilityRange = function(target, number)
+{
+	return this.MoveToTargetRange(target, IID_Abilities, number);
+}
 
 UnitAI.prototype.MoveToTargetRangeExplicit = function(target, min, max)
 {

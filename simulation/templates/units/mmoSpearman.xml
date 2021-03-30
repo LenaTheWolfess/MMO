@@ -2,13 +2,47 @@
 <Entity parent="template_mmo_unit_melee">
   <Abilities>
 	<Ability1>
+		<Icon>technologies/laurel_wreath</Icon>
 		<AbilityName>Jump</AbilityName>
-		<AnimationName>attack_melee</AnimationName>
-		<Range>15</Range>
-		<Duration>80</Duration>
-		<Damage>true</Damage>
+		<Range>20</Range>
+		<Cooldown>5</Cooldown>
+		<PreAnimation>
+			<Name>jump_start</Name>
+			<Duration>500</Duration>
+		</PreAnimation>
 		<Reposition>true</Reposition>
+		<MoveOutOfWorld>true</MoveOutOfWorld>
+		<Delay>300</Delay>
+		<Animation>
+			<Name>jump_end</Name>
+			<Duration>200</Duration>
+		</Animation>
+		<DealDamage>
+			<Melee>
+				<Damage>
+					<Pierce>50</Pierce>
+				</Damage>
+			</Melee>
+		</DealDamage>
+		<PostDelay>500</PostDelay>
 	</Ability1>
+	<Ability2>
+		<Icon>technologies/laurel_wreath</Icon>
+		<AbilityName>Double attack</AbilityName>
+		<Range>2</Range>
+		<Cooldown>10</Cooldown>
+		<PreAnimation>
+			<Name>attack_melee</Name>
+			<Duration>200</Duration>
+		</PreAnimation>
+		<DealDamage>
+			<Melee>
+				<Damage>
+					<Pierce>50</Pierce>
+				</Damage>
+			</Melee>
+		</DealDamage>
+	</Ability2>
   </Abilities>
   <Identity>
     <SpecificName>Player</SpecificName>

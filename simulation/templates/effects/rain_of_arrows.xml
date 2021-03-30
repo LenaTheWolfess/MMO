@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Entity parent="template_attack_effect">
+  <Decay>
+    <Active>true</Active>
+    <SinkingAnim>false</SinkingAnim>
+    <DelayTime>10.0</DelayTime>
+    <SinkRate>1.0</SinkRate>
+    <SinkAccel>0</SinkAccel>
+  </Decay>
+  <VisualActor>
+    <Actor>effects/rain_of_arrows.xml</Actor>
+  </VisualActor>
+</Entity>

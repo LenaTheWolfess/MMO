@@ -297,6 +297,27 @@ GuiInterface.prototype.GetEntityState = function(player, ent)
             "level": cmpExperience.GetLevel()
         };
 
+	const cmpInventory = Engine.QueryInterface(ent, IID_Inventory);
+	if (cmpInventory)
+		ret.inventory = {
+			"items": cmpInventory.GetItems(),
+			"bag": cmpInventory.GetBag()
+		};
+
+	const cmpExperience = Engine.QueryInterface(ent, IID_Experience);
+	if (cmpExperience)
+		ret.experience = {
+			"rank": cmpExperience.GetRank(),
+			"maxLevel": cmpExperience.IsMaxLeveled(),
+			"curr": cmpExperience.GetCurrentXp(),
+			"req": cmpExperience.GetRequiredXp(),
+			"level": cmpExperience.GetLevel()
+		};
+	
+	const cmpAbilities = Engine.QueryInterface(ent, IID_Abilities);
+	if (cmpAbilities)
+		ret.abilities = cmpAbilities.GetActiveAbilities();
+	
 	let cmpPosition = Engine.QueryInterface(ent, IID_Position);
 	if (cmpPosition && cmpPosition.IsInWorld())
 		ret.position = cmpPosition.GetPosition();
