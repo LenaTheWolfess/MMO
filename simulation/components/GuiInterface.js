@@ -78,7 +78,6 @@ GuiInterface.prototype.GetSimulationState = function()
 				phase = "village";
 		}
 
-												   
 		let allies = [];
 		let mutualAllies = [];
 		let neutrals = [];
@@ -138,11 +137,9 @@ GuiInterface.prototype.GetSimulationState = function()
 	if (cmpTerrain)
 		ret.mapSize = cmpTerrain.GetMapSize();
 
-				   
 	let cmpTimer = Engine.QueryInterface(SYSTEM_ENTITY, IID_Timer);
 	ret.timeElapsed = cmpTimer.GetTime();
 
-					  
 	let cmpCeasefireManager = Engine.QueryInterface(SYSTEM_ENTITY, IID_CeasefireManager);
 	if (cmpCeasefireManager)
 	{
@@ -150,12 +147,10 @@ GuiInterface.prototype.GetSimulationState = function()
 		ret.ceasefireTimeRemaining = ret.ceasefireActive ? cmpCeasefireManager.GetCeasefireStartedTime() + cmpCeasefireManager.GetCeasefireTime() - ret.timeElapsed : 0;
 	}
 
-						
 	let cmpCinemaManager = Engine.QueryInterface(SYSTEM_ENTITY, IID_CinemaManager);
 	if (cmpCinemaManager)
 		ret.cinemaPlaying = cmpCinemaManager.IsPlaying();
 
-										
 	let cmpEndGameManager = Engine.QueryInterface(SYSTEM_ENTITY, IID_EndGameManager);
 	ret.victoryConditions = cmpEndGameManager.GetVictoryConditions();
 	ret.alliedVictory = cmpEndGameManager.GetAlliedVictory();
@@ -180,10 +175,8 @@ GuiInterface.prototype.GetSimulationState = function()
  */
 GuiInterface.prototype.GetExtendedSimulationState = function()
 {
-							 
 	let ret = this.GetSimulationState();
 
-								 
 	let numPlayers = Engine.QueryInterface(SYSTEM_ENTITY, IID_PlayerManager).GetNumPlayers();
 	for (let i = 0; i < numPlayers; ++i)
 	{
@@ -272,20 +265,37 @@ GuiInterface.prototype.GetEntityState = function(player, ent)
 			"formations": cmpIdentity.GetFormationsList()
 		};
 
-	const cmpEquipment = Engine.QueryInterface(ent, IID_Equipment);
-	if (cmpEquipment)
-		ret.equipment = {
-			"type": cmpEquipment.GetType(),
-			"specific": cmpEquipment.GetTypeSpecific(),
-			"usable": cmpEquipment.IsUsable(),
-			"category": cmpEquipment.GetCategory()
-		};
+    const cmpEquipment = Engine.QueryInterface(ent, IID_Equipment);
+    if (cmpEquipment)
+        ret.equipment = {
+            "type": cmpEquipment.GetType(),
+            "specific": cmpEquipment.GetTypeSpecific(),
+            "usable": cmpEquipment.IsUsable(),
+            "category": cmpEquipment.GetCategory()
+        };
 
-	const cmpItem = Engine.QueryInterface(ent, IID_Item);
-	if (cmpItem)
-		ret.item = {
-			"type": cmpItem.GetType()
-		}
+    const cmpItem = Engine.QueryInterface(ent, IID_Item);
+    if (cmpItem)
+        ret.item = {
+            "type": cmpItem.GetType()
+        }
+
+    const cmpInventory = Engine.QueryInterface(ent, IID_Inventory);
+    if (cmpInventory)
+        ret.inventory = {
+            "items": cmpInventory.GetItems(),
+            "bag": cmpInventory.GetBag()
+        };
+
+    const cmpExperience = Engine.QueryInterface(ent, IID_Experience);
+    if (cmpExperience)
+        ret.experience = {
+            "rank": cmpExperience.GetRank(),
+            "maxLevel": cmpExperience.IsMaxLeveled(),
+            "curr": cmpExperience.GetCurrentXp(),
+            "req": cmpExperience.GetRequiredXp(),
+            "level": cmpExperience.GetLevel()
+        };
 
 	const cmpInventory = Engine.QueryInterface(ent, IID_Inventory);
 	if (cmpInventory)
@@ -423,8 +433,7 @@ GuiInterface.prototype.GetEntityState = function(player, ent)
 			"isGuarding": cmpUnitAI.IsGuardOf(),
 			"canPatrol": cmpUnitAI.CanPatrol(),
 			"selectableStances": cmpUnitAI.GetSelectableStances(),
-			"isIdle": cmpUnitAI.IsIdle()				  
-											 
+			"isIdle": cmpUnitAI.IsIdle()
 		};
 
 	let cmpGuard = Engine.QueryInterface(ent, IID_Guard);
@@ -489,27 +498,19 @@ GuiInterface.prototype.GetEntityState = function(player, ent)
 			ret.attack[type].elevationBonus = range.elevationBonus;
 
 			if (cmpPosition && cmpPosition.IsInWorld())
-	
 				// For units, take the range in front of it, no spread, so angle = 0,
-																																												
-	
-												  
-	
 				// else, take the average elevation around it: angle = 2 * pi.
 				ret.attack[type].elevationAdaptedRange = cmpRangeManager.GetElevationAdaptedRange(cmpPosition.GetPosition(), cmpPosition.GetRotation(), range.max, range.elevationBonus, cmpUnitAI ? 0 : 2 * Math.PI);
-	
 			else
-	
 				// Not in world, set a default?
 				ret.attack[type].elevationAdaptedRange = ret.attack.maxRange;
-	
 		}
 	}
 
 	let cmpResistance = Engine.QueryInterface(ent, IID_Resistance);
 	if (cmpResistance)
 		ret.resistance = cmpResistance.GetResistanceOfForm(cmpFoundation ? "Foundation" : "Entity");
-	
+
 	let cmpBuildingAI = Engine.QueryInterface(ent, IID_BuildingAI);
 	if (cmpBuildingAI)
 		ret.buildingAI = {
@@ -633,14 +634,12 @@ GuiInterface.prototype.GetTemplateData = function(player, data)
 	return GetTemplateDataHelper(template, owner, aurasTemplate);
 };
 
-
 GuiInterface.prototype.IsTechnologyResearched = function(player, data)
 {
 	if (!data.tech)
 		return true;
 
 	let cmpTechnologyManager = QueryPlayerIDInterface(data.player !== undefined ? data.player : player, IID_TechnologyManager);
-
 	if (!cmpTechnologyManager)
 		return false;
 
@@ -653,7 +652,6 @@ GuiInterface.prototype.IsTechnologyResearched = function(player, data)
 GuiInterface.prototype.CheckTechnologyRequirements = function(player, data)
 {
 	let cmpTechnologyManager = QueryPlayerIDInterface(data.player !== undefined ? data.player : player, IID_TechnologyManager);
-
 	if (!cmpTechnologyManager)
 		return false;
 
@@ -695,7 +693,6 @@ GuiInterface.prototype.GetStartedResearch = function(player)
 GuiInterface.prototype.GetBattleState = function(player)
 {
 	let cmpBattleDetection = QueryPlayerIDInterface(player, IID_BattleDetection);
-
 	if (!cmpBattleDetection)
 		return false;
 
@@ -1083,7 +1080,6 @@ GuiInterface.prototype.DisplayRallyPoint = function(player, cmd)
 				else
 					cmpRallyPointRenderer.SetPosition(new Vector2D(pos.x, pos.z));
 			}
-																							   
 			else if (!cmpRallyPointRenderer.IsSet())
 				// Rebuild the renderer when not set (when reading saved game or in case of building update).
 				for (let posi of cmpRallyPoint.GetPositions())
@@ -1133,14 +1129,11 @@ GuiInterface.prototype.SetBuildingPlacementPreview = function(player, cmd)
 		"translateParameters": []
 	};
 
-								  
 	if (!this.placementEntity || this.placementEntity[0] != cmd.template)
 	{
-											 
 		if (this.placementEntity)
 			Engine.DestroyEntity(this.placementEntity[1]);
 
-						  
 		if (cmd.template == "")
 			this.placementEntity = undefined;
 		else
@@ -1151,7 +1144,6 @@ GuiInterface.prototype.SetBuildingPlacementPreview = function(player, cmd)
 	{
 		let ent = this.placementEntity[1];
 
-											 
 		let pos = Engine.QueryInterface(ent, IID_Position);
 		if (pos)
 		{
@@ -1162,7 +1154,6 @@ GuiInterface.prototype.SetBuildingPlacementPreview = function(player, cmd)
 		let cmpOwnership = Engine.QueryInterface(ent, IID_Ownership);
 		cmpOwnership.SetOwner(player);
 
-											  
 		let cmpBuildRestrictions = Engine.QueryInterface(ent, IID_BuildRestrictions);
 		if (!cmpBuildRestrictions)
 			error("cmpBuildRestrictions not defined");
@@ -1295,7 +1286,6 @@ GuiInterface.prototype.SetWallPlacementPreview = function(player, cmd)
 		return false;
 	}
 
-																					
 	for (let tpl in this.placementWallEntities)
 	{
 		for (let ent of this.placementWallEntities[tpl].entities)
@@ -1323,7 +1313,6 @@ GuiInterface.prototype.SetWallPlacementPreview = function(player, cmd)
 				"templateData": this.GetTemplateData(player, { "templateName": tpl }),
 			};
 
-																		 
 			if (!this.placementWallEntities[tpl].templateData.wallPiece)
 			{
 				error("[SetWallPlacementPreview] No WallPiece component found for wall set template '" + tpl + "'");
@@ -1540,12 +1529,10 @@ GuiInterface.prototype.SetWallPlacementPreview = function(player, cmd)
 
 		if (entPool.numUsed >= entPool.entities.length)
 		{
-						 
 			ent = Engine.AddLocalEntity("preview|" + tpl);
 			entPool.entities.push(ent);
 		}
 		else
-							
 			ent = entPool.entities[entPool.numUsed];
 
 		if (!ent)
@@ -1618,7 +1605,6 @@ GuiInterface.prototype.SetWallPlacementPreview = function(player, cmd)
 		cmpObstruction.SetControlGroup(primaryControlGroup);
 		cmpObstruction.SetControlGroup2(secondaryControlGroup);
 
-																 
 		let validPlacement = false;
 
 		let cmpOwnership = Engine.QueryInterface(ent, IID_Ownership);
@@ -1913,26 +1899,18 @@ GuiInterface.prototype.GetTradingDetails = function(player, data)
 			result.gain = cmpEntityTrader.GetGoods().amount;
 	}
 	else if (data.target === secondMarket)
-  
 		result = {
 			"type": "is second",
 			"gain": cmpEntityTrader.GetGoods().amount,
 		};
-  
 	else if (!firstMarket)
-  
 		result = { "type": "set first" };
-  
 	else if (!secondMarket)
-  
 		result = {
 			"type": "set second",
 			"gain": cmpEntityTrader.CalculateGain(firstMarket, data.target),
 		};
-  
 	else
-  
-																	 
 		result = { "type": "set first" };
 
 	return result;
