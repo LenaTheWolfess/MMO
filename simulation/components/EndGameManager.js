@@ -134,6 +134,7 @@ EndGameManager.prototype.GetAlliedVictory = function()
 
 EndGameManager.prototype.AlliedVictoryCheck = function()
 {
+	/*
 	if (this.skipAlliedVictoryCheck || this.endlessGame)
 		return;
 
@@ -156,6 +157,9 @@ EndGameManager.prototype.AlliedVictoryCheck = function()
 	}
 
 	if (!allies.length)
+		return;
+
+	if (this.alliedVictory && numPlayers == 2)
 		return;
 
 	if (this.alliedVictory || allies.length == 1)
@@ -182,6 +186,7 @@ EndGameManager.prototype.AlliedVictoryCheck = function()
 			"message": markForTranslation("Last remaining player wins."),
 			"translateMessage": true,
 		}, 12 * 60 * 60 * 1000); // 12 hours
+	*/
 };
 
 EndGameManager.prototype.OnInitGame = function(msg)

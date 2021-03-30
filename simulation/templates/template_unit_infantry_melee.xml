@@ -2,6 +2,7 @@
 <Entity parent="template_unit_infantry">
   <Attack>
     <Melee>
+      <AttackName>melee</AttackName>
       <Damage>
         <Hack>1</Hack>
         <Pierce>0</Pierce>

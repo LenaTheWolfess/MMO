@@ -2,6 +2,7 @@
 <Entity parent="template_mmo_unit">
   <Attack>
     <Ranged>
+      <AttackName>ranged</AttackName>
       <Damage>
            <Hack>0.0</Hack>
            <Pierce>0.0</Pierce>

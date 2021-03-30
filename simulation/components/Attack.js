@@ -319,7 +319,8 @@ Attack.prototype.CanAttack = function(target, wantedTypes)
 		if (type == "Capture" && (!cmpCapturable || !cmpCapturable.CanCapture(entityOwner)))
 			continue;
 
-		if (heightDiff > this.GetRange(type).max)
+		let range = this.GetRange(type).max;
+		if (!range || heightDiff > range)
 			continue;
 
 		let restrictedClasses = this.GetRestrictedClasses(type);
@@ -513,7 +514,8 @@ Attack.prototype.PerformAttack = function(type, target)
 		//  * Obstacles like trees could reduce the probability of the target being hit
 		//  * Obstacles like walls should block projectiles entirely
 
-		let horizSpeed = +this.template[type].Projectile.Speed;
+		// Note: this does not work properly
+		let horizSpeed = ApplyValueModificationsToEntity("Attack/Ranged/Speed", +this.template[type].Projectile.Speed, this.entity);
 		let gravity = +this.template[type].Projectile.Gravity;
 		// horizSpeed /= 2; gravity /= 2; // slow it down for testing
 

@@ -47,6 +47,18 @@ Health.prototype.Schema =
 			"<text/>" +
 		"</element>" +
 	"</optional>" +
+	"<optional>" +
+		"<element name='SpawnLootOnDeath' a:help='Same sa SpawnEntityOnDeath just to not interfear with 0ad'>" +
+			"<attribute name='datatype'>" +
+				"<value>tokens</value>" +
+			"</attribute>" +
+		"</element>" +
+	"</optional>" +
+	"<optional>" +
+		"<element name='CanBeResurected'>" +
+			"<data type='boolean'/>" +
+		"</element>" +
+	"</optional>" +
 	"<element name='Unhealable' a:help='Indicates that the entity can not be healed by healer units'>" +
 		"<data type='boolean'/>" +
 	"</element>";
@@ -60,8 +72,11 @@ Health.prototype.Init = function()
 	this.hitpoints = +(this.template.Initial || this.GetMaxHitpoints());
 	this.regenRate = ApplyValueModificationsToEntity("Health/RegenRate", +this.template.RegenRate, this.entity);
 	this.idleRegenRate = ApplyValueModificationsToEntity("Health/IdleRegenRate", +this.template.IdleRegenRate, this.entity);
+	this.degreesOnMove = ApplyValueModificationsToEntity("Health/DegreesOnMove", 0, this.entity);
+	this.resurectionTimer = undefined;
 	this.CheckRegenTimer();
 	this.UpdateActor();
+	this.resPos = undefined;
 };
 
 /**
@@ -126,6 +141,46 @@ Health.prototype.GetIdleRegenRate = function()
 Health.prototype.GetRegenRate = function()
 {
 	return this.regenRate;
+};
+
+Health.prototype.ExecuteDegree = function()
+{
+	const degree = this.GetDegreeRate();
+	if (!degree)
+		return;
+	const cmpUnitAI = Engine.QueryInterface(this.entity, IID_UnitAI);
+	if (cmpUnitAI && !cmpUnitAI.IsIdle())
+		this.Reduce(degree);
+};
+
+Health.prototype.GetDegreeRate = function()
+{
+	return this.degreesOnMove;
+};
+
+Health.prototype.GetLootOnDeath = function()
+{
+   if (!this.template.SpawnLootOnDeath)
+	   return [];
+   return this.template.SpawnLootOnDeath._string.split(/\s+/);
+};
+
+Health.prototype.CheckDegreeTimer = function()
+{
+	if (this.GetDegreeRate() == 0 || this.hitpoints == 0) {
+		if (this.degreeTimer) {
+			const cmpTimer = Engine.QueryInterface(SYSTEM_ENTITY, IID_Timer);
+			cmpTimer.CancelTimer(this.degreeTimer);
+			this.degreeTimer = undefined;
+		}
+		return;
+	}
+
+	if (this.degreeTimer)
+		return;
+
+	const cmpTimer = Engine.QueryInterface(SYSTEM_ENTITY, IID_Timer);
+	cmpTimer.SetInterval(this.entity, IID_Health, "ExecuteDegree", 0, 1000, null);
 };
 
 Health.prototype.ExecuteRegeneration = function()
@@ -285,6 +340,9 @@ Health.prototype.HandleDeath = function()
 	if (this.template.SpawnEntityOnDeath)
 		this.CreateDeathSpawnedEntity();
 
+	if (this.template.SpawnLootOnDeath)
+		this.CreateSpawnedLootEntities();
+
 	switch (this.template.DeathType)
 	{
 	case "corpse":
@@ -302,7 +360,54 @@ Health.prototype.HandleDeath = function()
 		break;
 	}
 
-	Engine.DestroyEntity(this.entity);
+//TODO: check for map settings as well
+	if (this.template.CanBeResurected)
+		this.StartResurectionTimer();
+	else {
+		const cmpInventory = Engine.QueryInterface(this.entity, IID_Inventory);
+		if (cmpInventory)
+			cmpInventory.DropAll();
+		Engine.DestroyEntity(this.entity);
+	}
+};
+
+Health.prototype.StartResurectionTimer = function()
+{
+     if (this.hitpoints) {
+		warn("Trying to start resurection timer on alive entity " + this.entity);
+		return;
+     }
+     const cmpPosition = Engine.QueryInterface(this.entity, IID_Position);
+     if (!cmpPosition)
+		warn("Health.StartResurectionTimer: Entity " + this.entity + " does not have position");
+     else if (!cmpPosition.IsInWorld())
+     	warn("Health.StartResurectionTimer: Entity " + this.entity + " is already out of world");
+     else {
+     	this.resPos = cmpPosition.GetPosition();
+     	cmpPosition.MoveOutOfWorld();
+     }
+     const cmpTimer = Engine.QueryInterface(SYSTEM_ENTITY, IID_Timer);
+     this.regenerationTimer = cmpTimer.SetTimeout(this.entity, IID_Health, "Resurect", 6 * 1000, null);
+}
+
+Health.prototype.Resurect = function()
+{
+	// Do not resurect alive entity
+	if (this.hitpoints) {
+		warn("Trying to resurect alive entity " + this.entity);
+		return;
+    }
+	const old = this.hitpoints;
+	this.hitpoints = +(this.template.Initial || this.GetMaxHitpoints());
+
+	const cmpRangeManager = Engine.QueryInterface(SYSTEM_ENTITY, IID_RangeManager);
+	if (cmpRangeManager)
+		cmpRangeManager.SetEntityFlag(this.entity, "injured", this.IsInjured());
+
+	this.RegisterHealthChanged(old);
+
+    const cmpPosition = Engine.QueryInterface(this.entity, IID_Position);
+	cmpPosition.JumpTo(this.resPos.x, this.resPos.z);
 };
 
 Health.prototype.Increase = function(amount)
@@ -384,6 +489,26 @@ Health.prototype.CreateCorpse = function()
 		});
 };
 
+Health.prototype.CreateSpawnedLootEntities = function()
+{
+	// If the unit died while not in the world, don't spawn a death entity for it
+	// since there's nowhere for it to be placed
+	const cmpPosition = Engine.QueryInterface(this.entity, IID_Position);
+	if (!cmpPosition.IsInWorld())
+		return INVALID_ENTITY;
+	const pos = cmpPosition.GetPosition();
+	const rot = cmpPosition.GetRotation();
+
+	const loots = this.GetLootOnDeath();
+	for (let i in loots) {
+		let spawnedEntity = Engine.AddEntity(loots[i]);
+		let cmpSpawnedPosition = Engine.QueryInterface(spawnedEntity, IID_Position);
+		cmpSpawnedPosition.JumpTo(pos.x, pos.z);
+		cmpSpawnedPosition.SetYRotation(rot.y);
+		cmpSpawnedPosition.SetXZRotation(rot.x, rot.z);
+	}
+};
+
 Health.prototype.CreateDeathSpawnedEntity = function()
 {
 	// If the unit died while not in the world, don't spawn a death entity for it
@@ -459,8 +584,14 @@ Health.prototype.RecalculateValues = function()
 	let oldIdleRegenRate = this.idleRegenRate;
 	this.idleRegenRate = ApplyValueModificationsToEntity("Health/IdleRegenRate", +this.template.IdleRegenRate, this.entity);
 
+	let oldDegreesOnMove = this.degreesOnMove;
+	this.degreesOnMove = ApplyValueModificationsToEntity("Health/DegreesOnMove", 0, this.entity);
+
 	if (this.regenRate != oldRegenRate || this.idleRegenRate != oldIdleRegenRate)
 		this.CheckRegenTimer();
+
+	if (this.degreesOnMove != oldDegreesOnMove)
+		this.CheckDegreeTimer();
 };
 
 Health.prototype.OnValueModification = function(msg)

@@ -335,13 +335,12 @@ StatusBars.prototype.AddRankIcon = function(cmpOverlayRenderer, yoffset)
 	if (!this.enabled || !this.showRank)
 		return 0;
 
-	let cmpIdentity = Engine.QueryInterface(this.entity, IID_Identity);
-	if (!cmpIdentity || !cmpIdentity.GetRank())
+	let cmpExperience = Engine.QueryInterface(this.entity, IID_Experience);
+	if (!cmpExperience || !cmpExperience.GetRankExt())
 		return 0;
 
 	let iconSize = +this.template.BarWidth / 2;
-	cmpOverlayRenderer.AddSprite(
-		"art/textures/ui/session/icons/ranks/" + cmpIdentity.GetRank() + ".png",
+	cmpOverlayRenderer.AddSprite("art/textures/ui/session/icons/ranks/" + cmpExperience.GetRankExt() + ".png",
 		{ "x": -iconSize / 2, "y": yoffset },
 		{ "x": iconSize / 2, "y": iconSize + yoffset },
 		{ "x": 0, "y": +this.template.HeightOffset + 0.1, "z": 0 },

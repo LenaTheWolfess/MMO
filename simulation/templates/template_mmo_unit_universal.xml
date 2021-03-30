@@ -2,6 +2,7 @@
 <Entity parent="template_mmo_unit">
   <Attack>
     <Melee>
+      <AttackName>melee</AttackName>
       <Damage>
          <Hack>0.0</Hack>
          <Pierce>0.0</Pierce>
@@ -14,6 +15,7 @@
       <PreferredClasses datatype="tokens">Human</PreferredClasses>
     </Melee>
     <Ranged>
+      <AttackName>ranged</AttackName>
       <Damage>
            <Hack>0.0</Hack>
            <Pierce>0.0</Pierce>

@@ -11,12 +11,14 @@
   </Resistance>
   <Attack>
     <Capture>
+      <AttackName>Capture</AttackName>
       <Capture>2</Capture>
       <MaxRange>4</MaxRange>
       <RepeatTime>1000</RepeatTime>
       <RestrictedClasses datatype="tokens">Field Palisade SiegeWall StoneWall</RestrictedClasses>
     </Capture>
     <Slaughter>
+      <AttackName>Slaughter</AttackName>
       <Damage>
         <Hack>50.0</Hack>
         <Pierce>0.0</Pierce>

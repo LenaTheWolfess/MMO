@@ -10,6 +10,7 @@ UnitAI.prototype.Schema =
 			"<value>defensive</value>" +
 			"<value>passive</value>" +
 			"<value>standground</value>" +
+			"<value>none</value>" +
 		"</choice>" +
 	"</element>" +
 	"<element name='FormationController'>" +
@@ -85,7 +86,7 @@ var g_Stances = {
 		"respondChaseBeyondVision": true,
 		"respondStandGround": false,
 		"respondHoldGround": false,
-		"selectable": true
+		"selectable": false
 	},
 	"aggressive": {
 		"targetVisibleEnemies": true,
@@ -95,7 +96,7 @@ var g_Stances = {
 		"respondChaseBeyondVision": false,
 		"respondStandGround": false,
 		"respondHoldGround": false,
-		"selectable": true
+		"selectable": false
 	},
 	"defensive": {
 		"targetVisibleEnemies": true,
@@ -105,7 +106,7 @@ var g_Stances = {
 		"respondChaseBeyondVision": false,
 		"respondStandGround": false,
 		"respondHoldGround": true,
-		"selectable": true
+		"selectable": false
 	},
 	"passive": {
 		"targetVisibleEnemies": false,
@@ -115,7 +116,7 @@ var g_Stances = {
 		"respondChaseBeyondVision": false,
 		"respondStandGround": false,
 		"respondHoldGround": false,
-		"selectable": true
+		"selectable": false
 	},
 	"standground": {
 		"targetVisibleEnemies": true,
@@ -125,7 +126,7 @@ var g_Stances = {
 		"respondChaseBeyondVision": false,
 		"respondStandGround": true,
 		"respondHoldGround": false,
-		"selectable": true
+		"selectable": false
 	},
 	"none": {
 		// Only to be used by AI or trigger scripts
@@ -177,6 +178,14 @@ UnitAI.prototype.UnitFsmSpec = {
 
 	"LosHealRangeUpdate": function(msg) {
 		// Ignore newly-seen injured units by default.
+	},
+
+	"FinishAbility": function() {
+		// ignore
+	},
+
+	"HealthChanged": function(msg) {
+		// ignore
 	},
 
 	"LosAttackRangeUpdate": function(msg) {
@@ -412,6 +421,37 @@ UnitAI.prototype.UnitFsmSpec = {
 			this.SetNextState("INDIVIDUAL.FLEEING");
 	},
 
+		"Order.Ability": function(msg) {
+		if (this.IsAnimal()){
+			this.FinishOrder();
+			return;
+		}
+
+		if (!this.TargetIsAlive(this.order.data.target))
+		{
+			this.FinishOrder();
+			return;
+		}
+
+		const cmpAbilities = Engine.QueryInterface(this.entity, IID_Abilities);
+		if (!cmpAbilities ) {
+			this.FinishOrder();
+			return;
+		}
+		const number = this.order.data.number;
+		if (!cmpAbilities.HasAbility(number) || cmpAbilities.IsOnCooldown(number)){
+			warn("skip");
+			this.FinishOrder();
+			return;
+		}
+		let st = "INDIVIDUAL.ABILITY.EXECUTE";
+		if (!this.CheckTargetRange(this.order.data.target, IID_Abilities, number))
+			st = "INDIVIDUAL.ABILITY.APPROACHING";
+
+		this.SetNextState(st);
+
+	},
+
 	"Order.Attack": function(msg) {
 		let type = this.GetBestAttackAgainst(this.order.data.target, this.order.data.allowCapture);
 		if (!type)
@@ -588,6 +628,13 @@ UnitAI.prototype.UnitFsmSpec = {
 		else
 			this.SetNextState("INDIVIDUAL.GATHER.APPROACHING");
 	},
+
+	"Order.Pick": function(msg) {
+        if (this.CheckTargetRange(this.order.data.target, IID_ResourceGatherer))
+            this.SetNextState("INDIVIDUAL.PICK.PICKING");
+        else
+            this.SetNextState("INDIVIDUAL.PICK.APPROACHING");
+     },
 
 	"Order.GatherNearPosition": function(msg) {
 		this.SetNextState("INDIVIDUAL.GATHER.WALKING");
@@ -1548,6 +1595,54 @@ UnitAI.prototype.UnitFsmSpec = {
 			}
 		},
 
+		"ABILITY": {
+			"APPROACHING": {
+				"enter": function() {
+					if (!this.MoveToTargetAbilityRange(this.order.data.target, this.order.data.number))
+					{
+						this.FinishOrder();
+						return true;
+					}
+					return false;
+				},
+				"leave": function() {
+					this.StopMoving();
+				},
+				"MovementUpdate": function(msg) {
+					if (msg.likelyFailure) {
+						this.FinishOrder();
+					}
+					else if (this.CheckTargetRange(this.order.data.target, IID_Abilities, this.order.data.number)) {
+						warn(this.order.data.number + " in range");
+						this.SetNextState("EXECUTE");
+					}
+					else if(msg.likelySuccess) {
+						if (!this.MoveToTargetAbilityRange(this.order.data.target, this.order.data.number))
+							this.FinishOrder();
+					}
+				}
+			},
+
+			"EXECUTE": {
+				"enter": function() {
+					const cmpAbilities = Engine.QueryInterface(this.entity, IID_Abilities);
+					let number = this.order.data.number;
+					let name = cmpAbilities.GetName(number);
+					warn(name);
+					return !cmpAbilities.Execute(number, this.order.data);
+				},
+				"FinishAbility": function() {
+					this.FinishOrder();
+				},
+				"leave": function() {
+					warn("leaving ability state");
+					this.ResetAnimation();
+					this.SetDefaultAnimationVariant();
+					this.StopMoving();
+				}
+			}
+		},
+
 		"IDLE": {
 			"Order.Cheer": function() {
 				// Do not cheer if there is no cheering time and we are not idle yet.
@@ -1926,6 +2021,10 @@ UnitAI.prototype.UnitFsmSpec = {
 				if (this.CheckTargetRangeExplicit(this.order.data.target, this.order.data.distanceToFlee, -1) ||
 				    !cmpUnitMotion || !cmpUnitMotion.MoveToTargetRange(this.order.data.target, this.order.data.distanceToFlee, -1))
 					this.FinishOrder();
+			},
+
+			"HealthChanged": function() {
+				this.SetSpeedMultiplier(this.GetRunMultiplier());
 			},
 
 			"Attacked": function(msg) {
@@ -2374,6 +2473,39 @@ UnitAI.prototype.UnitFsmSpec = {
 				},
 			},
 		},
+
+		"PICK": {
+            "APPROACHING": {
+                "enter": function() {
+                    if (!this.MoveTo(this.order.data, IID_ResourceGatherer)) {
+                        this.SetNextState("INDIVIDUAL.IDLE");
+                        return true;
+                    }
+                    return false;
+                },
+                "MovementUpdate": function(msg) {
+                    if (msg.likelyFailure)
+                        this.SetNextState("INDIVIDUAL.IDLE");
+                    else if (this.CheckRange(this.order.data, IID_ResourceGatherer))
+                        this.SetNextState("PICKING");
+                },
+                "leave": function() {
+                    this.StopMoving();
+                }
+            },
+            "PICKING": {
+                "enter": function() {
+                    const cmpInventory = Engine.QueryInterface(this.entity, IID_Inventory);
+                    if (!cmpInventory) {
+                        this.FinishOrder();
+                        return true;
+                    }
+                    cmpInventory.Add(this.order.data.target);
+                    this.FinishOrder();
+                    return true;
+                }
+            }
+        },
 
 		"GATHER": {
 			"leave": function() {
@@ -4404,6 +4536,11 @@ UnitAI.prototype.OnGuardedAttacked = function(msg)
 	this.UnitFsm.ProcessMessage(this, {"type": "GuardedAttacked", "data": msg.data});
 };
 
+UnitAI.prototype.OnHealthChanged = function(msg)
+{
+	this.UnitFsm.ProcessMessage(this, {"type": "HealthChanged", "from": msg.from, "to": msg.to});
+};
+
 UnitAI.prototype.OnRangeUpdate = function(msg)
 {
 	if (msg.tag == this.losRangeQuery)
@@ -4810,6 +4947,11 @@ UnitAI.prototype.MoveToTargetAttackRange = function(target, type)
 	let guessedMaxRange = parabolicMaxRange > range.max ? (range.max + parabolicMaxRange) / 2 : parabolicMaxRange;
 
 	return cmpUnitMotion && cmpUnitMotion.MoveToTargetRange(target, range.min, guessedMaxRange);
+};
+
+UnitAI.prototype.MoveToTargetAbilityRange = function(target, number)
+{
+	return this.MoveToTargetRange(target, IID_Abilities, number);
 };
 
 UnitAI.prototype.MoveToTargetRangeExplicit = function(target, min, max)
@@ -5684,6 +5826,40 @@ UnitAI.prototype.Gather = function(target, queued)
 	this.PerformGather(target, queued, true);
 };
 
+UnitAI.prototype.Pick = function(target)
+{
+    this.PerformPick(target);
+}
+
+UnitAI.prototype.PickAndUse = function(target)
+{
+    this.PerformPick(target);
+}
+
+UnitAI.prototype.DropItem = function(item)
+{
+    const cmpInventory = Engine.QueryInterface(this.entity, IID_Inventory);
+    if (!cmpInventory)
+        return;
+    cmpInventory.DropSafe(item);
+}
+
+UnitAI.prototype.UnEquipItem = function(item)
+{
+    const cmpInventory = Engine.QueryInterface(this.entity, IID_Inventory);
+    if (!cmpInventory)
+        return;
+    cmpInventory.UnEquipSafe(item);
+}
+
+UnitAI.prototype.UseItem = function(item)
+{
+    const cmpInventory = Engine.QueryInterface(this.entity, IID_Inventory);
+    if (!cmpInventory)
+        return;
+    cmpInventory.Use(item);
+}
+
 /**
  * Internal function to abstract the force parameter.
  */
@@ -5733,6 +5909,15 @@ UnitAI.prototype.PerformGather = function(target, queued, force)
 	}
 
 	this.AddOrder("Gather", order, queued);
+};
+
+UnitAI.prototype.PerformPick = function(target)
+{
+	const order = {
+		"target": target,
+		"force": true,
+	};
+	this.AddOrder("Pick", order, false);
 };
 
 /**
@@ -6676,6 +6861,23 @@ UnitAI.prototype.TestAllMemberFunction = function(funcname, args)
 		return cmpUnitAI[funcname].apply(cmpUnitAI, args);
 	});
 };
+
+UnitAI.prototype.Ability = function(cmd)
+{
+    warn("Ability " + cmd.number);
+    this.PushOrderFront("Ability", {"number": cmd.number, "target": cmd.target});
+}
+
+UnitAI.prototype.FinishAbility = function()
+{
+    warn("Finish ability");
+    this.UnitFsm.ProcessMessage(this, {"type": "FinishAbility"});
+}
+
+UnitAI.prototype.UseAbility = function(cmd)
+{
+	warn("Ability " + cmd.number);
+}
 
 UnitAI.prototype.UnitFsm = new FSM(UnitAI.prototype.UnitFsmSpec);
 

@@ -3,6 +3,7 @@
   <AIProxy/>
   <Attack>
     <Capture>
+      <AttackName>Capture</AttackName>
       <Capture>20</Capture>
       <MaxRange>4</MaxRange>
       <RepeatTime>1000</RepeatTime>
@@ -125,6 +126,7 @@
     <FormationController>false</FormationController>
     <CanGuard>true</CanGuard>
     <CanPatrol>true</CanPatrol>
+    <PatrolWaitTime>1</PatrolWaitTime>
   </UnitAI>
   <UnitMotion>
     <FormationController>false</FormationController>

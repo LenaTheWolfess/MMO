@@ -267,6 +267,42 @@ GuiInterface.prototype.GetEntityState = function(player, ent)
 			"controllable": cmpIdentity.IsControllable()
 		};
 
+	const cmpEquipment = Engine.QueryInterface(ent, IID_Equipment);
+    if (cmpEquipment)
+        ret.equipment = {
+            "type": cmpEquipment.GetType(),
+            "specific": cmpEquipment.GetTypeSpecific(),
+            "usable": cmpEquipment.IsUsable(),
+            "category": cmpEquipment.GetCategory()
+        };
+
+    const cmpItem = Engine.QueryInterface(ent, IID_Item);
+    if (cmpItem)
+        ret.item = {
+            "type": cmpItem.GetType()
+        }
+
+    const cmpInventory = Engine.QueryInterface(ent, IID_Inventory);
+    if (cmpInventory)
+        ret.inventory = {
+            "items": cmpInventory.GetItems(),
+            "bag": cmpInventory.GetBag()
+        };
+
+	const cmpExperience = Engine.QueryInterface(ent, IID_Experience);
+	if (cmpExperience)
+		ret.experience = {
+			"rank": cmpExperience.GetRank(),
+			"maxLevel": cmpExperience.IsMaxLeveled(),
+			"curr": cmpExperience.GetCurrentXp(),
+			"req": cmpExperience.GetRequiredXp(),
+			"level": cmpExperience.GetLevel()
+		};
+
+	const cmpAbilities = Engine.QueryInterface(ent, IID_Abilities);
+	if (cmpAbilities)
+		ret.abilities = cmpAbilities.GetActiveAbilities();
+
 	let cmpPosition = Engine.QueryInterface(ent, IID_Position);
 	if (cmpPosition && cmpPosition.IsInWorld())
 		ret.position = cmpPosition.GetPosition();
