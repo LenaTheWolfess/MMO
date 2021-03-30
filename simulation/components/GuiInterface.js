@@ -101,6 +101,7 @@ GuiInterface.prototype.GetSimulationState = function()
 			"popMax": cmpPlayer.GetMaxPopulation(),
 			"panelEntities": cmpPlayer.GetPanelEntities(),
 			"resourceCounts": cmpPlayer.GetResourceCounts(),
+			"resourceGatherers": cmpPlayer.GetResourceGatherers(),
 			"trainingBlocked": cmpPlayer.IsTrainingBlocked(),
 			"state": cmpPlayer.GetState(),
 			"team": cmpPlayer.GetTeam(),
@@ -118,14 +119,15 @@ GuiInterface.prototype.GetSimulationState = function()
 			"isEnemy": enemies,
 			"entityLimits": cmpPlayerEntityLimits ? cmpPlayerEntityLimits.GetLimits() : null,
 			"entityCounts": cmpPlayerEntityLimits ? cmpPlayerEntityLimits.GetCounts() : null,
+			"matchEntityCounts": cmpPlayerEntityLimits ? cmpPlayerEntityLimits.GetMatchCounts() : null,
 			"entityLimitChangers": cmpPlayerEntityLimits ? cmpPlayerEntityLimits.GetLimitChangers() : null,
 			"researchQueued": cmpTechnologyManager ? cmpTechnologyManager.GetQueuedResearch() : null,
 			"researchStarted": cmpTechnologyManager ? cmpTechnologyManager.GetStartedTechs() : null,
 			"researchedTechs": cmpTechnologyManager ? cmpTechnologyManager.GetResearchedTechs() : null,
 			"classCounts": cmpTechnologyManager ? cmpTechnologyManager.GetClassCounts() : null,
 			"typeCountsByClass": cmpTechnologyManager ? cmpTechnologyManager.GetTypeCountsByClass() : null,
-			"canBarter": Engine.QueryInterface(SYSTEM_ENTITY, IID_Barter).PlayerHasMarket(i),
-			"barterPrices": Engine.QueryInterface(SYSTEM_ENTITY, IID_Barter).GetPrices(i)
+			"canBarter": cmpPlayer.CanBarter(),
+			"barterPrices": Engine.QueryInterface(SYSTEM_ENTITY, IID_Barter).GetPrices(cmpPlayer)
 		});
 	}
 
@@ -258,66 +260,13 @@ GuiInterface.prototype.GetEntityState = function(player, ent)
 		ret.identity = {
 			"rank": cmpIdentity.GetRank(),
 			"classes": cmpIdentity.GetClassesList(),
-			"visibleClasses": cmpIdentity.GetVisibleClassesList(),
 			"selectionGroupName": cmpIdentity.GetSelectionGroupName(),
 			"canDelete": !cmpIdentity.IsUndeletable(),
 			"hasSomeFormation": cmpIdentity.HasSomeFormation(),
-			"formations": cmpIdentity.GetFormationsList()
+			"formations": cmpIdentity.GetFormationsList(),
+			"controllable": cmpIdentity.IsControllable()
 		};
 
-    const cmpEquipment = Engine.QueryInterface(ent, IID_Equipment);
-    if (cmpEquipment)
-        ret.equipment = {
-            "type": cmpEquipment.GetType(),
-            "specific": cmpEquipment.GetTypeSpecific(),
-            "usable": cmpEquipment.IsUsable(),
-            "category": cmpEquipment.GetCategory()
-        };
-
-    const cmpItem = Engine.QueryInterface(ent, IID_Item);
-    if (cmpItem)
-        ret.item = {
-            "type": cmpItem.GetType()
-        }
-
-    const cmpInventory = Engine.QueryInterface(ent, IID_Inventory);
-    if (cmpInventory)
-        ret.inventory = {
-            "items": cmpInventory.GetItems(),
-            "bag": cmpInventory.GetBag()
-        };
-
-    const cmpExperience = Engine.QueryInterface(ent, IID_Experience);
-    if (cmpExperience)
-        ret.experience = {
-            "rank": cmpExperience.GetRank(),
-            "maxLevel": cmpExperience.IsMaxLeveled(),
-            "curr": cmpExperience.GetCurrentXp(),
-            "req": cmpExperience.GetRequiredXp(),
-            "level": cmpExperience.GetLevel()
-        };
-
-	const cmpInventory = Engine.QueryInterface(ent, IID_Inventory);
-	if (cmpInventory)
-		ret.inventory = {
-			"items": cmpInventory.GetItems(),
-			"bag": cmpInventory.GetBag()
-		};
-
-	const cmpExperience = Engine.QueryInterface(ent, IID_Experience);
-	if (cmpExperience)
-		ret.experience = {
-			"rank": cmpExperience.GetRank(),
-			"maxLevel": cmpExperience.IsMaxLeveled(),
-			"curr": cmpExperience.GetCurrentXp(),
-			"req": cmpExperience.GetRequiredXp(),
-			"level": cmpExperience.GetLevel()
-		};
-	
-	const cmpAbilities = Engine.QueryInterface(ent, IID_Abilities);
-	if (cmpAbilities)
-		ret.abilities = cmpAbilities.GetActiveAbilities();
-	
 	let cmpPosition = Engine.QueryInterface(ent, IID_Position);
 	if (cmpPosition && cmpPosition.IsInWorld())
 		ret.position = cmpPosition.GetPosition();
@@ -356,12 +305,19 @@ GuiInterface.prototype.GetEntityState = function(player, ent)
 			"progress": cmpPack.GetProgress()
 		};
 
+	let cmpPopulation = Engine.QueryInterface(ent, IID_Population);
+	if (cmpPopulation)
+		ret.population = {
+			"bonus": cmpPopulation.GetPopBonus()
+		};
+
 	let cmpUpgrade = Engine.QueryInterface(ent, IID_Upgrade);
 	if (cmpUpgrade)
 		ret.upgrade = {
 			"upgrades": cmpUpgrade.GetUpgrades(),
 			"progress": cmpUpgrade.GetProgress(),
-			"template": cmpUpgrade.GetUpgradingTo()
+			"template": cmpUpgrade.GetUpgradingTo(),
+			"isUpgrading": cmpUpgrade.IsUpgrading()
 		};
 
 	let cmpStatusEffects = Engine.QueryInterface(ent, IID_StatusEffectsReceiver);
@@ -421,7 +377,11 @@ GuiInterface.prototype.GetEntityState = function(player, ent)
 			"turretPoints": cmpTurretHolder.GetTurretPoints()
 		};
 
-	ret.canGarrison = !!Engine.QueryInterface(ent, IID_Garrisonable);
+	let cmpGarrisonable = Engine.QueryInterface(ent, IID_Garrisonable);
+	if (cmpGarrisonable)
+		ret.garrisonable = {
+			"holder": cmpGarrisonable.HolderID()
+		};
 
 	let cmpUnitAI = Engine.QueryInterface(ent, IID_UnitAI);
 	if (cmpUnitAI)
@@ -474,6 +434,8 @@ GuiInterface.prototype.GetEntityState = function(player, ent)
 			ret.attack[type] = {};
 
 			Object.assign(ret.attack[type], cmpAttack.GetAttackEffectsData(type));
+
+			ret.attack[type].attackName = cmpAttack.GetAttackName(type);
 
 			ret.attack[type].splash = cmpAttack.GetSplashData(type);
 			if (ret.attack[type].splash)
@@ -704,7 +666,11 @@ GuiInterface.prototype.GetBattleState = function(player)
  */
 GuiInterface.prototype.GetIncomingAttacks = function(player)
 {
-	return QueryPlayerIDInterface(player, IID_AttackDetection).GetIncomingAttacks();
+	let cmpAttackDetection = QueryPlayerIDInterface(player, IID_AttackDetection);
+	if (!cmpAttackDetection)
+		return [];
+
+	return cmpAttackDetection.GetIncomingAttacks();
 };
 
 /**
@@ -712,7 +678,8 @@ GuiInterface.prototype.GetIncomingAttacks = function(player)
  */
 GuiInterface.prototype.GetNeededResources = function(player, data)
 {
-	return QueryPlayerIDInterface(data.player !== undefined ? data.player : player).GetNeededResources(data.cost);
+	let cmpPlayer = QueryPlayerIDInterface(data.player !== undefined ? data.player : player);
+	return cmpPlayer ? cmpPlayer.GetNeededResources(data.cost) : {};
 };
 
 /**
@@ -820,7 +787,11 @@ GuiInterface.prototype.GetNotifications = function()
 
 GuiInterface.prototype.GetAvailableFormations = function(player, wantedPlayer)
 {
-	return QueryPlayerIDInterface(wantedPlayer).GetFormations();
+	let cmpPlayer = QueryPlayerIDInterface(wantedPlayer);
+	if (!cmpPlayer)
+		return [];
+
+	return cmpPlayer.GetFormations();
 };
 
 GuiInterface.prototype.GetFormationRequirements = function(player, data)
@@ -1230,7 +1201,6 @@ GuiInterface.prototype.SetBuildingPlacementPreview = function(player, cmd)
  *     'stone': ...,
  *     'metal': ...,
  *     'population': ...,
- *     'populationBonus': ...,
  *   }
  * }
  *
@@ -1382,7 +1352,7 @@ GuiInterface.prototype.SetWallPlacementPreview = function(player, cmd)
 
 	let result = {
 		"pieces": [],
-		"cost": { "population": 0, "populationBonus": 0, "time": 0 }
+		"cost": { "population": 0, "time": 0 }
 	};
 	for (let res of Resources.GetCodes())
 		result.cost[res] = 0;
@@ -1659,7 +1629,7 @@ GuiInterface.prototype.SetWallPlacementPreview = function(player, cmd)
 			// copied over, so we need to fetch it from the template instead).
 			// TODO: We should really use a Cost object or at least some utility functions for this, this is mindless
 			// boilerplate that's probably duplicated in tons of places.
-			for (let res of Resources.GetCodes().concat(["population", "populationBonus", "time"]))
+			for (let res of Resources.GetCodes().concat(["population", "time"]))
 				result.cost[res] += tplData.cost[res];
 		}
 
@@ -2010,7 +1980,11 @@ GuiInterface.prototype.GetTraderNumber = function(player)
 
 GuiInterface.prototype.GetTradingGoods = function(player)
 {
-	return QueryPlayerIDInterface(player).GetTradingGoods();
+	let cmpPlayer = QueryPlayerIDInterface(player);
+	if (!cmpPlayer)
+		return [];
+
+	return cmpPlayer.GetTradingGoods();
 };
 
 GuiInterface.prototype.OnGlobalEntityRenamed = function(msg)

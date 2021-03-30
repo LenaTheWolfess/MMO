@@ -257,7 +257,7 @@ StatusBars.prototype.AddCaptureBar = function(cmpOverlayRenderer, yoffset)
 		return 0;
 
 	this.usedPlayerColors = true;
-	let cp = cmpCapturable.GetCapturePoints();
+	let capturePoints = cmpCapturable.GetCapturePoints();
 
 	// Size of health bar (in world-space units)
 	let width = +this.template.BarWidth;
@@ -270,7 +270,7 @@ StatusBars.prototype.AddCaptureBar = function(cmpOverlayRenderer, yoffset)
 	{
 		let c = QueryPlayerIDInterface(playerID).GetDisplayedColor();
 		let strColor = (c.r * 255) + " " + (c.g * 255) + " " + (c.b * 255) + " 255";
-		let size = width * cp[playerID] / cmpCapturable.GetMaxCapturePoints();
+		let size = width * capturePoints[playerID] / cmpCapturable.GetMaxCapturePoints();
 
 		cmpOverlayRenderer.AddSprite(
 			"art/textures/ui/session/icons/capture_bar.png",
@@ -285,8 +285,8 @@ StatusBars.prototype.AddCaptureBar = function(cmpOverlayRenderer, yoffset)
 
 	// First handle the owner's points, to keep those points on the left for clarity
 	let size = setCaptureBarPart(owner, -width / 2);
-	for (let i in cp)
-		if (i != owner && cp[i] > 0)
+	for (let i in capturePoints)
+		if (i != owner && capturePoints[i] > 0)
 			size = setCaptureBarPart(i, size);
 
 	return height * 1.2;
@@ -335,13 +335,13 @@ StatusBars.prototype.AddRankIcon = function(cmpOverlayRenderer, yoffset)
 	if (!this.enabled || !this.showRank)
 		return 0;
 
-	let cmpExperience = Engine.QueryInterface(this.entity, IID_Experience);
-	if (!cmpExperience || !cmpExperience.GetRankExt())
+	let cmpIdentity = Engine.QueryInterface(this.entity, IID_Identity);
+	if (!cmpIdentity || !cmpIdentity.GetRank())
 		return 0;
 
 	let iconSize = +this.template.BarWidth / 2;
 	cmpOverlayRenderer.AddSprite(
-		"art/textures/ui/session/icons/ranks/" + cmpExperience.GetRankExt() + ".png",
+		"art/textures/ui/session/icons/ranks/" + cmpIdentity.GetRank() + ".png",
 		{ "x": -iconSize / 2, "y": yoffset },
 		{ "x": iconSize / 2, "y": iconSize + yoffset },
 		{ "x": 0, "y": +this.template.HeightOffset + 0.1, "z": 0 },

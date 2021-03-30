@@ -26,6 +26,7 @@ Attack.prototype.Schema =
 	"<a:help>Controls the attack abilities and strengths of the unit.</a:help>" +
 	"<a:example>" +
 		"<Melee>" +
+			"<AttackName>Spear</AttackName>" +
 			"<Damage>" +
 				"<Hack>10.0</Hack>" +
 				"<Pierce>0.0</Pierce>" +
@@ -48,6 +49,7 @@ Attack.prototype.Schema =
 			"<PreferredClasses datatype=\"tokens\">Cavalry Infantry</PreferredClasses>" +
 		"</Melee>" +
 		"<Ranged>" +
+			"<AttackName>Bow</AttackName>" +
 			"<Damage>" +
 				"<Hack>0.0</Hack>" +
 				"<Pierce>10.0</Pierce>" +
@@ -97,6 +99,14 @@ Attack.prototype.Schema =
 	"<optional>" +
 		"<element name='Melee'>" +
 			"<interleave>" +
+				"<element name='AttackName' a:help='Name of the attack, to be displayed in the GUI. Optionally includes a translate context attribute.'>" +
+					"<optional>" +
+						"<attribute name='context'>" +
+							"<text/>" +
+						"</attribute>" +
+					"</optional>" +
+					"<text/>" +
+				"</element>" +
 				Attacking.BuildAttackEffectsSchema() +
 				"<element name='MaxRange' a:help='Maximum attack range (in metres)'><ref name='nonNegativeDecimal'/></element>" +
 				"<element name='PrepareTime' a:help='Time from the start of the attack command until the attack actually occurs (in milliseconds). This value relative to RepeatTime should closely match the \"event\" point in the actor&apos;s attack animation'>" +
@@ -113,6 +123,14 @@ Attack.prototype.Schema =
 	"<optional>" +
 		"<element name='Ranged'>" +
 			"<interleave>" +
+				"<element name='AttackName' a:help='Name of the attack, to be displayed in the GUI. Optionally includes a translate context attribute.'>" +
+					"<optional>" +
+						"<attribute name='context'>" +
+							"<text/>" +
+						"</attribute>" +
+					"</optional>" +
+					"<text/>" +
+				"</element>" +
 				Attacking.BuildAttackEffectsSchema() +
 				"<element name='MaxRange' a:help='Maximum attack range (in metres)'><ref name='nonNegativeDecimal'/></element>" +
 				"<element name='MinRange' a:help='Minimum attack range (in metres)'><ref name='nonNegativeDecimal'/></element>" +
@@ -185,6 +203,14 @@ Attack.prototype.Schema =
 	"<optional>" +
 		"<element name='Capture'>" +
 			"<interleave>" +
+				"<element name='AttackName' a:help='Name of the attack, to be displayed in the GUI. Optionally includes a translate context attribute.'>" +
+					"<optional>" +
+						"<attribute name='context'>" +
+							"<text/>" +
+						"</attribute>" +
+					"</optional>" +
+					"<text/>" +
+				"</element>" +
 				Attacking.BuildAttackEffectsSchema() +
 				"<element name='MaxRange' a:help='Maximum attack range (in meters)'><ref name='nonNegativeDecimal'/></element>" +
 				"<element name='RepeatTime' a:help='Time between attacks (in milliseconds). The attack animation will be stretched to match this time'>" + // TODO: it shouldn't be stretched
@@ -198,6 +224,14 @@ Attack.prototype.Schema =
 	"<optional>" +
 		"<element name='Slaughter' a:help='A special attack to kill domestic animals'>" +
 			"<interleave>" +
+				"<element name='AttackName' a:help='Name of the attack, to be displayed in the GUI. Optionally includes a translate context attribute.'>" +
+					"<optional>" +
+						"<attribute name='context'>" +
+							"<text/>" +
+						"</attribute>" +
+					"</optional>" +
+					"<text/>" +
+				"</element>" +
 				Attacking.BuildAttackEffectsSchema() +
 				"<element name='MaxRange'><ref name='nonNegativeDecimal'/></element>" + // TODO: how do these work?
 				Attack.prototype.preferredClassesSchema +
@@ -285,9 +319,7 @@ Attack.prototype.CanAttack = function(target, wantedTypes)
 		if (type == "Capture" && (!cmpCapturable || !cmpCapturable.CanCapture(entityOwner)))
 			continue;
 
-		let range = this.GetRange(type).max;
-		
-		if (!range || heightDiff > range)
+		if (heightDiff > this.GetRange(type).max)
 			continue;
 
 		let restrictedClasses = this.GetRestrictedClasses(type);
@@ -316,13 +348,15 @@ Attack.prototype.GetPreference = function(target)
 	for (let type of this.GetAttackTypes())
 	{
 		let preferredClasses = this.GetPreferredClasses(type);
-		for (let targetClass of targetClasses)
+		for (let pref = 0; pref < preferredClasses.length; ++pref)
 		{
-			let pref = preferredClasses.indexOf(targetClass);
-			if (pref === 0)
-				return pref;
-			if (pref != -1 && (minPref === null || minPref > pref))
-				minPref = pref;
+			if (MatchesClassList(targetClasses, preferredClasses[pref]))
+			{
+				if (pref === 0)
+					return pref;
+				if ((minPref === null || minPref > pref))
+					minPref = pref;
+			}
 		}
 	}
 	return minPref;
@@ -405,6 +439,14 @@ Attack.prototype.CompareEntitiesByPreference = function(a, b)
 	return aPreference - bPreference;
 };
 
+Attack.prototype.GetAttackName = function(type)
+{
+	return {
+		"name": this.template[type].AttackName._string || this.template[type].AttackName,
+		"context": this.template[type].AttackName["@context"]
+	};
+};
+
 Attack.prototype.GetRepeatTime = function(type)
 {
 	let repeatTime = 1000;
@@ -471,11 +513,13 @@ Attack.prototype.PerformAttack = function(type, target)
 		//  * Obstacles like trees could reduce the probability of the target being hit
 		//  * Obstacles like walls should block projectiles entirely
 
-		// Note: this does not work properly
-		let horizSpeed = ApplyValueModificationsToEntity("Attack/Ranged/Speed", +this.template[type].Projectile.Speed, this.entity);
+		let horizSpeed = +this.template[type].Projectile.Speed;
 		let gravity = +this.template[type].Projectile.Gravity;
 		// horizSpeed /= 2; gravity /= 2; // slow it down for testing
 
+		// We will try to estimate the position of the target, where we can hit it.
+		// We first estimate the time-till-hit by extrapolating linearly the movement
+		// of the last turn. We compute the time till an arrow will intersect the target.
 		let cmpPosition = Engine.QueryInterface(this.entity, IID_Position);
 		if (!cmpPosition || !cmpPosition.IsInWorld())
 			return;
@@ -485,11 +529,38 @@ Attack.prototype.PerformAttack = function(type, target)
 			return;
 		let targetPosition = cmpTargetPosition.GetPosition();
 
-		let previousTargetPosition = Engine.QueryInterface(target, IID_Position).GetPreviousPosition();
-		let targetVelocity = Vector3D.sub(targetPosition, previousTargetPosition).div(turnLength);
+		let targetVelocity = Vector3D.sub(targetPosition, cmpTargetPosition.GetPreviousPosition()).div(turnLength);
 
-		let timeToTarget = this.PredictTimeToTarget(selfPosition, horizSpeed, targetPosition, targetVelocity);
-		let predictedPosition = (timeToTarget !== false) ? Vector3D.mult(targetVelocity, timeToTarget).add(targetPosition) : targetPosition;
+		let timeToTarget = PositionHelper.PredictTimeToTarget(selfPosition, horizSpeed, targetPosition, targetVelocity);
+
+		// 'Cheat' and use UnitMotion to predict the position in the near-future.
+		// This avoids 'dancing' issues with units zigzagging over very short distances.
+		// However, this could fail if the player gives several short move orders, so
+		// occasionally fall back to basic interpolation.
+		let predictedPosition = targetPosition;
+		if (timeToTarget !== false)
+		{
+			// Don't predict too far in the future, but avoid threshold effects.
+			// After 1 second, always use the 'dumb' interpolated past-motion prediction.
+			let useUnitMotion = randBool(Math.max(0, 0.75 - timeToTarget / 1.333));
+			if (useUnitMotion)
+			{
+				let cmpTargetUnitMotion = Engine.QueryInterface(target, IID_UnitMotion);
+				let cmpTargetUnitAI = Engine.QueryInterface(target, IID_UnitAI);
+				if (cmpTargetUnitMotion && (!cmpTargetUnitAI || !cmpTargetUnitAI.IsFormationMember()))
+				{
+					let pos2D = cmpTargetUnitMotion.EstimateFuturePosition(timeToTarget);
+					predictedPosition.x = pos2D.x;
+					predictedPosition.z = pos2D.y;
+				}
+				else
+					predictedPosition = Vector3D.mult(targetVelocity, timeToTarget).add(targetPosition);
+			}
+			else
+				predictedPosition = Vector3D.mult(targetVelocity, timeToTarget).add(targetPosition);
+		}
+
+		let predictedHeight = cmpTargetPosition.GetHeightAt(predictedPosition.x, predictedPosition.z);
 
 		// Add inaccuracy based on spread.
 		let distanceModifiedSpread = ApplyValueModificationsToEntity("Attack/Ranged/Spread", +this.template[type].Projectile.Spread, this.entity) *
@@ -499,7 +570,7 @@ Attack.prototype.PerformAttack = function(type, target)
 		let offsetX = randNorm[0] * distanceModifiedSpread;
 		let offsetZ = randNorm[1] * distanceModifiedSpread;
 
-		let realTargetPosition = new Vector3D(predictedPosition.x + offsetX, targetPosition.y, predictedPosition.z + offsetZ);
+		let realTargetPosition = new Vector3D(predictedPosition.x + offsetX, predictedHeight, predictedPosition.z + offsetZ);
 
 		// Recalculate when the missile will hit the target position.
 		let realHorizDistance = realTargetPosition.horizDistanceTo(selfPosition);
@@ -558,39 +629,8 @@ Attack.prototype.PerformAttack = function(type, target)
 
 		cmpTimer.SetTimeout(SYSTEM_ENTITY, IID_DelayedDamage, "MissileHit", +this.template[type].Delay + timeToTarget * 1000, data);
 	}
-	else {
+	else
 		Attacking.HandleAttackEffects(target, type, this.GetAttackEffectsData(type), this.entity, attackerOwner);
-	}
-};
-
-/**
- * Get the predicted time of collision between a projectile (or a chaser)
- * and its target, assuming they both move in straight line at a constant speed.
- * Vertical component of movement is ignored.
- * @param {Vector3D} selfPosition - the 3D position of the projectile (or chaser).
- * @param {number} horizSpeed - the horizontal speed of the projectile (or chaser).
- * @param {Vector3D} targetPosition - the 3D position of the target.
- * @param {Vector3D} targetVelocity - the 3D velocity vector of the target.
- * @return {Vector3D|boolean} - the 3D predicted position or false if the collision will not happen.
- */
-Attack.prototype.PredictTimeToTarget = function(selfPosition, horizSpeed, targetPosition, targetVelocity)
-{
-	let relativePosition = new Vector3D.sub(targetPosition, selfPosition);
-	let a = targetVelocity.x * targetVelocity.x + targetVelocity.z * targetVelocity.z - horizSpeed * horizSpeed;
-	let b = relativePosition.x * targetVelocity.x + relativePosition.z * targetVelocity.z;
-	let c = relativePosition.x * relativePosition.x + relativePosition.z * relativePosition.z;
-	// The predicted time to reach the target is the smallest non negative solution
-	// (when it exists) of the equation a t^2 + 2 b t + c = 0.
-	// Using c>=0, we can straightly compute the right solution.
-
-	if (c == 0)
-		return 0;
-
-	let disc = b * b - a * c;
-	if (a < 0 || b < 0 && disc >= 0)
-		return c / (Math.sqrt(disc) - b);
-
-	return false;
 };
 
 Attack.prototype.OnValueModification = function(msg)
