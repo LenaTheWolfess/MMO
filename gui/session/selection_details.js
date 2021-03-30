@@ -1,14 +1,12 @@
 function layoutSelectionSingle()
 {
 	Engine.GetGUIObjectByName("detailsAreaSingle").hidden = false;
-	Engine.GetGUIObjectByName("detailsAreaSingleMMO").hidden = false;
 	Engine.GetGUIObjectByName("detailsAreaMultiple").hidden = true;
 }
 
 function layoutSelectionMultiple()
 {
 	Engine.GetGUIObjectByName("detailsAreaMultiple").hidden = false;
-	Engine.GetGUIObjectByName("detailsAreaSingleMMO").hidden = false;
 	Engine.GetGUIObjectByName("detailsAreaSingle").hidden = true;
 }
 
@@ -58,239 +56,6 @@ function updateGarrisonHealthBar(entState, selection)
 	}
 }
 
-function displaySingleMMO(entState)
-{
-	let template = GetTemplateData(entState.template);
-	let specificName = template.name.specific;
-	let genericName = template.name.generic;
-	
-	let playerState = g_Players[entState.player];
-
-	let civName = g_CivData[playerState.civ].Name;
-	let civEmblem = g_CivData[playerState.civ].Emblem;
-	let playerName = playerState.name;
-	
-	let playerNameSection = Engine.GetGUIObjectByName("playerName");
-	playerNameSection.hidden = false;
-	playerNameSection.caption = playerName;
-	
-	let level = Engine.GetGUIObjectByName("playerLevel");
-	level.hidden = false;
-	level.caption = entState.experience.level;
-	
-	// Health
-	let healthSection = Engine.GetGUIObjectByName("healthSectionMMO");
-	healthSection.hidden = false;
-	let healthBar = Engine.GetGUIObjectByName("healthBarMMO");
-	let healthSize = healthBar.size;
-		healthSize.rright = 100 * Math.max(0, Math.min(1, entState.hitpoints / entState.maxHitpoints));
-		healthBar.size = healthSize;
-		Engine.GetGUIObjectByName("healthStatsMMO").caption = sprintf(translate("%(hitpoints)s / %(maxHitpoints)s"), {
-			"hitpoints": Math.ceil(entState.hitpoints),
-			"maxHitpoints": Math.ceil(entState.maxHitpoints)
-		});
-	
-	let aRef;
-	// Abilities
-	if (!entState.abilities) {
-		for (let i = 0; i < 6; ++i) {
-			let aButton = Engine.GetGUIObjectByName("abilityButton["+i+"]");
-			if (aButton)
-				aButton.hidden = true;
-		}
-	} else {
-		for (let i = 0; i < 6; ++i) {
-			const aButton = Engine.GetGUIObjectByName("abilityButton["+i+"]");
-			if (aButton) {
-				const aIcon = Engine.GetGUIObjectByName("abilityIcon["+i+"]");
-				aButton.hidden = false;
-				if (!aRef)
-					aRef = aButton;
-				let aSize = aButton.size;
-				aSize.left = aRef.size.left + 46*i;
-				aSize.right = aRef.size.right + 46*i;
-				aButton.size = aSize;
-				let abilityKey = Engine.GetGUIObjectByName("abilityKey["+i+"]");
-				abilityKey.caption = (i+1);
-				const abilityCooldown = Engine.GetGUIObjectByName("abilityCooldown["+i+"]");
-				const ability = entState.abilities[i+1];
-				abilityCooldown.caption = "";
-				aButton.tooltip = "";
-				if (!ability) {
-					aIcon.hidden = true;
-					continue;
-				}
-				let modifier;
-				const cooldown = entState.abilities[i+1].Cooldown;
-				if (cooldown) {
-					abilityCooldown.caption = cooldown;
-					modifier = "grayscale:";
-				}
-				if (ability.Name)
-					aButton.tooltip = ability.Name;
-				const aTemplate = ability.template;
-				aIcon.sprite = modifier + "stretched:session/portraits/" + aTemplate.Icon + ".png";
-				aIcon.hidden = false;
-			}
-		}
-	}
-	
-	// Inventory
-	let inventoryButton = Engine.GetGUIObjectByName("inventoryButton");
-	let inventoryPanel = Engine.GetGUIObjectByName("inventoryPanel");
-	aRef = undefined;
-	inventoryButton.onPress = function() {
-		inventoryPanel.hidden = !inventoryPanel.hidden;
-		if (!inventoryPanel.hidden) {
-			for (let i = 0; i < 6; ++i) {
-				let button = Engine.GetGUIObjectByName("inventoryButton["+i+"]");
-				let icon = Engine.GetGUIObjectByName("inventoryIcon["+i+"]");
-				if (!aRef)
-					aRef = button;
-				button.hidden = false;
-				let aSize = button.size;
-				aSize.left = aRef.size.left + 46*i;
-				aSize.right = aRef.size.right + 46*i;
-				button.size = aSize;			
-			}
-		}
-	};
-	if (!inventoryPanel.hidden) {
-		let items = entState.inventory.items;
-		for (let i = 0; i < 6; ++i) {
-			let item = items[i];
-			let button = Engine.GetGUIObjectByName("inventoryButton["+i+"]");
-			let icon = Engine.GetGUIObjectByName("inventoryIcon["+i+"]");
-			if (!item) {
-				hideButton(button);
-				hideButton(icon, true);
-				continue;
-			}
-			let itemState = GetEntityState(item.id);
-			let template = GetTemplateData(itemState.template);
-			if (!template) {
-				hideButton(button);
-				hideButton(icon, true);
-				continue;
-			}
-			let tooltips = [
-				getEntityNamesFormatted,
-				getVisibleEntityClassesFormatted,
-				getAurasTooltip,
-				getEntityTooltip
-			].map(func => func(template));
-			button.onPress = function() { unequipItem(item.id); };
-			button.onPressRight = function() { dropItem(item.id); };
-			button.tooltip = tooltips.join("\n");
-			button.enabled = true;
-			let modifier = "";
-			if (template.icon) {
-				icon.hidden = false;
-				icon.sprite = modifier + "stretched:session/portraits/" + template.icon;
-			}				
-		}
-	}
-	
-	// Bag
-	let bagButton = Engine.GetGUIObjectByName("bagButton");
-	let bagPanel = Engine.GetGUIObjectByName("bagPanel");
-	aRef = undefined;
-	bagButton.onPress = function() {
-		bagPanel.hidden = !bagPanel.hidden;
-		if (!bagPanel.hidden) {
-			let x = 0;
-			let y = 0;
-			let line = 6;
-			for (let i = 0; i < 24; ++i) {
-				let button = Engine.GetGUIObjectByName("bagButton["+i+"]");
-				let icon = Engine.GetGUIObjectByName("bagIcon["+i+"]");
-				if (!aRef)
-					aRef = button;
-				button.hidden = false;
-				let aSize = button.size;
-				aSize.left = aRef.size.left + 46*x;
-				aSize.right = aRef.size.right + 46*x;
-				aSize.top = aRef.size.top + 46*y;
-				aSize.bottom = aRef.size.bottom + 46*y;
-				button.size = aSize;
-				x++;
-				if (x == line) {
-					x = 0;
-					y++;
-				}
-			}
-		}
-	};
-	
-	if (!bagPanel.hidden) {
-		let items = entState.inventory.bag;
-		for (let i = 0; i < 24; ++i) {
-			let item = items[i];
-			let button = Engine.GetGUIObjectByName("bagButton["+i+"]");
-			let icon = Engine.GetGUIObjectByName("bagIcon["+i+"]");
-			if (!item) {
-				hideButton(button);
-				hideButton(icon, true);
-				continue;
-			}
-			let itemState = GetEntityState(item.id);
-			let template = GetTemplateData(itemState.template);
-			if (!template) {
-				hideButton(button);
-				hideButton(icon, true);
-				continue;
-			}
-			let tooltips = [
-				getEntityNamesFormatted,
-				getVisibleEntityClassesFormatted,
-				getAurasTooltip,
-				getEntityTooltip
-			].map(func => func(template));
-			let usable = true;
-			let rc = undefined;
-			if (itemState.equipment) {
-				usable = itemState.equipment.usable;
-				rc = itemState.equipment.category;
-			}
-			if (usable)
-				button.onPress = function() { useItem(item.id); };
-			else
-				button.onPress = function() {};
-
-			button.onPressRight = function() { dropItem(item.id); };
-			button.tooltip = tooltips.join("\n");
-			button.enabled = true;
-			let modifier = "";
-			if (!usable) {
-				modifier += "color: 100 0 0 127:grayscale:";
-				tooltips.push("Required class: " + rc);
-			}
-			button.tooltip = tooltips.join("\n");
-			if (template.icon) {
-				icon.hidden = false;
-				icon.sprite = modifier + "stretched:session/portraits/" + template.icon;
-			}				
-		}
-	}
-	
-	Engine.GetGUIObjectByName("detailsAreaSingle").hidden = true;
-	Engine.GetGUIObjectByName("detailsAreaMultiple").hidden = true;
-	Engine.GetGUIObjectByName("detailsAreaSingleMMO").hidden = false;
-	
-}
-
-function hideButton(button, icon = false)
-{
-	button.onPress = function() { };
-	button.onPressRight = function() { };
-	button.tooltip = "";
-	button.enabled = false;
-	if (icon) {
-		button.hidden = true;
-		button.sprite = "";
-	}
-}
-
 // Fills out information that most entities have
 function displaySingle(entState)
 {
@@ -333,12 +98,12 @@ function displaySingle(entState)
 		statusEffectsSection.hidden = false;
 		let statusIcons = statusEffectsSection.children;
 		let i = 0;
-		for (let effectName in entState.statusEffects)
+		for (let effectCode in entState.statusEffects)
 		{
-			let effect = entState.statusEffects[effectName];
+			let effect = entState.statusEffects[effectCode];
 			statusIcons[i].hidden = false;
-			statusIcons[i].sprite = "stretched:session/icons/status_effects/" + (effect.Icon || "default") + ".png";
-			statusIcons[i].tooltip = getStatusEffectsTooltip(effect, false);
+			statusIcons[i].sprite = "stretched:session/icons/status_effects/" + g_StatusEffectsMetadata.getIcon(effect.baseCode) + ".png";
+			statusIcons[i].tooltip = getStatusEffectsTooltip(effect.baseCode, effect, false);
 			let size = statusIcons[i].size;
 			size.top = i * 18;
 			size.bottom = i * 18 + 16;
@@ -355,6 +120,7 @@ function displaySingle(entState)
 
 	let showHealth = entState.hitpoints;
 	let showResource = entState.resourceSupply;
+	let showCapture = entState.capturePoints;
 
 	let healthSection = Engine.GetGUIObjectByName("healthSection");
 	let captureSection = Engine.GetGUIObjectByName("captureSection");
@@ -380,11 +146,13 @@ function displaySingle(entState)
 		captureSection.size = showResource ? sectionPosMiddle.size : sectionPosBottom.size;
 		resourceSection.size = showResource ? sectionPosBottom.size : sectionPosMiddle.size;
 	}
-	else
+	else if (showResource)
 	{
 		captureSection.size = sectionPosBottom.size;
 		resourceSection.size = sectionPosTop.size;
 	}
+	else if (showCapture)
+		captureSection.size = sectionPosTop.size;
 
 	// CapturePoints
 	captureSection.hidden = !entState.capturePoints;
@@ -499,8 +267,10 @@ function displaySingle(entState)
 	{
 		resourceCarryingIcon.sprite = "stretched:session/icons/repair.png";
 		resourceCarryingIcon.tooltip = getBuildTimeTooltip(entState);
-		resourceCarryingText.caption = entState.foundation.numBuilders ?
-			Engine.FormatMillisecondsIntoDateStringGMT(entState.foundation.buildTime.timeRemaining * 1000, translateWithContext("countdown format", "m:ss")) : "";
+		resourceCarryingText.caption = entState.foundation.numBuilders ? sprintf(translate("(%(number)s)\n%(time)s"), {
+			"number": entState.foundation.numBuilders,
+			"time": Engine.FormatMillisecondsIntoDateStringGMT(entState.foundation.buildTime.timeRemaining * 1000, translateWithContext("countdown format", "m:ss"))
+		}) : "";
 	}
 	else if (entState.resourceSupply && (!entState.resourceSupply.killBeforeGather || !entState.hitpoints))
 	{
@@ -515,8 +285,10 @@ function displaySingle(entState)
 	{
 		resourceCarryingIcon.sprite = "stretched:session/icons/repair.png";
 		resourceCarryingIcon.tooltip = getRepairTimeTooltip(entState);
-		resourceCarryingText.caption = entState.repairable.numBuilders ?
-			Engine.FormatMillisecondsIntoDateStringGMT(entState.repairable.buildTime.timeRemaining * 1000, translateWithContext("countdown format", "m:ss")) : "";
+		resourceCarryingText.caption = entState.repairable.numBuilders ? sprintf(translate("(%(number)s)\n%(time)s"), {
+			"number": entState.repairable.numBuilders,
+			"time": Engine.FormatMillisecondsIntoDateStringGMT(entState.repairable.buildTime.timeRemaining * 1000, translateWithContext("countdown format", "m:ss"))
+		}) : "";
 	}
 	else
 	{
@@ -546,18 +318,25 @@ function displaySingle(entState)
 			showTemplateDetails(entState.template);
 		};
 
-	Engine.GetGUIObjectByName("attackAndResistanceStats").tooltip = [
+	let detailedTooltip = [
 		getAttackTooltip,
-		getSplashDamageTooltip,
 		getHealerTooltip,
 		getResistanceTooltip,
 		getGatherTooltip,
 		getSpeedTooltip,
 		getGarrisonTooltip,
+		getPopulationBonusTooltip,
 		getProjectilesTooltip,
 		getResourceTrickleTooltip,
 		getLootTooltip
 	].map(func => func(entState)).filter(tip => tip).join("\n");
+	if (detailedTooltip)
+	{
+		Engine.GetGUIObjectByName("attackAndResistanceStats").hidden = false;
+		Engine.GetGUIObjectByName("attackAndResistanceStats").tooltip = detailedTooltip;
+	}
+	else
+		Engine.GetGUIObjectByName("attackAndResistanceStats").hidden = true;
 
 	let iconTooltips = [];
 
@@ -575,7 +354,6 @@ function displaySingle(entState)
 
 	Engine.GetGUIObjectByName("detailsAreaSingle").hidden = false;
 	Engine.GetGUIObjectByName("detailsAreaMultiple").hidden = true;
-	Engine.GetGUIObjectByName("detailsAreaSingleMMO").hidden = true;
 }
 
 // Fills out information for multiple entities
@@ -691,7 +469,6 @@ function displayMultiple(entStates)
 	// Unhide Details Area
 	Engine.GetGUIObjectByName("detailsAreaMultiple").hidden = false;
 	Engine.GetGUIObjectByName("detailsAreaSingle").hidden = true;
-	Engine.GetGUIObjectByName("detailsAreaSingleMMO").hidden = true;
 }
 
 // Updates middle entity Selection Details Panel and left Unit Commands Panel
@@ -699,7 +476,6 @@ function updateSelectionDetails()
 {
 	let supplementalDetailsPanel = Engine.GetGUIObjectByName("supplementalSelectionDetails");
 	let detailsPanel = Engine.GetGUIObjectByName("selectionDetails");
-	let detailsPanelMMO = Engine.GetGUIObjectByName("selectionDetailsMMO");
 	let commandsPanel = Engine.GetGUIObjectByName("unitCommands");
 
 	let entStates = [];
@@ -712,44 +488,27 @@ function updateSelectionDetails()
 		entStates.push(entState);
 	}
 
-	const nEntities = entStates.length;
-	if (nEntities == 0)
+	if (entStates.length == 0)
 	{
 		Engine.GetGUIObjectByName("detailsAreaMultiple").hidden = true;
 		Engine.GetGUIObjectByName("detailsAreaSingle").hidden = true;
-		Engine.GetGUIObjectByName("detailsAreaSingleMMO").hidden = true;
 		hideUnitCommands();
 
 		supplementalDetailsPanel.hidden = true;
 		detailsPanel.hidden = true;
-		detailsPanelMMO.hidden = true;
 		commandsPanel.hidden = true;
 		return;
 	}
 
 	// Fill out general info and display it
-	let isMMO = false;
-	if (entStates.length == 1) {
-		if (entStates[0].inventory) {
-			isMMO = true;
-			displaySingleMMO(entStates[0]);
-		}
-		else
-			displaySingle(entStates[0]);
-	}
-	else {
+	if (entStates.length == 1)
+		displaySingle(entStates[0]);
+	else
 		displayMultiple(entStates);
-	}
-	// Show basic details.
-	if (isMMO) {
-		detailsPanelMMO.hidden = false;
-		detailsPanel.hidden = true;
-	} else
-		detailsPanel.hidden = false;
 
-	if (isMMO)
-		return;
-	
+	// Show basic details.
+	detailsPanel.hidden = false;
+
 	// Fill out commands panel for specific unit selected (or first unit of primary group)
 	updateUnitCommands(entStates, supplementalDetailsPanel, commandsPanel);
 

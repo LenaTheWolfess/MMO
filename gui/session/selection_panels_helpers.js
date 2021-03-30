@@ -8,6 +8,8 @@ const UPGRADING_CHOSEN_OTHER = -1;
 
 function canMoveSelectionIntoFormation(formationTemplate)
 {
+	if (formationTemplate == NULL_FORMATION)
+		return true;
 	if (!(formationTemplate in g_canMoveIntoFormation))
 		g_canMoveIntoFormation[formationTemplate] = Engine.GuiInterfaceCall("CanMoveEntsIntoFormation", {
 			"ents": g_Selection.toList(),
@@ -113,6 +115,66 @@ function formatLimitString(trainEntLimit, trainEntCount, trainEntLimitChangers)
 		});
 	}
 	return text;
+}
+
+/**
+ * Format template match count/limit message for the tooltip.
+ *
+ * @param {number} matchEntLimit - The limit of the entity.
+ * @param {number} matchEntCount - The count of the entity.
+ * @param {string} type - The type of the action (i.e. "build" or "training").
+ *
+ * @return {string} - The string to show the user with information regarding the limit of this template.
+ */
+function formatMatchLimitString(matchEntLimit, matchEntCount, type)
+{
+	if (matchEntLimit == undefined)
+		return "";
+
+	let passedLimit = matchEntCount >= matchEntLimit;
+	let count = matchEntLimit - matchEntCount;
+	let text;
+	if (type == "build")
+	{
+		if (passedLimit)
+			text = sprintf(translatePlural("Could only be constructed once.", "Could only be constructed %(limit)s times.", matchEntLimit), {
+				"limit": matchEntLimit
+			});
+		else if (matchEntLimit == 1)
+			text = translate("Can be constructed only once.");
+		else
+			text = sprintf(translatePlural("Can be constructed %(count)s more time.", "Can be constructed %(count)s more times.", count), {
+				"count": count
+			});
+	}
+	else if (type == "training")
+	{
+		if (passedLimit)
+			text = sprintf(translatePlural("Could only be trained once.", "Could only be trained %(limit)s times.", matchEntLimit), {
+				"limit": matchEntLimit
+			});
+		else if (matchEntLimit == 1)
+			text = translate("Can be trained only once.");
+		else
+			text = sprintf(translatePlural("Can be trained %(count)s more time.", "Can be trained %(count)s more times.", count), {
+				"count": count
+			});
+	}
+	else
+	{
+		if (passedLimit)
+			text = sprintf(translatePlural("Could only be created once.", "Could only be created %(limit)s times.", matchEntLimit), {
+				"limit": matchEntLimit
+			});
+		else if (matchEntLimit == 1)
+			text = translate("Can be created only once.");
+		else
+			text = sprintf(translatePlural("Can be created %(count)s more time.", "Can be created %(count)s more times.", count), {
+				"count": count
+			});
+	}
+
+	return passedLimit ? coloredText(text, "red") : text;
 }
 
 /**
@@ -240,28 +302,8 @@ function performCommand(entStates, commandName)
 	if (!entStates.length)
 		return;
 
-	// Don't check all entities, because we assume a player cannot
-	// select entities from more than one player
-	if (!controlsPlayer(entStates[0].player) &&
-	    !(g_IsObserver && commandName == "focus-rally"))
-		return;
-
-	if (g_EntityCommands[commandName])
+	if (getCommandInfo(commandName, entStates))
 		g_EntityCommands[commandName].execute(entStates);
-}
-
-function performAllyCommand(entity, commandName)
-{
-	if (!entity)
-		return;
-
-	let entState = GetEntityState(entity);
-	let playerState = GetSimState().players[Engine.GetPlayerID()];
-	if (!playerState.isMutualAlly[entState.player] || g_IsObserver)
-		return;
-
-	if (g_AllyEntityCommands[commandName])
-		g_AllyEntityCommands[commandName].execute(entState);
 }
 
 function performFormation(entities, formationTemplate)
@@ -272,41 +314,8 @@ function performFormation(entities, formationTemplate)
 	Engine.PostNetworkCommand({
 		"type": "formation",
 		"entities": entities,
-		"name": formationTemplate
+		"formation": formationTemplate
 	});
-}
-
-function dropItem(id)
-{
-	if (!id)
-		return;
-	Engine.PostNetworkCommand({
-		"type": "drop",
-		"entities": g_Selection.toList(),
-		"item": id
-	});	
-}
-
-function unequipItem(id)
-{
-	if (!id)
-		return;
-	Engine.PostNetworkCommand({
-		"type": "un-equip",
-		"entities": g_Selection.toList(),
-		"item": id
-	});	
-}
-
-function useItem(id)
-{
-	if (!id)
-		return;
-	Engine.PostNetworkCommand({
-		"type": "use-item",
-		"entities": g_Selection.toList(),
-		"item": id
-	});	
 }
 
 function performStance(entities, stanceName)
@@ -350,11 +359,11 @@ function cancelPackUnit(pack)
 	});
 }
 
-function upgradeEntity(Template)
+function upgradeEntity(Template, selection)
 {
 	Engine.PostNetworkCommand({
 		"type": "upgrade",
-		"entities": g_Selection.toList(),
+		"entities": selection,
 		"template": Template,
 		"queued": false
 	});

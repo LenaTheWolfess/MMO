@@ -79,9 +79,9 @@ g_SelectionPanels.Alert = {
 g_SelectionPanels.Barter = {
 	"getMaxNumberOfItems": function()
 	{
-		return 4;
+		return 5;
 	},
-	"rowLength": 4,
+	"rowLength": 5,
 	"conflictsWith": ["Garrison"],
 	"getItems": function(unitEntStates)
 	{
@@ -112,7 +112,7 @@ g_SelectionPanels.Command = {
 
 		for (let command in g_EntityCommands)
 		{
-			let info = g_EntityCommands[command].getInfo(unitEntStates);
+			let info = getCommandInfo(command, unitEntStates);
 			if (info)
 			{
 				info.name = command;
@@ -134,10 +134,7 @@ g_SelectionPanels.Command = {
 
 		data.countDisplay.caption = data.item.count || "";
 
-		data.button.enabled =
-			g_IsObserver && data.item.name == "focus-rally" ||
-			controlsPlayer(data.player) && (data.item.name != "delete" ||
-				data.unitEntStates.some(state => !isUndeletable(state)));
+		data.button.enabled = data.item.enabled == true;
 
 		data.icon.sprite = "stretched:session/icons/" + data.item.icon;
 
@@ -152,156 +149,13 @@ g_SelectionPanels.Command = {
 		return true;
 	}
 };
-/*
-g_SelectionPanels.Inventory = {
-	"getMaxNumberOfItems": function()
-	{
-		return 24;
-	},
-	"getItems": function(unitEntStates)
-	{
-		if (unitEntStates.length > 1 || !unitEntStates[0].inventory)
-			return [];
-		return unitEntStates[0].inventory.items;
-	},
-	"rowLength": 3,
-	"setupButton": function(data)
-	{
-		let entState = GetEntityState(data.item.id);
-		let template = GetTemplateData(entState.template, data.player);
-		if (!template)
-			return false;
-		let tooltips = [
-			getEntityNamesFormatted,
-			getVisibleEntityClassesFormatted,
-			getAurasTooltip,
-			getEntityTooltip
-		].map(func => func(template));
-		data.button.onPress = function() { unequipItem(data.item.id, data.playerState); };
-		data.button.onPressRight = function() { dropItem(data.item.id, data.playerState); };
-		data.button.tooltip = tooltips.join("\n");
-		data.button.enabled = true;
-		let modifier = "";
-		if (template.icon)
-			data.icon.sprite = modifier + "stretched:session/portraits/" + template.icon;
-		let index = data.i + getNumberOfRightPanelButtons();
-		setPanelObjectPosition(data.button, index, data.rowLength);
-		
-		return true;
-	}
-
-};
-SelectionPanels.Bag = {
-	"getMaxNumberOfItems": function()
-	{
-		return 24;
-	},
-	"getItems": function(unitEntStates)
-	{
-		if (unitEntStates.length > 1 || !unitEntStates[0].inventory)
-			return [];
-		return unitEntStates[0].inventory.bag;
-	},
-	"setupButton": function(data)
-	{
-		let entState = GetEntityState(data.item.id);
-		if (entState == null)
-			return false;
-		let template = GetTemplateData(entState.template, data.player);
-		if (!template)
-			return false;
-		let tooltips = [
-			getEntityNamesFormatted,
-			getVisibleEntityClassesFormatted,
-			getAurasTooltip,
-			getEntityTooltip
-		].map(func => func(template));
-		let usable = true;
-		let rc = undefined;
-		if (entState.equipment) {
-			usable = entState.equipment.usable;
-			rc = entState.equipment.category;
-		}
-		if (usable)
-			data.button.onPress = function() { useItem(data.item.id, data.playerState); };
-		else
-			data.button.onPress = function() {};
-		data.button.onPressRight = function() { dropItem(data.item.id, data.playerState); };
-		data.button.enabled = true;
-		let modifier = "";
-		if (!usable) {
-			modifier += "color: 100 0 0 127:grayscale:";
-			tooltips.push("Required class: " + rc);
-		}
-		data.button.tooltip = tooltips.join("\n");
-		if (template.icon)
-			data.icon.sprite = modifier + "stretched:session/portraits/" + template.icon;
-		let index = data.i + getNumberOfRightPanelButtons();
-		setPanelObjectPosition(data.button, index, data.rowLength);
-		
-		return true;
-	}
-
-};
-*/
-g_SelectionPanels.AllyCommand = {
-	"getMaxNumberOfItems": function()
-	{
-		return 2;
-	},
-	"conflictsWith": ["Command"],
-	"getItems": function(unitEntStates)
-	{
-		let commands = [];
-		for (let command in g_AllyEntityCommands)
-			for (let state of unitEntStates)
-			{
-				let info = g_AllyEntityCommands[command].getInfo(state);
-				if (info)
-				{
-					info.name = command;
-					commands.push(info);
-					break;
-				}
-			}
-		return commands;
-	},
-	"setupButton": function(data)
-	{
-		data.button.tooltip = data.item.tooltip;
-
-		data.button.onPress = function() {
-			if (data.item.callback)
-				data.item.callback(data.item);
-			else
-				performAllyCommand(data.unitEntStates[0].id, data.item.name);
-		};
-
-		data.countDisplay.caption = data.item.count || "";
-
-		data.button.enabled = !!data.item.count;
-
-		let grayscale = data.button.enabled ? "" : "grayscale:";
-		data.icon.sprite = "stretched:" + grayscale + "session/icons/" + data.item.icon;
-
-		let size = data.button.size;
-		// relative to the center ( = 50%)
-		size.rleft = 50;
-		size.rright = 50;
-		// offset from the center calculation, count on square buttons, so size.bottom is the width too
-		size.left = (data.i - data.numberOfItems / 2) * (size.bottom + 1);
-		size.right = size.left + size.bottom;
-		data.button.size = size;
-
-		return true;
-	}
-};
 
 g_SelectionPanels.Construction = {
 	"getMaxNumberOfItems": function()
 	{
-		return 24 - getNumberOfRightPanelButtons();
+		return 40 - getNumberOfRightPanelButtons();
 	},
+	"rowLength": 10,
 	"getItems": function()
 	{
 		return getAllBuildableEntitiesFromSelection();
@@ -325,7 +179,9 @@ g_SelectionPanels.Construction = {
 			});
 
 		data.button.onPress = function() { startBuildingPlacement(data.item, data.playerState); };
-		data.button.onPressRight = function() { showTemplateDetails(data.item); };
+		let showTemplateFunc = () => { showTemplateDetails(data.item); };
+		data.button.onPressRight = showTemplateFunc;
+		data.button.onPressRightDisabled = showTemplateFunc;
 
 		let tooltips = [
 			getEntityNamesFormatted,
@@ -335,14 +191,17 @@ g_SelectionPanels.Construction = {
 		].map(func => func(template));
 		tooltips.push(
 			getEntityCostTooltip(template, data.player),
+			getResourceDropsiteTooltip(template),
 			getGarrisonTooltip(template),
 			getPopulationBonusTooltip(template),
 			showTemplateViewerOnRightClickTooltip(template)
 		);
 
+
 		let limits = getEntityLimitAndCount(data.playerState, data.item);
 		tooltips.push(
 			formatLimitString(limits.entLimit, limits.entCount, limits.entLimitChangers),
+			formatMatchLimitString(limits.matchLimit, limits.matchCount, limits.type),
 			getRequiredTechnologyTooltip(technologyEnabled, template.requiredTechnology, GetSimState().players[data.player].civ),
 			getNeededResourcesTooltip(neededResources));
 
@@ -373,9 +232,9 @@ g_SelectionPanels.Construction = {
 g_SelectionPanels.Formation = {
 	"getMaxNumberOfItems": function()
 	{
-		return 16;
+		return 15;
 	},
-	"rowLength": 4,
+	"rowLength": 5,
 	"conflictsWith": ["Garrison"],
 	"getItems": function(unitEntStates)
 	{
@@ -388,14 +247,14 @@ g_SelectionPanels.Formation = {
 		if (!g_AvailableFormations.has(unitEntStates[0].player))
 			g_AvailableFormations.set(unitEntStates[0].player, Engine.GuiInterfaceCall("GetAvailableFormations", unitEntStates[0].player));
 
-		return g_AvailableFormations.get(unitEntStates[0].player).filter(formation => unitEntStates.some(state => !!state.identity &&  state.identity.formations.indexOf(formation) != -1));
+		return g_AvailableFormations.get(unitEntStates[0].player).filter(formation => unitEntStates.some(state => !!state.identity && state.identity.formations.indexOf(formation) != -1));
 	},
 	"setupButton": function(data)
 	{
 		if (!g_FormationsInfo.has(data.item))
 			g_FormationsInfo.set(data.item, Engine.GuiInterfaceCall("GetFormationInfoFromTemplate", { "templateName": data.item }));
 
-		let formationOk = data.item == "special/formations/null" || canMoveSelectionIntoFormation(data.item);
+		let formationOk = canMoveSelectionIntoFormation(data.item);
 		let unitIds = data.unitEntStates.map(state => state.id);
 		let formationSelected = Engine.GuiInterfaceCall("IsFormationSelected", {
 			"ents": unitIds,
@@ -406,8 +265,21 @@ g_SelectionPanels.Formation = {
 			performFormation(unitIds, data.item);
 		};
 
+		data.button.onMouseRightPress = () => g_AutoFormation.setDefault(data.item);
+
 		let formationInfo = g_FormationsInfo.get(data.item);
 		let tooltip = translate(formationInfo.name);
+
+		let isDefaultFormation = g_AutoFormation.isDefault(data.item);
+		if (data.item === NULL_FORMATION)
+			tooltip += "\n" + (isDefaultFormation ?
+				translate("Default formation is disabled.") :
+				translate("Right-click to disable the default formation feature."));
+		else
+			tooltip += "\n" + (isDefaultFormation ?
+				translate("This is the default formation, used for movement orders.") :
+				translate("Right-click to set this as the default formation."));
+
 		if (!formationOk && formationInfo.tooltip)
 			tooltip += "\n" + coloredText(translate(formationInfo.tooltip), "red");
 		data.button.tooltip = tooltip;
@@ -415,6 +287,7 @@ g_SelectionPanels.Formation = {
 		data.button.enabled = formationOk && controlsPlayer(data.player);
 		let grayscale = formationOk ? "" : "grayscale:";
 		data.guiSelection.hidden = !formationSelected;
+		data.countDisplay.hidden = !isDefaultFormation;
 		data.icon.sprite = "stretched:" + grayscale + "session/icons/" + formationInfo.icon;
 
 		setPanelObjectPosition(data.button, data.i, data.rowLength);
@@ -456,13 +329,11 @@ g_SelectionPanels.Garrison = {
 
 		data.countDisplay.caption = data.item.ents.length || "";
 
-		let canUngarrison =
-			g_ViewedPlayer == data.player ||
-			g_ViewedPlayer == entState.player;
+		let canUngarrison = controlsPlayer(data.player) || controlsPlayer(entState.player);
 
-		data.button.enabled = canUngarrison && controlsPlayer(g_ViewedPlayer);
+		data.button.enabled = canUngarrison;
 
-		data.button.tooltip = (canUngarrison || g_IsObserver ?
+		data.button.tooltip = (canUngarrison ?
 			sprintf(translate("Unload %(name)s"), { "name": getEntityNames(template) }) + "\n" +
 			translate("Single-click to unload 1. Shift-click to unload all of this type.") :
 			getEntityNames(template)) + "\n" +
@@ -488,8 +359,9 @@ g_SelectionPanels.Garrison = {
 g_SelectionPanels.Gate = {
 	"getMaxNumberOfItems": function()
 	{
-		return 24 - getNumberOfRightPanelButtons();
+		return 40 - getNumberOfRightPanelButtons();
 	},
+	"rowLength": 10,
 	"getItems": function(unitEntStates)
 	{
 		let hideLocked = unitEntStates.every(state => !state.gate || !state.gate.locked);
@@ -529,8 +401,9 @@ g_SelectionPanels.Gate = {
 g_SelectionPanels.Pack = {
 	"getMaxNumberOfItems": function()
 	{
-		return 24 - getNumberOfRightPanelButtons();
+		return 40 - getNumberOfRightPanelButtons();
 	},
+	"rowLength": 10,
 	"getItems": function(unitEntStates)
 	{
 		let checks = {};
@@ -703,8 +576,9 @@ g_SelectionPanels.Queue = {
 g_SelectionPanels.Research = {
 	"getMaxNumberOfItems": function()
 	{
-		return 8;
+		return 10;
 	},
+	"rowLength": 10,
 	"getItems": function(unitEntStates)
 	{
 		let ret = [];
@@ -713,13 +587,18 @@ g_SelectionPanels.Research = {
 				unitEntStates[0].production.technologies.map(tech => ({
 					"tech": tech,
 					"techCostMultiplier": unitEntStates[0].production.techCostMultiplier,
-					"researchFacilityId": unitEntStates[0].id
+					"researchFacilityId": unitEntStates[0].id,
+					"isUpgrading": !!unitEntStates[0].upgrade && unitEntStates[0].upgrade.isUpgrading
 				}));
 
-		for (let state of unitEntStates)
+		let sortedEntStates = unitEntStates.sort((a, b) =>
+			(!b.upgrade || !b.upgrade.isUpgrading) - (!a.upgrade || !a.upgrade.isUpgrading));
+
+		for (let state of sortedEntStates)
 		{
 			if (!state.production || !state.production.technologies)
 				continue;
+
 			// Remove the techs we already have in ret (with the same name and techCostMultiplier)
 			let filteredTechs = state.production.technologies.filter(
 				tech => tech != null && !ret.some(
@@ -738,7 +617,8 @@ g_SelectionPanels.Research = {
 				ret = ret.concat(filteredTechs.map(tech => ({
 					"tech": tech,
 					"techCostMultiplier": state.production.techCostMultiplier,
-					"researchFacilityId": state.id
+					"researchFacilityId": state.id,
+					"isUpgrading": !!state.upgrade && state.upgrade.isUpgrading
 				})));
 		}
 		return ret;
@@ -779,6 +659,16 @@ g_SelectionPanels.Research = {
 			let template = clone(GetTechnologyData(tech, playerState.civ));
 			if (!template)
 				return false;
+
+			// Not allowed by civ.
+			if (!template.reqs)
+			{
+				// One of the pair may still be researchable by the current civ,
+				// hence don't hide everything.
+				Engine.GetGUIObjectByName("unitResearchButton[" + data.i + "]").hidden = true;
+				pair.hidden = true;
+				continue;
+			}
 
 			for (let res in template.cost)
 				template.cost[res] *= data.item.techCostMultiplier[res];
@@ -851,11 +741,14 @@ g_SelectionPanels.Research = {
 				addResearchToQueue(data.item.researchFacilityId, t);
 			})(tech);
 
-			button.onPressRight = (t => function () {
+			let showTemplateFunc =  (t => function() {
 				showTemplateDetails(
 					t,
 					GetTemplateData(data.unitEntStates.find(state => state.id == data.item.researchFacilityId).template).nativeCiv);
-			})(tech);
+			});
+
+			button.onPressRight = showTemplateFunc(tech);
+			button.onPressRightDisabled = showTemplateFunc(tech);
 
 			if (data.item.tech.pair)
 			{
@@ -883,6 +776,14 @@ g_SelectionPanels.Research = {
 			}
 			else
 				button.enabled = controlsPlayer(data.player);
+
+			if (data.item.isUpgrading)
+			{
+				button.enabled = false;
+				modifier += "color:0 0 0 127:grayscale:";
+				button.tooltip += "\n" + coloredText(translate("Cannot research while upgrading."), "red");
+
+			}
 
 			if (template.icon)
 				icon.sprite = modifier + "stretched:session/portraits/" + template.icon;
@@ -1012,8 +913,9 @@ g_SelectionPanels.Stance = {
 g_SelectionPanels.Training = {
 	"getMaxNumberOfItems": function()
 	{
-		return 24 - getNumberOfRightPanelButtons();
+		return 40 - getNumberOfRightPanelButtons();
 	},
+	"rowLength": 10,
 	"getItems": function()
 	{
 		return getAllTrainableEntitiesFromSelection();
@@ -1046,9 +948,10 @@ g_SelectionPanels.Training = {
 			if (!neededResources)
 				addTrainingToQueue(unitIds, data.item, data.playerState);
 		};
-		data.button.onPressRight = function() {
-			showTemplateDetails(data.item);
-		};
+
+		let showTemplateFunc = () => { showTemplateDetails(data.item); };
+		data.button.onPressRight = showTemplateFunc;
+		data.button.onPressRightDisabled = showTemplateFunc;
 
 		data.countDisplay.caption = trainNum > 1 ? trainNum : "";
 
@@ -1062,18 +965,19 @@ g_SelectionPanels.Training = {
 			getEntityCostTooltip(template, data.player, unitIds[0], buildingsCountToTrainFullBatch, fullBatchSize, remainderBatch)
 		];
 		let limits = getEntityLimitAndCount(data.playerState, data.item);
-		tooltips.push(formatLimitString(limits.entLimit, limits.entCount, limits.entLimitChangers));
+		tooltips.push(formatLimitString(limits.entLimit, limits.entCount, limits.entLimitChangers),
+			formatMatchLimitString(limits.matchLimit, limits.matchCount, limits.type));
 
 		if (Engine.ConfigDB_GetValue("user", "showdetailedtooltips") === "true")
 			tooltips = tooltips.concat([
 				getHealthTooltip,
 				getAttackTooltip,
-				getSplashDamageTooltip,
 				getHealerTooltip,
-				getArmorTooltip,
+				getResistanceTooltip,
 				getGarrisonTooltip,
 				getProjectilesTooltip,
-				getSpeedTooltip
+				getSpeedTooltip,
+				getResourceDropsiteTooltip
 			].map(func => func(template)));
 
 		tooltips.push(showTemplateViewerOnRightClickTooltip());
@@ -1097,6 +1001,13 @@ g_SelectionPanels.Training = {
 				modifier = resourcesToAlphaMask(neededResources) + ":";
 		}
 
+		if (data.unitEntStates.every(state => state.upgrade && state.upgrade.isUpgrading))
+		{
+			data.button.enabled = false;
+			modifier = "color:0 0 0 127:grayscale:";
+			data.button.tooltip += "\n" + coloredText(translate("Cannot train while upgrading."), "red");
+		}
+
 		if (template.icon)
 			data.icon.sprite = modifier + "stretched:session/portraits/" + template.icon;
 
@@ -1110,8 +1021,9 @@ g_SelectionPanels.Training = {
 g_SelectionPanels.Upgrade = {
 	"getMaxNumberOfItems": function()
 	{
-		return 24 - getNumberOfRightPanelButtons();
+		return 40 - getNumberOfRightPanelButtons();
 	},
+	"rowLength": 10,
 	"getItems": function(unitEntStates)
 	{
 		// Interface becomes complicated with multiple different units and this is meant per-entity, so prevent it if the selection has multiple different units.
@@ -1126,6 +1038,9 @@ g_SelectionPanels.Upgrade = {
 		if (!template)
 			return false;
 
+		let progressOverlay = Engine.GetGUIObjectByName("unitUpgradeProgressSlider[" + data.i + "]");
+		progressOverlay.hidden = true;
+
 		let technologyEnabled = true;
 
 		if (data.item.requiredTechnology)
@@ -1134,17 +1049,21 @@ g_SelectionPanels.Upgrade = {
 				"player": data.player
 			});
 
+		let limits = getEntityLimitAndCount(data.playerState, data.item.entity);
+		let upgradingEntStates = data.unitEntStates.filter(state => state.upgrade.template == data.item.entity);
+
+		let upgradableEntStates = data.unitEntStates.filter(state =>
+			!state.upgrade.progress &&
+			(!state.production || !state.production.queue || !state.production.queue.length));
+
 		let neededResources = data.item.cost && Engine.GuiInterfaceCall("GetNeededResources", {
-			"cost": multiplyEntityCosts(data.item, data.unitEntStates.length),
+			"cost": multiplyEntityCosts(data.item, upgradableEntStates.length),
 			"player": data.player
 		});
 
-		let limits = getEntityLimitAndCount(data.playerState, data.item.entity);
-		let progress = data.unitEntStates[0].upgrade.progress || 0;
-		let isUpgrading = data.unitEntStates[0].upgrade.template == data.item.entity;
-
 		let tooltip;
-		if (!progress)
+		let modifier = "";
+		if (!upgradingEntStates.length && upgradableEntStates.length)
 		{
 			let tooltips = [];
 			if (data.item.tooltip)
@@ -1158,37 +1077,23 @@ g_SelectionPanels.Upgrade = {
 				}));
 
 			tooltips.push(
-				getEntityCostComponentsTooltipString(data.item, undefined, data.unitEntStates.length),
+				getEntityCostTooltip(data.item, undefined, undefined, data.unitEntStates.length),
 				formatLimitString(limits.entLimit, limits.entCount, limits.entLimitChangers),
+				formatMatchLimitString(limits.matchLimit, limits.matchCount, limits.type),
 				getRequiredTechnologyTooltip(technologyEnabled, data.item.requiredTechnology, GetSimState().players[data.player].civ),
 				getNeededResourcesTooltip(neededResources),
 				showTemplateViewerOnRightClickTooltip());
 
 			tooltip = tooltips.filter(tip => tip).join("\n");
 
-			data.button.onPress = function() { upgradeEntity(data.item.entity); };
-		}
-		else if (isUpgrading)
-		{
-			tooltip = translate("Cancel Upgrading");
-			data.button.onPress = function() { cancelUpgradeEntity(); };
-		}
-		else
-		{
-			tooltip = translate("Cannot upgrade when the entity is already upgrading.");
-			data.button.onPress = function() {};
-		}
-		data.button.enabled = controlsPlayer(data.player);
-		data.button.tooltip = tooltip;
+			data.button.onPress = function() {
+				upgradeEntity(
+				    data.item.entity,
+				    upgradableEntStates.map(state => state.id));
+			};
 
-		data.button.onPressRight = function() {
-			showTemplateDetails(data.item.entity);
-		};
-
-		let modifier = "";
-		if (!isUpgrading)
-			if (progress || !technologyEnabled || limits.canBeAddedCount == 0 &&
-				!hasSameRestrictionCategory(data.item.entity, data.unitEntStates[0].template))
+			if (!technologyEnabled || limits.canBeAddedCount == 0 &&
+				!upgradableEntStates.some(state => hasSameRestrictionCategory(data.item.entity, state.template)))
 			{
 				data.button.enabled = false;
 				modifier = "color:0 0 0 127:grayscale:";
@@ -1199,19 +1104,44 @@ g_SelectionPanels.Upgrade = {
 				modifier = resourcesToAlphaMask(neededResources) + ":";
 			}
 
+			data.countDisplay.caption = upgradableEntStates.length > 1 ? upgradableEntStates.length : "";
+		}
+		else if (upgradingEntStates.length)
+		{
+			tooltip = translate("Cancel Upgrading");
+			data.button.onPress = function() { cancelUpgradeEntity(); };
+			data.countDisplay.caption = upgradingEntStates.length > 1 ? upgradingEntStates.length : "";
+
+			let progress = 0;
+			for (let state of upgradingEntStates)
+				progress = Math.max(progress, state.upgrade.progress || 1);
+			let progressOverlaySize = progressOverlay.size;
+			// TODO This is bad: we assume the progressOverlay is square
+			progressOverlaySize.top = progressOverlaySize.bottom + Math.round((1 - progress) * (progressOverlaySize.left - progressOverlaySize.right));
+			progressOverlay.size = progressOverlaySize;
+			progressOverlay.hidden = false;
+		}
+		else
+		{
+			tooltip = coloredText(translatePlural(
+				"Cannot upgrade when the entity is training, researching or already upgrading.",
+				"Cannot upgrade when all entities are training, researching or already upgrading.",
+				data.unitEntStates.length), "red");
+
+			data.button.onPress = function() {};
+
+			data.button.enabled = false;
+			modifier = "color:0 0 0 127:grayscale:";
+		}
+		data.button.enabled = controlsPlayer(data.player);
+		data.button.tooltip = tooltip;
+
+		let showTemplateFunc = () => { showTemplateDetails(data.item.entity); };
+		data.button.onPressRight = showTemplateFunc;
+		data.button.onPressRightDisabled = showTemplateFunc;
+
 		data.icon.sprite = modifier + "stretched:session/" +
 			(data.item.icon || "portraits/" + template.icon);
-
-		data.countDisplay.caption = data.unitEntStates.length > 1 ? data.unitEntStates.length : "";
-
-		let progressOverlay = Engine.GetGUIObjectByName("unitUpgradeProgressSlider[" + data.i + "]");
-		if (isUpgrading)
-		{
-			let size = progressOverlay.size;
-			size.top = size.left + Math.round(progress * (size.right - size.left));
-			progressOverlay.size = size;
-		}
-		progressOverlay.hidden = !isUpgrading;
 
 		setPanelObjectPosition(data.button, data.i + getNumberOfRightPanelButtons(), data.rowLength);
 		return true;
@@ -1254,6 +1184,23 @@ function showTemplateDetails(templateName, civCode)
  * Note that the panel needs to appear in the list to get rendered.
  */
 let g_PanelsOrder = [
-	//"Inventory",
-//	"Bag"
+	// LEFT PANE
+	"Barter", // Must always be visible on markets
+	"Garrison", // More important than Formation, as you want to see the garrisoned units in ships
+	"Alert",
+	"Formation",
+	"Stance", // Normal together with formation
+
+	// RIGHT PANE
+	"Gate", // Must always be shown on gates
+	"Pack", // Must always be shown on packable entities
+	"Upgrade", // Must always be shown on upgradable entities
+	"Training",
+	"Construction",
+	"Research", // Normal together with training
+
+	// UNIQUE PANES (importance doesn't matter)
+	"Command",
+	"Queue",
+	"Selection",
 ];

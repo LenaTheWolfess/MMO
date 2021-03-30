@@ -10,13 +10,10 @@ var g_unitPanelButtons = {
 	"Barter": 0,
 	"Construction": 0,
 	"Command": 0,
-	"AllyCommand": 0,
 	"Stance": 0,
 	"Gate": 0,
 	"Pack": 0,
-	"Upgrade": 0,
-	"Inventory": 0,
-	"Bag": 0
+	"Upgrade": 0
 };
 
 /**
@@ -130,18 +127,24 @@ function updateUnitCommands(entStates, supplementalDetailsPanel, commandsPanel)
 	for (let panel in g_SelectionPanels)
 		g_SelectionPanels[panel].used = false;
 
-	// If the selection is friendly units, add the command panels
-
 	// Get player state to check some constraints
-	// e.g. presence of a hero or build limits
+	// e.g. presence of a hero or build limits.
 	let playerStates = GetSimState().players;
 	let playerState = playerStates[Engine.GetPlayerID()];
 
-	if (g_IsObserver || entStates.every(entState => controlsPlayer(entState.player)))
+	setupUnitPanel("Selection", entStates, playerStates[entStates[0].player]);
+
+	// Command panel always shown for it can contain commands
+	// for which the entity does not need to be owned.
+	setupUnitPanel("Command", entStates, playerState);
+
+	if (g_IsObserver || entStates.every(entState =>
+		controlsPlayer(entState.player) &&
+		(!entState.identity || entState.identity.controllable)) ||
+		playerState.controlsAll)
 	{
 		for (let guiName of g_PanelsOrder)
 		{
-
 			if (g_SelectionPanels[guiName].conflictsWith &&
 			    g_SelectionPanels[guiName].conflictsWith.some(p => g_SelectionPanels[p].used))
 				continue;
@@ -152,18 +155,17 @@ function updateUnitCommands(entStates, supplementalDetailsPanel, commandsPanel)
 		supplementalDetailsPanel.hidden = false;
 		commandsPanel.hidden = false;
 	}
-	else if (playerState.isMutualAlly[entStates[0].player]) // owned by allied player
+	else if (playerState.isMutualAlly[entStates[0].player])
 	{
 		// TODO if there's a second panel needed for a different player
 		// we should consider adding the players list to g_SelectionPanels
 		setupUnitPanel("Garrison", entStates, playerState);
-		setupUnitPanel("AllyCommand", entStates, playerState);
 
 		supplementalDetailsPanel.hidden = !g_SelectionPanels.Garrison.used;
 
 		commandsPanel.hidden = true;
 	}
-	else // owned by another player
+	else
 	{
 		supplementalDetailsPanel.hidden = true;
 		commandsPanel.hidden = true;
@@ -224,7 +226,7 @@ function getNumberOfRightPanelButtons()
 {
 	var sum = 0;
 
-	for (let prop of ["Construction", "Training", "Pack", "Gate", "Upgrade", "Bag"])
+	for (let prop of ["Construction", "Training", "Pack", "Gate", "Upgrade"])
 		if (g_SelectionPanels[prop].used)
 			sum += g_unitPanelButtons[prop];
 
