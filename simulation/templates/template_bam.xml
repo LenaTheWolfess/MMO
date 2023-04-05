@@ -16,6 +16,7 @@
       <PreferredClasses datatype="tokens">Tank Human</PreferredClasses>
     </Melee>
 	<Ranged>
+      <AttackName>ranged</AttackName>
 	  <Damage>
          <Hack>0.0</Hack>
          <Pierce>0.0</Pierce>
@@ -124,6 +125,8 @@
     <FormationController>false</FormationController>
     <CanGuard>false</CanGuard>
     <CanPatrol>false</CanPatrol>
+	<PatrolWaitTime>1</PatrolWaitTime>
+    <CheeringTime>2800</CheeringTime>
   </UnitAI>
   <UnitMotion>
     <FormationController>false</FormationController>
