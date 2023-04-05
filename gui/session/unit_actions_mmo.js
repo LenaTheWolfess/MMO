@@ -65,8 +65,9 @@ g_UnitActions["pick"] = {
 		return true;
 	},
 	"getActionInfo": function(entState, targetState) {
-		if (!targetState || !targetState.equipment) 
+		if (!targetState || !targetState.equipment) {
 			return false;
+		}
 
 		return {
 			"possible": true,
@@ -127,3 +128,5 @@ g_UnitActions["pick-use"] = {
 	},
 	"specificness": 1,
 };
+
+g_UnitActionsSortedKeys = Object.keys(g_UnitActions).sort((a, b) => g_UnitActions[a].specificness - g_UnitActions[b].specificness);

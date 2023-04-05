@@ -2,12 +2,14 @@ function layoutSelectionSingle()
 {
 	Engine.GetGUIObjectByName("detailsAreaSingle").hidden = false;
 	Engine.GetGUIObjectByName("detailsAreaMultiple").hidden = true;
+	Engine.GetGUIObjectByName("detailsAreaSingleMMO").hidden = false;
 }
 
 function layoutSelectionMultiple()
 {
 	Engine.GetGUIObjectByName("detailsAreaMultiple").hidden = false;
 	Engine.GetGUIObjectByName("detailsAreaSingle").hidden = true;
+	Engine.GetGUIObjectByName("detailsAreaSingleMMO").hidden = false;
 }
 
 function getResourceTypeDisplayName(resourceType)
@@ -354,6 +356,7 @@ function displaySingle(entState)
 
 	Engine.GetGUIObjectByName("detailsAreaSingle").hidden = false;
 	Engine.GetGUIObjectByName("detailsAreaMultiple").hidden = true;
+	Engine.GetGUIObjectByName("detailsAreaSingleMMO").hidden = true;
 }
 
 // Fills out information for multiple entities
@@ -469,6 +472,7 @@ function displayMultiple(entStates)
 	// Unhide Details Area
 	Engine.GetGUIObjectByName("detailsAreaMultiple").hidden = false;
 	Engine.GetGUIObjectByName("detailsAreaSingle").hidden = true;
+	Engine.GetGUIObjectByName("detailsAreaSingleMMO").hidden = true;
 }
 
 // Updates middle entity Selection Details Panel and left Unit Commands Panel
@@ -477,6 +481,7 @@ function updateSelectionDetails()
 	let supplementalDetailsPanel = Engine.GetGUIObjectByName("supplementalSelectionDetails");
 	let detailsPanel = Engine.GetGUIObjectByName("selectionDetails");
 	let commandsPanel = Engine.GetGUIObjectByName("unitCommands");
+	let detailsPanelMMO = Engine.GetGUIObjectByName("selectionDetailsMMO");
 
 	let entStates = [];
 
@@ -492,23 +497,39 @@ function updateSelectionDetails()
 	{
 		Engine.GetGUIObjectByName("detailsAreaMultiple").hidden = true;
 		Engine.GetGUIObjectByName("detailsAreaSingle").hidden = true;
+		Engine.GetGUIObjectByName("detailsAreaSingleMMO").hidden = true;
 		hideUnitCommands();
 
 		supplementalDetailsPanel.hidden = true;
 		detailsPanel.hidden = true;
 		commandsPanel.hidden = true;
+		detailsPanelMMO.hidden = true;
 		return;
 	}
 
 	// Fill out general info and display it
-	if (entStates.length == 1)
-		displaySingle(entStates[0]);
-	else
+	let isMMO = false;
+	if (entStates.length == 1) {
+		if (entStates[0].inventory) {
+			isMMO = true;
+			displaySingleMMO(entStates[0]);
+		} else {
+			displaySingle(entStates[0]);
+		}
+	}
+	else {
 		displayMultiple(entStates);
+	}
 
 	// Show basic details.
-	detailsPanel.hidden = false;
-
+	if (isMMO) {
+		detailsPanelMMO.hidden = false;
+		detailsPanel.hidden = true;
+		return;
+	} else {
+		detailsPanel.hidden = false;
+	}
+	
 	// Fill out commands panel for specific unit selected (or first unit of primary group)
 	updateUnitCommands(entStates, supplementalDetailsPanel, commandsPanel);
 
