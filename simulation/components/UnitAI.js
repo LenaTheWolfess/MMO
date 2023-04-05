@@ -421,7 +421,7 @@ UnitAI.prototype.UnitFsmSpec = {
 			this.SetNextState("INDIVIDUAL.FLEEING");
 	},
 
-		"Order.Ability": function(msg) {
+	"Order.Ability": function(msg) {
 		if (this.IsAnimal()){
 			this.FinishOrder();
 			return;
