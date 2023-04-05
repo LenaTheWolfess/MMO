@@ -196,10 +196,31 @@ Attacking.prototype.GetTotalAttackEffects = function(target, effectData, effectT
 		if (cmpHealth)
 			total /= 0.1 + 0.9 * cmpHealth.GetHitpoints() / cmpHealth.GetMaxHitpoints();
 	}
-	else if (effectType == "ApplyStatus")
+	if (effectType != "ApplyStatus")
+		return total * bonusMultiplier;
+	
+	if (!resistanceStrengths.ApplyStatus)
 		return effectData[effectType];
 
-	return total * bonusMultiplier;
+	let result = {};
+	for (let statusEffect in effectData[effectType])
+	{
+		if (!resistanceStrengths.ApplyStatus[statusEffect])
+		{
+			result[statusEffect] = effectData[effectType][statusEffect];
+			continue;
+		}
+
+		if (randBool(resistanceStrengths.ApplyStatus[statusEffect].blockChance))
+			continue;
+
+		result[statusEffect] = effectData[effectType][statusEffect];
+
+		if (effectData[effectType][statusEffect].Duration)
+			result[statusEffect].Duration = effectData[effectType][statusEffect].Duration *
+				resistanceStrengths.ApplyStatus[statusEffect].duration;
+	}
+	return result;
 };
 
 /**
@@ -349,17 +370,16 @@ Attacking.prototype.HandleAttackEffects = function(target, attackType, attackDat
 	bonusMultiplier *= !attackData.Bonuses ? 1 : this.GetAttackBonus(attacker, target, attackType, attackData.Bonuses);
 
 	let targetState = {};
-	for (let effectType of g_EffectTypes)
+	for (let receiver of g_AttackEffects.Receivers())
 	{
-		if (!attackData[effectType])
+		if (!attackData[receiver.type])
 			continue;
 
-		let receiver = g_EffectReceiver[effectType];
 		let cmpReceiver = Engine.QueryInterface(target, global[receiver.IID]);
 		if (!cmpReceiver)
 			continue;
 
-		Object.assign(targetState, cmpReceiver[receiver.method](this.GetTotalAttackEffects(target, attackData, effectType, bonusMultiplier, cmpResistance), attacker, attackerOwner));
+		Object.assign(targetState, cmpReceiver[receiver.method](this.GetTotalAttackEffects(target, attackData, receiver.type, bonusMultiplier, cmpResistance), attacker, attackerOwner));
 	}
 
 	if (!Object.keys(targetState).length)
@@ -438,3 +458,4 @@ Attacking.prototype.GetAttackBonus = function(source, target, type, template)
 
 var AttackingInstance = new Attacking();
 Engine.RegisterGlobal("Attacking", AttackingInstance);
+Engine.RegisterGlobal("g_AttackEffects", new AttackEffects());
