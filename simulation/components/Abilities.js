@@ -110,6 +110,11 @@ Abilities.prototype.Schema =
 		"<element name='Ability2'>" +
 			Abilities.prototype.abilitySchema +
 		"</element>" +
+	"</optional>" +
+	"<optional>" +
+		"<element name='Ability3'>" +
+			Abilities.prototype.abilitySchema +
+		"</element>" +
 	"</optional>";
 
 Abilities.prototype.GetAbility = function(number)

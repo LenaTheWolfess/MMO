@@ -27,11 +27,57 @@
 			</Ranged>
 		</DealDamage>
 	</Ability1>
+	<Ability2>
+		<Icon>technologies/laurel_wreath</Icon>
+		<AbilityName>Poisoned arrow</AbilityName>
+		<Range>40</Range>
+		<Cooldown>5</Cooldown>
+		<Animation>
+			<Name>attack_ranged</Name>
+			<Duration>200</Duration>
+		</Animation>
+		<DealDamage>
+			<Ranged>
+				<Damage>
+					<Pierce>10</Pierce>
+				</Damage>
+				<ApplyStatus>
+					<Poisoned>
+						<StatusName>Poison Arrow</StatusName>
+						<Duration>5000</Duration>
+						<Interval>500</Interval>
+						<Damage>
+							<Poison>10</Poison>
+						</Damage>
+						<Stackability>Stack</Stackability>
+					</Poisoned>
+				</ApplyStatus>
+			</Ranged>
+		</DealDamage>
+	</Ability2>
+	<Ability3>
+		<Icon>technologies/laurel_wreath</Icon>
+		<AbilityName>Powershot</AbilityName>
+		<Range>40</Range>
+		<Cooldown>15</Cooldown>
+		<Animation>
+			<Name>attack_ranged</Name>
+			<Duration>200</Duration>
+		</Animation>
+		<DealDamage>
+			<Ranged>
+				<Damage>
+					<Pierce>100</Pierce>
+				</Damage>
+			</Ranged>
+		</DealDamage>
+	</Ability3>
   </Abilities>
   <Identity>
     <SpecificName>Player</SpecificName>
 	<GenericName>Archer</GenericName>
     <Icon>technologies/helmet_hero_side.png</Icon>
+	<Classes datatype="tokens">DPS</Classes>
   </Identity>
   <Inventory>
     <Type>archer</Type>

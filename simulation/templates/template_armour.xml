@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Entity parent="template_equipment">
-  <Auras datatype="tokens">
-    mmo/classes/tank
-  </Auras>
   <Identity>
     <Classes datatype="tokens">Armour</Classes>
 	<Icon>technologies/armor_cuirass_empire.png</Icon>
