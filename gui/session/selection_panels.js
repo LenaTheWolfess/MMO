@@ -1184,6 +1184,8 @@ function showTemplateDetails(templateName, civCode)
  * Note that the panel needs to appear in the list to get rendered.
  */
 let g_PanelsOrder = [
+	"Inventory",
+	"Bag",
 	// LEFT PANE
 	"Barter", // Must always be visible on markets
 	"Garrison", // More important than Formation, as you want to see the garrisoned units in ships
