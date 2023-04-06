@@ -189,7 +189,11 @@ Inventory.prototype.UnEquip = function(type) {
 	if (type == "weapon") {
 		cmpVisual.SetVariant("animations", "animations-none-relax");
 		if (this.items["cape"]) {
-			cmpVisual.SetVariant("cape", "cape-none");
+			const cmpCape = Engine.QueryInterface(this.items["cape"], IID_Equipment);
+			if (cmpCape)
+				cmpVisual.SetVariant("cape", "cape-"+cmpCape.GetTypeSpecific()+"-none");
+			else
+				cmpVisual.SetVariant("cape", "cape-none");
 		}
 	}
 	return id;

@@ -2,7 +2,7 @@
 <Entity parent="template_shield">
   <Auras datatype="tokens">
     mmo/armour/shield/medium-shield
-	mmo/classes/hp_10
+	mmo/classes/hp_25
   </Auras>
   <Identity>
     <SpecificName>Medium shield</SpecificName>
