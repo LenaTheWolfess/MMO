@@ -225,7 +225,7 @@
 			<Orientation y="-4.24917"/>
 		</Entity>
 		<Entity uid="188">
-			<Template>gaia/geology_stonemine_medit_quarry</Template>
+			<Template>gaia/rock/mediterranean_large</Template>
 			<Player>0</Player>
 			<Position x="198" z="302"/>
 			<Orientation y="-1.4118"/>
@@ -607,7 +607,7 @@
 			<Orientation y="-0.47011"/>
 		</Entity>
 		<Entity uid="278">
-			<Template>gaia/geology_stonemine_medit_quarry</Template>
+			<Template>gaia/rock/mediterranean_large</Template>
 			<Player>0</Player>
 			<Position x="428.04847" z="311.66926"/>
 			<Orientation y="-3.98461"/>
