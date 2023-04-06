@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Entity parent="template_gaia_tree">
+  <Identity>
+    <SpecificName>Oak</SpecificName>
+  </Identity>
+  <VisualActor>
+    <Actor>flora/trees/oak_dead.xml</Actor>
+  </VisualActor>
+</Entity>
